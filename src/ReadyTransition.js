@@ -1,54 +1,39 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import plus from '../images/plus.png';
+import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'red',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
-    marginBottom: 50,
   },
-  ready: {
+  plus: {
     color: 'white',
-    marginTop: 100,
-    marginBottom: 10,
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-  round: {
-    color: 'white',
-  },
-  image: {
-    marginTop: 100,
-    width: 25,
-    height: 25,
-  },
-  instructionContainer: {
-    flexDirection: 'row',
-  },
-  instructions: {
-    backgroundColor: 'lightgrey',
-    marginTop: 30,
-    marginBottom: 10,
-    borderRadius: 5,
-    flex: 0.9,
-  },
-  tellUs: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 10,
-    textAlign: 'center',
-  },
-  text: {
-    textAlign: 'center',
-  },
-  button: {
+    fontSize: 50,
+    marginTop: 207,
   },
 });
 
-const ReadyTransition = () => (
-  <View>
-    <Image style={styles.image} source={plus} />
-  </View>
-);
+class ReadyTransition extends React.Component {
+  state = {
+    turned: false,
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ turned: true });
+    }, (Math.floor(Math.random() * 3) + 1) * 1000,
+    setTimeout(() => {
+      this.props.history.push('/ReproduceDuration');
+    }, 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)]));
+  }
+  render() {
+    return (
+      <View style={this.state.turned ? styles.container : null}>
+        <Text style={styles.plus} >+</Text>
+      </View>
+    );
+  }
+}
 
 export default ReadyTransition;
