@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
 });
 
 class ReproduceDuration extends React.Component {
+  state = {
+    timerStarted: false,
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -69,10 +72,23 @@ class ReproduceDuration extends React.Component {
           </View>
           <View style={{ flex: 0.1 }} />
         </View>
-        <TouchableHighlight style={[styles.button, { backgroundColor: '#00e500' }]}>
+        <TouchableHighlight
+          style={[styles.button, {
+            backgroundColor: '#00e500',
+            opacity: this.state.timerStarted ? 0.4 : 1,
+          }]}
+          onPress={() => this.setState({ timerStarted: true })}
+        >
           <Text style={styles.buttonText}>START TIMER</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.button, { backgroundColor: 'red' }]}>
+        <TouchableHighlight
+          style={
+          [styles.button, {
+            backgroundColor: 'red',
+            opacity: this.state.timerStarted ? 1 : 0.4,
+          },
+          ]}
+        >
           <Text style={styles.buttonText}>STOP TIMER</Text>
         </TouchableHighlight>
       </View>
