@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NativeRouter, Route, Switch } from 'react-router-native';
+import { Route, Switch } from 'react-router-native';
+
 import ReadyScreen from './ReadyScreen';
 import ReadyTransition from './ReadyTransition';
 import ReproduceDuration from './ReproduceDuration';
@@ -15,16 +16,14 @@ const styles = StyleSheet.create({
 });
 
 const App = () => (
-  <NativeRouter>
-    <View style={styles.container}>
-      <Switch>
-        <Route exact path="/" component={ReadyScreen} />
-        <Route path="/ReadyTransition" component={ReadyTransition} />
-        <Route path="/ReproduceDuration" component={ReproduceDuration} />
-        <Route path="/Question2" component={Question2} />
-      </Switch>
-    </View>
-  </NativeRouter>
+  <View style={styles.container}>
+    <Switch>
+      <Route exact path="/ReadyScreen" component={ReadyScreen} />
+      <Route path="/ReadyTransition" component={ReadyTransition} />
+      <Route path="/ReproduceDuration" component={ReproduceDuration} />
+      <Route path="/" component={Question2} />
+    </Switch>
+  </View>
 );
 
 export default App;
