@@ -1,30 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { NativeRouter, Route, Switch } from 'react-router-native';
-import ReadyScreen from './src/ReadyScreen';
-import ReadyTransition from './src/ReadyTransition';
-import ReproduceDuration from './src/ReproduceDuration';
+import { AsyncStorage } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import reducer from './src/reducer';
+import Routes from './src/Routes';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <NativeRouter>
-        <View style={styles.container}>
-          <Switch>
-            <Route path="/" component={ReproduceDuration} />
-          </Switch>
-        </View>
-      </NativeRouter>
-    );
-  }
-}
-//            <Route exact path="/" component={ReadyScreen} />
-//            <Route path="/ReadyTransition" component={ReadyTransition} />
+const store = createStore(reducer, undefined);
+// persistStore(store, { storage: AsyncStorage });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-  },
-});
+const App = () => (
+  <Provider store={store}>
+    <Routes />
+  </Provider>
+);
+
+export default App;

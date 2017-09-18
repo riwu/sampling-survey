@@ -88,6 +88,7 @@ class ReproduceDuration extends React.Component {
             opacity: this.state.timerStarted ? 1 : 0.4,
           },
           ]}
+          onPress={() => this.props.history.push('/Question2')}
         >
           <Text style={styles.buttonText}>STOP TIMER</Text>
         </TouchableHighlight>
