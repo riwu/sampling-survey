@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'react-router-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,9 +71,9 @@ const ReadyScreen = () => (
       </View>
       <View style={{ flex: 0.1 }} />
     </View>
-    <Link to="/ReadyTransition">
+    <Button title="Button" onPress={() => Actions.ReadyTransition()}>
       <Text style={styles.readyButton}>Ready</Text>
-    </Link>
+    </Button>
   </View>
 );
 

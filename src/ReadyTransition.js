@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +25,7 @@ class ReadyTransition extends React.Component {
       this.setState({ turned: true });
     }, (Math.floor(Math.random() * 3) + 1) * 1000,
     setTimeout(() => {
-      this.props.history.push('/ReproduceDuration');
+      Actions.ReproduceDuration();
     }, 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)]));
   }
   render() {
