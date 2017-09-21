@@ -1,14 +1,16 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
+
+import logger from 'redux-logger';
 
 import reducer from './src/reducer';
 import Routes from './src/Routes';
 
-const store = createStore(reducer, undefined);
-// persistStore(store, { storage: AsyncStorage });
+const store = createStore(reducer, autoRehydrate(), applyMiddleware(logger));
+persistStore(store, { storage: AsyncStorage });
 
 const App = () => (
   <Provider store={store}>

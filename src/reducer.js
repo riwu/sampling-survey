@@ -1,15 +1,17 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
 import { ActionConst } from 'react-native-router-flux';
 
-const sceneReducer = (state = {}, { type, scene }) => {
+const route = (state = null, { type, routeName }) => {
   switch (type) {
     case ActionConst.FOCUS:
-      return { ...state, scene };
+      return routeName;
     default:
       return state;
   }
 };
 
-const reducer = (state = {}, action) => state;
+const reducer = combineReducers({
+  route,
+});
 
-export default sceneReducer;
+export default reducer;

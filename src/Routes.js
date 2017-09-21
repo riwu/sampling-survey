@@ -1,7 +1,7 @@
 import React from 'react';
-import { Router, Stack, Scene } from 'react-native-router-flux';
-import { connect } from 'react-redux';
+import { Stack, Scene } from 'react-native-router-flux';
 
+import RouterWithRedux from './RouterWithRedux';
 import ReadyScreen from './ReadyScreen';
 import ReadyTransition from './ReadyTransition';
 import ReproduceDuration from './ReproduceDuration';
@@ -13,18 +13,16 @@ const sceneStyle = {
   alignItems: 'center',
 };
 
-const ConnectedRouter = connect()(Router);
-
 const App = () => (
-  <ConnectedRouter sceneStyle={sceneStyle}>
-    <Scene>
+  <RouterWithRedux sceneStyle={sceneStyle}>
+    <Stack key="root" hideNavBar type="replace">
+      <Scene key="Question2" component={Question2} />
+
       <Scene key="ReadyScreen" component={ReadyScreen} />
       <Scene key="ReadyTransition" component={ReadyTransition} />
       <Scene key="ReproduceDuration" component={ReproduceDuration} />
-      <Scene key="Question2" component={Question2} />
-    </Scene>
-  </ConnectedRouter>
+    </Stack>
+  </RouterWithRedux>
 );
-
 
 export default App;

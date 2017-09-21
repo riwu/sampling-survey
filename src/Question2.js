@@ -16,6 +16,7 @@ const Question2 = () => (
     header="QUESTION 2"
     question="Just before i opened this app, I was doing:"
     options={questions}
+    nextRoute="ReadyScreen"
   />
 );
 
