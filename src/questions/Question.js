@@ -27,32 +27,26 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
 });
-class Option extends React.Component {
-  state = {
-    value: 0,
-  }
-  render() {
-    return (
-      <View>
-        <Text style={styles.header}>{this.props.header}</Text>
-        <Text style={styles.question}>{this.props.question}</Text>
-        <RadioForm
-          style={styles.options}
-          radio_props={this.props.options}
-          initial={0}
-          onPress={(value) => { this.setState({ value }); }}
-          labelColor="white"
-          buttonSize={5}
+const Option = ({ header, question, options, nextRoute,
+  answer, setAnswer }) => (
+    <View>
+      <Text style={styles.header}>{header}</Text>
+      <Text style={styles.question}>{question}</Text>
+      <RadioForm
+        style={styles.options}
+        radio_props={options}
+        initial={answer}
+        onPress={setAnswer}
+        labelColor="white"
+        buttonSize={5}
+      />
+      <View style={styles.button}>
+        <Button
+          onPress={() => Actions[nextRoute]()}
+          text="Next"
         />
-        <View style={styles.button}>
-          <Button
-            onPress={() => Actions[this.props.nextRoute]()}
-            text="Next"
-          />
-        </View>
       </View>
-    );
-  }
-}
+    </View>
+);
 
 export default Option;
