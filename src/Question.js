@@ -5,14 +5,12 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import Button from './Button';
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
   header: {
     color: 'white',
     fontSize: 30,
     marginTop: 50,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   question: {
     color: 'white',
@@ -20,9 +18,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    textAlign: 'center',
   },
   options: {
-
+    alignItems: 'flex-start',
+  },
+  button: {
+    alignSelf: 'flex-end',
   },
 });
 class Option extends React.Component {
@@ -31,17 +33,23 @@ class Option extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <Text style={styles.header}>{this.props.header}</Text>
         <Text style={styles.question}>{this.props.question}</Text>
         <RadioForm
+          style={styles.options}
           radio_props={this.props.options}
           initial={0}
           onPress={(value) => { this.setState({ value }); }}
           labelColor="white"
           buttonSize={5}
         />
-        <Button onPress={() => Actions[this.props.nextRoute]()} text="Next" />
+        <View style={styles.button}>
+          <Button
+            onPress={() => Actions[this.props.nextRoute]()}
+            text="Next"
+          />
+        </View>
       </View>
     );
   }
