@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { ActionConst } from 'react-native-router-flux';
 
 const route = (state = null, { type, routeName }) => {
@@ -10,8 +9,4 @@ const route = (state = null, { type, routeName }) => {
   }
 };
 
-const reducer = combineReducers({
-  route,
-});
-
-export default reducer;
+export default route;

@@ -6,7 +6,7 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 
 import logger from 'redux-logger';
 
-import reducer from './src/reducer';
+import reducer from './src/reducers/reducer';
 import Routes from './src/Routes';
 
 const store = createStore(reducer, autoRehydrate(), applyMiddleware(logger));

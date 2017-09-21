@@ -5,7 +5,7 @@ import RouterWithRedux from './RouterWithRedux';
 import ReadyScreen from './ReadyScreen';
 import ReadyTransition from './ReadyTransition';
 import ReproduceDuration from './ReproduceDuration';
-import Question2 from './Question2';
+import Question2 from './questions/Question2';
 
 const sceneStyle = {
   flex: 1,
