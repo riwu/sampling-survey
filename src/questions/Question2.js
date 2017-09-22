@@ -5,11 +5,7 @@ const questions = [
   'Work- or study-related activities',
   'Leisure activities',
   'Essential activities (eg. house chores, bath)',
-  'Others (please specify)',
-].map((question, index) => ({
-  label: question,
-  value: index,
-}));
+];
 
 const Question2 = () => (
   <Question

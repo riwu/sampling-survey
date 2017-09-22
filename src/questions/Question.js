@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import RadioForm, { RadioButtonInput, RadioButton } from 'react-native-simple-radio-button';
 import Button from '../Button';
 
 const styles = StyleSheet.create({
@@ -23,30 +23,71 @@ const styles = StyleSheet.create({
   options: {
     alignItems: 'flex-start',
   },
+  input: {
+    color: 'white',
+    borderWidth: 0.5,
+    borderBottomColor: 'white',
+    marginLeft: 30,
+  },
+  inputPlaceholder: {
+    height: 40,
+  },
   button: {
+    marginTop: 'auto',
     alignSelf: 'flex-end',
   },
 });
-const Option = ({ header, question, options, nextRoute,
-  answer, setAnswer }) => (
-    <View>
-      <Text style={styles.header}>{header}</Text>
-      <Text style={styles.question}>{question}</Text>
-      <RadioForm
-        style={styles.options}
-        radio_props={options}
-        initial={answer}
-        onPress={setAnswer}
-        labelColor="white"
-        buttonSize={5}
-      />
-      <View style={styles.button}>
-        <Button
-          onPress={() => Actions[nextRoute]()}
-          text="Next"
-        />
-      </View>
-    </View>
-);
 
-export default Option;
+const OTHERS = 'Others (please specify)';
+
+class Question extends React.Component {
+  state = {
+    isInputOpen: false,
+  }
+  render() {
+    const { header, question, options, nextRoute, answer, setAnswer, hasOthers } = this.props;
+    return (
+      <View>
+        <Text style={styles.header}>{header}</Text>
+        <Text style={styles.question}>{question}</Text>
+        <RadioForm
+          style={styles.options}
+          radio_props={options.concat(hasOthers ? [OTHERS] : []).map((option, index) => ({
+            label: option,
+            value: index,
+          }))}
+          initial={answer}
+          onPress={(value) => {
+            setAnswer();
+            if (hasOthers && value === options.length) {
+              this.setState({ isInputOpen: true });
+            }
+          }}
+          labelColor="white"
+          buttonSize={12}
+        />
+        {
+          !this.state.isInputOpen ? <View style={styles.inputPlaceholder} /> : (
+            <TextInput
+              style={styles.input}
+              returnKeyType="next"
+            />
+          )
+        }
+
+        <View style={styles.button}>
+          <Button
+            onPress={() => Actions[nextRoute]()}
+            text="Next"
+          />
+        </View>
+      </View>
+    );
+  }
+}
+
+Question.defaultProps = {
+  hasOthers: true,
+};
+
+export default Question;
