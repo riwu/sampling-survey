@@ -1,8 +1,4 @@
-import ReactNative from 'react-native';
-
-const {
-  StyleSheet,
-} = ReactNative;
+import { StyleSheet } from 'react-native';
 
 const Style = StyleSheet.create({
   radioForm: {
@@ -12,7 +8,7 @@ const Style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 5,
+    marginTop: 25,
   },
   radio: {
     justifyContent: 'center',
@@ -20,7 +16,6 @@ const Style = StyleSheet.create({
 
     width: 30,
     height: 30,
-
 
     alignSelf: 'center',
 

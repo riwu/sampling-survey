@@ -15,9 +15,6 @@ const {
 export default class RadioForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      is_active_index: props.initial,
-    };
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -32,10 +29,10 @@ export default class RadioForm extends React.Component {
     animation: true,
     labelColor: '#000',
     disabled: false,
+    activeIndex: 0,
   }
 
   updateIsActiveIndex(index) {
-    this.setState({ is_active_index: index });
     this.props.onPress(this.props.radio_props[index], index);
   }
 
@@ -47,7 +44,7 @@ export default class RadioForm extends React.Component {
           ? (`${this.props.accessibilityLabel}|${i}`) : (`${'radioButton' + '|'}${i}`)}
         testID={(this.props.testID)
           ? (`${this.props.testID}|${i}`) : (`${'radioButton' + '|'}${i}`)}
-        isSelected={this.state.is_active_index === i}
+        isSelected={this.props.activeIndex === i}
         obj={obj}
         key={i}
         index={i}
@@ -62,7 +59,6 @@ export default class RadioForm extends React.Component {
         disabled={this.props.disabled}
         onPress={(value, index) => {
           this.props.onPress(value, index);
-          this.setState({ is_active_index: index });
         }}
       />
     );

@@ -15,9 +15,8 @@ const styles = StyleSheet.create({
   question: {
     color: 'white',
     fontSize: 15,
-    marginTop: 20,
+    marginTop: 30,
     fontWeight: 'bold',
-    marginBottom: 10,
     textAlign: 'center',
   },
   options: {
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const OTHERS = 'Others (please specify)';
+const OTHERS = 'Others (please specify):';
 
 class Question extends React.Component {
   state = {
@@ -53,7 +52,7 @@ class Question extends React.Component {
             label: option,
             value: index,
           }))}
-          initial={answer}
+          activeIndex={answer}
           onPress={(value) => {
             setAnswer(value);
             if (hasOthers && value === options.length) {
@@ -65,6 +64,7 @@ class Question extends React.Component {
           }}
           labelColor="white"
           buttonSize={12}
+          animation={false}
         />
         <TextInput
           ref={(ref) => { this.textRef = ref; }}
