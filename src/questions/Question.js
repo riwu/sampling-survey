@@ -37,11 +37,10 @@ const styles = StyleSheet.create({
 const OTHERS = 'Others (please specify):';
 
 class Question extends React.Component {
-  state = {
-    isInputOpen: false,
-  }
   render() {
-    const { header, question, options, nextRoute, answer, setAnswer, hasOthers } = this.props;
+    const { header, question, options, nextRoute, answer, setAnswerIndex, setAnswerText, hasOthers } = this.props;
+    const checkIfOthersSelected = index => hasOthers && index === options.length;
+    const isOthersSelected = checkIfOthersSelected(answer.index);
     return (
       <View>
         <Text style={styles.header}>{header}</Text>
@@ -52,11 +51,10 @@ class Question extends React.Component {
             label: option,
             value: index,
           }))}
-          activeIndex={answer}
-          onPress={(value) => {
-            setAnswer(value);
-            if (hasOthers && value === options.length) {
-              this.setState({ isInputOpen: true });
+          activeIndex={answer.index}
+          onPress={(index) => {
+            setAnswerIndex(index);
+            if (checkIfOthersSelected(index)) {
               this.textRef.focus();
             } else {
               this.textRef.blur();
@@ -69,15 +67,19 @@ class Question extends React.Component {
         <TextInput
           ref={(ref) => { this.textRef = ref; }}
           style={styles.input}
-          returnKeyType="next"
-          opacity={this.state.isInputOpen ? 1 : 0}
-          editable={this.state.isInputOpen}
-          onFocus={() => setAnswer(options.length)}
+          opacity={isOthersSelected ? 1 : 0}
+          editable={isOthersSelected}
+          onFocus={() => setAnswerIndex(options.length)}
+          onChangeText={setAnswerText}
+          value={answer.text}
         />
         <View style={styles.button}>
           <Button
-            onPress={() => Actions[nextRoute]()}
+            onPress={() => {
+              Actions[nextRoute]();
+            }}
             text="Next"
+            disabled={!answer.index || (isOthersSelected && !(answer.text || '').trim())}
           />
         </View>
       </View>

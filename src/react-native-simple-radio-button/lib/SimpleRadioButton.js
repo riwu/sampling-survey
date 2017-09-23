@@ -29,7 +29,7 @@ export default class RadioForm extends React.Component {
     animation: true,
     labelColor: '#000',
     disabled: false,
-    activeIndex: 0,
+    activeIndex: undefined,
   }
 
   updateIsActiveIndex(index) {

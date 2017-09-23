@@ -1,5 +1,11 @@
-export const setAnswer = (question, answer) => ({
-  type: 'SET_ANSWER',
+export const setAnswerIndex = (question, index) => ({
+  type: 'SET_ANSWER_INDEX',
   question,
-  answer,
+  index,
+});
+
+export const setAnswerText = (question, text) => ({
+  type: 'SET_ANSWER_TEXT',
+  question,
+  text,
 });
