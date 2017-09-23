@@ -1,10 +1,10 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+import ReactNative from 'react-native';
+
+const {
   StyleSheet,
 } = ReactNative;
 
-var Style = StyleSheet.create({
+const Style = StyleSheet.create({
   radioForm: {
   },
 
@@ -46,7 +46,7 @@ var Style = StyleSheet.create({
   labelWrapStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   labelVerticalWrap: {
