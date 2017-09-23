@@ -29,9 +29,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'white',
     marginLeft: 30,
   },
-  inputPlaceholder: {
-    height: 40,
-  },
   button: {
     marginTop: 'auto',
     alignSelf: 'flex-end',
@@ -58,23 +55,25 @@ class Question extends React.Component {
           }))}
           initial={answer}
           onPress={(value) => {
-            setAnswer();
+            setAnswer(value);
             if (hasOthers && value === options.length) {
               this.setState({ isInputOpen: true });
+              this.textRef.focus();
+            } else {
+              this.textRef.blur();
             }
           }}
           labelColor="white"
           buttonSize={12}
         />
-        {
-          !this.state.isInputOpen ? <View style={styles.inputPlaceholder} /> : (
-            <TextInput
-              style={styles.input}
-              returnKeyType="next"
-            />
-          )
-        }
-
+        <TextInput
+          ref={(ref) => { this.textRef = ref; }}
+          style={styles.input}
+          returnKeyType="next"
+          opacity={this.state.isInputOpen ? 1 : 0}
+          editable={this.state.isInputOpen}
+          onFocus={() => setAnswer(options.length)}
+        />
         <View style={styles.button}>
           <Button
             onPress={() => Actions[nextRoute]()}
