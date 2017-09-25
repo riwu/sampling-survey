@@ -16,6 +16,15 @@ const timeOptions = [
   '7 pm', '8 pm', '9 pm', '10 pm', '11 pm', '12 midnight',
 ];
 
+const timeResponse = (
+  <RadioOptions
+    formHorizontal
+    radio_props={timeOptions.map(option => ({
+      label: option,
+    }))}
+  />
+);
+
 const sceneInfos = [
   {
     header: 'QUESTION 1',
@@ -65,70 +74,59 @@ const sceneInfos = [
         {' '}<UnderlinedText>weekday</UnderlinedText>?
       </Text>
     ),
-    responseComponent: (
-      <RadioOptions
-        radio_props={timeOptions.map(option => ({
-          label: option,
-        }))}
-      />
-    ),
+    responseComponent: timeResponse,
   },
-  // {
-  //   header: 'QUESTION 6',
-  //   question: (
-  //     <Text>
-  //       What time do you normally
-  //       <UnderlinedText>sleep</UnderlinedText> on a
-  //       <UnderlinedText>weekday</UnderlinedText>?
-  //     </Text>
-  //   ),
-  //   options: timeOptions,
-  // },
-  // {
-  //   header: 'QUESTION 7',
-  //   question: (
-  //     <Text>
-  //       What time do you normally
-  //       <UnderlinedText>wake up</UnderlinedText> on a
-  //       <UnderlinedText>weekend</UnderlinedText>?
-  //     </Text>
-  //   ),
-  //   options: timeOptions,
-  // },
-  // {
-  //   header: 'QUESTION 8',
-  //   question: (
-  //     <Text>
-  //       What time do you normally
-  //       <UnderlinedText>sleep</UnderlinedText> on a
-  //       <UnderlinedText>weekend</UnderlinedText>?
-  //     </Text>
-  //   ),
-  //   options: timeOptions,
-  // },
-  //
-  // {
-  //   header: 'QUESTION 9',
-  //   question: (
-  //     <Text>
-  //       In your waking hours on most
-  //       <UnderlinedText>weekdays</UnderlinedText>
-  //       when do you meet your partner when awake?
-  //     </Text>
-  //   ),
-  //   options: timeOptions,
-  // },
-  // {
-  //   header: 'QUESTION 10',
-  //   question: (
-  //     <Text>
-  //       In your waking hours on most
-  //       <UnderlinedText>weekends</UnderlinedText>
-  //       when do you meet your partner when awake?
-  //     </Text>
-  //   ),
-  //   options: timeOptions,
-  // },
+  {
+    header: 'QUESTION 6',
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
+        {' '}<UnderlinedText>weekday</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+  {
+    header: 'QUESTION 7',
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
+        {' '}<UnderlinedText>weekend</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+  {
+    header: 'QUESTION 8',
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
+        {' '}<UnderlinedText>weekend</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+
+  {
+    header: 'QUESTION 9',
+    question: (
+      <Text>
+        In your waking hours on most <UnderlinedText>weekdays</UnderlinedText>
+        {' '} when do you meet your partner when awake?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+  {
+    header: 'QUESTION 10',
+    question: (
+      <Text>
+        In your waking hours on most <UnderlinedText>weekends</UnderlinedText>
+        {' '} when do you meet your partner when awake?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
   //
   // {
   //   header: 'QUESTION 11',
@@ -158,7 +156,7 @@ const sceneInfos = [
   // },
 ];
 
-export default sceneInfos.slice(4).map((scene, i) => ({
+export default sceneInfos.slice(0).map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));
