@@ -4,8 +4,9 @@ export const setAnswerIndex = (question, index) => ({
   index,
 });
 
-export const setAnswerText = (question, text) => ({
+export const setAnswerText = (question, index, text) => ({
   type: 'SET_ANSWER_TEXT',
   question,
+  index,
   text,
 });

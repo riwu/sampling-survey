@@ -14,7 +14,7 @@ const answers = (state = {}, action) => {
         ...state,
         [action.question]: {
           ...state[action.question],
-          text: action.text,
+          [action.index]: action.text,
         },
       };
     default:

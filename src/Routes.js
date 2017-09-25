@@ -5,7 +5,9 @@ import RouterWithRedux from './RouterWithRedux';
 import ReadyScreen from './ReadyScreen';
 import ReadyTransition from './ReadyTransition';
 import ReproduceDuration from './ReproduceDuration';
-import Question2 from './questions/Question2';
+import sceneInfos from './questions/Questions';
+
+import Question from './questions/Question';
 
 const sceneStyle = {
   flex: 1,
@@ -16,7 +18,8 @@ const sceneStyle = {
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
     <Stack key="root" hideNavBar type="replace">
-      <Scene key="Question2" component={Question2} />
+
+      <Scene key={sceneInfos[0].question} component={() => <Question {...sceneInfos[0]} />} />
 
       <Scene key="ReadyScreen" component={ReadyScreen} />
       <Scene key="ReadyTransition" component={ReadyTransition} />
@@ -26,3 +29,11 @@ const App = () => (
 );
 
 export default App;
+
+// sceneInfos[0].question <Question {...sceneInfos[0]} />
+
+// {
+//   Questions.map(question => (
+//     <Scene key={question.key} component={question.component} />
+//   ))
+// }

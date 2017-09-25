@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const Style = StyleSheet.create({
   radioForm: {
   },
-
   radioWrap: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -55,6 +54,13 @@ const Style = StyleSheet.create({
 
   formHorizontal: {
     flexDirection: 'row',
+  },
+
+  input: {
+    color: 'white',
+    borderWidth: 0.5,
+    borderBottomColor: 'white',
+    marginLeft: 30,
   },
 });
 

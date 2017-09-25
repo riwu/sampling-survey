@@ -1,11 +1,19 @@
 import React from 'react';
+import { Text } from 'react-native';
 import Question from './QuestionContainer';
+import UnderlinedText from '../UnderlinedText';
+
 
 const questions = [
-  'My boyfriend / girlfriend / partner / spouse',
-  'My friends / colleagues / schoolmates',
-  'My family',
-  'Alone',
+  {
+    header: 'QUESTION 1',
+    question: 'MTurkID no:',
+  },
+  {
+    header: 'QUESTION 11',
+    question: 'Age:',
+    type: 'numbers',
+  },
 ];
 
 const Question1 = () => (
