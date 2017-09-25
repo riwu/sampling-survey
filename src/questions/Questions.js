@@ -130,7 +130,60 @@ const sceneInfos = [
     question: 'Age:',
     responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} />,
   },
+  {
+    header: 'QUESTION 12',
+    question: 'Race:',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'White',
+          'Black or African American',
+          'American Indian or Alaska Native',
+          'Asian',
+          'Native Hawaiian or Other Pacific Islander',
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS).concat({
+          label: 'Two or more races (please specify):',
+          hasTextInput: true,
+        })}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 13',
+    question: '"Hispanic or Latino" refers to a person of Cuban, Mexican,' +
+    ' Puerto Rican, South or Central American, or other Spanish culture or' +
+    ' origin regardless of race. Are you of Hispanic or Latino origin?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={['Hispanic or Latino', 'Not Hispanic or Latino'].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 14',
+    question: 'Religion:',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'Buddhism',
+          'Taoism/Chinese Traditional Beliefs',
+          'Islam',
+          'Hinduism',
+          'Sikhism',
+          'Roman Catholicism',
+          'Christianity (Protestant)',
+          'No religion',
 
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
   // {
   //   header: 'QUESTION 1',
   //   question: "Right now, I'm with (select all that apply):",
@@ -153,7 +206,7 @@ const sceneInfos = [
   // },
 ];
 
-export default sceneInfos.slice(10).map((scene, i) => ({
+export default sceneInfos.slice(12).map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));
