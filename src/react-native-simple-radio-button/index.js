@@ -23,10 +23,9 @@ export default class RadioForm extends React.Component {
       UIManager.setLayoutAnimationEnabledExperimental &&
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
-    this._renderButton = this._renderButton.bind(this);
   }
 
-  _renderButton(obj, i) {
+  renderButton(obj, i, objs) {
     return (
       <RadioButton
         accessible={this.props.accessible}
@@ -50,7 +49,7 @@ export default class RadioForm extends React.Component {
         onPress={() => {
           this.props.setAnswerIndex(i);
           Object.entries(this.textRefs).forEach(([index, textRef]) => {
-            if (!obj.hasTextInput) {
+            if (!objs[index].hasTextInput) {
               return;
             }
             if (String(i) === index) {
@@ -70,7 +69,8 @@ export default class RadioForm extends React.Component {
   render() {
     let renderContent = false;
     if (this.props.radio_props.length) {
-      renderContent = this.props.radio_props.map(this._renderButton);
+      renderContent = this.props.radio_props.map((obj, index) =>
+        this.renderButton(obj, index, this.props.radio_props));
     } else {
       renderContent = this.props.children;
     }

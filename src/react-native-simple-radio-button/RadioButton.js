@@ -54,22 +54,24 @@ export default class RadioButton extends React.Component {
         {c}
       </View>
     ) : (
-      <View style={[
-        Style.radioWrap,
-        this.props.style,
-        !this.props.labelHorizontal && Style.labelVerticalWrap,
-      ]}
-      >
-        <RadioButtonInput
-          {...this.props}
-          accessibilityLabel={`${accessibilityLabel}Input${accessibilityLabelIndex}`}
-          testID={`${testID}Input${testIDIndex}`}
-        />
-        <RadioButtonLabel
-          {...this.props}
-          accessibilityLabel={`${accessibilityLabel}Label${accessibilityLabelIndex}`}
-          testID={`${testID}Label${testIDIndex}`}
-        />
+      <View>
+        <View style={[
+          Style.radioWrap,
+          this.props.style,
+          !this.props.labelHorizontal && Style.labelVerticalWrap,
+        ]}
+        >
+          <RadioButtonInput
+            {...this.props}
+            accessibilityLabel={`${accessibilityLabel}Input${accessibilityLabelIndex}`}
+            testID={`${testID}Input${testIDIndex}`}
+          />
+          <RadioButtonLabel
+            {...this.props}
+            accessibilityLabel={`${accessibilityLabel}Label${accessibilityLabelIndex}`}
+            testID={`${testID}Label${testIDIndex}`}
+          />
+        </View>
         <TextInput
           ref={ref => this.props.setTextRef(ref)}
           style={Style.input}
