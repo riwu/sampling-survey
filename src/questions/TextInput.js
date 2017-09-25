@@ -14,6 +14,9 @@ const TextInputComponent = props => (
   <TextInput
     style={styles.input}
     {...props}
+    ref={(ref) => {
+      if (props.setTextRef) props.setTextRef(ref);
+    }}
   />
 );
 
