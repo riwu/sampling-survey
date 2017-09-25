@@ -31,39 +31,48 @@ const sceneInfos = [
       <RadioOptions
         radio_props={['Male', 'Female'].map(option => ({
           label: option,
-        })).concat(OTHERS).concat(OTHERS)}
+        })).concat(OTHERS)}
       />
     ),
   },
-  // {
-  //   header: 'QUESTION 3',
-  //   question: 'What is your sexual orientation?',
-  //   options: ['Heterosexual or straight', 'Gay', 'Lesbian', 'Bisexual'],
-  // },
-  // {
-  //   header: 'QUESTION 4',
-  //   question: 'How often do you meet your partner in a week?',
-  //   options: ['0-1 times', '2-3 times', '4 times or more'],
-  //   hasOthers: false,
-  // },
-  // {
-  //   header: 'QUESTION 4',
-  //   question: 'How often do you meet your partner in a week?',
-  //   options: ['0-1 times', '2-3 times', '4 times or more'],
-  //   hasOthers: false,
-  // },
-  //
-  // {
-  //   header: 'QUESTION 5',
-  //   question: (
-  //     <Text>
-  //       What time do you normally
-  //       <UnderlinedText>wake up</UnderlinedText> on a
-  //       <UnderlinedText>weekday</UnderlinedText>?
-  //     </Text>
-  //   ),
-  //   options: timeOptions,
-  // },
+  {
+    header: 'QUESTION 3',
+    question: 'What is your sexual orientation?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={['Heterosexual or straight', 'Gay', 'Lesbian', 'Bisexual'].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 4',
+    question: 'How often do you meet your partner in a week?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={['0-1 times', '2-3 times', '4 times or more'].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 5',
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
+        {' '}<UnderlinedText>weekday</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: (
+      <RadioOptions
+        radio_props={timeOptions.map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
   // {
   //   header: 'QUESTION 6',
   //   question: (
@@ -149,7 +158,7 @@ const sceneInfos = [
   // },
 ];
 
-export default sceneInfos.map((scene, i) => ({
+export default sceneInfos.slice(4).map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));

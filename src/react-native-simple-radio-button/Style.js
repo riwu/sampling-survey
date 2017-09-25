@@ -7,7 +7,7 @@ const Style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 0,
   },
   radio: {
     justifyContent: 'center',

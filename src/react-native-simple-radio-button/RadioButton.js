@@ -43,7 +43,7 @@ export default class RadioButton extends React.Component {
     var testIDIndex = (this.props.testID && testIDIndex !== -1)
     ? this.props.testID.split(testIDIndex + 1) : '';
 
-    const showTextInput = this.props.obj.hasTextInput && (this.props.isSelected || !!this.props.answerText);
+    const showTextInput = !!this.props.obj.hasTextInput && (this.props.isSelected || !!this.props.answerText);
     let renderContent = false;
     renderContent = c ? (
       <View style={[

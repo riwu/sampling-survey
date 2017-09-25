@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ScrollView } from 'react-native';
 
 const styles = StyleSheet.create({
   header: {
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
 });
 
 const Question = ({ header, question, responseComponent, nextScene }) => (
-  <View>
+  <ScrollView>
     <Text style={styles.header}>{header}</Text>
     <Text style={styles.question}>{question}</Text>
     {React.cloneElement(responseComponent, {
       question,
       nextScene,
     })}
-  </View>
+  </ScrollView>
 );
 
 Question.defaultProps = {
