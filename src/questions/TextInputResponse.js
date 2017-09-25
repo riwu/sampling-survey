@@ -3,12 +3,11 @@ import { View } from 'react-native';
 import TextInput from './TextInputContainer';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
 
-const TextInputComponent = ({ question, nextScene }) => (
+const TextInputComponent = props => (
   <View>
-    <TextInput autoFocus question={question} />
+    <TextInput {...props} />
     <ButtonToNextScene
-      question={question}
-      nextScene={nextScene}
+      {...props}
     />
   </View>
 );

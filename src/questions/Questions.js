@@ -29,9 +29,7 @@ const sceneInfos = [
   {
     header: 'QUESTION 1',
     question: 'MTurkID no:',
-    responseComponent: (
-      <TextInputResponse />
-    ),
+    responseComponent: <TextInputResponse />,
   },
   {
     header: 'QUESTION 2',
@@ -127,13 +125,12 @@ const sceneInfos = [
     ),
     responseComponent: timeResponse,
   },
-  //
-  // {
-  //   header: 'QUESTION 11',
-  //   question: 'Age:',
-  //   type: 'numbers',
-  // },
-  //
+  {
+    header: 'QUESTION 11',
+    question: 'Age:',
+    responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} />,
+  },
+
   // {
   //   header: 'QUESTION 1',
   //   question: "Right now, I'm with (select all that apply):",
@@ -156,7 +153,7 @@ const sceneInfos = [
   // },
 ];
 
-export default sceneInfos.slice(0).map((scene, i) => ({
+export default sceneInfos.slice(10).map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));

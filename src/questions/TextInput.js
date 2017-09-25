@@ -14,6 +14,9 @@ const TextInputComponent = props => (
   <TextInput
     style={styles.input}
     {...props}
+    onChangeText={(text) => {
+      props.onChangeText(props.numbersOnly ? text.replace(/\D/g, '') : text);
+    }}
     ref={(ref) => {
       if (props.setTextRef) props.setTextRef(ref);
     }}
