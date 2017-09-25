@@ -9,7 +9,11 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setAnswerIndex: index => dispatch(setAnswerIndex(ownProps.question, index)),
-  setAnswerText: (index, answer) => dispatch(setAnswerText(ownProps.question, index, answer)),
+  setAnswerText: (index, answer) => dispatch(setAnswerText({
+    question: ownProps.question,
+    index,
+    answer,
+  })),
 });
 
 export default connect(

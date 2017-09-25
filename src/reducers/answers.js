@@ -12,7 +12,7 @@ const answers = (state = {}, action) => {
     case 'SET_ANSWER_TEXT':
       return {
         ...state,
-        [action.question]: {
+        [action.question]: action.index === undefined ? action.text : {
           ...state[action.question],
           [action.index]: action.text,
         },

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, LayoutAnimation } from 'react-native';
 import RadioButtonInput from './RadioButtonInput';
 import RadioButtonLabel from './RadioButtonLabel';
-import TextInput from '../components/TextInput';
+import TextInput from '../questions/TextInput';
 import Style from './Style';
 
 export default class RadioButton extends React.Component {

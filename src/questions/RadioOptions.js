@@ -1,16 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import RadioForm from '../react-native-simple-radio-button';
-import Button from '../components/Button';
+import ButtonToNextScene from './ButtonToNextScene';
 
 const styles = StyleSheet.create({
   options: {
     alignItems: 'flex-start',
-  },
-  button: {
-    marginTop: 'auto',
-    alignSelf: 'flex-end',
   },
 });
 
@@ -23,18 +18,13 @@ const RadioOptions = props => (
       animation={false}
       {...props}
     />
-    <View style={styles.button}>
-      <Button
-        onPress={() => {
-          Actions[props.nextScene]();
-        }}
-        text="Next"
-        disabled={props.answer.index === undefined ||
-          (props.radio_props[props.answer.index].hasTextInput &&
-           !(props.answer[props.answer.index] || '').trim())
-        }
-      />
-    </View>
+    <ButtonToNextScene
+      nextScene={props.nextScene}
+      disabled={props.answer.index === undefined ||
+        (props.radio_props[props.answer.index].hasTextInput &&
+         !(props.answer[props.answer.index] || '').trim())
+      }
+    />
   </View>
 );
 
