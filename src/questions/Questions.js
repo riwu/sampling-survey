@@ -8,6 +8,18 @@ const OTHERS = [{
 
 const sceneInfos = [
   {
+    header: 'QUESTION 1',
+    question: 'MTurkID no:',
+    responseComponent: (
+      <RadioOptions
+        question="MTurkID no:"
+        radio_props={['Male', 'Female'].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
+  {
     header: 'QUESTION 2',
     question: 'Gender:',
     responseComponent: (

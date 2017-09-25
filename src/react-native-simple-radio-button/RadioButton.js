@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, LayoutAnimation, TextInput } from 'react-native';
+import { View, LayoutAnimation } from 'react-native';
 import RadioButtonInput from './RadioButtonInput';
 import RadioButtonLabel from './RadioButtonLabel';
+import TextInput from '../components/TextInput';
 import Style from './Style';
 
 export default class RadioButton extends React.Component {
@@ -74,7 +75,6 @@ export default class RadioButton extends React.Component {
         </View>
         <TextInput
           ref={ref => this.props.setTextRef(ref)}
-          style={Style.input}
           opacity={showTextInput ? 1 : 0}
           editable={showTextInput}
           onFocus={this.props.onPress}

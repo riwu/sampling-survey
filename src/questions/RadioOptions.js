@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RadioForm from '../react-native-simple-radio-button';
-import Button from '../Button';
+import Button from '../components/Button';
 
 const styles = StyleSheet.create({
   options: {

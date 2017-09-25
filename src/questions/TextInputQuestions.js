@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import Question from './QuestionContainer';
-import UnderlinedText from '../UnderlinedText';
+import UnderlinedText from '../components/UnderlinedText';
 
 
 const questions = [

@@ -2,9 +2,9 @@ import React from 'react';
 import { Stack, Scene } from 'react-native-router-flux';
 
 import RouterWithRedux from './RouterWithRedux';
-import ReadyScreen from './ReadyScreen';
-import ReadyTransition from './ReadyTransition';
-import ReproduceDuration from './ReproduceDuration';
+import ReadyScreen from './experiment/ReadyScreen';
+import ReadyTransition from './experiment/ReadyTransition';
+import ReproduceDuration from './experiment/ReproduceDuration';
 import sceneInfos from './questions/Questions';
 
 import Question from './questions/Question';
@@ -30,7 +30,6 @@ const App = () => (
 
 export default App;
 
-// sceneInfos[0].question <Question {...sceneInfos[0]} />
 
 // {
 //   Questions.map(question => (
