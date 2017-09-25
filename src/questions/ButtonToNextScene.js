@@ -13,9 +13,7 @@ const styles = StyleSheet.create({
 const ButtonToNextScene = ({ nextScene, disabled }) => (
   <View style={styles.button}>
     <Button
-      onPress={() => {
-        Actions[nextScene]();
-      }}
+      onPress={() => Actions[nextScene]()}
       text="Next"
       disabled={disabled}
     />

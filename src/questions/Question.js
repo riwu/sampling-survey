@@ -18,11 +18,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Question = ({ header, question, responseComponent }) => (
+const Question = ({ header, question, responseComponent, nextScene }) => (
   <View>
     <Text style={styles.header}>{header}</Text>
     <Text style={styles.question}>{question}</Text>
-    {responseComponent}
+    {React.cloneElement(responseComponent, {
+      question,
+      nextScene,
+    })}
   </View>
 );
 

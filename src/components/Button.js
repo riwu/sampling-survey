@@ -20,7 +20,6 @@ const Button = ({ text, onPress, disabled }) => (
     style={[styles.button, { opacity: disabled ? 0.5 : 1 }]}
     onPress={onPress}
     disabled={disabled}
-
   >
     <Text style={styles.buttonText}>{text}</Text>
   </TouchableHighlight>

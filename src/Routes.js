@@ -19,7 +19,11 @@ const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
     <Stack key="root" hideNavBar type="replace">
 
-      <Scene key={sceneInfos[0].question} component={() => <Question {...sceneInfos[0]} />} />
+      {
+        sceneInfos.map(scene => (
+          <Scene key={scene.question} component={() => <Question {...scene} />} />
+        ))
+      }
 
       <Scene key="ReadyScreen" component={ReadyScreen} />
       <Scene key="ReadyTransition" component={ReadyTransition} />
@@ -29,10 +33,3 @@ const App = () => (
 );
 
 export default App;
-
-
-// {
-//   Questions.map(question => (
-//     <Scene key={question.key} component={question.component} />
-//   ))
-// }
