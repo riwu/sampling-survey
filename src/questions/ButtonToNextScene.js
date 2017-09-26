@@ -4,19 +4,32 @@ import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 
 const styles = StyleSheet.create({
-  button: {
-    marginTop: 'auto',
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+  },
+  buttonNext: {
+    marginLeft: 100,
     alignSelf: 'flex-end',
+    alignItems: 'flex-end',
   },
 });
 
-const ButtonToNextScene = ({ nextScene, disabled }) => (
-  <View style={styles.button}>
+const ButtonToNextScene = ({ nextScene, disabled, previousScene }) => (
+  <View style={styles.buttons}>
     <Button
-      onPress={() => Actions[nextScene]()}
-      text="Next"
-      disabled={disabled}
+      onPress={() => Actions[previousScene]()}
+      text="Back"
     />
+    <View style={styles.button}>
+      <Button
+        onPress={() => Actions[nextScene]()}
+        text="Next"
+        disabled={disabled}
+      />
+    </View>
+
   </View>
 );
 

@@ -10,14 +10,12 @@ import sceneInfos from './questions/Questions';
 import Question from './questions/Question';
 
 const sceneStyle = {
-  flex: 1,
   backgroundColor: 'black',
-  alignItems: 'center',
 };
 
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
-    <Stack key="root" hideNavBar type="replace">
+    <Stack key="root" hideNavBar>
 
       {
         sceneInfos.map(scene => (

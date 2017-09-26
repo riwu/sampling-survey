@@ -591,7 +591,6 @@ const taskQuestions = [
           'Work- or study-related activities',
           'Leisure activities',
           'Essential activities (eg. house chores, bath)',
-
         ].map(option => ({
           label: option,
         })).concat(OTHERS)}
@@ -603,4 +602,5 @@ const taskQuestions = [
 export default sceneInfos.map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
+  previousScene: i > 0 ? sceneInfos[i - 1].question : undefined,
 }));

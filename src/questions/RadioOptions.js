@@ -5,7 +5,7 @@ import ButtonToNextScene from './ButtonToNextScene';
 
 const styles = StyleSheet.create({
   options: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
 });
 
@@ -19,7 +19,7 @@ const RadioOptions = props => (
       {...props}
     />
     <ButtonToNextScene
-      nextScene={props.nextScene}
+      {...props}
       disabled={props.answer.index === undefined ||
         ((props.radio_props[props.answer.index].hasTextInput ||
           props.radio_props[props.answer.index].dropDown)

@@ -18,13 +18,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Question = ({ header, question, responseComponent, nextScene }) => (
+const Question = ({ header, question, responseComponent, nextScene, previousScene }) => (
   <ScrollView>
     <Text style={styles.header}>{header}</Text>
     <Text style={styles.question}>{question}</Text>
     {React.cloneElement(responseComponent, {
       question,
       nextScene,
+      previousScene,
     })}
   </ScrollView>
 );
