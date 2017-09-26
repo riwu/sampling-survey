@@ -4,20 +4,26 @@ import RadioForm from '../react-native-simple-radio-button';
 import ButtonToNextScene from './ButtonToNextScene';
 
 const styles = StyleSheet.create({
-  options: {
+  container: {
     alignItems: 'center',
+  },
+  options: {
+    alignItems: 'flex-start',
   },
 });
 
 const RadioOptions = props => (
   <View>
-    <RadioForm
-      style={styles.options}
-      labelColor="white"
-      buttonSize={12}
-      animation={false}
-      {...props}
-    />
+    <View style={styles.container}>
+      <RadioForm
+        style={styles.options}
+        labelColor="white"
+        buttonSize={12}
+        animation={false}
+        {...props}
+      />
+    </View>
+
     <ButtonToNextScene
       {...props}
       disabled={props.answer.index === undefined ||

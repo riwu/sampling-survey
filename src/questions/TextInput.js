@@ -6,14 +6,13 @@ const styles = StyleSheet.create({
     color: 'white',
     borderWidth: 0.5,
     borderBottomColor: 'white',
-    marginLeft: 30,
   },
 });
 
 const TextInputComponent = props => (
   <TextInput
-    style={styles.input}
     {...props}
+    style={[styles.input, props.style]}
     onChangeText={(text) => {
       props.onChangeText(props.numbersOnly ? text.replace(/\D/g, '') : text);
     }}

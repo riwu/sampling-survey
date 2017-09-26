@@ -61,6 +61,9 @@ const Style = StyleSheet.create({
     marginLeft: 20,
     width: 120,
   },
+  textInput: {
+    marginLeft: 45,
+  },
 });
 
 module.exports = Style;

@@ -9,27 +9,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 20,
   },
-  buttonNext: {
-    marginLeft: 100,
-    alignSelf: 'flex-end',
-    alignItems: 'flex-end',
-  },
 });
 
 const ButtonToNextScene = ({ nextScene, disabled, previousScene }) => (
   <View style={styles.buttons}>
+    { !previousScene ? null :
     <Button
-      onPress={() => Actions[previousScene]()}
+      onPress={() => Actions.pop(previousScene)}
       text="Back"
     />
-    <View style={styles.button}>
-      <Button
-        onPress={() => Actions[nextScene]()}
-        text="Next"
-        disabled={disabled}
-      />
-    </View>
-
+    }
+    {!nextScene ? null :
+    <Button
+      onPress={() => Actions.push(nextScene)}
+      text="Next"
+      disabled={disabled}
+    />
+    }
   </View>
 );
 
