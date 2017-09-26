@@ -564,43 +564,10 @@ const sceneInfos = [
   },
 ];
 
-const taskQuestions = [
-  {
-    header: 'QUESTION 1',
-    question: "Right now, I'm with (select all that apply):",
-    responseComponent: (
-      <RadioOptions
-        radio_props={[
-          'My boyfriend / girlfriend / partner / spouse',
-          'My friends / colleagues / schoolmates',
-          'My family',
-          'Alone',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
-      />
-    ),
-  },
-
-  {
-    header: 'QUESTION 2',
-    question: 'Just before i opened this app, I was doing:',
-    responseComponent: (
-      <RadioOptions
-        radio_props={[
-          'Work- or study-related activities',
-          'Leisure activities',
-          'Essential activities (eg. house chores, bath)',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
-      />
-    ),
-  },
-];
-
-export default sceneInfos.map((scene, i) => ({
+const scenes = sceneInfos.map((scene, i) => ({
   ...scene,
-  nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
+  nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : "Right now, I'm with (select all that apply):",
   previousScene: i > 0 ? sceneInfos[i - 1].question : undefined,
 }));
+
+export default scenes;

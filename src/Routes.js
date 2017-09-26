@@ -1,11 +1,13 @@
 import React from 'react';
-import { Stack, Scene } from 'react-native-router-flux';
+import { Scene } from 'react-native-router-flux';
 
 import RouterWithRedux from './RouterWithRedux';
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransition from './experiment/ReadyTransition';
 import ReproduceDuration from './experiment/ReproduceDuration';
-import sceneInfos from './questions/Questions';
+
+import experimentQuestions from './experiment/questions';
+import surveyQuestions from './questions/Questions';
 
 import Question from './questions/Question';
 
@@ -15,18 +17,23 @@ const sceneStyle = {
 
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
-    <Stack key="root" hideNavBar>
+    <Scene hideNavBar>
+      {
+        surveyQuestions.map(scene => (
+          <Scene key={scene.question} component={() => <Question {...scene} />} />
+        ))
+      }
 
       {
-        sceneInfos.map(scene => (
-          <Scene key={scene.question} component={() => <Question {...scene} />} />
+        experimentQuestions.map(question => (
+          <Scene key={question.question} component={() => <Question {...question} />} />
         ))
       }
 
       <Scene key="ReadyScreen" component={ReadyScreen} />
       <Scene key="ReadyTransition" component={ReadyTransition} />
       <Scene key="ReproduceDuration" component={ReproduceDuration} />
-    </Stack>
+    </Scene>
   </RouterWithRedux>
 );
 
