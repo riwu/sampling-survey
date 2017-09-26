@@ -15,16 +15,16 @@ const ButtonToNextScene = ({ nextScene, disabled, previousScene }) => (
   <View style={styles.buttons}>
     { !previousScene ? null :
     <Button
-      onPress={() => Actions.pop(previousScene)}
-      text="Back"
-    />
+        onPress={() => Actions.pop(previousScene)}
+        text="Back"
+      />
     }
     {!nextScene ? null :
     <Button
-      onPress={() => Actions.push(nextScene)}
-      text="Next"
-      disabled={disabled}
-    />
+        onPress={() => Actions.push(nextScene)}
+        text="Next"
+        disabled={disabled}
+      />
     }
   </View>
 );
