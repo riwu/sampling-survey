@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({ text, onPress, disabled }) => (
+const Button = ({ text, onPress, disabled, style }) => (
   <TouchableHighlight
-    style={[styles.button, { opacity: disabled ? 0.5 : 1 }]}
+    style={[styles.button, style, { opacity: disabled ? 0.5 : 1 }]}
     onPress={onPress}
     disabled={disabled}
   >

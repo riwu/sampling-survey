@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import RadioOptions from './RadioOptionsContainer';
 import TextInputResponse from './TextInputResponse';
 import UnderlinedText from '../components/UnderlinedText';
+import CountryPicker from './CountryPickerContainer';
 
 const OTHERS = [{
   label: 'Others (please specify):',
@@ -177,12 +178,16 @@ const sceneInfos = [
           'Roman Catholicism',
           'Christianity (Protestant)',
           'No religion',
-
         ].map(option => ({
           label: option,
         })).concat(OTHERS)}
       />
     ),
+  },
+  {
+    header: 'QUESTION 15',
+    question: 'Country of birth:',
+    responseComponent: <CountryPicker />,
   },
   // {
   //   header: 'QUESTION 1',
@@ -206,7 +211,7 @@ const sceneInfos = [
   // },
 ];
 
-export default sceneInfos.slice(12).map((scene, i) => ({
+export default sceneInfos.slice(14).map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));
