@@ -26,6 +26,15 @@ const timeResponse = (
   />
 );
 
+const scaleResponse = (
+  <RadioOptions
+    radio_props={['Not at all true 1', '2', '3', '4', '5',
+      '6', '7', '8', 'Definitely true 9'].map(option => ({
+        label: option,
+      }))}
+  />
+);
+
 const sceneInfos = [
   {
     header: 'QUESTION 1',
@@ -238,26 +247,355 @@ const sceneInfos = [
       />
     ),
   },
-  // {
-  //   header: 'QUESTION 1',
-  //   question: "Right now, I'm with (select all that apply):",
-  //   options: [
-  //     'My boyfriend / girlfriend / partner / spouse',
-  //     'My friends / colleagues / schoolmates',
-  //     'My family',
-  //     'Alone',
-  //   ],
-  // },
-  //
-  // {
-  //   header: 'QUESTION 2',
-  //   question: 'Just before i opened this app, I was doing:',
-  //   options: [
-  //     'Work- or study-related activities',
-  //     'Leisure activities',
-  //     'Essential activities (eg. house chores, bath)',
-  //   ],
-  // },
+  {
+    header: 'QUESTION 18',
+    question: 'Annual family income (USD):',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'Below $30,000',
+          '$30,000 - $49,999',
+          '$50,000 - $74,999',
+          '$75,000 - $99,999',
+          '$100,000 and above',
+        ].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 19',
+    question: 'Household size:',
+    responseComponent: (
+      <RadioOptions
+        radio_props={['1', '2', '3', '4', '5+'].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 20',
+    question: 'What is your usual country of residence?' +
+    ' (i.e. the country where you spend most of your time eating and sleeping, not continent):',
+    responseComponent: <CountryPicker />,
+  },
+  {
+    header: 'QUESTION 21',
+    question: 'Which of the following best describes the setting you grew up in?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'Rural',
+          'Small town',
+          'Large town or small city',
+          'Suburb',
+          'Large city',
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 22',
+    question: 'Occupation:',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'Computer worker',
+          'Engineer',
+          'Mathematician and statistician',
+          'Life Scientist',
+          'Physical Scientist',
+          'Social Scientist',
+          'Architect',
+          'Legal',
+          'Education',
+          'Arts and Entertainment',
+          'Service',
+          'Sales',
+          'Office Support',
+          'Agriculture',
+          'Healthcare',
+          'Construction and Maintenance',
+          'Manager',
+          'Production',
+          'Business and Finance',
+          'Social Service',
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 23',
+    question: 'I acknowledge that a response rate of >80%' +
+    ' in the subsequent tasks is required for me to receive reimbursement',
+    responseComponent: (
+      <RadioOptions
+        radio_props={['Yes', 'No'].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
+
+
+  {
+    header: 'QUESTION 24',
+    question: 'Since I’ve been involved with ____________,' +
+    ' my emotions have been on a roller coaster.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 25',
+    question: 'I would feel deep despair if ____________ left me.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 26',
+    question: 'Sometimes my body trembles with excitement at the sight of ____________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 27',
+    question: 'I take delight in studying the movements and angles of ____________’s body.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 28',
+    question: 'Sometimes I feel I can’t control my thought; they are obsessively on ____________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 29',
+    question: 'I feel happy when I am doing something to make ____________ happy.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 30',
+    question: 'I would rather be with ____________ than anyone else.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 31',
+    question: 'I’d get jealous if I thought ____________ were falling in love with someone else.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 32',
+    question: 'No one else could love ____________ like I do.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 33',
+    question: 'I yearn to know all about ____________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 34',
+    question: 'I want ____________ -- physically, emotionally, mentally.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 35',
+    question: 'I will love ____________ forever.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 36',
+    question: 'I melt when looking deeply into ____________’s eyes.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 37',
+    question: 'I have an endless appetite for affection from ____________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 38',
+    question: 'For me, ____________ is the perfect romantic partner.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 39',
+    question: '____________ is the person who can make me feel the happiest.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 40',
+    question: 'I sense my body responding when ____________ touches me.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 41',
+    question: 'I feel tender toward ____________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 42',
+    question: '____________ always seems to be on my mind.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 43',
+    question: 'If I were separated from ____________for a long time, I would feel intensely lonely.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 44',
+    question: 'I sometimes find it difficult to concentrate on work because thoughts of ____________ occupy my mind.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 45',
+    question: 'I want ____________ to know me – my thoughts, my fears, and my hopes.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 46',
+    question: 'Knowing that ____________ cares about me makes me feel complete.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 47',
+    question: 'I eagerly look for signs indicating ____________’s desire for me.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 48',
+    question: 'If ____________ were going through a difficult time, I would put away my own concerns to help him/her out.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 49',
+    question: '____________ can make me feel effervescent and bubbly.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 50',
+    question: 'In the presence of ____________, I yearn to touch and be touched.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 51',
+    question: 'An existence without ____________ would be dark and dismal.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 52',
+    question: 'I possess a powerful attraction for ____________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 53',
+    question: 'I get extremely depressed when things don’t go right in my relationship with ____________.',
+    responseComponent: scaleResponse,
+  },
+
+
+  {
+    header: 'QUESTION 54',
+    question: 'If ________ were feeling badly, my first duty would be to cheer him (her) up.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 55',
+    question: 'I feel that I can confide in ________ about virtually everything.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 56',
+    question: "I find it easy to ignore ________ 's faults.",
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 57',
+    question: 'I would do almost anything for ________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 58',
+    question: 'I feel very possessive toward ________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 59',
+    question: 'If I could never be with ________, I would feel miserable.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 60',
+    question: 'If I were lonely, my first thought would be to seek out ________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 61',
+    question: 'One of my primary concerns is ________ ‘s welfare.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 62',
+    question: 'I would forgive ________ for practically anything.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 63',
+    question: "I feel responsible for ________ 's well-being.",
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 64',
+    question: 'When I am with ________, I spend a good deal of time just looking at him (her).',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 65',
+    question: 'I would greatly enjoy being confided in by ________.',
+    responseComponent: scaleResponse,
+  },
+  {
+    header: 'QUESTION 66',
+    question: 'It would be hard for me to get along without ________.',
+    responseComponent: scaleResponse,
+  },
+
+  {
+    header: 'QUESTION 1',
+    question: "Right now, I'm with (select all that apply):",
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'My boyfriend / girlfriend / partner / spouse',
+          'My friends / colleagues / schoolmates',
+          'My family',
+          'Alone',
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
+
+  {
+    header: 'QUESTION 2',
+    question: 'Just before i opened this app, I was doing:',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'Work- or study-related activities',
+          'Leisure activities',
+          'Essential activities (eg. house chores, bath)',
+
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
 ];
 
 export default sceneInfos.slice(15).map((scene, i) => ({
