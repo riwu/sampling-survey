@@ -4,13 +4,13 @@ import { setAnswerIndex, setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  answer: state.answers[ownProps.question] || {},
+  answer: state.answers[ownProps.header] || {},
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  setAnswerIndex: index => dispatch(setAnswerIndex(ownProps.question, index)),
+  setAnswerIndex: index => dispatch(setAnswerIndex(ownProps.header, index)),
   setAnswerText: (index, text) => dispatch(setAnswerText({
-    question: ownProps.question,
+    header: ownProps.header,
     index,
     text,
   })),

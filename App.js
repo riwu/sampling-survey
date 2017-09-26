@@ -9,7 +9,7 @@ import logger from 'redux-logger';
 import reducer from './src/reducers/reducer';
 import Routes from './src/Routes';
 
-const store = createStore(reducer, autoRehydrate(), applyMiddleware(logger));
+const store = createStore(reducer, undefined, applyMiddleware(logger)); // autoRehydrate()
 persistStore(store, { storage: AsyncStorage });
 
 const App = () => (

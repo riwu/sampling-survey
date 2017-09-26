@@ -30,7 +30,7 @@ const Question = ({ header, question, responseComponent, nextScene, previousScen
       <Text style={styles.question}>{question}</Text>
     </View>
     {React.cloneElement(responseComponent, {
-      question,
+      header,
       nextScene,
       previousScene,
     })}
