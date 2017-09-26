@@ -4,15 +4,17 @@ import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
     width: '100%',
     height: '100%',
     alignItems: 'center',
   },
+  turned: {
+    backgroundColor: 'red',
+  },
   plus: {
     color: 'white',
     fontSize: 50,
-    marginTop: 207,
+    marginTop: 212,
   },
 });
 
@@ -30,7 +32,7 @@ class ReadyTransition extends React.Component {
   }
   render() {
     return (
-      <View style={this.state.turned ? styles.container : null}>
+      <View style={[styles.container, this.state.turned && styles.turned]}>
         <Text style={styles.plus} >+</Text>
       </View>
     );

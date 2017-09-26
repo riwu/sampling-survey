@@ -18,11 +18,13 @@ const sceneStyle = {
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
     <Scene hideNavBar>
+
       {
         surveyQuestions.map(scene => (
           <Scene key={scene.header} component={() => <Question {...scene} />} />
         ))
       }
+
       {
         experimentQuestions.map(question => (
           <Scene key={question.header} component={() => <Question {...question} />} />

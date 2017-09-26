@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Button from '../components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   instructions: {
     backgroundColor: 'lightgrey',
     marginTop: 30,
-    marginBottom: 10,
+    marginBottom: 20,
     borderRadius: 10,
     borderWidth: 10,
     borderColor: 'lightgrey',
@@ -36,14 +37,6 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-  },
-  readyButton: {
-    color: 'blue',
-    textAlign: 'center',
-    backgroundColor: 'white',
-    padding: 5,
-    margin: 20,
-    width: 300,
   },
   plus: {
     color: 'white',
@@ -71,9 +64,7 @@ const ReadyScreen = () => (
       </View>
       <View style={{ flex: 0.1 }} />
     </View>
-    <Button title="Button" onPress={() => Actions.replace('ReadyTransition')}>
-      <Text style={styles.readyButton}>Ready</Text>
-    </Button>
+    <Button text="Ready" onPress={() => Actions.replace('ReadyTransition')} />
   </View>
 );
 
