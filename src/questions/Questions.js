@@ -189,6 +189,55 @@ const sceneInfos = [
     question: 'Country of birth:',
     responseComponent: <CountryPicker />,
   },
+  {
+    header: 'QUESTION 16',
+    question: 'Current marital/relationship status:',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[{ label: 'Single' }].concat([{
+          label: 'In a relationship',
+          dropDown: {
+            label: 'Duration',
+            data: [
+              '<2 weeks',
+              '2 weeks',
+              '1 month',
+              '1-2 months',
+              '2-3 months',
+              '3-6 months',
+              '>6 months',
+            ],
+          },
+        }]).concat([
+          'Engaged',
+          'Cohabitating',
+          'Married',
+          'Widowed',
+          'Separated',
+          'Divorced',
+        ].map(option => ({
+          label: option,
+        }))).concat(OTHERS)}
+      />
+    ),
+  },
+  {
+    header: 'QUESTION 17',
+    question: 'Education (highest qualification obtained):',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          'Less than high school',
+          'High school',
+          'College',
+          'Bachelor',
+          'Post-graduate',
+        ].map(option => ({
+          label: option,
+        })).concat(OTHERS)}
+      />
+    ),
+  },
   // {
   //   header: 'QUESTION 1',
   //   question: "Right now, I'm with (select all that apply):",
@@ -211,7 +260,7 @@ const sceneInfos = [
   // },
 ];
 
-export default sceneInfos.slice(14).map((scene, i) => ({
+export default sceneInfos.slice(15).map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));

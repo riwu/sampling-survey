@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const width = Dimensions.get('window').width;
 const Style = StyleSheet.create({
   radioForm: {
   },
@@ -10,7 +9,6 @@ const Style = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 5,
     marginLeft: 10,
-    width: width / 3.5,
   },
   radio: {
     justifyContent: 'center',
@@ -58,6 +56,10 @@ const Style = StyleSheet.create({
   formHorizontal: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  dropDown: {
+    marginLeft: 20,
+    width: 120,
   },
 });
 

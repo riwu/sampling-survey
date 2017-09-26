@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, LayoutAnimation } from 'react-native';
+import { View, LayoutAnimation, Dimensions } from 'react-native';
+import { Dropdown } from 'react-native-material-dropdown';
 import RadioButtonInput from './RadioButtonInput';
 import RadioButtonLabel from './RadioButtonLabel';
 import TextInput from '../questions/TextInput';
 import Style from './Style';
+
+const width = Dimensions.get('window').width;
 
 export default class RadioButton extends React.Component {
   static defaultProps = {
@@ -42,13 +45,13 @@ export default class RadioButton extends React.Component {
     ? this.props.accessibilityLabel.substring(idSeparatorAccessibilityLabelIndex + 1) : '';
     var testIDIndex = (this.props.testID && testIDIndex !== -1)
     ? this.props.testID.split(testIDIndex + 1) : '';
-
     const showTextInput = !!this.props.obj.hasTextInput && (this.props.isSelected || !!this.props.answerText);
     let renderContent = false;
     renderContent = c ? (
       <View style={[
         Style.radioWrap,
         this.props.style,
+        this.props.formHorizontal && { width: width / 3 },
         !this.props.labelHorizontal && Style.labelVerticalWrap,
       ]}
       >
@@ -72,13 +75,33 @@ export default class RadioButton extends React.Component {
             accessibilityLabel={`${accessibilityLabel}Label${accessibilityLabelIndex}`}
             testID={`${testID}Label${testIDIndex}`}
           />
+          {
+          !this.props.obj.dropDown ? null :
+          <Dropdown
+            animationDuration={0}
+            labelHeight={15}
+            itemCount={10}
+            itemPadding={12}
+            value={this.props.answerText}
+            onChangeText={this.props.setAnswerText}
+            containerStyle={Style.dropDown}
+            baseColor="white"
+            selectedItemColor="black"
+            textColor="white"
+            itemColor="red"
+            label={this.props.obj.dropDown.label}
+            data={this.props.obj.dropDown.data.map(value => ({
+              value,
+            }))}
+          />
+        }
         </View>
         <TextInput
           setTextRef={this.props.setTextRef}
           opacity={showTextInput ? 1 : 0}
           editable={showTextInput}
           onFocus={this.props.onPress}
-          onChangeText={text => this.props.setAnswerText(text)}
+          onChangeText={this.props.setAnswerText}
           value={this.props.answerText}
         />
       </View>

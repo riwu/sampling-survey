@@ -21,8 +21,9 @@ const RadioOptions = props => (
     <ButtonToNextScene
       nextScene={props.nextScene}
       disabled={props.answer.index === undefined ||
-        (props.radio_props[props.answer.index].hasTextInput &&
-         !(props.answer[props.answer.index] || '').trim())
+        ((props.radio_props[props.answer.index].hasTextInput ||
+          props.radio_props[props.answer.index].dropDown)
+          && !(props.answer[props.answer.index] || '').trim())
       }
     />
   </View>

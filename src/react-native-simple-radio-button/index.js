@@ -46,6 +46,7 @@ export default class RadioForm extends React.Component {
         style={this.props.radioStyle}
         animation={this.props.animation}
         disabled={this.props.disabled}
+        formHorizontal={this.props.formHorizontal}
         onPress={() => {
           this.props.setAnswerIndex(i);
           Object.entries(this.textRefs).forEach(([index, textRef]) => {
