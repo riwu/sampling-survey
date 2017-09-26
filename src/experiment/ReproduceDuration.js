@@ -6,10 +6,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
-  ready: {
+  header: {
     color: 'white',
-    marginTop: 100,
-    marginBottom: 10,
+    marginTop: 50,
     marginLeft: 20,
     marginRight: 20,
     fontSize: 25,
@@ -21,8 +20,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     backgroundColor: 'lightgrey',
-    marginTop: 30,
-    marginBottom: 10,
+    marginTop: 20,
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 10,
@@ -31,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 0.8,
   },
   tellUs: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
     padding: 10,
     textAlign: 'center',
@@ -58,7 +56,7 @@ class ReproduceDuration extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.ready}>HOW LONG WAS THE SCREEN RED FOR?</Text>
+        <Text style={styles.header}>HOW LONG WAS THE SCREEN RED FOR?</Text>
         <View style={styles.instructionContainer}>
           <View style={{ flex: 0.1 }} />
           <View style={styles.instructions}>
@@ -68,8 +66,8 @@ class ReproduceDuration extends React.Component {
             <Text style={styles.text}>Remember:</Text>
             <Text style={styles.text}>- <Text style={{ textDecorationLine: 'underline' }}>Don't count</Text> how much time has passed</Text>
             <Text style={styles.text}>- We're interested in what it
-                <Text style={{ fontStyle: 'italic' }}> feels like</Text> to you
-              </Text>
+              <Text style={{ fontStyle: 'italic' }}> feels like</Text> to you
+            </Text>
           </View>
           <View style={{ flex: 0.1 }} />
         </View>
@@ -84,11 +82,11 @@ class ReproduceDuration extends React.Component {
         </TouchableHighlight>
         <TouchableHighlight
           style={
-          [styles.button, {
-            backgroundColor: 'red',
-            opacity: this.state.timerStarted ? 1 : 0.4,
-          },
-          ]}
+            [styles.button, {
+              backgroundColor: 'red',
+              opacity: this.state.timerStarted ? 1 : 0.4,
+            },
+            ]}
           onPress={() => Actions.push('Question 2')}
         >
           <Text style={styles.buttonText}>STOP TIMER</Text>

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   ready: {
     color: 'white',
-    marginTop: 100,
+    marginTop: 50,
     marginBottom: 10,
     fontSize: 25,
     fontWeight: 'bold',
@@ -22,17 +22,15 @@ const styles = StyleSheet.create({
   },
   instructions: {
     backgroundColor: 'lightgrey',
-    marginTop: 30,
-    marginBottom: 20,
+    marginBottom: 10,
     borderRadius: 10,
     borderWidth: 10,
     borderColor: 'lightgrey',
     flex: 0.8,
   },
   tellUs: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
-    padding: 10,
     textAlign: 'center',
   },
   text: {
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
   plus: {
     color: 'white',
     fontSize: 50,
-    marginTop: 50,
+    marginTop: 60,
   },
 });
 
