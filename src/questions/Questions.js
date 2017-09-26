@@ -566,8 +566,8 @@ const sceneInfos = [
 
 const scenes = sceneInfos.map((scene, i) => ({
   ...scene,
-  nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : "Right now, I'm with (select all that apply):",
-  previousScene: i > 0 ? sceneInfos[i - 1].question : undefined,
+  nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].header : 'Question 1',
+  previousScene: i > 0 ? sceneInfos[i - 1].header : undefined,
 }));
 
 export default scenes;

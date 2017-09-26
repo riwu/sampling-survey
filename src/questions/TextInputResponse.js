@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const TextInputComponent = props => (
   <View>
     <View style={styles.container}>
-      <TextInput {...props} />
+      <TextInput {...props} autoFocus />
     </View>
     <ButtonToNextScene
       {...props}

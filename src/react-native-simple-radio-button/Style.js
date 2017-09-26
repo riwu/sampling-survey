@@ -56,6 +56,7 @@ const Style = StyleSheet.create({
   formHorizontal: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-around',
   },
   dropDown: {
     marginLeft: 20,

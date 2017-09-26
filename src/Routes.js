@@ -20,13 +20,12 @@ const App = () => (
     <Scene hideNavBar>
       {
         surveyQuestions.map(scene => (
-          <Scene key={scene.question} component={() => <Question {...scene} />} />
+          <Scene key={scene.header} component={() => <Question {...scene} />} />
         ))
       }
-
       {
         experimentQuestions.map(question => (
-          <Scene key={question.question} component={() => <Question {...question} />} />
+          <Scene key={question.header} component={() => <Question {...question} />} />
         ))
       }
 

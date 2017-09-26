@@ -51,7 +51,7 @@ export default class RadioButton extends React.Component {
       <View style={[
         Style.radioWrap,
         this.props.style,
-        this.props.formHorizontal && { width: width / 3 },
+        this.props.formHorizontal && { width: width / 4 },
         !this.props.labelHorizontal && Style.labelVerticalWrap,
       ]}
       >
@@ -62,6 +62,7 @@ export default class RadioButton extends React.Component {
         <View style={[
           Style.radioWrap,
           this.props.style,
+          this.props.formHorizontal && { width: width / 4 },
           !this.props.labelHorizontal && Style.labelVerticalWrap,
         ]}
         >
@@ -88,7 +89,7 @@ export default class RadioButton extends React.Component {
             baseColor="white"
             selectedItemColor="black"
             textColor="white"
-            itemColor="red"
+            itemColor="green"
             label={this.props.obj.dropDown.label}
             data={this.props.obj.dropDown.data.map(value => ({
               value,
