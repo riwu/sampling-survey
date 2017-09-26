@@ -509,7 +509,7 @@ const sceneInfos = [
   },
   {
     header: 'QUESTION 56',
-    question: "I find it easy to ignore ________ 's faults.",
+    question: 'I find it easy to ignore ________ ’s faults.',
     responseComponent: scaleResponse,
   },
   {
@@ -534,7 +534,7 @@ const sceneInfos = [
   },
   {
     header: 'QUESTION 61',
-    question: 'One of my primary concerns is ________ ‘s welfare.',
+    question: 'One of my primary concerns is ________ ’s welfare.',
     responseComponent: scaleResponse,
   },
   {
@@ -544,7 +544,7 @@ const sceneInfos = [
   },
   {
     header: 'QUESTION 63',
-    question: "I feel responsible for ________ 's well-being.",
+    question: 'I feel responsible for ________ ’s well-being.',
     responseComponent: scaleResponse,
   },
   {
@@ -562,7 +562,9 @@ const sceneInfos = [
     question: 'It would be hard for me to get along without ________.',
     responseComponent: scaleResponse,
   },
+];
 
+const taskQuestions = [
   {
     header: 'QUESTION 1',
     question: "Right now, I'm with (select all that apply):",
@@ -598,7 +600,7 @@ const sceneInfos = [
   },
 ];
 
-export default sceneInfos.slice(15).map((scene, i) => ({
+export default sceneInfos.map((scene, i) => ({
   ...scene,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].question : undefined,
 }));
