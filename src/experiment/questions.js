@@ -9,7 +9,7 @@ const OTHERS = [{
 const questions = [
   {
     header: 'QUESTION 1',
-    question: "Right now, I'm with (select all that apply):",
+    question: 'Right now, I am with (select all that apply):',
     responseComponent: (
       <RadioOptions
         radio_props={[
@@ -22,6 +22,7 @@ const questions = [
         })).concat(OTHERS)}
       />
     ),
+    nextScene: 'ReadyScreen',
   },
   {
     header: 'QUESTION 2',
@@ -37,6 +38,7 @@ const questions = [
         })).concat(OTHERS)}
       />
     ),
+    nextScene: 'How alert or sleepy do you feel right now?',
   },
   {
     header: 'QUESTION 3',
@@ -58,6 +60,7 @@ const questions = [
         }))}
       />
     ),
+    previousScene: 'Just before i opened this app, I was doing:',
   },
   {
     header: 'SESSION TIMED OUT',

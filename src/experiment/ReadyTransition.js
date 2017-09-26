@@ -25,7 +25,7 @@ class ReadyTransition extends React.Component {
       this.setState({ turned: true });
     }, (Math.floor(Math.random() * 3) + 1) * 1000,
     setTimeout(() => {
-      Actions.ReproduceDuration();
+      Actions.replace('ReproduceDuration');
     }, 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)]));
   }
   render() {

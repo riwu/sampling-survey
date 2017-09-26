@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +89,7 @@ class ReproduceDuration extends React.Component {
             opacity: this.state.timerStarted ? 1 : 0.4,
           },
           ]}
-          onPress={() => this.props.history.push('/Question2')}
+          onPress={() => Actions.push('Just before i opened this app, I was doing:')}
         >
           <Text style={styles.buttonText}>STOP TIMER</Text>
         </TouchableHighlight>

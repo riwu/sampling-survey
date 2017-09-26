@@ -71,7 +71,7 @@ const ReadyScreen = () => (
       </View>
       <View style={{ flex: 0.1 }} />
     </View>
-    <Button title="Button" onPress={() => Actions.ReadyTransition()}>
+    <Button title="Button" onPress={() => Actions.replace('ReadyTransition')}>
       <Text style={styles.readyButton}>Ready</Text>
     </Button>
   </View>
