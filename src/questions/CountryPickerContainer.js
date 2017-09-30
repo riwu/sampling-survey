@@ -4,12 +4,12 @@ import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  cca2: state.answers[ownProps.question] || 'SG',
+  cca2: state.answers[ownProps.header] || 'SG',
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onChange: country => dispatch(setAnswerText({
-    question: ownProps.question,
+    header: ownProps.header,
     text: country.cca2,
   })),
 });

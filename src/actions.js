@@ -1,12 +1,12 @@
-export const setAnswerIndex = (question, index) => ({
+export const setAnswerIndex = (header, index) => ({
   type: 'SET_ANSWER_INDEX',
-  question,
+  header,
   index,
 });
 
-export const setAnswerText = ({ question, index, text }) => ({
+export const setAnswerText = ({ header, index, text }) => ({
   type: 'SET_ANSWER_TEXT',
-  question,
+  header,
   index,
   text,
 });

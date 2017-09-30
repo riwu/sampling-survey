@@ -1,20 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import TextInput from './TextInputContainer';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
 
-const width = Dimensions.get('window').width / 4;
-
 const styles = StyleSheet.create({
   container: {
-    marginLeft: width,
-    marginRight: width,
+    width: 100,
+    alignSelf: 'center',
   },
 });
 
 const TextInputComponent = props => (
   <View>
-    <View style={styles.container}>
+    <View style={[styles.container, props.width && { width: props.width }]}>
       <TextInput {...props} autoFocus />
     </View>
     <ButtonToNextScene

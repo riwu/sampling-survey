@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   plus: {
     color: 'white',
     fontSize: 50,
-    marginTop: 212,
+    marginTop: 167,
   },
 });
 

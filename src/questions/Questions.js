@@ -30,8 +30,8 @@ const scaleResponse = (
   <RadioOptions
     radio_props={['Not at all true 1', '2', '3', '4', '5',
       '6', '7', '8', 'Definitely true 9'].map(option => ({
-        label: option,
-      }))}
+      label: option,
+    }))}
   />
 );
 
@@ -138,7 +138,7 @@ const sceneInfos = [
   {
     header: 'QUESTION 11',
     question: 'Age:',
-    responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} />,
+    responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} width={25} />,
   },
   {
     header: 'QUESTION 12',

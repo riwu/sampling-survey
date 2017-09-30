@@ -3,8 +3,8 @@ const answers = (state = {}, action) => {
     case 'SET_ANSWER_INDEX':
       return {
         ...state,
-        [action.question]: {
-          ...state[action.question],
+        [action.header]: {
+          ...state[action.header],
           index: action.index,
         },
       };
@@ -12,8 +12,8 @@ const answers = (state = {}, action) => {
     case 'SET_ANSWER_TEXT':
       return {
         ...state,
-        [action.question]: action.index === undefined ? action.text : {
-          ...state[action.question],
+        [action.header]: action.index === undefined ? action.text : {
+          ...state[action.header],
           [action.index]: action.text,
         },
       };

@@ -4,12 +4,12 @@ import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  value: state.answers[ownProps.question],
+  value: state.answers[ownProps.header],
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onSlidingComplete: text => dispatch(setAnswerText({
-    question: ownProps.question,
+    header: ownProps.header,
     text,
   })),
 });

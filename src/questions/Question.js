@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
 
 const styles = StyleSheet.create({
   header: {
@@ -12,21 +12,25 @@ const styles = StyleSheet.create({
   question: {
     color: 'white',
     fontSize: 15,
-    marginTop: 30,
     fontWeight: 'bold',
-    textAlign: 'center',
+    marginTop: 30,
     marginBottom: 10,
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  textContainer: {
+    alignItems: 'center',
   },
 });
 
 const Question = ({ header, question, responseComponent, nextScene, previousScene }) => (
   <ScrollView>
     <Text style={styles.header}>{header}</Text>
-    <Text style={styles.question}>{question}</Text>
+    <View style={styles.textContainer}>
+      <Text style={styles.question}>{question}</Text>
+    </View>
     {React.cloneElement(responseComponent, {
-      question,
+      header,
       nextScene,
       previousScene,
     })}
