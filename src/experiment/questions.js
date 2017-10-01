@@ -15,7 +15,6 @@ const miscQuestions = [
       <RadioOptions
         radio_props={[
           "I didn't have my phone with me.",
-          "I didn't have internet access.",
           'I was sleeping.',
           "I was doing something that couldn't be disrupted.",
         ].map(option => ({
