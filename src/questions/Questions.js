@@ -4,6 +4,7 @@ import RadioOptions from './RadioOptionsContainer';
 import TextInputResponse from './TextInputResponse';
 import UnderlinedText from '../components/UnderlinedText';
 import CountryPicker from './CountryPickerContainer';
+import CheckboxList from './CheckboxListContainer';
 
 const OTHERS = [{
   label: 'Others (please specify):',
@@ -32,6 +33,10 @@ const timeResponse = (
       label: option,
     }))}
   />
+);
+
+const timeResponseWithCheckbox = (
+  <CheckboxList labels={timeOptions} />
 );
 
 const scaleResponse = (
@@ -130,7 +135,7 @@ const sceneInfos = [
         On <UnderlinedText>weekdays</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
       </Text>
     ),
-    responseComponent: timeResponse,
+    responseComponent: timeResponseWithCheckbox,
   },
   {
     header: 'QUESTION 10',
@@ -139,7 +144,7 @@ const sceneInfos = [
         On <UnderlinedText>weekends</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
       </Text>
     ),
-    responseComponent: timeResponse,
+    responseComponent: timeResponseWithCheckbox,
   },
   {
     header: 'QUESTION 11',
