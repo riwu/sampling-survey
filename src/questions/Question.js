@@ -37,8 +37,4 @@ const Question = ({ header, question, responseComponent, nextScene, previousScen
   </ScrollView>
 );
 
-Question.defaultProps = {
-  hasOthers: true,
-};
-
 export default Question;

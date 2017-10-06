@@ -30,7 +30,6 @@ const CheckboxList = props => (
           key={label}
           label={label}
           labelStyle={styles.label}
-          checkboxStyle={styles.checkbox}
           checkedColor="#008080"
           checked={props.answer[index]}
           onChange={checked => props.setAnswerText(index, checked)}

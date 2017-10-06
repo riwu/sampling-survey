@@ -11,13 +11,22 @@ import surveyQuestions from './questions/Questions';
 
 import Question from './questions/Question';
 
+import InformationSheet from './consentForm/InformationSheet';
+import ConsentForm from './consentForm/ConsentForm';
+import BeginQuestions from './consentForm/BeginQuestions';
+
 const sceneStyle = {
   backgroundColor: 'black',
 };
 
+
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
     <Scene hideNavBar>
+      <Scene key="InformationSheet" component={InformationSheet} />
+      <Scene key="ConsentForm" component={ConsentForm} />
+      <Scene key="BeginQuestions" component={BeginQuestions} />
+
       {
         surveyQuestions.map(scene => (
           <Scene key={scene.header} component={() => <Question {...scene} />} />
