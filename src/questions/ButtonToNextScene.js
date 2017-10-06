@@ -11,21 +11,20 @@ const styles = StyleSheet.create({
   },
 });
 
+// next scene must be named Finish to show finish button. Better design: pass as props
 const ButtonToNextScene = ({ nextScene, disabled, previousScene }) => (
   <View style={styles.buttons}>
-    { !previousScene ? null :
+    {previousScene &&
     <Button
-        onPress={() => Actions.pop(previousScene)}
-        text="Back"
-      />
-    }
-    {!nextScene ? null :
+      onPress={() => Actions.pop(previousScene)}
+      text="Back"
+    />}
+    {nextScene &&
     <Button
-        onPress={() => Actions.push(nextScene)}
-        text="Next"
-        disabled={disabled}
-      />
-    }
+      onPress={() => Actions.push(nextScene)}
+      text={nextScene === 'Finish' ? 'Finish' : 'Next'}
+      disabled={disabled}
+    />}
   </View>
 );
 

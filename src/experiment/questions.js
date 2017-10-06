@@ -93,7 +93,7 @@ const questions = [
 
 const questionsWithRoute = questions.map((question, i) => ({
   ...question,
-  nextScene: i < questions.length - 1 ? questions[i + 1].header : undefined,
+  nextScene: i < questions.length - 1 ? questions[i + 1].header : 'Finish',
   previousScene: i > 0 ? questions[i - 1].header : undefined,
 })).concat(miscQuestions);
 export default questionsWithRoute;
