@@ -48,7 +48,7 @@ const miscQuestions = [
 const questions = [
   {
     header: 'Question 2',
-    question: 'Just before i opened this app, I was doing:',
+    question: 'Just before I opened this app, I was doing:',
     responseComponent: (
       <RadioOptions
         radio_props={[

@@ -18,7 +18,12 @@ const styles = StyleSheet.create({
 
 const SliderComponent = props => (
   <View>
-    <Slider style={styles.container} {...props} />
+    <Slider
+      style={styles.container}
+      minimumTrackTintColor="white"
+      maximumTrackTintColor="green"
+      {...props}
+    />
     <View style={styles.textContainer}>
       <Text style={styles.text}>Sad</Text>
       <Text style={styles.text}>Happy</Text>

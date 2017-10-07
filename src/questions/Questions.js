@@ -50,12 +50,10 @@ const scaleResponse = (
 
 const sceneInfos = [
   {
-    header: 'QUESTION 1',
     question: 'MTurkID no:',
     responseComponent: <TextInputResponse />,
   },
   {
-    header: 'QUESTION 2',
     question: 'Gender:',
     responseComponent: (
       <RadioOptions
@@ -66,7 +64,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 3',
     question: 'What is your sexual orientation?',
     responseComponent: (
       <RadioOptions
@@ -77,7 +74,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 4',
     question: 'How often do you meet your partner in a week?',
     responseComponent: (
       <RadioOptions
@@ -88,7 +84,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 5',
     question: (
       <Text>
         What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
@@ -98,7 +93,6 @@ const sceneInfos = [
     responseComponent: timeResponse,
   },
   {
-    header: 'QUESTION 6',
     question: (
       <Text>
         What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
@@ -108,7 +102,6 @@ const sceneInfos = [
     responseComponent: timeResponse,
   },
   {
-    header: 'QUESTION 7',
     question: (
       <Text>
         What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
@@ -118,7 +111,6 @@ const sceneInfos = [
     responseComponent: timeResponse,
   },
   {
-    header: 'QUESTION 8',
     question: (
       <Text>
         What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
@@ -129,7 +121,6 @@ const sceneInfos = [
   },
 
   {
-    header: 'QUESTION 9',
     question: (
       <Text>
         On <UnderlinedText>weekdays</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
@@ -138,7 +129,6 @@ const sceneInfos = [
     responseComponent: timeResponseWithCheckbox,
   },
   {
-    header: 'QUESTION 10',
     question: (
       <Text>
         On <UnderlinedText>weekends</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
@@ -147,12 +137,10 @@ const sceneInfos = [
     responseComponent: timeResponseWithCheckbox,
   },
   {
-    header: 'QUESTION 11',
     question: 'Age:',
     responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} width={25} />,
   },
   {
-    header: 'QUESTION 12',
     question: 'Race:',
     responseComponent: (
       <RadioOptions
@@ -172,7 +160,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 13',
     question: '"Hispanic or Latino" refers to a person of Cuban, Mexican,' +
     ' Puerto Rican, South or Central American, or other Spanish culture or' +
     ' origin regardless of race. Are you of Hispanic or Latino origin?',
@@ -185,7 +172,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 14',
     question: 'Religion:',
     responseComponent: (
       <RadioOptions
@@ -205,12 +191,10 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 15',
     question: 'Country of birth:',
     responseComponent: <CountryPicker />,
   },
   {
-    header: 'QUESTION 16',
     question: 'Current marital/relationship status:',
     responseComponent: (
       <RadioOptions
@@ -242,7 +226,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 17',
     question: 'Education (highest qualification obtained):',
     responseComponent: (
       <RadioOptions
@@ -259,7 +242,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 18',
     question: 'Annual family income (USD):',
     responseComponent: (
       <RadioOptions
@@ -276,7 +258,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 19',
     question: 'Household size:',
     responseComponent: (
       <RadioOptions
@@ -287,13 +268,11 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 20',
     question: 'What is your usual country of residence?' +
     ' (i.e. the country where you spend most of your time eating and sleeping, not continent):',
     responseComponent: <CountryPicker />,
   },
   {
-    header: 'QUESTION 21',
     question: 'Which of the following best describes the setting you grew up in?',
     responseComponent: (
       <RadioOptions
@@ -310,7 +289,6 @@ const sceneInfos = [
     ),
   },
   {
-    header: 'QUESTION 22',
     question: 'Occupation:',
     responseComponent: (
       <RadioOptions
@@ -341,242 +319,187 @@ const sceneInfos = [
       />
     ),
   },
-  {
-    header: 'QUESTION 23',
-    question: 'I acknowledge that a response rate of >80%' +
-    ' in the subsequent tasks is required for me to receive reimbursement',
-    responseComponent: (
-      <RadioOptions
-        radio_props={['Yes', 'No'].map(option => ({
-          label: option,
-        }))}
-      />
-    ),
-  },
-
 
   {
-    header: 'QUESTION 24',
-    question: 'Since I’ve been involved with your partner,' +
+    question: 'Since I’ve been involved with my partner,' +
     ' my emotions have been on a roller coaster.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 25',
-    question: 'I would feel deep despair if your partner left me.',
+    question: 'I would feel deep despair if my partner left me.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 26',
-    question: 'Sometimes my body trembles with excitement at the sight of your partner.',
+    question: 'Sometimes my body trembles with excitement at the sight of my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 27',
-    question: 'I take delight in studying the movements and angles of your partner’s body.',
+    question: 'I take delight in studying the movements and angles of my partner’s body.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 28',
-    question: 'Sometimes I feel I can’t control my thought; they are obsessively on your partner.',
+    question: 'Sometimes I feel I can’t control my thought; they are obsessively on my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 29',
-    question: 'I feel happy when I am doing something to make your partner happy.',
+    question: 'I feel happy when I am doing something to make my partner happy.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 30',
-    question: 'I would rather be with your partner than anyone else.',
+    question: 'I would rather be with my partner than anyone else.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 31',
-    question: 'I’d get jealous if I thought your partner were falling in love with someone else.',
+    question: 'I’d get jealous if I thought my partner were falling in love with someone else.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 32',
-    question: 'No one else could love your partner like I do.',
+    question: 'No one else could love my partner like I do.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 33',
-    question: 'I yearn to know all about your partner.',
+    question: 'I yearn to know all about my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 34',
-    question: 'I want your partner -- physically, emotionally, mentally.',
+    question: 'I want my partner -- physically, emotionally, mentally.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 35',
-    question: 'I will love your partner forever.',
+    question: 'I will love my partner forever.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 36',
-    question: 'I melt when looking deeply into your partner’s eyes.',
+    question: 'I melt when looking deeply into my partner’s eyes.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 37',
-    question: 'I have an endless appetite for affection from your partner.',
+    question: 'I have an endless appetite for affection from my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 38',
-    question: 'For me, your partner is the perfect romantic partner.',
+    question: 'For me, my partner is the perfect romantic partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 39',
-    question: 'your partner is the person who can make me feel the happiest.',
+    question: 'My partner is the person who can make me feel the happiest.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 40',
-    question: 'I sense my body responding when your partner touches me.',
+    question: 'I sense my body responding when my partner touches me.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 41',
-    question: 'I feel tender toward your partner.',
+    question: 'I feel tender toward my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 42',
-    question: 'your partner always seems to be on my mind.',
+    question: 'My partner always seems to be on my mind.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 43',
-    question: 'If I were separated from your partnerfor a long time, I would feel intensely lonely.',
+    question: 'If I were separated from my partnerfor a long time, I would feel intensely lonely.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 44',
-    question: 'I sometimes find it difficult to concentrate on work because thoughts of your partner occupy my mind.',
+    question: 'I sometimes find it difficult to concentrate on work because thoughts of my partner occupy my mind.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 45',
-    question: 'I want your partner to know me – my thoughts, my fears, and my hopes.',
+    question: 'I want my partner to know me – my thoughts, my fears, and my hopes.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 46',
-    question: 'Knowing that your partner cares about me makes me feel complete.',
+    question: 'Knowing that my partner cares about me makes me feel complete.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 47',
-    question: 'I eagerly look for signs indicating your partner’s desire for me.',
+    question: 'I eagerly look for signs indicating my partner’s desire for me.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 48',
-    question: 'If your partner were going through a difficult time, I would put away my own concerns to help him/her out.',
+    question: 'If my partner were going through a difficult time, I would put away my own concerns to help him/her out.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 49',
-    question: 'your partner can make me feel effervescent and bubbly.',
+    question: 'My partner can make me feel effervescent and bubbly.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 50',
-    question: 'In the presence of your partner, I yearn to touch and be touched.',
+    question: 'In the presence of my partner, I yearn to touch and be touched.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 51',
-    question: 'An existence without your partner would be dark and dismal.',
+    question: 'An existence without my partner would be dark and dismal.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 52',
-    question: 'I possess a powerful attraction for your partner.',
+    question: 'I possess a powerful attraction for my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 53',
-    question: 'I get extremely depressed when things don’t go right in my relationship with your partner.',
+    question: 'I get extremely depressed when things don’t go right in my relationship with my partner.',
     responseComponent: scaleResponse,
   },
 
 
   {
-    header: 'QUESTION 54',
-    question: 'If your partner were feeling badly, my first duty would be to cheer him (her) up.',
+    question: 'If my partner were feeling badly, my first duty would be to cheer him/her up.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 55',
-    question: 'I feel that I can confide in your partner about virtually everything.',
+    question: 'I feel that I can confide in my partner about virtually everything.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 56',
-    question: 'I find it easy to ignore your partner ’s faults.',
+    question: 'I find it easy to ignore my partner ’s faults.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 57',
-    question: 'I would do almost anything for your partner.',
+    question: 'I would do almost anything for my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 58',
-    question: 'I feel very possessive toward your partner.',
+    question: 'I feel very possessive toward my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 59',
-    question: 'If I could never be with your partner, I would feel miserable.',
+    question: 'If I could never be with my partner, I would feel miserable.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 60',
-    question: 'If I were lonely, my first thought would be to seek out your partner.',
+    question: 'If I were lonely, my first thought would be to seek out my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 61',
-    question: 'One of my primary concerns is your partner ’s welfare.',
+    question: 'One of my primary concerns is my partner ’s welfare.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 62',
-    question: 'I would forgive your partner for practically anything.',
+    question: 'I would forgive my partner for practically anything.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 63',
-    question: 'I feel responsible for your partner ’s well-being.',
+    question: 'I feel responsible for my partner ’s well-being.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 64',
-    question: 'When I am with your partner, I spend a good deal of time just looking at him (her).',
+    question: 'When I am with my partner, I spend a good deal of time just looking at him/her.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 65',
-    question: 'I would greatly enjoy being confided in by your partner.',
+    question: 'I would greatly enjoy being confided in by my partner.',
     responseComponent: scaleResponse,
   },
   {
-    header: 'QUESTION 66',
-    question: 'It would be hard for me to get along without your partner.',
+    question: 'It would be hard for me to get along without my partner.',
     responseComponent: scaleResponse,
   },
 ];
 
 const scenes = sceneInfos.map((scene, i) => ({
   ...scene,
+  header: `QUESTION ${i}`,
   nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].header : 'Question 1',
   previousScene: i > 0 ? sceneInfos[i - 1].header : undefined,
 }));
