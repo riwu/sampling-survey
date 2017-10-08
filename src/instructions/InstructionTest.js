@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 

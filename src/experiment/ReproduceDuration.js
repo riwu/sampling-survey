@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
 class ReproduceDuration extends React.Component {
   state = {
-    timerStarted: false,
+    startTimer: undefined,
   }
   render() {
     return (
@@ -76,14 +76,25 @@ class ReproduceDuration extends React.Component {
           <Button
             text="START TIMER"
             style={[styles.button, { backgroundColor: '#00e500' }]}
-            disabled={this.state.timerStarted}
-            onPress={() => this.setState({ timerStarted: true })}
+            disabled={this.state.startTimer}
+            onPress={() => this.setState({ startTimer: Date.now() })}
           />
           <Button
             text="STOP TIMER"
             style={[styles.button, { backgroundColor: 'red' }]}
-            disabled={!this.state.timerStarted}
-            onPress={() => Actions.push(this.props.nextScene)}
+            disabled={!this.state.startTimer}
+            onPress={() => {
+              const duration = Date.now() - this.state.startTimer;
+              if (this.props.trial && (duration < 500 ||
+                Math.abs(duration - this.props.actualDuration) > 3000)) {
+                Alert.alert('Your response was incorrect.', 'Please try again', {
+                  onDismiss: () => console.log('dismissed'),
+                });
+                return;
+              }
+              this.props.setAnswerText(duration);
+              Actions.push(this.props.nextScene);
+            }}
           />
         </View>
       </ScrollView>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, ScrollView } from 'react-native-router-flux';
+import { Scene } from 'react-native-router-flux';
 import RouterWithRedux from './RouterWithRedux';
 
 import InformationSheet from './consentForm/InformationSheet';
@@ -9,7 +9,7 @@ import surveyQuestions from './questionnaire/questions';
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransition from './experiment/ReadyTransitionContainer';
-import ReproduceDuration from './experiment/ReproduceDuration';
+import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import MiddleText from './components/MiddleText';
 
 import InstructionTest from './instructions/InstructionTest';
@@ -25,7 +25,7 @@ const scenes = [
   ...[1, 2, 3].map((roundNum, i, arr) => [
     [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
     [`ReadyTransitionTrial${roundNum}`, <ReadyTransition trial roundNum={roundNum} />],
-    [`ReproduceDurationTrial${roundNum}`, <ReproduceDuration trial roundNum={roundNum} />],
+    [`ReproduceDurationTrial${roundNum}`, <ReproduceDuration trial />],
   ]).reduce((arr, round) => [...arr, ...round], []),
 
 
