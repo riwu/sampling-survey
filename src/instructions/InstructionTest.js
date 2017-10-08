@@ -6,6 +6,8 @@ import Button from '../components/Button';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
   },
   header: {
     color: 'white',
@@ -67,53 +69,51 @@ class InstructionTest extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.header}>Please follow the instructions</Text>
-          <View style={styles.instructionContainer}>
-            <View style={{ flex: 0.1 }} />
-            <View style={styles.instructions}>
-              <Text style={styles.instructionTitle}>
+      <View style={styles.container}>
+        <Text style={styles.header}>Please follow the instructions</Text>
+        <View style={styles.instructionContainer}>
+          <View style={{ flex: 0.1 }} />
+          <View style={styles.instructions}>
+            <Text style={styles.instructionTitle}>
               Press the {this.state.startPressed ? 'STOP' : 'START'} button now
-              </Text>
-            </View>
-            <View style={{ flex: 0.1 }} />
+            </Text>
           </View>
-          <Button
-            style={[styles.button, {
-              backgroundColor: '#00e500',
-            }]}
-            onPress={() => {
-              if (this.isDisqualified()) {
-                return;
-              }
-              if (this.state.startPressed) {
-                this.showTestFailed();
-              }
-              this.setState({ startPressed: !this.state.startPressed });
-            }}
-            text="START TIMER"
-          />
-          <Button
-            style={
-              [styles.button, {
-                backgroundColor: 'red',
-              },
-              ]}
-            onPress={() => {
-              if (this.isDisqualified()) {
-                return;
-              }
-              if (!this.state.startPressed) {
-                this.showTestFailed();
-              } else {
-                Actions.push(this.props.nextScene);
-              }
-            }}
-            text="STOP TIMER"
-          />
+          <View style={{ flex: 0.1 }} />
         </View>
-      </ScrollView>
+        <Button
+          style={[styles.button, {
+            backgroundColor: '#00e500',
+          }]}
+          onPress={() => {
+            if (this.isDisqualified()) {
+              return;
+            }
+            if (this.state.startPressed) {
+              this.showTestFailed();
+            }
+            this.setState({ startPressed: !this.state.startPressed });
+          }}
+          text="START TIMER"
+        />
+        <Button
+          style={
+            [styles.button, {
+              backgroundColor: 'red',
+            },
+            ]}
+          onPress={() => {
+            if (this.isDisqualified()) {
+              return;
+            }
+            if (!this.state.startPressed) {
+              this.showTestFailed();
+            } else {
+              Actions.push(this.props.nextScene);
+            }
+          }}
+          text="STOP TIMER"
+        />
+      </View>
     );
   }
 }

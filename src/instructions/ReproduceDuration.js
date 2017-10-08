@@ -6,18 +6,12 @@ import Button from '../components/Button';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-  },
-  header: {
-    color: 'white',
-    marginTop: 50,
-    marginLeft: 20,
-    marginRight: 20,
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    flex: 1,
+    justifyContent: 'center',
   },
   instructionContainer: {
     flexDirection: 'row',
+    minHeight: 200,
   },
   instructions: {
     backgroundColor: 'lightgrey',
@@ -28,6 +22,7 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     borderColor: 'lightgrey',
     flex: 0.8,
+    justifyContent: 'center',
   },
   instructionTitle: {
     fontSize: 17,
@@ -56,37 +51,34 @@ class ReproduceDuration extends React.Component {
   }
   render() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.header}>HOW LONG WAS THE SCREEN RED FOR?</Text>
-          <View style={styles.instructionContainer}>
-            <View style={{ flex: 0.1 }} />
-            <View style={styles.instructions}>
-              <Text style={styles.instructionTitle}>Reproduce the duration</Text>
-              <Text style={styles.text}>1. Press 'START' when you're ready</Text>
-              <Text style={styles.text}>2. Press 'STOP' when you think you've reproduced the duration the screen was red for.</Text>
-              <Text style={styles.text}>Remember:</Text>
-              <Text style={styles.text}>- <Text style={{ textDecorationLine: 'underline' }}>Don't count</Text> how much time has passed</Text>
-              <Text style={styles.text}>- We're interested in what it
-                <Text style={{ fontStyle: 'italic' }}> feels like</Text> to you
-              </Text>
-            </View>
-            <View style={{ flex: 0.1 }} />
+      <View style={styles.container}>
+        <View style={styles.instructionContainer}>
+          <View style={{ flex: 0.1 }} />
+          <View style={styles.instructions}>
+            <Text style={styles.instructionTitle}>
+              {this.state.timerStarted
+                ?
+                'Your time estimation is ongoing.\nWhen you think the amount of time ' +
+                'that has passed matches the time your screen was red, press the stop timer button.'
+                :
+                'Press the start timer button to start your time estimation'}
+            </Text>
           </View>
-          <Button
-            text="START TIMER"
-            style={[styles.button, { backgroundColor: '#00e500' }]}
-            disabled={this.state.timerStarted}
-            onPress={() => this.setState({ timerStarted: true })}
-          />
-          <Button
-            text="STOP TIMER"
-            style={[styles.button, { backgroundColor: 'red' }]}
-            disabled={!this.state.timerStarted}
-            onPress={() => Actions.push(this.props.nextScene)}
-          />
+          <View style={{ flex: 0.1 }} />
         </View>
-      </ScrollView>
+        <Button
+          text="START TIMER"
+          style={[styles.button, { backgroundColor: '#00e500' }]}
+          disabled={this.state.timerStarted}
+          onPress={() => this.setState({ timerStarted: true })}
+        />
+        <Button
+          text="STOP TIMER"
+          style={[styles.button, { backgroundColor: 'red' }]}
+          disabled={!this.state.timerStarted}
+          onPress={() => Actions.push(this.props.nextScene)}
+        />
+      </View>
     );
   }
 }

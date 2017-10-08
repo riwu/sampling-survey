@@ -22,25 +22,19 @@ const sceneStyle = {
 };
 
 const scenes = [
+
   ['InformationSheet', <InformationSheet />],
-
-  ['ReproduceDuration', <ReproduceDuration />],
-
-  ['Instruction6', <Instruction6 />],
-
-  ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
-  ['Instruction4', <RedScreen />],
-
-  ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
-
-  ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
-
-  ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
-  ['InstructionTest', <InstructionTest />],
-
   ['ConsentForm', <ConsentForm />],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
   ...surveyQuestions,
+  ['InstructionTest', <InstructionTest />],
+  ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
+  ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
+  ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
+  ['Instruction4', <RedScreen />],
+  ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
+  ['Instruction6', <Instruction6 />],
+  ['Instruction7', <MiddleText text="Well done! Now there will be some trials for you to practice." noPrevious />],
 
   Question1,
   ['ReadyScreen', <ReadyScreen />],
