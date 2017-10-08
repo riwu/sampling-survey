@@ -30,7 +30,9 @@ const scenes = [
     [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
-  ['TrialPassed', <MiddleText text={`Well done!
+  ['TrialPassed', <MiddleText
+    noPrevious
+    text={`Well done!
     Now that you understand the task, you will be prompted,
     7 times a day at random times over the course of the next week to complete this same task.
     This will not take more than 5 minutes of your time.

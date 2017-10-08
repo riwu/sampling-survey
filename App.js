@@ -6,11 +6,11 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 
 import logger from 'redux-logger';
 
-import reducer from './src/reducers/reducer';
+import reducer from './src/reducers';
 import Routes from './src/Routes';
 
-const store = createStore(reducer); // autoRehydrate()  applyMiddleware(logger)
-persistStore(store, { storage: AsyncStorage });
+const store = createStore(reducer); // autoRehydrate() applyMiddleware(logger)
+// persistStore(store, { storage: AsyncStorage });
 
 const App = () => (
   <Provider store={store}>
