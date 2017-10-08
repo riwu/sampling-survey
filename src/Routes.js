@@ -5,7 +5,7 @@ import RouterWithRedux from './RouterWithRedux';
 import InformationSheet from './consentForm/InformationSheet';
 import ConsentForm from './consentForm/ConsentForm';
 import MiddleTextWithNav from './components/MiddleTextWithNav';
-import surveyQuestions from './questions/questions';
+import surveyQuestions from './questionnaire/questions';
 
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
 import ReadyScreen from './experiment/ReadyScreen';

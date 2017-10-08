@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReadyScreen = () => (
+const ReadyScreen = ({ nextScene }) => (
   <View style={styles.container}>
     <Text style={styles.ready}>READY FOR YOUR TASK?</Text>
     <Text style={styles.round}>ROUND 1 OF 5</Text>
@@ -62,7 +62,7 @@ const ReadyScreen = () => (
       </View>
       <View style={{ flex: 0.1 }} />
     </View>
-    <Button text="Ready" onPress={() => Actions.replace('ReadyTransition')} />
+    <Button text="Ready" onPress={() => Actions.replace(nextScene)} />
   </View>
 );
 

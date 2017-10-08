@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
-import ButtonToNextScene from '../questions/ButtonToNextScene';
+import ButtonToNextScene from '../components/ButtonToNextScene';
 
 const styles = StyleSheet.create({
   header: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InformationSheet = ({ nextScene }) => (
+const InformationSheet = ({ previousScene, nextScene }) => (
   <ScrollView style={styles.container}>
     <Text style={styles.header}>
         ONLINE PARTICIPANT INFORMATION SHEET
@@ -71,7 +71,7 @@ const InformationSheet = ({ nextScene }) => (
     <Text style={styles.text}>
         The project has received ethical approval from the Institutional Review Board of the National University of Singapore. If you have any concerns or questions about any aspect of this study, you may email Dr Jean Liu at jeanliu@yale-nus.edu.sg. For an independent opinion regarding the research and the rights of research participants, you may contact a staff member of the National University of Singapore Institutional Review Board (Attn: Dr Chan Tuck Wai, at telephone +65-6516 1234 or email irb@nus.edu.sg).
     </Text>
-    <ButtonToNextScene nextScene={nextScene} />
+    <ButtonToNextScene previousScene={previousScene} nextScene={nextScene} />
   </ScrollView>
 );
 

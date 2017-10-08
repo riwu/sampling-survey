@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Slider, Text } from 'react-native';
-import ButtonToNextScene from '../questions/ButtonToNextSceneContainer';
+import ButtonToNextScene from './ButtonToNextSceneContainer';
 
 const styles = StyleSheet.create({
   container: {

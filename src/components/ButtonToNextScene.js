@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Button from '../components/Button';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   buttons: {

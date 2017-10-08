@@ -1,7 +1,7 @@
 import React from 'react';
-import RadioOptions from '../questions/RadioOptionsContainer';
-import Slider from './SliderContainer';
-import Question from '../questions/Question';
+import RadioOptions from '../components/RadioOptionsContainer';
+import Slider from '../components/SliderContainer';
+import Question from '../components/Question';
 
 const mapToQuestion = props => [props.header, <Question {...props} />];
 

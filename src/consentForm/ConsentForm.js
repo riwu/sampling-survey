@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import Checkbox from 'react-native-checkbox-heaven';
-import ButtonToNextScene from '../questions/ButtonToNextScene';
+import ButtonToNextScene from '../components/ButtonToNextScene';
 
 const styles = StyleSheet.create({
   header: {

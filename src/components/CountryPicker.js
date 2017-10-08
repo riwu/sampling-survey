@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import CountryPicker from 'react-native-country-picker-modal';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
-import Button from '../components/Button';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   countryPicker: {

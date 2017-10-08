@@ -87,7 +87,7 @@ class ReproduceDuration extends React.Component {
               opacity: this.state.timerStarted ? 1 : 0.4,
             },
             ]}
-          onPress={() => Actions.push('Question 2')}
+          onPress={() => Actions.push(this.props.nextScene)}
         >
           <Text style={styles.buttonText}>STOP TIMER</Text>
         </TouchableHighlight>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text } from 'react-native';
-import RadioOptions from './RadioOptionsContainer';
-import TextInputResponse from './TextInputResponse';
+import RadioOptions from '../components/RadioOptionsContainer';
+import TextInputResponse from '../components/TextInputResponse';
 import UnderlinedText from '../components/UnderlinedText';
-import CountryPicker from './CountryPickerContainer';
-import CheckboxList from './CheckboxListContainer';
-import Question from './Question';
+import CountryPicker from '../components/CountryPickerContainer';
+import CheckboxList from '../components/CheckboxListContainer';
+import Question from '../components/Question';
 
 const OTHERS = [{
   label: 'Others (please specify):',
