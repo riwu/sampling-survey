@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReadyScreen = ({ nextScene }) => (
+const ReadyScreen = ({ nextScene, roundText }) => (
   <ScrollView>
     <View style={styles.container}>
       <Text style={styles.header}>READY FOR YOUR TASK?</Text>
-      <Text style={styles.subHeader}>ROUND 1 OF 5</Text>
+      <Text style={styles.subHeader}>ROUND {roundText}</Text>
       <Text style={styles.plus} >+</Text>
       <View style={styles.instructionContainer}>
         <View style={{ flex: 0.1 }} />

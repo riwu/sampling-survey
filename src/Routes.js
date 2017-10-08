@@ -8,7 +8,7 @@ import surveyQuestions from './questionnaire/questions';
 
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
 import ReadyScreen from './experiment/ReadyScreen';
-import ReadyTransition from './experiment/ReadyTransition';
+import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDuration';
 import MiddleText from './components/MiddleText';
 
@@ -22,6 +22,12 @@ const sceneStyle = {
 };
 
 const scenes = [
+  ...[1, 2, 3].map((roundNum, i, arr) => [
+    [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransition trial roundNum={roundNum} />],
+    [`ReproduceDurationTrial${roundNum}`, <ReproduceDuration trial roundNum={roundNum} />],
+  ]).reduce((arr, round) => [...arr, ...round], []),
+
 
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
@@ -34,7 +40,7 @@ const scenes = [
   ['Instruction4', <RedScreen />],
   ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
   ['Instruction6', <Instruction6 />],
-  ['Instruction7', <MiddleText text="Well done! Now there will be some trials for you to practice." noPrevious />],
+  ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
 
   Question1,
   ['ReadyScreen', <ReadyScreen />],

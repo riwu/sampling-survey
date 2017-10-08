@@ -3,7 +3,6 @@ import Slider from './Slider';
 import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  ...ownProps,
   value: state.answers[ownProps.header],
 });
 

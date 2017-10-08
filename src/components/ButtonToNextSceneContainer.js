@@ -4,7 +4,6 @@ import ButtonToNextScene from './ButtonToNextScene';
 const mapStateToProps = (state, ownProps) => {
   const answer = state.answers[ownProps.header];
   return {
-    ...ownProps,
     disabled: (answer === undefined) || (typeof answer === 'string' && answer.trim() === ''),
   };
 };

@@ -3,7 +3,6 @@ import RadioOptions from './RadioOptions';
 import { setAnswerIndex, setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  ...ownProps,
   answer: state.answers[ownProps.header] || {},
 });
 

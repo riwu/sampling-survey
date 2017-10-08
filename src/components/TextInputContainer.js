@@ -3,7 +3,6 @@ import TextInput from './TextInput';
 import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  ...ownProps,
   value: state.answers[ownProps.header],
 });
 

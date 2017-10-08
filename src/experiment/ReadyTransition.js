@@ -23,12 +23,18 @@ class ReadyTransition extends React.Component {
     turned: false,
   }
   componentDidMount() {
+    const blackTimeout = (Math.floor(Math.random() * 3) + 1) * 1000;
+    const redTimeout = 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)];
+    this.props.setAnswerText({
+      blackTimeout,
+      redTimeout,
+    });
     setTimeout(() => {
       this.setState({ turned: true });
-    }, (Math.floor(Math.random() * 3) + 1) * 1000,
+    }, blackTimeout,
     setTimeout(() => {
       Actions.replace(this.props.nextScene);
-    }, 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)]));
+    }, redTimeout));
   }
   render() {
     return (
