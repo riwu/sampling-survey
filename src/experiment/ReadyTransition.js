@@ -29,14 +29,12 @@ class ReadyTransition extends React.Component {
       blackDuration,
       redDuration,
     });
-    setTimeout((fn) => {
+    setTimeout(() => {
       this.setState({ turned: true });
-      fn();
-    }, blackDuration, () => {
       setTimeout(() => {
         Actions.replace(this.props.nextScene);
       }, redDuration);
-    });
+    }, blackDuration);
   }
   render() {
     return (

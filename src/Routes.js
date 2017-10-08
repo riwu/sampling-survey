@@ -15,8 +15,10 @@ import Instruction6 from './instructions/ReproduceDuration';
 
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
-import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
+import Instruction from './instructions/Instruction';
+
+import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
 
@@ -25,6 +27,7 @@ const sceneStyle = {
 };
 
 const scenes = [
+  ['Instruction', <Instruction />],
   ...[1, 2, 3].map((roundNum, i, arr) => [
     [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
     [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
