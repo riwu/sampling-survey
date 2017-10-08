@@ -40,7 +40,7 @@ const RadioOptions = (props) => {
 };
 
 RadioOptions.defaultProps = {
-  hasOthers: true,
+  answer: false,
 };
 
 export default RadioOptions;

@@ -42,4 +42,9 @@ const CheckboxList = props => (
   </View>
 );
 
+CheckboxList.defaultProps = {
+  answer: {},
+};
+
+
 export default CheckboxList;

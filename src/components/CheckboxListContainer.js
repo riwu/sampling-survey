@@ -3,7 +3,7 @@ import CheckboxList from './CheckboxList';
 import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  answer: state.answers[ownProps.header] || {},
+  answer: state.answers[ownProps.header],
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
