@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 
@@ -67,51 +67,53 @@ class InstructionTest extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Please follow the instructions</Text>
-        <View style={styles.instructionContainer}>
-          <View style={{ flex: 0.1 }} />
-          <View style={styles.instructions}>
-            <Text style={styles.instructionTitle}>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.header}>Please follow the instructions</Text>
+          <View style={styles.instructionContainer}>
+            <View style={{ flex: 0.1 }} />
+            <View style={styles.instructions}>
+              <Text style={styles.instructionTitle}>
               Press the {this.state.startPressed ? 'STOP' : 'START'} button now
-            </Text>
+              </Text>
+            </View>
+            <View style={{ flex: 0.1 }} />
           </View>
-          <View style={{ flex: 0.1 }} />
+          <Button
+            style={[styles.button, {
+              backgroundColor: '#00e500',
+            }]}
+            onPress={() => {
+              if (this.isDisqualified()) {
+                return;
+              }
+              if (this.state.startPressed) {
+                this.showTestFailed();
+              }
+              this.setState({ startPressed: !this.state.startPressed });
+            }}
+            text="START TIMER"
+          />
+          <Button
+            style={
+              [styles.button, {
+                backgroundColor: 'red',
+              },
+              ]}
+            onPress={() => {
+              if (this.isDisqualified()) {
+                return;
+              }
+              if (!this.state.startPressed) {
+                this.showTestFailed();
+              } else {
+                Actions.push(this.props.nextScene);
+              }
+            }}
+            text="STOP TIMER"
+          />
         </View>
-        <Button
-          style={[styles.button, {
-            backgroundColor: '#00e500',
-          }]}
-          onPress={() => {
-            if (this.isDisqualified()) {
-              return;
-            }
-            if (this.state.startPressed) {
-              this.showTestFailed();
-            }
-            this.setState({ startPressed: !this.state.startPressed });
-          }}
-          text="START TIMER"
-        />
-        <Button
-          style={
-            [styles.button, {
-              backgroundColor: 'red',
-            },
-            ]}
-          onPress={() => {
-            if (this.isDisqualified()) {
-              return;
-            }
-            if (!this.state.startPressed) {
-              this.showTestFailed();
-            } else {
-              Actions.push(this.props.nextScene);
-            }
-          }}
-          text="STOP TIMER"
-        />
-      </View>
+      </ScrollView>
     );
   }
 }

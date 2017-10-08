@@ -1,10 +1,9 @@
 import React from 'react';
-import { Scene } from 'react-native-router-flux';
+import { Scene, ScrollView } from 'react-native-router-flux';
 import RouterWithRedux from './RouterWithRedux';
 
 import InformationSheet from './consentForm/InformationSheet';
 import ConsentForm from './consentForm/ConsentForm';
-import MiddleTextWithNav from './components/MiddleTextWithNav';
 import surveyQuestions from './questionnaire/questions';
 
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
@@ -14,18 +13,33 @@ import ReproduceDuration from './experiment/ReproduceDuration';
 import MiddleText from './components/MiddleText';
 
 import InstructionTest from './instructions/InstructionTest';
+import InstructionWithCross from './instructions/InstructionWithCross';
+import RedScreen from './instructions/RedScreen';
+import Instruction6 from './instructions/ReproduceDuration';
 
 const sceneStyle = {
   backgroundColor: 'black',
 };
 
 const scenes = [
-  ['Instruction1', <MiddleTextWithNav text="Your task is to estimate how long your screen is red." noPrevious />],
+  ['InformationSheet', <InformationSheet />],
+
+  ['ReproduceDuration', <ReproduceDuration />],
+
+  ['Instruction6', <Instruction6 />],
+
+  ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
+  ['Instruction4', <RedScreen />],
+
+  ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
+
+  ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
+
+  ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
   ['InstructionTest', <InstructionTest />],
 
-  ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
-  ['BeginQuestions', <MiddleTextWithNav text="To begin, let's answer some questions" />],
+  ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
   ...surveyQuestions,
 
   Question1,
@@ -49,6 +63,7 @@ const App = () => (
         />
       ))}
     </Scene>
+
   </RouterWithRedux>
 );
 

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Question = ({ header, question, responseComponent, nextScene, previousScene }) => (
+const Question = ({ header, question, responseComponent, nextScene, previousScene, noPrevious }) => (
   <ScrollView>
     <Text style={styles.header}>{header}</Text>
     <View style={styles.textContainer}>
@@ -32,7 +32,7 @@ const Question = ({ header, question, responseComponent, nextScene, previousScen
     {React.cloneElement(responseComponent, {
       header,
       nextScene,
-      previousScene,
+      previousScene: noPrevious ? undefined : previousScene,
     })}
   </ScrollView>
 );

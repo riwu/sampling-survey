@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import ButtonToNextScene from './ButtonToNextScene';
 
 const styles = StyleSheet.create({
   header: {
@@ -16,12 +17,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const MiddleText = ({ text, children }) => (
+const MiddleText = ({ text, nextScene, noNext, previousScene, noPrevious }) => (
   <View style={styles.container}>
     <Text style={styles.header}>
       {text}
     </Text>
-    {children}
+    <ButtonToNextScene
+      nextScene={noNext ? undefined : nextScene}
+      previousScene={noPrevious ? undefined : previousScene}
+    />
   </View>
 );
 

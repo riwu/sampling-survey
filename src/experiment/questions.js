@@ -62,6 +62,7 @@ export const questionsAfterExperiment = [
         })).concat(OTHERS)}
       />
     ),
+    noPrevious: true,
   },
   {
     header: 'Question 3',
