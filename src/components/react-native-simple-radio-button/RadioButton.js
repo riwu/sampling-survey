@@ -3,7 +3,7 @@ import { View, LayoutAnimation, Dimensions } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import RadioButtonInput from './RadioButtonInput';
 import RadioButtonLabel from './RadioButtonLabel';
-import TextInput from '../questions/TextInput';
+import TextInput from '../TextInput';
 import Style from './Style';
 
 const width = Dimensions.get('window').width;

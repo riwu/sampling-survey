@@ -19,13 +19,15 @@ const sceneStyle = {
   backgroundColor: 'black',
 };
 
-//  ['InstructionTest', 'InstructionTest'],
-
 const scenes = [
+  ['Instruction1', <MiddleTextWithNav text="Your task is to estimate how long your screen is red." noPrevious />],
+  ['InstructionTest', <InstructionTest />],
+
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
   ['BeginQuestions', <MiddleTextWithNav text="To begin, let's answer some questions" />],
   ...surveyQuestions,
+
   Question1,
   ['ReadyScreen', <ReadyScreen />],
   ['ReadyTransition', <ReadyTransition />],
