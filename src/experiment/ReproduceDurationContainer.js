@@ -2,11 +2,12 @@ import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
 import { updateAnswer } from '../actions';
 
-const mapDispatchToProps = dispatch => ({
-  updateDuration: answer => dispatch(updateAnswer({
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateDuration: recordedDuration => dispatch(updateAnswer({
     header: 'Experiment',
     answer: {
-      answer,
+      round: ownProps.roundNum,
+      recordedDuration,
     },
   })),
 });

@@ -85,14 +85,12 @@ class ReproduceDuration extends React.Component {
             disabled={!this.state.startTimer}
             onPress={() => {
               const duration = Date.now() - this.state.startTimer;
+              this.props.updateDuration(duration);
               if (this.props.actualDuration && (duration < 500 ||
                 Math.abs(duration - this.props.actualDuration) > 3000)) {
-                Alert.alert('Your response was incorrect.', 'Please try again', {
-                  onDismiss: () => console.log('dismissed'),
-                });
+                Actions.push('FailedTrial', { roundNum: this.props.roundNum });
                 return;
               }
-              this.props.updateDuration(duration);
               Actions.push(this.props.nextScene);
             }}
           />

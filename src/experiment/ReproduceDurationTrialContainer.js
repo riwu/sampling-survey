@@ -11,11 +11,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  updateDuration: answer => dispatch(updateAnswer({
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateDuration: recordedDuration => dispatch(updateAnswer({
     header,
     answer: {
-      answer,
+      round: ownProps.roundNum,
+      recordedDuration,
     },
   })),
 });

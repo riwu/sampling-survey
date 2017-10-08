@@ -20,7 +20,6 @@ import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
 
-
 const sceneStyle = {
   backgroundColor: 'black',
 };
@@ -28,10 +27,15 @@ const sceneStyle = {
 const scenes = [
   ...[1, 2, 3].map((roundNum, i, arr) => [
     [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} />],
-    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
+    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
-
+  ['TrialPassed', <MiddleText text={`Well done!
+    Now that you understand the task, you will be prompted,
+    7 times a day at random times over the course of the next week to complete this same task.
+    This will not take more than 5 minutes of your time.
+    Please respond within 30 minutes of prompting.`}
+  />],
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
@@ -65,6 +69,16 @@ const App = () => (
           })}
         />
       ))}
+
+      <Scene
+        key="FailedTrial"
+        component={props => (
+          <MiddleText
+            text="Your response was incorrect. Please try again."
+            nextScene={`ReadyScreenTrial${props.roundNum}`}
+          />
+        )}
+      />
     </Scene>
 
   </RouterWithRedux>
