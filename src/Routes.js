@@ -1,47 +1,51 @@
 import React from 'react';
 import { Scene } from 'react-native-router-flux';
-
 import RouterWithRedux from './RouterWithRedux';
-import ReadyScreen from './experiment/ReadyScreen';
-import ReadyTransition from './experiment/ReadyTransition';
-import ReproduceDuration from './experiment/ReproduceDuration';
-
-import experimentQuestions from './experiment/questions';
-import surveyQuestions from './questions/Questions';
-
-import Question from './questions/Question';
 
 import InformationSheet from './consentForm/InformationSheet';
 import ConsentForm from './consentForm/ConsentForm';
-import BeginQuestions from './consentForm/BeginQuestions';
+import MiddleTextWithNav from './components/MiddleTextWithNav';
+import surveyQuestions from './questions/questions';
+
+import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
+import ReadyScreen from './experiment/ReadyScreen';
+import ReadyTransition from './experiment/ReadyTransition';
+import ReproduceDuration from './experiment/ReproduceDuration';
+import MiddleText from './components/MiddleText';
+
+import InstructionTest from './instructions/InstructionTest';
 
 const sceneStyle = {
   backgroundColor: 'black',
 };
 
+//  ['InstructionTest', 'InstructionTest'],
+
+const scenes = [
+  ['InformationSheet', <InformationSheet />],
+  ['ConsentForm', <ConsentForm />],
+  ['BeginQuestions', <MiddleTextWithNav text="To begin, let's answer some questions" />],
+  ...surveyQuestions,
+  Question1,
+  ['ReadyScreen', <ReadyScreen />],
+  ['ReadyTransition', <ReadyTransition />],
+  ['ReproduceDuration', <ReproduceDuration />],
+  ...questionsAfterExperiment,
+  ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.'} />],
+];
 
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
     <Scene hideNavBar>
-      <Scene key="InformationSheet" component={InformationSheet} />
-      <Scene key="ConsentForm" component={ConsentForm} />
-      <Scene key="BeginQuestions" component={BeginQuestions} />
-
-      {
-        surveyQuestions.map(scene => (
-          <Scene key={scene.header} component={() => <Question {...scene} />} />
-        ))
-      }
-
-      {
-        experimentQuestions.map(question => (
-          <Scene key={question.header} component={() => <Question {...question} />} />
-        ))
-      }
-
-      <Scene key="ReadyScreen" component={ReadyScreen} />
-      <Scene key="ReadyTransition" component={ReadyTransition} />
-      <Scene key="ReproduceDuration" component={ReproduceDuration} />
+      {scenes.map(([key, component], i, arr) => (
+        <Scene
+          key={key}
+          component={() => React.cloneElement(component, {
+            nextScene: (arr[i + 1] || [])[0],
+            previousScene: (arr[i - 1] || [])[0],
+          })}
+        />
+      ))}
     </Scene>
   </RouterWithRedux>
 );

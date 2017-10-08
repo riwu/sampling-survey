@@ -1,51 +1,53 @@
 import React from 'react';
 import RadioOptions from '../questions/RadioOptionsContainer';
 import Slider from './SliderContainer';
+import Question from '../questions/Question';
+
+const mapToQuestion = props => [props.header, <Question {...props} />];
 
 const OTHERS = [{
   label: 'Others (please specify):',
   hasTextInput: true,
 }];
 
-const miscQuestions = [
-  {
-    header: 'SESSION TIMED OUT',
-    question: 'I did not respond earlier because:',
-    responseComponent: (
-      <RadioOptions
-        radio_props={[
-          "I didn't have my phone with me.",
-          'I was sleeping.',
-          "I was doing something that couldn't be disrupted.",
-        ].map(option => ({
-          label: option,
-        })).concat([{
-          label: 'Some other reason (please specify):',
-          hasTextInput: true,
-        }])}
-      />
-    ),
-  },
-  {
-    header: 'Question 1',
-    question: 'Right now, I am with (select all that apply):',
-    responseComponent: (
-      <RadioOptions
-        radio_props={[
-          'My boyfriend / girlfriend / partner / spouse',
-          'My friends / colleagues / schoolmates',
-          'My family',
-          'Alone',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
-      />
-    ),
-    nextScene: 'ReadyScreen',
-  },
-];
+export const SessionTimeOut = mapToQuestion({
+  header: 'SESSION TIMED OUT',
+  question: 'I did not respond earlier because:',
+  responseComponent: (
+    <RadioOptions
+      radio_props={[
+        "I didn't have my phone with me.",
+        'I was sleeping.',
+        "I was doing something that couldn't be disrupted.",
+      ].map(option => ({
+        label: option,
+      })).concat([{
+        label: 'Some other reason (please specify):',
+        hasTextInput: true,
+      }])}
+    />
+  ),
+});
 
-const questions = [
+export const Question1 = mapToQuestion({
+  header: 'Question 1',
+  question: 'Right now, I am with (select all that apply):',
+  responseComponent: (
+    <RadioOptions
+      radio_props={[
+        'My boyfriend / girlfriend / partner / spouse',
+        'My friends / colleagues / schoolmates',
+        'My family',
+        'Alone',
+      ].map(option => ({
+        label: option,
+      })).concat(OTHERS)}
+    />
+  ),
+  nextScene: 'ReadyScreen',
+});
+
+export const questionsAfterExperiment = [
   {
     header: 'Question 2',
     question: 'Just before I opened this app, I was doing:',
@@ -89,11 +91,4 @@ const questions = [
       <Slider />
     ),
   },
-];
-
-const questionsWithRoute = questions.map((question, i) => ({
-  ...question,
-  nextScene: i < questions.length - 1 ? questions[i + 1].header : 'Finish',
-  previousScene: i > 0 ? questions[i - 1].header : undefined,
-})).concat(miscQuestions);
-export default questionsWithRoute;
+].map(props => mapToQuestion(props));

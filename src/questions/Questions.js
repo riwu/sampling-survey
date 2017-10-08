@@ -5,6 +5,7 @@ import TextInputResponse from './TextInputResponse';
 import UnderlinedText from '../components/UnderlinedText';
 import CountryPicker from './CountryPickerContainer';
 import CheckboxList from './CheckboxListContainer';
+import Question from './Question';
 
 const OTHERS = [{
   label: 'Others (please specify):',
@@ -48,7 +49,7 @@ const scaleResponse = (
   />
 );
 
-const sceneInfos = [
+const questions = [
   {
     question: 'MTurkID no:',
     responseComponent: <TextInputResponse />,
@@ -495,13 +496,9 @@ const sceneInfos = [
     question: 'It would be hard for me to get along without my partner.',
     responseComponent: scaleResponse,
   },
-];
+].map((scene, i) => {
+  const header = `QUESTION ${i}`;
+  return [header, <Question {...scene} header={header} />];
+});
 
-const scenes = sceneInfos.map((scene, i) => ({
-  ...scene,
-  header: `QUESTION ${i}`,
-  nextScene: i < sceneInfos.length - 1 ? sceneInfos[i + 1].header : 'Question 1',
-  previousScene: i > 0 ? sceneInfos[i - 1].header : undefined,
-}));
-
-export default scenes;
+export default questions;

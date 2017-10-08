@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Finish = () => (
+const MiddleText = ({ text, children }) => (
   <View style={styles.container}>
     <Text style={styles.header}>
-        Your response has been noted.{'\n'}
-        Thank you for your time.
+      {text}
     </Text>
+    {children}
   </View>
 );
 
-export default Finish;
+export default MiddleText;

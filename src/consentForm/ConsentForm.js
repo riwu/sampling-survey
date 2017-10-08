@@ -72,8 +72,8 @@ class ConsentForm extends React.Component {
           </View>
         ))}
         <ButtonToNextScene
-          nextScene="BeginQuestions"
-          previousScene="InformationSheet"
+          nextScene={this.props.nextScene}
+          previousScene={this.props.previousScene}
           disabled={this.state.checkCount < statements.length}
         />
       </ScrollView>
