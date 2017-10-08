@@ -50,6 +50,19 @@ export const Question1 = mapToQuestion({
 export const questionsAfterExperiment = [
   {
     header: 'Question 2',
+    question: 'Did you multitask while doing our task?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          { label: 'Yes (please elaborate):', hasTextInput: true },
+          { label: 'No' },
+        ]}
+      />
+    ),
+    noPrevious: true,
+  },
+  {
+    header: 'Question 3',
     question: 'Just before I opened this app, I was doing:',
     responseComponent: (
       <RadioOptions
@@ -65,7 +78,7 @@ export const questionsAfterExperiment = [
     noPrevious: true,
   },
   {
-    header: 'Question 3',
+    header: 'Question 4',
     question: 'How alert or sleepy do you feel right now?',
     responseComponent: (
       <RadioOptions
@@ -86,7 +99,7 @@ export const questionsAfterExperiment = [
     ),
   },
   {
-    header: 'Question 4',
+    header: 'Question 5',
     question: 'How happy or sad do you feel right now?',
     responseComponent: (
       <Slider />

@@ -27,20 +27,6 @@ const sceneStyle = {
 };
 
 const scenes = [
-  ['Instruction', <Instruction />],
-  ...[1, 2, 3].map((roundNum, i, arr) => [
-    [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
-    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
-  ]).reduce((arr, round) => [...arr, ...round], []),
-  ['TrialPassed', <MiddleText
-    noPrevious
-    text={`Well done!
-    Now that you understand the task, you will be prompted,
-    7 times a day at random times over the course of the next week to complete this same task.
-    This will not take more than 5 minutes of your time.
-    Please respond within 30 minutes of prompting.`}
-  />],
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
@@ -54,12 +40,30 @@ const scenes = [
   ['Instruction6', <Instruction6 />],
   ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
 
+  ...[1, 2, 3].map((roundNum, i, arr) => [
+    [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
+    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
+  ]).reduce((arr, round) => [...arr, ...round], []),
+  ['TrialPassed', <MiddleText
+    noPrevious
+    text={`Well done!
+    Now that you understand the task, you will be prompted,
+    7 times a day at random times over the course of the next week to complete this same task.
+    This will not take more than 5 minutes of your time.
+    Please respond within 30 minutes of prompting.`}
+  />],
+  ['Instruction', <Instruction />],
+
   Question1,
-  ['ReadyScreen', <ReadyScreen />],
-  ['ReadyTransition', <ReadyTransition />],
-  ['ReproduceDuration', <ReproduceDuration />],
+  ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
+  ...[1, 2, 3, 4, 5].map((roundNum, i, arr) => [
+    [`ReadyScreen${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
+    [`ReadyTransition${roundNum}`, <ReadyTransition />],
+    [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
+  ]).reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment,
-  ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.'} />],
+  ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} noPrevious />],
 ];
 
 const App = () => (

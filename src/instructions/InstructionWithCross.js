@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 
@@ -37,19 +37,17 @@ const styles = StyleSheet.create({
 });
 
 const InstructionWithCross = ({ nextScene, text, isRed }) => (
-  <ScrollView>
-    <View style={[styles.container, isRed && styles.isRed]}>
-      <Text style={styles.plus} >+</Text>
-      <View style={styles.instructionContainer}>
-        <View style={{ flex: 0.1 }} />
-        <View style={styles.instructions}>
-          <Text style={styles.instructionTitle}>{text}</Text>
-        </View>
-        <View style={{ flex: 0.1 }} />
+  <View style={[styles.container, isRed && styles.isRed]}>
+    <Text style={styles.plus} >+</Text>
+    <View style={styles.instructionContainer}>
+      <View style={{ flex: 0.1 }} />
+      <View style={styles.instructions}>
+        <Text style={styles.instructionTitle}>{text}</Text>
       </View>
-      {!isRed && <Button text="Continue" onPress={() => Actions.replace(nextScene)} />}
+      <View style={{ flex: 0.1 }} />
     </View>
-  </ScrollView>
+    {!isRed && <Button text="Continue" onPress={() => Actions.replace(nextScene)} />}
+  </View>
 );
 
 export default InstructionWithCross;

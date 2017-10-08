@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   plus: {
     color: 'white',
     fontSize: 50,
-    marginTop: 167,
+    marginTop: (Platform.OS === 'ios') ? 167 : 178,
   },
 });
 
