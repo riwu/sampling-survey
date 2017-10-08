@@ -25,7 +25,7 @@ class ReadyTransition extends React.Component {
   componentDidMount() {
     const blackDuration = (Math.floor(Math.random() * 3) + 1) * 1000;
     const redDuration = 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)];
-    this.props.setAnswerText({
+    this.props.updateDuration({
       blackDuration,
       redDuration,
     });

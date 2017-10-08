@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import ReadyTransition from './ReadyTransition';
-import { updateAnswer } from '../actions';
+import { addNewAnswer } from '../actions';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: answer => dispatch(updateAnswer({
-    header: 'Experiment',
+  updateDuration: answer => dispatch(addNewAnswer({
+    header: 'Experiment trial',
     answer: {
       round: ownProps.roundNum,
       ...answer,

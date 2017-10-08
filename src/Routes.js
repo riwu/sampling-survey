@@ -2,20 +2,24 @@ import React from 'react';
 import { Scene } from 'react-native-router-flux';
 import RouterWithRedux from './RouterWithRedux';
 
+import MiddleText from './components/MiddleText';
+
 import InformationSheet from './consentForm/InformationSheet';
 import ConsentForm from './consentForm/ConsentForm';
 import surveyQuestions from './questionnaire/questions';
-
-import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
-import ReadyScreen from './experiment/ReadyScreen';
-import ReadyTransition from './experiment/ReadyTransitionContainer';
-import ReproduceDuration from './experiment/ReproduceDurationContainer';
-import MiddleText from './components/MiddleText';
 
 import InstructionTest from './instructions/InstructionTest';
 import InstructionWithCross from './instructions/InstructionWithCross';
 import RedScreen from './instructions/RedScreen';
 import Instruction6 from './instructions/ReproduceDuration';
+
+import ReadyScreen from './experiment/ReadyScreen';
+import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
+import ReadyTransition from './experiment/ReadyTransitionContainer';
+import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
+import ReproduceDuration from './experiment/ReproduceDurationContainer';
+import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
+
 
 const sceneStyle = {
   backgroundColor: 'black',
@@ -24,10 +28,9 @@ const sceneStyle = {
 const scenes = [
   ...[1, 2, 3].map((roundNum, i, arr) => [
     [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransition trial roundNum={roundNum} />],
-    [`ReproduceDurationTrial${roundNum}`, <ReproduceDuration trial />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} />],
+    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial />],
   ]).reduce((arr, round) => [...arr, ...round], []),
-
 
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],

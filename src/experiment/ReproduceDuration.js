@@ -76,7 +76,7 @@ class ReproduceDuration extends React.Component {
           <Button
             text="START TIMER"
             style={[styles.button, { backgroundColor: '#00e500' }]}
-            disabled={this.state.startTimer}
+            disabled={!!this.state.startTimer}
             onPress={() => this.setState({ startTimer: Date.now() })}
           />
           <Button
@@ -85,14 +85,14 @@ class ReproduceDuration extends React.Component {
             disabled={!this.state.startTimer}
             onPress={() => {
               const duration = Date.now() - this.state.startTimer;
-              if (this.props.trial && (duration < 500 ||
+              if (this.props.actualDuration && (duration < 500 ||
                 Math.abs(duration - this.props.actualDuration) > 3000)) {
                 Alert.alert('Your response was incorrect.', 'Please try again', {
                   onDismiss: () => console.log('dismissed'),
                 });
                 return;
               }
-              this.props.setAnswerText(duration);
+              this.props.updateDuration(duration);
               Actions.push(this.props.nextScene);
             }}
           />

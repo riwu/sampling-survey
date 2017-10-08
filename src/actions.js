@@ -10,3 +10,15 @@ export const setAnswerText = ({ header, index, text }) => ({
   index,
   text,
 });
+
+export const addNewAnswer = ({ header, answer }) => ({
+  type: 'ADD_NEW_ANSWER',
+  header,
+  answer,
+});
+
+export const updateAnswer = ({ header, answer }) => ({
+  type: 'UPDATE_ANSWER',
+  header,
+  answer,
+});
