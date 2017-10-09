@@ -53,7 +53,7 @@ export default class RadioForm extends React.Component {
             if (!objs[index].hasTextInput) {
               return;
             }
-            if (String(i) === index) {
+            if (String(i) === index) { // index is a string as it's used as a key
               textRef.focus();
             } else {
               textRef.blur();

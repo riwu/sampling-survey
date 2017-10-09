@@ -84,7 +84,10 @@ export default class RadioButton extends React.Component {
                 itemCount={10}
                 itemPadding={12}
                 value={this.props.answerText}
-                onChangeText={this.props.setAnswerText}
+                onChangeText={(text) => {
+                  this.props.setAnswerText(text);
+                  this.props.onPress();
+                }}
                 containerStyle={Style.dropDown}
                 baseColor="white"
                 selectedItemColor="black"

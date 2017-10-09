@@ -6,7 +6,6 @@ const Style = StyleSheet.create({
   radioWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'center',
     marginTop: 5,
     marginLeft: 10,
   },
