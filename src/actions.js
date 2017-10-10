@@ -37,8 +37,8 @@ export const scheduleNotification = () => (dispatch) => {
   const schedule = [Date.now() + 20000];
   schedule.forEach(time =>
     Notifications.scheduleLocalNotificationAsync({
-      title: 'Sampling research',
-      body: 'Please ',
+      title: 'Experience Sampling Studies',
+      body: 'Press this to perform the experiment now',
       ios: {
         sound: true,
       },

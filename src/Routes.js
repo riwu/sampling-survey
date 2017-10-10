@@ -103,11 +103,10 @@ const App = () => (
       <Scene
         key="NotReady"
         component={() => (
-          <MiddleText text={`Your next session is not yet ready.
-
-          You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.
-          This will not take more than 5 minutes of your time.
-          Please respond within 30 minutes of prompting.`}
+          <MiddleText text={'Your next session is not yet ready.\n\n' +
+          'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
+          'This will not take more than 5 minutes of your time.\n' +
+          'Please respond within 30 minutes of prompting.'}
           />
         )}
       />
