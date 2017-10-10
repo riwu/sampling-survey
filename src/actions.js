@@ -1,3 +1,5 @@
+import { Notifications } from 'expo';
+
 export const setAnswerIndex = (header, index) => ({
   type: 'SET_ANSWER_INDEX',
   header,
@@ -30,3 +32,26 @@ export const disqualify = () => ({
 export const lowerTrialAttempt = () => ({
   type: 'LOWER_TRIAL_ATTEMPT',
 });
+
+export const scheduleNotification = () => (dispatch) => {
+  const schedule = [Date.now() + 20000];
+  schedule.forEach(time =>
+    Notifications.scheduleLocalNotificationAsync({
+      title: 'Sampling research',
+      body: 'Please ',
+      ios: {
+        sound: true,
+      },
+      android: {
+        sound: true,
+        priority: 'max',
+        vibrate: true,
+      },
+    }, {
+      time,
+    }));
+  dispatch({
+    type: 'SCHEDULE_NOTIFICATION',
+    schedule,
+  });
+};

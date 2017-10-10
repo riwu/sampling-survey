@@ -53,7 +53,7 @@ class ConsentForm extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.header}>
-          ONLINE PARTICIPANT CONSENT FORM
+          {'ONLINE PARTICIPANT\nCONSENT FORM'}
         </Text>
         <Text style={styles.title}>
           Please check to select all boxes

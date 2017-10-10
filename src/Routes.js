@@ -1,6 +1,7 @@
 import React from 'react';
 import { Scene } from 'react-native-router-flux';
 import RouterWithRedux from './RouterWithRedux';
+import { connect } from 'react-redux';
 
 import MiddleText from './components/MiddleText';
 
@@ -16,18 +17,20 @@ import Instruction6 from './instructions/ReproduceDuration';
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
-import Instruction from './instructions/Instruction';
+import Acknowledgement from './instructions/Acknowledgement';
 
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
 import Disqualified from './questionnaire/DisqualifiedContainer';
 
+import RoutingScreen from './RoutingScreen';
+
 const sceneStyle = {
   backgroundColor: 'black',
 };
 
-const scenes = [
+const questions = [
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
@@ -46,6 +49,7 @@ const scenes = [
     [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
+  ['Acknowledgement', <Acknowledgement />],
   ['TrialPassed', <MiddleText
     noPrevious
     text={`Well done!
@@ -54,8 +58,9 @@ const scenes = [
     This will not take more than 5 minutes of your time.
     Please respond within 30 minutes of prompting.`}
   />],
-  ['Instruction', <Instruction />],
+];
 
+const experiment = [
   Question1,
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5].map((roundNum, i, arr) => [
@@ -67,28 +72,46 @@ const scenes = [
   ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} noPrevious />],
 ];
 
+const mapToScene = info => info.map(([key, component], i, arr) => (
+  <Scene
+    key={key}
+    component={() => React.cloneElement(component, {
+      nextScene: (arr[i + 1] || [])[0],
+      previousScene: (arr[i - 1] || [])[0],
+    })}
+  />
+));
+
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
     <Scene hideNavBar>
-      {scenes.map(([key, component], i, arr) => (
-        <Scene
-          key={key}
-          component={() => React.cloneElement(component, {
-            nextScene: (arr[i + 1] || [])[0],
-            previousScene: (arr[i - 1] || [])[0],
-          })}
-        />
-      ))}
+      <Scene key="RoutingScreen" component={RoutingScreen} />
+
+      {mapToScene(questions)}
+      {mapToScene(experiment)}
 
       <Scene
         key="FailedTrial"
-        component={props => (
+        component={failedProps => (
           <MiddleText
             text="Your response was incorrect. Please try again."
-            nextScene={`ReadyScreenTrial${props.roundNum}`}
+            nextScene={`ReadyScreenTrial${failedProps.roundNum}`}
           />
         )}
       />
+
+      <Scene
+        key="NotReady"
+        component={() => (
+          <MiddleText text={`Your next session is not yet ready.
+
+          You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.
+          This will not take more than 5 minutes of your time.
+          Please respond within 30 minutes of prompting.`}
+          />
+        )}
+      />
+
       <Scene key="NotEligible" component={Disqualified} />
     </Scene>
   </RouterWithRedux>

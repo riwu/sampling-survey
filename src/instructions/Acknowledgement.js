@@ -16,4 +16,11 @@ const questionProps = {
   ),
 };
 
-export default props => <Question {...props} {...questionProps} />;
+const Acknowledgement = props => (
+  <Question
+    {...props}
+    {...questionProps}
+  />
+);
+
+export default Acknowledgement;

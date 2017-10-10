@@ -44,7 +44,6 @@ export const Question1 = mapToQuestion({
       })).concat(OTHERS)}
     />
   ),
-  nextScene: 'ReadyScreen',
 });
 
 export const questionsAfterExperiment = [

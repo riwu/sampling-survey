@@ -293,7 +293,6 @@ const questions = [
     question: 'Occupation:',
     responseComponent: (
       <RadioOptions
-        checkEligibility
         radio_props={[
           'Computer worker',
           'Engineer',

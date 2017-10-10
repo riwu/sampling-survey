@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import RadioForm from './react-native-simple-radio-button/index';
-import ButtonToNextScene from './ButtonToNextScene';
+import ButtonToNextScene from './ButtonToNextSceneContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const RadioOptions = (props) => {
-  const { nextScene, previousScene, disableIfLast, isEligible, ...componentProps } = props;
+  const { nextScene, previousScene, disableIfLast, header, ...componentProps } = props;
   return (
     <View>
       <View style={styles.container}>
@@ -27,14 +27,14 @@ const RadioOptions = (props) => {
       </View>
 
       <ButtonToNextScene
-        nextScene={isEligible ? nextScene : 'NotEligible'}
+        header={header}
+        nextScene={nextScene}
         previousScene={previousScene}
         disabled={(disableIfLast && props.answer.index === props.radio_props.length - 1)
           || props.answer.index === undefined ||
-          ((props.radio_props[props.answer.index].hasTextInput ||
+          (!!(props.radio_props[props.answer.index].hasTextInput ||
             props.radio_props[props.answer.index].dropDown)
-            && !(props.answer[props.answer.index] || '').trim())
-        }
+            && !(props.answer[props.answer.index] || '').trim())}
       />
     </View>
   );
