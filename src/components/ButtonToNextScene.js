@@ -15,16 +15,16 @@ const styles = StyleSheet.create({
 const ButtonToNextScene = ({ nextScene, disabled, previousScene }) => (
   <View style={styles.buttons}>
     {previousScene &&
-    <Button
-      onPress={() => Actions.pop(previousScene)}
-      text="Back"
-    />}
+      <Button
+        onPress={() => Actions.pop(previousScene)}
+        text="Back"
+      />}
     {nextScene &&
-    <Button
-      onPress={() => Actions.push(nextScene)}
-      text={nextScene === 'Finish' ? 'Finish' : 'Next'}
-      disabled={disabled}
-    />}
+      <Button
+        onPress={() => Actions.push(nextScene)}
+        text={nextScene === 'Finish' ? 'Finish' : 'Next'}
+        disabled={disabled}
+      />}
   </View>
 );
 

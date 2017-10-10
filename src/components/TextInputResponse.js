@@ -10,15 +10,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextInputComponent = props => (
-  <View>
-    <View style={[styles.container, props.width && { width: props.width }]}>
-      <TextInput {...props} autoFocus />
+const TextInputComponent = (props) => {
+  const { nextScene, header, previousScene, ...inputProps } = props;
+  return (
+    <View>
+      <View style={[styles.container, props.width && { width: props.width }]}>
+        <TextInput header={header} {...inputProps} autoFocus />
+      </View>
+      <ButtonToNextScene
+        nextScene={nextScene}
+        previousScene={previousScene}
+        header={header}
+      />
     </View>
-    <ButtonToNextScene
-      {...props}
-    />
-  </View>
-);
+  );
+};
 
 export default TextInputComponent;
