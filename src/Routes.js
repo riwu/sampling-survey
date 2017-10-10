@@ -88,8 +88,13 @@ const App = () => (
           />
         )}
       />
+      <Scene
+        key="NotEligible"
+        component={() => (
+          <MiddleText text="Sorry, you are not eligible for this study." noPrevious />
+        )}
+      />
     </Scene>
-
   </RouterWithRedux>
 );
 

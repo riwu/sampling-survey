@@ -293,6 +293,7 @@ const questions = [
     question: 'Occupation:',
     responseComponent: (
       <RadioOptions
+        checkEligibility
         radio_props={[
           'Computer worker',
           'Engineer',
@@ -497,7 +498,7 @@ const questions = [
     responseComponent: scaleResponse,
   },
 ].map((scene, i) => {
-  const header = `QUESTION ${i}`;
+  const header = `QUESTION ${i + 1}`;
   return [header, <Question {...scene} header={header} />];
 });
 

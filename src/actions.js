@@ -22,3 +22,7 @@ export const updateAnswer = ({ header, answer }) => ({
   header,
   answer,
 });
+
+export const disqualify = () => ({
+  type: 'DISQUALIFY',
+});

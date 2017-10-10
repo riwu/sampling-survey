@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
 });
 
 const RadioOptions = (props) => {
-  const { nextScene, previousScene, disableIfLast, ...componentProps } = props;
+  const { nextScene, previousScene, disableIfLast, isEligible, ...componentProps } = props;
+  if (!isEligible) {
+    props.disqualify();
+  }
   return (
     <View>
       <View style={styles.container}>
@@ -27,7 +30,7 @@ const RadioOptions = (props) => {
       </View>
 
       <ButtonToNextScene
-        nextScene={nextScene}
+        nextScene={isEligible ? nextScene : 'NotEligible'}
         previousScene={previousScene}
         disabled={(disableIfLast && props.answer.index === props.radio_props.length - 1)
           || props.answer.index === undefined ||
@@ -41,7 +44,7 @@ const RadioOptions = (props) => {
 };
 
 RadioOptions.defaultProps = {
-  answer: false,
+  answer: {},
 };
 
 export default RadioOptions;
