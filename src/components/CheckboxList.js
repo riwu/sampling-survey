@@ -32,7 +32,7 @@ const CheckboxList = props => (
           labelStyle={styles.label}
           checkedColor="#008080"
           checked={props.answer[index]}
-          onChange={checked => props.setAnswerText(index, checked)}
+          onChange={checked => props.setAnswerText(index, checked || undefined)}
         />
       ))}
     </View>
