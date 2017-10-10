@@ -8,7 +8,7 @@ import logger from 'redux-logger';
 import reducer from './reducers';
 
 const middleware = [thunk];
-const store = createStore(reducer, autoRehydrate(), applyMiddleware(...middleware)); //
-persistStore(store, { storage: AsyncStorage });
+const store = createStore(reducer, applyMiddleware(...middleware)); //
+// persistStore(store, { storage: AsyncStorage });
 
 export default store;

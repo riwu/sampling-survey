@@ -27,7 +27,7 @@
   "dependencies": {
     "expo": "^21.0.1",
     "react": "16.0.0-alpha.12",
-    "react-native": "^0.48.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz",
     "react-native-checkbox-heaven": "^0.1.4",
     "react-native-country-picker-modal": "^0.3.0",
     "react-native-material-dropdown": "^0.4.1",
