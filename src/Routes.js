@@ -8,7 +8,7 @@ import InformationSheet from './consentForm/InformationSheet';
 import ConsentForm from './consentForm/ConsentForm';
 import surveyQuestions from './questionnaire/questions';
 
-import InstructionTest from './instructions/InstructionTest';
+import InstructionTest from './instructions/InstructionTestContainer';
 import InstructionWithCross from './instructions/InstructionWithCross';
 import RedScreen from './instructions/RedScreen';
 import Instruction6 from './instructions/ReproduceDuration';
@@ -21,6 +21,7 @@ import Instruction from './instructions/Instruction';
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
+import Disqualified from './questionnaire/DisqualifiedContainer';
 
 const sceneStyle = {
   backgroundColor: 'black',
@@ -88,12 +89,7 @@ const App = () => (
           />
         )}
       />
-      <Scene
-        key="NotEligible"
-        component={() => (
-          <MiddleText text="Sorry, you are not eligible for this study." noPrevious />
-        )}
-      />
+      <Scene key="NotEligible" component={Disqualified} />
     </Scene>
   </RouterWithRedux>
 );

@@ -14,9 +14,6 @@ const styles = StyleSheet.create({
 
 const RadioOptions = (props) => {
   const { nextScene, previousScene, disableIfLast, isEligible, ...componentProps } = props;
-  if (!isEligible) {
-    props.disqualify();
-  }
   return (
     <View>
       <View style={styles.container}>

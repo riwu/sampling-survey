@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import RadioOptions from './RadioOptions';
-import { setAnswerIndex, setAnswerText, disqualify } from '../actions';
+import { setAnswerIndex, setAnswerText } from '../actions';
 import isEligible from '../questionnaire/isEligible';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     index,
     text,
   })),
-  disqualify: () => dispatch(disqualify()),
 });
 
 export default connect(

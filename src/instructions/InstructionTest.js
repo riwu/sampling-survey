@@ -52,19 +52,13 @@ class InstructionTest extends React.Component {
     startPressed: false,
   }
 
-  attemptLeft = 2;
-
   showTestFailed() {
-    Alert.alert('You have failed the test', `You have ${this.attemptLeft} attempts left.\nPlease try again`);
-    this.attemptLeft -= 1;
-  }
-
-  isDisqualified() {
-    if (this.attemptLeft === 0) {
-      Alert.alert('You have failed the test', 'You are disqualified from this survey');
-      return true;
+    if (this.props.attemptLeft <= 0) {
+      Actions.push('NotEligible');
+      return;
     }
-    return false;
+    Alert.alert('You have failed the test', `You have ${this.props.attemptLeft} attempts left.\nPlease try again`);
+    this.props.lowerTrialAttempt();
   }
 
   render() {
@@ -85,9 +79,6 @@ class InstructionTest extends React.Component {
             backgroundColor: '#00e500',
           }]}
           onPress={() => {
-            if (this.isDisqualified()) {
-              return;
-            }
             if (this.state.startPressed) {
               this.showTestFailed();
             }
@@ -102,9 +93,6 @@ class InstructionTest extends React.Component {
             },
             ]}
           onPress={() => {
-            if (this.isDisqualified()) {
-              return;
-            }
             if (!this.state.startPressed) {
               this.showTestFailed();
             } else {

@@ -26,3 +26,7 @@ export const updateAnswer = ({ header, answer }) => ({
 export const disqualify = () => ({
   type: 'DISQUALIFY',
 });
+
+export const lowerTrialAttempt = () => ({
+  type: 'LOWER_TRIAL_ATTEMPT',
+});
