@@ -16,7 +16,7 @@ const ButtonToNextScene = ({ nextScene, disabled, previousScene, shouldScheduleN
   <View style={styles.buttons}>
     {previousScene &&
       <Button
-        onPress={() => Actions.pop(previousScene)}
+        onPress={() => Actions.replace(previousScene)}
         text="Back"
       />}
     {nextScene &&
@@ -25,7 +25,7 @@ const ButtonToNextScene = ({ nextScene, disabled, previousScene, shouldScheduleN
           if (shouldScheduleNotification) {
             scheduleNotification();
           }
-          Actions.push(nextScene);
+          Actions.replace(nextScene);
         }}
         text={nextScene === 'Finish' ? 'Finish' : 'Next'}
         disabled={disabled}

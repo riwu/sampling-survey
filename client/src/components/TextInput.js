@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
 
 const TextInputComponent = props => (
   <TextInput
+    maxLength={99}
     {...props}
     style={[styles.input, props.style]}
     onChangeText={(text) => {
