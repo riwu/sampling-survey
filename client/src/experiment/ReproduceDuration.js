@@ -88,10 +88,10 @@ class ReproduceDuration extends React.Component {
               this.props.updateDuration(duration);
               if (this.props.actualDuration && (duration < 500 ||
                 Math.abs(duration - this.props.actualDuration) > 3000)) {
-                Actions.push('FailedTrial', { roundNum: this.props.roundNum });
+                Actions.replace('FailedTrial', { roundNum: this.props.roundNum });
                 return;
               }
-              Actions.push(this.props.nextScene);
+              Actions.replace(this.props.nextScene);
             }}
           />
         </View>

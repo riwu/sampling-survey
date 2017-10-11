@@ -54,7 +54,7 @@ class InstructionTest extends React.Component {
 
   showTestFailed() {
     if (this.props.attemptLeft <= 0) {
-      Actions.push('NotEligible');
+      Actions.replace('NotEligible');
       return;
     }
     Alert.alert('You have failed the test', `You have ${this.props.attemptLeft} attempts left.\nPlease try again`);
@@ -96,7 +96,7 @@ class InstructionTest extends React.Component {
             if (!this.state.startPressed) {
               this.showTestFailed();
             } else {
-              Actions.push(this.props.nextScene);
+              Actions.replace(this.props.nextScene);
             }
           }}
           text="STOP TIMER"

@@ -76,7 +76,7 @@ class ReproduceDuration extends React.Component {
           text="STOP TIMER"
           style={[styles.button, { backgroundColor: 'red' }]}
           disabled={!this.state.timerStarted}
-          onPress={() => Actions.push(this.props.nextScene)}
+          onPress={() => Actions.replace(this.props.nextScene)}
         />
       </View>
     );

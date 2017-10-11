@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import MiddleText from './components/MiddleText';
 
-import InformationSheet from './consentForm/InformationSheet';
+import InformationSheet from './consentForm/InformationSheetContainer';
 import ConsentForm from './consentForm/ConsentForm';
 import surveyQuestions from './questionnaire/questions';
 

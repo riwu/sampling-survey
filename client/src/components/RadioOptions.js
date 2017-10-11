@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const RadioOptions = (props) => {
-  const { nextScene, previousScene, disableIfLast, header, ...componentProps } = props;
+  const { nextScene, previousScene, disableIfLast, header, onPress, ...componentProps } = props;
   return (
     <View>
       <View style={styles.container}>
@@ -30,6 +30,7 @@ const RadioOptions = (props) => {
         header={header}
         nextScene={nextScene}
         previousScene={previousScene}
+        onPress={onPress}
         disabled={(disableIfLast && props.answer.index === props.radio_props.length - 1)
           || props.answer.index === undefined ||
           (!!(props.radio_props[props.answer.index].hasTextInput ||

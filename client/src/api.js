@@ -33,6 +33,7 @@ const [post] = ['POST'].map(method =>
 );
 
 export default {
-  postUser: user => post('user', user),
+  postDevice: device => post('device', device),
   postAnswer: answer => post('answer', answer),
+  isDisqualified: deviceId => get(`disqualified/${deviceId}`),
 };

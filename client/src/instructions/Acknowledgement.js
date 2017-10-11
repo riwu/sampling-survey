@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import RadioOptions from '../components/RadioOptionsContainer';
 import Question from '../components/Question';
+import { scheduleNotification } from '../actions';
 
 const questionProps = {
   header: 'Acknowledgement',
@@ -20,7 +22,8 @@ const Acknowledgement = props => (
   <Question
     {...props}
     {...questionProps}
+    onPress={scheduleNotification}
   />
 );
 
-export default Acknowledgement;
+export default connect(null, { scheduleNotification })(Acknowledgement);
