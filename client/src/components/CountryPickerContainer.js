@@ -3,7 +3,7 @@ import CountryPicker from './CountryPicker';
 import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  cca2: state.answers[ownProps.header] || 'SG',
+  cca2: (state.answers[ownProps.header] || [])[-1] || 'SG',
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

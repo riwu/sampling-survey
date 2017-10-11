@@ -6,14 +6,16 @@ const answers = (state = {}, action) => {
         [action.header]: {
           ...state[action.header],
           index: action.index,
+          time: action.time,
         },
       };
     case 'SET_ANSWER_TEXT':
       return {
         ...state,
-        [action.header]: action.index === undefined ? action.text : {
+        [action.header]: {
           ...state[action.header],
-          [action.index]: action.text,
+          [action.index === undefined ? -1 : action.index]: action.text,
+          time: action.time,
         },
       };
     case 'ADD_NEW_ANSWER':

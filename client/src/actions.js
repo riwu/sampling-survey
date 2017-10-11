@@ -1,9 +1,11 @@
 import { Notifications } from 'expo';
+import api from './api';
 
 export const setAnswerIndex = (header, index) => ({
   type: 'SET_ANSWER_INDEX',
   header,
   index,
+  time: Date.now(),
 });
 
 export const setAnswerText = ({ header, index, text }) => ({
@@ -11,6 +13,7 @@ export const setAnswerText = ({ header, index, text }) => ({
   header,
   index,
   text,
+  time: Date.now(),
 });
 
 export const addNewAnswer = ({ header, answer }) => ({

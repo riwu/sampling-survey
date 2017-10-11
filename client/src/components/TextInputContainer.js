@@ -3,7 +3,7 @@ import TextInput from './TextInput';
 import { setAnswerText } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  value: state.answers[ownProps.header],
+  value: (state.answers[ownProps.header] || [])[-1],
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
