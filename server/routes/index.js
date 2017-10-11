@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('promise-mysql');
+
 const router = express.Router();
 
 const connection = mysql.createConnection({
@@ -9,10 +10,15 @@ const connection = mysql.createConnection({
   password: process.env.STUFF_PASSWORD,
 });
 
-router.get('/', (req, res, next) => {
-  connection.then(conn => conn.query('SELECT * FROM answers')).then((data) => {
-    res.send(data);
-  });
+router.get('/disqualified/:deviceId', (req, res) => {
+  connection
+    .then(conn => conn.query('SELECT disqualified FROM device WHERE deviceId = ?', [req.params.deviceId]))
+    .then(data => res.send(data));
 });
+
+router.post('/device', (req) => {
+  connection.then(conn => conn.query('INSERT IGNORE INTO device SET ?', req.body));
+});
+
 
 module.exports = router;

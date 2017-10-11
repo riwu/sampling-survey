@@ -1,5 +1,28 @@
-import { Notifications } from 'expo';
+import { Notifications, Constants } from 'expo';
+import { Actions } from 'react-native-router-flux';
 import api from './api';
+
+export const disqualify = () => ({
+  type: 'DISQUALIFY',
+});
+
+export const setDeviceId = () => (dispatch) => {
+  const { deviceId, deviceName, isDevice, linkingUrl, manifest } = Constants;
+  api.isDisqualified(deviceId).then((row) => {
+    if ((row[0] || {}).disqualified) {
+      dispatch(disqualify());
+      Actions.replace('NotEligible');
+    }
+  }).catch(e => console.log(e));
+
+  api.postDevice({
+    deviceId,
+    deviceName,
+    isDevice,
+    linkingUrl,
+    version: manifest.version,
+  }).catch(e => console.log(e));
+};
 
 export const setAnswerIndex = (header, index) => ({
   type: 'SET_ANSWER_INDEX',
@@ -26,10 +49,6 @@ export const updateAnswer = ({ header, answer }) => ({
   type: 'UPDATE_ANSWER',
   header,
   answer,
-});
-
-export const disqualify = () => ({
-  type: 'DISQUALIFY',
 });
 
 export const lowerTrialAttempt = () => ({
