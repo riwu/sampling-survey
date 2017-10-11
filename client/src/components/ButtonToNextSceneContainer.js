@@ -9,12 +9,16 @@ const mapStateToProps = (state, ownProps) => {
     nextScene: ownProps.header === 'QUESTION 22' && !isEligible(state.answers) ? 'NotEligible' : ownProps.nextScene,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
-      (answer.index === undefined && (answer[-1] || '').trim() === '') || // for TextInputResponse
-      Object.values(answer).every(value => value === undefined), // for CheckboxList
-    postAnswer: () => api.postAnswer({
-      question: ownProps.header,
-      answer,
-    }),
+      (answer[-1] !== undefined && (answer[-1] || '').trim() === '') || // for TextInputResponse
+      Object.entries(answer).every(([key, value]) => key === 'time' || value === undefined), // for CheckboxList
+    onPress: () => {
+      if (ownProps.onPress) ownProps.onPress();
+      api.postAnswer({
+        answer,
+        question: ownProps.header,
+        deviceId: state.deviceId,
+      });
+    },
   };
 };
 

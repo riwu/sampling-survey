@@ -8,6 +8,12 @@ export const disqualify = () => ({
 
 export const setDeviceId = () => (dispatch) => {
   const { deviceId, deviceName, isDevice, linkingUrl, manifest } = Constants;
+
+  dispatch({
+    type: 'SET_DEVICE_ID',
+    deviceId,
+  });
+
   api.isDisqualified(deviceId).then((row) => {
     if ((row[0] || {}).disqualified) {
       dispatch(disqualify());

@@ -8,7 +8,7 @@ const [post] = ['post'].map(method =>
     url: API_BASE_URL + path,
     method,
     data: payload,
-  }));
+  }).catch(e => console.log(e)));
 
 export default {
   postDevice: device => post('device', device),
