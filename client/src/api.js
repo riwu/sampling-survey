@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3001/';
+const API_BASE_URL = 'http://ec2-13-59-83-7.us-east-2.compute.amazonaws.com:3001/';
 
 const get = path => axios.get(API_BASE_URL + path).then(response => response.data);
 const [post] = ['post'].map(method =>
