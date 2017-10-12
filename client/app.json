@@ -2,7 +2,7 @@
   "expo": {
    "name": "Synergy Lab: Time Estimation Task",
    "icon": "icon.png",
-   "version": "1.0.1",
+   "version": "1.0.2",
    "slug": "sampling-survey",
    "sdkVersion": "21.0.0",
    "ios": {
