@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://13.228.235.195/:3002/';
+const API_BASE_URL = 'http://13.228.235.195:3002/';
 
 const get = path => axios.get(API_BASE_URL + path).then(response => response.data);
 const [post] = ['post'].map(method =>
