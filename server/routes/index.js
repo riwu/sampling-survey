@@ -4,9 +4,9 @@ const mysql = require('promise-mysql');
 const router = express.Router();
 
 const connection = mysql.createConnection({
-  host: 'indoxing.com',
-  user: 'indoxi5_sampling',
-  database: 'indoxi5_sampling',
+  host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
+  user: 'sampling_survey',
+  database: 'sampling_survey',
   password: process.env.STUFF_PASSWORD,
 });
 
