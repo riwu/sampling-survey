@@ -13,11 +13,20 @@ const mapStateToProps = (state, ownProps) => {
       Object.entries(answer).every(([key, value]) => key === 'time' || value === undefined), // for CheckboxList
     onPress: () => {
       if (ownProps.onPress) ownProps.onPress();
-      api.postAnswer({
-        answer,
-        question: ownProps.header,
-        deviceId: state.deviceId,
-      });
+      if (state.notificationSchedule.length === 0) {
+        api.postAnswer({
+          answer,
+          question: ownProps.header,
+          deviceId: state.deviceId,
+        });
+      } else {
+        api.postExperimentAnswer({
+          answer,
+          question: ownProps.header,
+          deviceId: state.deviceId,
+          createdAt: state.answers['Question 1'].time,
+        });
+      }
     },
   };
 };

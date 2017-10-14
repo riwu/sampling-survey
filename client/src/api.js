@@ -13,5 +13,7 @@ const [post] = ['post'].map(method =>
 export default {
   postDevice: device => post('device', device),
   postAnswer: answer => post('answer', answer),
+  postExperimentAnswer: answer => post('experiment/answer', answer),
+  postExperimentRound: answer => post('experiment/round', answer),
   isDisqualified: deviceId => get(`disqualified/${deviceId}`),
 };
