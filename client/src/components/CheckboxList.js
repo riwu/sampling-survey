@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import Checkbox from 'react-native-checkbox-heaven';
+import Checkbox from './CheckboxContainer';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
 
 const width = Dimensions.get('window').width;
@@ -30,9 +30,8 @@ const CheckboxList = props => (
           key={label}
           label={label}
           labelStyle={styles.label}
-          checkedColor="#008080"
-          checked={props.answer[index]}
-          onChange={checked => props.setAnswerText(index, checked || undefined)}
+          index={index}
+          header={props.header}
         />
       ))}
     </View>

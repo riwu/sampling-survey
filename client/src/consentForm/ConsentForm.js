@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, ScrollView, View } from 'react-native';
-import Checkbox from 'react-native-checkbox-heaven';
-import ButtonToNextScene from '../components/ButtonToNextScene';
+import Checkbox from '../components/CheckboxContainer';
+import ButtonToNextScene from '../components/ButtonToNextSceneContainer';
 
 const styles = StyleSheet.create({
   header: {
@@ -45,40 +46,46 @@ const statements = ['I confirm that I have read and understand the Participant I
   'I agree to take part in this study.',
 ];
 
-class ConsentForm extends React.Component {
-  state = {
-    checkCount: 0,
-  }
-  render() {
-    return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.header}>
-          {'ONLINE PARTICIPANT\nCONSENT FORM'}
-        </Text>
-        <Text style={styles.title}>
-          Please check to select all boxes
-        </Text>
-        {statements.map((text, index) => (
-          <View style={styles.checkboxContainer} key={text}>
-            <Text style={styles.text}>
-              {index + 1}. {text}
-            </Text>
-            <Checkbox
-              checkedColor="#008080"
-              onChange={checked => this.setState({
-                checkCount: this.state.checkCount + (checked ? 1 : -1),
-              })}
-            />
-          </View>
-        ))}
-        <ButtonToNextScene
-          nextScene={this.props.nextScene}
-          previousScene={this.props.previousScene}
-          disabled={this.state.checkCount < statements.length}
-        />
-      </ScrollView>
-    );
-  }
-}
+const HEADER = 'ConsentForm';
 
-export default ConsentForm;
+const ConsentForm = props => (
+  <ScrollView style={styles.container}>
+    <Text style={styles.header}>
+      {'ONLINE PARTICIPANT\nCONSENT FORM'}
+    </Text>
+    <Text style={styles.title}>
+          Please check to select all boxes
+    </Text>
+    {statements.map((text, index) => (
+      <View style={styles.checkboxContainer} key={text}>
+        <Text style={styles.text}>
+          {index + 1}. {text}
+        </Text>
+        <Checkbox
+          index={index}
+          header={HEADER}
+        />
+      </View>
+    ))}
+    <ButtonToNextScene
+      header={HEADER}
+      nextScene={props.nextScene}
+      previousScene={props.previousScene}
+      disabled={Object.values(props.answer)
+        .filter(checked => checked === true).length < statements.length
+      }
+    />
+  </ScrollView>
+);
+
+ConsentForm.defaultProps = {
+  answer: {},
+};
+
+const mapStateToProps = state => ({
+  answer: state.answers[HEADER],
+});
+
+export default connect(
+  mapStateToProps,
+)(ConsentForm);

@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 const TextInputComponent = props => (
   <TextInput
     maxLength={99}
+    underlineColorAndroid="transparent"
     {...props}
     style={[styles.input, props.style]}
     onChangeText={(text) => {

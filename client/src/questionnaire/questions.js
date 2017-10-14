@@ -4,7 +4,7 @@ import RadioOptions from '../components/RadioOptionsContainer';
 import TextInputResponse from '../components/TextInputResponse';
 import UnderlinedText from '../components/UnderlinedText';
 import CountryPicker from '../components/CountryPickerContainer';
-import CheckboxList from '../components/CheckboxListContainer';
+import CheckboxList from '../components/CheckboxList';
 import Question from '../components/Question';
 
 const OTHERS = [{
