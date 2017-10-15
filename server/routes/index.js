@@ -17,15 +17,21 @@ router.get('/disqualified/:deviceId', (req, res) => {
 });
 
 router.post('/device', (req) => {
-  connection.then(conn => conn.query('INSERT IGNORE INTO device SET ?', req.body)).catch(e => console.log(e));
+  console.log('Posting device', req.body)
+  connection.then(conn => {
+    console.log('Inserting device', req.body)
+    return conn.query('INSERT IGNORE INTO device SET ?', req.body);
+  }).catch(e => console.log(e));
 });
 
 router.post('/answer', (req) => {
+  console.log('Posting answer', req.body)
   if (!req.body.answer) {
     return;
   }
   connection.then((conn) => {
     conn.query('DELETE FROM answer WHERE device_deviceId = ? AND question = ?', [req.body.deviceId, req.body.question]).then(() => {
+      console.log('Inserting answer', req.body)
       Object.entries(req.body.answer)
         // make sure 'index' comes first
         .sort(([key1, value1], [key2, value2]) => key2.localeCompare(key1))
@@ -48,6 +54,7 @@ router.post('/answer', (req) => {
 });
 
 router.post('experiment/answer', (req) => {
+  console.log('Posting experiment answer', req.body)
   if (!req.body.answer) {
     return;
   }
@@ -59,6 +66,7 @@ router.post('experiment/answer', (req) => {
       (req.body.question === 'Question 1'
         ? conn.query('INSERT INTO experiment VALUES(?, ?, DEFAULT)', [req.body.deviceId, req.body.createdAt])
         : Promise.resolve()).then(() => {
+        console.log('Inserting experiment answer', req.body)
         Object.entries(req.body.answer)
         // make sure 'index' comes first
           .sort(([key1, value1], [key2, value2]) => key2.localeCompare(key1))
@@ -79,6 +87,23 @@ router.post('experiment/answer', (req) => {
           });
       });
     });
+  });
+
+  router.post('experiment/round', (req) => {
+    console.log('Posting experiment round', req.body)
+    connection.then((conn) => {
+      const { round, blackDuration, redDuration, recordedDuration, deviceId, time } = req.body;
+      const row = {
+        experiment_device_deviceId: deviceId,
+        round,
+        blackDuration,
+        redDuration,
+        recordedDuration,
+        createdAt: (new Date(time)).toISOString(),
+        experiment_createdAt: req.body.createdAt,
+      };
+      console.log('Inserting experiment round', req.body)
+      conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
   });
 });
 
