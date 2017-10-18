@@ -79,4 +79,5 @@ export const scheduleNotification = () => (dispatch) => {
     type: 'SCHEDULE_NOTIFICATION',
     schedule,
   });
+  api.postSchedule(schedule);
 };

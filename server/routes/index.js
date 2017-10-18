@@ -11,6 +11,8 @@ const connection = mysql.createConnection({
   password: process.env.STUFF_PASSWORD,
 });
 
+const toDate = time => (new Date(time)).toISOString();
+
 router.get('/disqualified/:deviceId', (req, res) => {
   connection
     .then(conn => conn.query('SELECT disqualified FROM device WHERE deviceId = ?', [req.params.deviceId]))
@@ -34,24 +36,31 @@ router.post('/answer', (req) => {
     conn.query('DELETE FROM answer WHERE device_deviceId = ? AND question = ?', [req.body.deviceId, req.body.question]).then(() => {
       console.log('Inserting answer', req.body);
       Object.entries(req.body.answer)
-        // make sure 'index' comes first
-        .sort(([key1, value1], [key2, value2]) => key2.localeCompare(key1))
         .forEach(([key, value]) => {
           if (key === 'time') return;
-          const index = Number(key);
           const isIndex = key === 'index';
+          const index = Number(key);
+          if (isIndex && req.body.answer[index] !== undefined) return;
           const row = {
             device_deviceId: req.body.deviceId,
             question: req.body.question,
             index: isIndex ? value : index,
             text: isIndex ? undefined : value,
             final: isIndex || (req.body.answer.index ? req.body.answer.index === index : 1),
-            createdAt: (new Date(req.body.answer.time)).toISOString(),
+            createdAt: toDate(req.body.answer.time),
           };
           conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
         });
     });
   });
+});
+
+router.post('experiment', (req) => {
+  console.log('Posting experiment schedule', req.body);
+  connection.then(conn => req.body.schedule.forEach(time => conn.query(
+    'INSERT INTO experiment VALUES(?, ?, DEFAULT)',
+    [req.body.deviceId, toDate(time)],
+  )));
 });
 
 router.post('experiment/answer', (req) => {
@@ -61,53 +70,48 @@ router.post('experiment/answer', (req) => {
   }
   connection.then((conn) => {
     conn.query(
-      'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_createdAt = ?',
-      [req.body.deviceId, req.body.question, req.body.createdAt],
+      'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
+      [req.body.deviceId, req.body.question, req.body.schedule],
     ).then(() => {
-      (req.body.question === 'Question 1'
-        ? conn.query('INSERT INTO experiment VALUES(?, ?, DEFAULT)', [req.body.deviceId, req.body.createdAt])
-        : Promise.resolve()).then(() => {
-        console.log('Inserting experiment answer', req.body);
-        Object.entries(req.body.answer)
-        // make sure 'index' comes first
-          .sort(([key1, value1], [key2, value2]) => key2.localeCompare(key1))
-          .forEach(([key, value]) => {
-            if (key === 'time') return;
-            const index = Number(key);
-            const isIndex = key === 'index';
-            const row = {
-              experiment_device_deviceId: req.body.deviceId,
-              question: req.body.question,
-              index: isIndex ? value : index,
-              text: isIndex ? undefined : value,
-              final: isIndex || (req.body.answer.index ? req.body.answer.index === index : 1),
-              createdAt: (new Date(req.body.answer.time)).toISOString(),
-              experiment_createdAt: req.body.createdAt,
-            };
-            conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
-          });
-      });
+      console.log('Inserting experiment answer', req.body);
+      Object.entries(req.body.answer)
+        .forEach(([key, value]) => {
+          if (key === 'time') return;
+          const isIndex = key === 'index';
+          const index = Number(key);
+          if (isIndex && req.body.answer[index] !== undefined) return;
+          const row = {
+            experiment_device_deviceId: req.body.deviceId,
+            question: req.body.question,
+            index: isIndex ? value : index,
+            text: isIndex ? undefined : value,
+            final: isIndex || (req.body.answer.index ? req.body.answer.index === index : 1),
+            createdAt: toDate(req.body.answer.time),
+            experiment_schedule: req.body.schedule,
+          };
+          conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
+        });
     });
   });
+});
 
-  router.post('experiment/round', (req) => {
-    console.log('Posting experiment round', req.body);
-    connection.then((conn) => {
-      const {
-        round, blackDuration, redDuration, recordedDuration, deviceId, time,
-      } = req.body;
-      const row = {
-        experiment_device_deviceId: deviceId,
-        round,
-        blackDuration,
-        redDuration,
-        recordedDuration,
-        createdAt: (new Date(time)).toISOString(),
-        experiment_createdAt: req.body.createdAt,
-      };
-      console.log('Inserting experiment round', req.body);
-      conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
-    });
+router.post('experiment/round', (req) => {
+  console.log('Posting experiment round', req.body);
+  connection.then((conn) => {
+    const {
+      round, blackDuration, redDuration, recordedDuration, deviceId, time,
+    } = req.body;
+    const row = {
+      experiment_device_deviceId: deviceId,
+      round,
+      blackDuration,
+      redDuration,
+      recordedDuration,
+      createdAt: toDate(time),
+      experiment_schedule: req.body.schedule,
+    };
+    console.log('Inserting experiment round', req.body);
+    conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
   });
 });
 

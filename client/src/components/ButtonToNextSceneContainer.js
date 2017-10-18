@@ -4,9 +4,11 @@ import isEligible from '../questionnaire/isEligible';
 import api from '../api';
 
 const mapStateToProps = (state, ownProps) => {
-  const answer = state.answers[ownProps.header];
+  const answer = state.notificationSchedule.length === 0
+    ? state.answers[ownProps.header]
+    : (state.experimentAnswers[state.experimentAnswers.length - 1] || {})[ownProps.header];
   return {
-    nextScene: ownProps.header === 'QUESTION 22' && !isEligible(state.answers) ? 'NotEligible' : ownProps.nextScene,
+    nextScene: (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) ? 'NotEligible' : ownProps.nextScene,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
       (answer[-1] !== undefined && (answer[-1] || '').trim() === '') || // for TextInputResponse
