@@ -27,7 +27,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-const mergeProps = (stateProps, dispatchProps) => ({
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
   updateDuration: recordedDuration =>
     dispatchProps.updateDuration(recordedDuration, stateProps.experiment),
 });

@@ -9,7 +9,7 @@ const [post] = ['post'].map(method =>
     url: API_BASE_URL + path,
     method,
     data: payload,
-  }).catch(e => console.log(e)));
+  }));
 
 export default {
   postDevice: () => {
@@ -22,8 +22,11 @@ export default {
       version: manifest.version,
     });
   },
-  postAnswer: answer => post('answer', { ...answer, deviceId: Constants.deviceId }),
-  postExperimentAnswer: answer => post('experiment/answer', { ...answer, deviceId: Constants.deviceId }),
-  postExperimentRound: answer => post('experiment/round', { ...answer, deviceId: Constants.deviceId }),
+  postAnswer: answer => post('answer', { ...answer, deviceId: Constants.deviceId })
+    .catch(e => console.log('Post answer api', e, answer)),
+  postExperimentAnswer: answer => post('experiment/answer', { ...answer, deviceId: Constants.deviceId })
+    .catch(e => console.log('Post experiment ans', e, answer)),
+  postExperimentRound: answer => post('experiment/round', { ...answer, deviceId: Constants.deviceId })
+    .catch(e => console.log('Post experiment round', e, answer)),
   isDisqualified: () => get(`disqualified/${Constants.deviceId}`),
 };

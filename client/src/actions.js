@@ -12,9 +12,9 @@ export const postDevice = () => (dispatch) => {
       dispatch(disqualify());
       Actions.replace('NotEligible');
     }
-  }).catch(e => console.log(e));
+  }).catch(e => console.log('Check disqualified action', e));
 
-  api.postDevice().catch(e => console.log(e));
+  api.postDevice().catch(e => console.log('Post device action', e));
 };
 
 export const setAnswerIndex = (header, index) => ({

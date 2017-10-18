@@ -2,10 +2,15 @@ import { connect } from 'react-redux';
 import RadioOptions from './RadioOptions';
 import { setAnswerIndex, setAnswerText, addExperimentAnswer } from '../actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  answer: state.answers[ownProps.header],
-  isExperiment: state.notificationSchedule.length > 0,
-});
+const mapStateToProps = (state, ownProps) => {
+  const isExperiment = state.notificationSchedule.length > 0;
+  return {
+    answer: isExperiment
+      ? state.experimentAnswers[state.experimentAnswers.length - 1][ownProps.header]
+      : state.answers[ownProps.header],
+    isExperiment,
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setAnswerIndex: (index, isExperiment) => {
@@ -31,7 +36,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-const mergeProps = (stateProps, dispatchProps) => ({
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
   answer: stateProps.answer,
   setAnswerIndex: index => dispatchProps.setAnswerIndex(index, stateProps.isExperiment),
   setAnswerText: (index, text) => dispatchProps.setAnswerText(index, text, stateProps.isExperiment),
