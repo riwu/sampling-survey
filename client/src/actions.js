@@ -32,9 +32,10 @@ export const setAnswerText = ({ header, index, text }) => ({
   time: Date.now(),
 });
 
-export const addExperimentAnswer = (header, answer) => ({
+export const addExperimentAnswer = (header, schedule, answer) => ({
   type: 'ADD_EXPERIMENT_ANSWER',
   header,
+  schedule,
   answer: {
     ...answer,
     time: Date.now(),

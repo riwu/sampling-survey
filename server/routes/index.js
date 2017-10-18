@@ -71,7 +71,7 @@ router.post('experiment/answer', (req) => {
   connection.then((conn) => {
     conn.query(
       'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
-      [req.body.deviceId, req.body.question, req.body.schedule],
+      [req.body.deviceId, req.body.question, toDate(req.body.schedule)],
     ).then(() => {
       console.log('Inserting experiment answer', req.body);
       Object.entries(req.body.answer)
@@ -87,7 +87,7 @@ router.post('experiment/answer', (req) => {
             text: isIndex ? undefined : value,
             final: isIndex || (req.body.answer.index ? req.body.answer.index === index : 1),
             createdAt: toDate(req.body.answer.time),
-            experiment_schedule: req.body.schedule,
+            experiment_schedule: toDate(req.body.schedule),
           };
           conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
         });
@@ -108,7 +108,7 @@ router.post('experiment/round', (req) => {
       redDuration,
       recordedDuration,
       createdAt: toDate(time),
-      experiment_schedule: req.body.schedule,
+      experiment_schedule: toDate(req.body.schedule),
     };
     console.log('Inserting experiment round', req.body);
     conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));

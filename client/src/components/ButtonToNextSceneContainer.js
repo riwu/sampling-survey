@@ -4,15 +4,17 @@ import isEligible from '../questionnaire/isEligible';
 import api from '../api';
 
 const mapStateToProps = (state, ownProps) => {
+  const currentTime = Date.now();
+  const schedule = state.notificationSchedule.find(time => currentTime >= time);
   const answer = state.notificationSchedule.length === 0
     ? state.answers[ownProps.header]
-    : (state.experimentAnswers[state.experimentAnswers.length - 1] || {})[ownProps.header];
+    : (state.experimentAnswers[schedule] || {})[ownProps.header];
   return {
     nextScene: (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) ? 'NotEligible' : ownProps.nextScene,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
       (answer[-1] !== undefined && (answer[-1] || '').trim() === '') || // for TextInputResponse
-      Object.entries(answer).every(([key, value]) => key === 'time' || value === undefined), // for CheckboxList
+      Object.entries(answer || {}).every(([key, value]) => key === 'time' || value === undefined), // for CheckboxList
     onPress: () => {
       if (ownProps.onPress) ownProps.onPress();
       if (state.notificationSchedule.length === 0) {
@@ -23,8 +25,8 @@ const mapStateToProps = (state, ownProps) => {
       } else {
         api.postExperimentAnswer({
           answer,
+          schedule,
           question: ownProps.header,
-          createdAt: state.answers['Question 1'].time,
         });
       }
     },
