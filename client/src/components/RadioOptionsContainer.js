@@ -6,7 +6,7 @@ const mapStateToProps = (state, ownProps) => {
   const isExperiment = state.notificationSchedule.length > 0;
   return {
     answer: isExperiment
-      ? state.experimentAnswers[state.experimentAnswers.length - 1][ownProps.header]
+      ? (state.experimentAnswers[state.experimentAnswers.length - 1] || {})[ownProps.header]
       : state.answers[ownProps.header],
     isExperiment,
   };

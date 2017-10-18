@@ -1,4 +1,4 @@
-import { Notifications, Constants } from 'expo';
+import { Notifications } from 'expo';
 import { Actions } from 'react-native-router-flux';
 import api from './api';
 
