@@ -1,27 +1,15 @@
-const experimentAnswers = (state = [], action) => {
+const experimentAnswers = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_EXPERIMENT_ANSWER': {
-      if (action.header === 'Question 1') {
-        return [
-          ...state,
-          {
-            [action.header]: action.answer,
-          },
-        ];
-      }
-      const answer = state[state.length - 1];
-      return [
-        ...state.slice(0, -1),
-        {
-          ...answer,
+    case 'ADD_EXPERIMENT_ANSWER':
+      return {
+        ...state,
+        [action.schedule]: {
           [action.header]: {
-            ...answer[action.header],
+            ...(state[action.schedule] || {})[action.header],
             ...action.answer,
           },
         },
-      ];
-    }
-
+      };
     default:
       return state;
   }
