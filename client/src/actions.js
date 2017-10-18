@@ -45,6 +45,15 @@ export const setAnswerText = ({ header, index, text }) => ({
   time: Date.now(),
 });
 
+export const addExperimentAnswer = (header, answer) => ({
+  type: 'ADD_EXPERIMENT_ANSWER',
+  header,
+  answer: {
+    ...answer,
+    time: Date.now(),
+  },
+});
+
 export const addNewAnswer = ({ header, answer }) => ({
   type: 'ADD_NEW_ANSWER',
   header,
@@ -55,6 +64,7 @@ export const updateAnswer = ({ header, answer }) => ({
   type: 'UPDATE_ANSWER',
   header,
   answer,
+  time: Date.now(),
 });
 
 export const lowerTrialAttempt = () => ({

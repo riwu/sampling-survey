@@ -5,6 +5,7 @@ import disqualified from './disqualified';
 import trialAttemptLeft from './trialAttemptLeft';
 import notificationSchedule from './notificationSchedule';
 import deviceId from './deviceId';
+import experimentAnswers from './experimentAnswers';
 
 const reducer = combineReducers({
   route,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   trialAttemptLeft,
   notificationSchedule,
   deviceId,
+  experimentAnswers,
 });
 
 export default reducer;
