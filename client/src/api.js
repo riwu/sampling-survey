@@ -1,15 +1,18 @@
-import axios from 'axios';
+import Frisbee from 'frisbee';
 import { Constants } from 'expo';
 
 const API_BASE_URL = 'http://13.228.235.195:3002/';
 
-const get = path => axios.get(API_BASE_URL + path).then(response => response.data);
-const [post] = ['post'].map(method =>
-  (path, payload) => axios({
-    url: API_BASE_URL + path,
-    method,
-    data: payload,
-  }));
+const api = new Frisbee({
+  baseURI: API_BASE_URL,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
+
+const get = path => api.get(API_BASE_URL + path).then(response => response.data);
+const post = (path, payload) => api.post(path, { body: payload });
 
 export default {
   postDevice: () => {
@@ -22,8 +25,11 @@ export default {
       version: manifest.version,
     });
   },
-  postAnswer: answer => post('answer', { ...answer, deviceId: Constants.deviceId })
-    .catch(e => console.log('Post answer api', e, answer)),
+  postAnswer: (answer) => {
+    console.log('posting answer', answer);
+    return post('answer', { ...answer, deviceId: Constants.deviceId })
+      .catch(e => console.log('Post answer api', e, answer));
+  },
   postExperimentAnswer: answer => post('experiment/answer', { ...answer, deviceId: Constants.deviceId })
     .catch(e => console.log('Post experiment ans', e, answer)),
   postExperimentRound: answer => post('experiment/round', { ...answer, deviceId: Constants.deviceId })
