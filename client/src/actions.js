@@ -6,28 +6,15 @@ export const disqualify = () => ({
   type: 'DISQUALIFY',
 });
 
-export const setDeviceId = () => (dispatch) => {
-  const { deviceId, deviceName, isDevice, linkingUrl, manifest } = Constants;
-
-  dispatch({
-    type: 'SET_DEVICE_ID',
-    deviceId,
-  });
-
-  api.isDisqualified(deviceId).then((row) => {
+export const postDevice = () => (dispatch) => {
+  api.isDisqualified().then((row) => {
     if ((row[0] || {}).disqualified) {
       dispatch(disqualify());
       Actions.replace('NotEligible');
     }
   }).catch(e => console.log(e));
 
-  api.postDevice({
-    deviceId,
-    deviceName,
-    isDevice,
-    linkingUrl,
-    version: manifest.version,
-  }).catch(e => console.log(e));
+  api.postDevice().catch(e => console.log(e));
 };
 
 export const setAnswerIndex = (header, index) => ({

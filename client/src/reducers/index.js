@@ -4,7 +4,6 @@ import answers from './answers';
 import disqualified from './disqualified';
 import trialAttemptLeft from './trialAttemptLeft';
 import notificationSchedule from './notificationSchedule';
-import deviceId from './deviceId';
 import experimentAnswers from './experimentAnswers';
 
 const reducer = combineReducers({
@@ -13,7 +12,6 @@ const reducer = combineReducers({
   disqualified,
   trialAttemptLeft,
   notificationSchedule,
-  deviceId,
   experimentAnswers,
 });
 

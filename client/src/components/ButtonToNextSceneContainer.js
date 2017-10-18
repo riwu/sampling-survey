@@ -17,13 +17,11 @@ const mapStateToProps = (state, ownProps) => {
         api.postAnswer({
           answer,
           question: ownProps.header,
-          deviceId: state.deviceId,
         });
       } else {
         api.postExperimentAnswer({
           answer,
           question: ownProps.header,
-          deviceId: state.deviceId,
           createdAt: state.answers['Question 1'].time,
         });
       }

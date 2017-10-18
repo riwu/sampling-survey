@@ -6,10 +6,7 @@ import api from '../api';
 const mapStateToProps = (state) => {
   const experiments = state.answers.Experiment;
   return {
-    experiment: {
-      ...experiments[experiments.length - 1],
-      deviceId: state.deviceId,
-    },
+    experiment: experiments[experiments.length - 1],
   };
 };
 
