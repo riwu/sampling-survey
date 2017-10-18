@@ -1,28 +1,28 @@
 import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
-import { updateAnswer } from '../actions';
+import { addExperimentRounds } from '../actions';
 import api from '../api';
 
-const mapStateToProps = (state) => {
-  const experiments = state.answers.Experiment;
+const mapStateToProps = (state, ownProps) => {
+  const currentTime = Date.now();
+  const schedule = state.notificationSchedule.find(time => currentTime >= time);
   return {
-    experiment: experiments[experiments.length - 1],
+    schedule,
+    answer: (state.experimentRounds[schedule] || {})[ownProps.roundNum],
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (recordedDuration, experiment) => {
-    dispatch(updateAnswer({
-      header: 'Experiment',
-      answer: {
-        round: ownProps.roundNum,
-        recordedDuration,
-      },
-    }));
+  updateDuration: (recordedDuration, schedule, answer) => {
+    dispatch(addExperimentRounds(
+      ownProps.roundNum,
+      schedule,
+      { recordedDuration },
+    ));
     api.postExperimentRound({
+      ...answer,
       round: ownProps.roundNum,
       recordedDuration,
-      ...experiment,
     });
   },
 });
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   updateDuration: recordedDuration =>
-    dispatchProps.updateDuration(recordedDuration, stateProps.experiment),
+    dispatchProps.updateDuration(recordedDuration, stateProps.schedule, stateProps.answer),
 });
 
 export default connect(

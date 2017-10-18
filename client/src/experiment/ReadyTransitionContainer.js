@@ -1,15 +1,29 @@
 import { connect } from 'react-redux';
 import ReadyTransition from './ReadyTransition';
-import { updateAnswer } from '../actions';
+import { addExperimentRounds } from '../actions';
 
-const mapDispatchToProps = dispatch => ({
-  updateDuration: answer => dispatch(updateAnswer({
-    header: 'Experiment',
+const mapStateToProps = (state) => {
+  const currentTime = Date.now();
+  return {
+    schedule: state.notificationSchedule.find(time => currentTime >= time),
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateDuration: (answer, schedule) => dispatch(addExperimentRounds(
+    ownProps.roundNum,
+    schedule,
     answer,
-  })),
+  )),
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  updateDuration: answer => dispatchProps.updateDuration(answer, stateProps.schedule),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(ReadyTransition);

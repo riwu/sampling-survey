@@ -99,7 +99,7 @@ router.post('experiment/round', (req) => {
   console.log('Posting experiment round', req.body);
   connection.then((conn) => {
     const {
-      round, blackDuration, redDuration, recordedDuration, deviceId, time,
+      round, blackDuration, redDuration, recordedDuration, deviceId, time, schedule,
     } = req.body;
     const row = {
       experiment_device_deviceId: deviceId,
@@ -108,7 +108,7 @@ router.post('experiment/round', (req) => {
       redDuration,
       recordedDuration,
       createdAt: toDate(time),
-      experiment_schedule: toDate(req.body.schedule),
+      experiment_schedule: toDate(schedule),
     };
     console.log('Inserting experiment round', req.body);
     conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));

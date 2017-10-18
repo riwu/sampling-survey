@@ -42,6 +42,16 @@ export const addExperimentAnswer = (header, schedule, answer) => ({
   },
 });
 
+export const addExperimentRounds = (header, schedule, answer) => ({
+  type: 'ADD_EXPERIMENT_ANSWER',
+  header,
+  schedule,
+  answer: {
+    ...answer,
+    time: Date.now(),
+  },
+});
+
 export const addNewAnswer = ({ header, answer }) => ({
   type: 'ADD_NEW_ANSWER',
   header,
