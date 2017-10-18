@@ -8,6 +8,7 @@ const CheckboxComponent = props => (
     {...props}
     checkedColor="#008080"
     checked={props.checked}
+    iconSize={40}
     onChange={checked => props.setAnswerText(checked || undefined)}
   />
 );

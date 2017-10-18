@@ -21,8 +21,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 15,
-    marginRight: 5,
-    flex: 0.99,
+    flex: 0.95,
   },
   container: {
     marginTop: 30,
@@ -35,6 +34,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
   },
 });
 
