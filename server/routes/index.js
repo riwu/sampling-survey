@@ -59,7 +59,7 @@ router.post('trial', (req) => {
   console.log('Posting trial', req.body);
   connection.then((conn) => {
     const {
-      round, blackDuration, redDuration, recordedDuration, deviceId, time,
+      round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, deviceId, time,
     } = req.body;
     const row = {
       device_deviceId: deviceId,
@@ -67,6 +67,7 @@ router.post('trial', (req) => {
       blackDuration,
       redDuration,
       recordedDuration,
+      timeBetweenMountAndStart,
       createdAt: toDate(time),
     };
     console.log('Inserting trial round', req.body);
@@ -118,7 +119,7 @@ router.post('experiment/round', (req) => {
   console.log('Posting experiment round', req.body);
   connection.then((conn) => {
     const {
-      round, blackDuration, redDuration, recordedDuration, deviceId, time, schedule,
+      round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, deviceId, time, schedule,
     } = req.body;
     const row = {
       experiment_device_deviceId: deviceId,
@@ -126,6 +127,7 @@ router.post('experiment/round', (req) => {
       blackDuration,
       redDuration,
       recordedDuration,
+      timeBetweenMountAndStart,
       createdAt: toDate(time),
       experiment_schedule: toDate(schedule),
     };
