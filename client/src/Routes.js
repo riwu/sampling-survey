@@ -54,7 +54,8 @@ const questions = [
     text={'Well done!\n' +
     'Now that you understand the task, you will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
     'This will not take more than 5 minutes of your time.\n' +
-    'Please respond within 30 minutes of prompting.'}
+    'Please respond within 30 minutes of prompting.\n\n' +
+    'You may close the app now.'}
   />],
 ];
 
@@ -104,7 +105,8 @@ const App = () => (
           <MiddleText text={'Your next session is not yet ready.\n\n' +
           'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
           'This will not take more than 5 minutes of your time.\n' +
-          'Please respond within 30 minutes of prompting.'}
+          'Please respond within 30 minutes of prompting.\n\n' +
+          'You may close the app now.'}
           />
         )}
       />
