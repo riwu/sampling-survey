@@ -97,8 +97,8 @@ router.post('experiment/answer', (req) => {
         .forEach(([key, value]) => {
           if (key === 'time') return;
           const isIndex = key === 'index';
+          if (isIndex && req.body.answer[value] !== undefined) return;
           const index = Number(key);
-          if (isIndex && req.body.answer[index] !== undefined) return;
           const row = {
             experiment_device_deviceId: req.body.deviceId,
             question: req.body.question,
