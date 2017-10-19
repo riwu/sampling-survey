@@ -21,8 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     ));
     api.postExperimentRound({
       ...prevAnswer,
-      round: ownProps.roundNum,
       ...answer,
+      round: ownProps.roundNum,
+      schedule,
     });
   },
 });

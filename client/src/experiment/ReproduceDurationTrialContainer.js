@@ -4,7 +4,7 @@ import { updateTrial } from '../actions';
 import api from '../api';
 
 const mapStateToProps = state => ({
-  answer: state.trialAnswers[state.trialAnswers - 1],
+  answer: state.trialAnswers[state.trialAnswers.length - 1],
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     api.postTrial({
       ...previousAnswer,
       ...answer,
+      round: ownProps.roundNum,
     });
   },
 });

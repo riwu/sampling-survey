@@ -14,6 +14,7 @@ const questionProps = {
       }))}
     />
   ),
+  noPrevious: true,
 };
 
 const Acknowledgement = props => (
