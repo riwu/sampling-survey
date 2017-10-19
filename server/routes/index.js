@@ -108,7 +108,7 @@ router.post('/experiment/answer', (req) => {
             createdAt: toDate(req.body.answer.time),
             experiment_schedule: toDate(req.body.schedule),
           };
-          conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
+          conn.query('INSERT INTO experiment_answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
         });
     });
   });
@@ -131,7 +131,7 @@ router.post('/experiment/round', (req) => {
       experiment_schedule: toDate(schedule),
     };
     console.log('Inserting experiment round', req.body);
-    conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
+    conn.query('INSERT INTO round SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
   });
 });
 
