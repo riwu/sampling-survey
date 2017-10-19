@@ -23,4 +23,4 @@ const insertAnswer = (conn, req) => conn.query(
     });
 });
 
-export default insertAnswer;
+module.exports = insertAnswer;
