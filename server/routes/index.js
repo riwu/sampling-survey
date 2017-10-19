@@ -13,6 +13,19 @@ const connection = mysql.createConnection({
   password: process.env.STUFF_PASSWORD,
 });
 
+router.post('/all', (req) => {
+  console.log('Posting all', req.body);
+  connection.then((conn) => {
+    Object.entries(req.body.answers || {}).forEach(([question, answer]) => {
+      insertAnswer(conn, {
+        answer,
+        question,
+        deviceId: req.body.deviceId,
+      });
+    });
+  });
+});
+
 router.get('/disqualified/:deviceId', (req, res) => {
   console.log('Get device', req.params);
   connection
@@ -37,11 +50,11 @@ router.post('/answer', (req) => {
     return;
   }
   connection.then((conn) => {
-    insertAnswer(conn, req);
+    insertAnswer(conn, req.body);
   });
 });
 
-router.post('trial', (req) => {
+router.post('/trial', (req) => {
   console.log('Posting trial', req.body);
   connection.then((conn) => {
     const {
@@ -61,7 +74,7 @@ router.post('trial', (req) => {
   });
 });
 
-router.post('experiment', (req) => {
+router.post('/experiment', (req) => {
   console.log('Posting experiment schedule', req.body);
   connection.then(conn => req.body.schedule.forEach(time => conn.query(
     'INSERT INTO experiment VALUES(?, ?, DEFAULT)',
@@ -69,7 +82,7 @@ router.post('experiment', (req) => {
   )));
 });
 
-router.post('experiment/answer', (req) => {
+router.post('/experiment/answer', (req) => {
   console.log('Posting experiment answer', req.body);
   if (!req.body.answer) {
     return;
@@ -101,7 +114,7 @@ router.post('experiment/answer', (req) => {
   });
 });
 
-router.post('experiment/round', (req) => {
+router.post('/experiment/round', (req) => {
   console.log('Posting experiment round', req.body);
   connection.then((conn) => {
     const {
@@ -119,19 +132,6 @@ router.post('experiment/round', (req) => {
     };
     console.log('Inserting experiment round', req.body);
     conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
-  });
-});
-
-router.post('all', (req) => {
-  console.log('Posting all', req.body);
-  connection.then((conn) => {
-    Object.entries(req.body.state.answers || {}).forEach(([question, answer]) => {
-      insertAnswer(conn, {
-        answer,
-        question,
-        deviceId: req.body.deviceId,
-      });
-    });
   });
 });
 

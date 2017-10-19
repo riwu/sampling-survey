@@ -1,23 +1,23 @@
 const toDate = require('./toDate');
 
-const insertAnswer = (conn, req) => conn.query(
+const insertAnswer = (conn, data) => conn.query(
   'DELETE FROM answer WHERE device_deviceId = ? AND question = ?',
-  [req.body.deviceId, req.body.question],
+  [data.deviceId, data.question],
 ).then(() => {
-  console.log('Inserting answer', req.body);
-  Object.entries(req.body.answer)
+  console.log('Inserting answer', data);
+  Object.entries(data.answer)
     .forEach(([key, value]) => {
       if (key === 'time') return;
       const isIndex = key === 'index';
-      if (isIndex && req.body.answer[value] !== undefined) return;
+      if (isIndex && data.answer[value] !== undefined) return;
       const index = Number(key);
       const row = {
-        device_deviceId: req.body.deviceId,
-        question: req.body.question,
+        device_deviceId: data.deviceId,
+        question: data.question,
         index: isIndex ? value : index,
         text: isIndex ? undefined : value,
-        final: isIndex || (req.body.answer.index ? req.body.answer.index === index : 1),
-        createdAt: toDate(req.body.answer.time),
+        final: isIndex || (data.answer.index ? data.answer.index === index : 1),
+        createdAt: toDate(data.answer.time),
       };
       conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
     });
