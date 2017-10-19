@@ -3,12 +3,12 @@ import Acknowledgement from './Acknowledgement';
 import { scheduleNotification } from '../actions';
 
 const mapStateToProps = state => ({
-  answer: state.answers,
+  answers: state.answers,
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
-  scheduleNotification: dispatchProps.scheduleNotification(stateProps.answers),
+  scheduleNotification: () => dispatchProps.scheduleNotification(stateProps.answers),
 });
 
 export default connect(

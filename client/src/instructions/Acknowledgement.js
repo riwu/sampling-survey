@@ -1,7 +1,6 @@
 import React from 'react';
 import RadioOptions from '../components/RadioOptionsContainer';
 import Question from '../components/Question';
-import { scheduleNotification } from '../actions';
 
 const questionProps = {
   header: 'Acknowledgement',

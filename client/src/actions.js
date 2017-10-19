@@ -42,8 +42,8 @@ export const addExperimentAnswer = (header, schedule, answer) => ({
   },
 });
 
-export const addExperimentRounds = (header, schedule, answer) => ({
-  type: 'ADD_EXPERIMENT_ANSWER',
+export const addExperimentRound = (header, schedule, answer) => ({
+  type: 'ADD_EXPERIMENT_ROUND',
   header,
   schedule,
   answer: {
@@ -87,6 +87,12 @@ export const scheduleNotification = answers => (dispatch) => {
     }, {
       time,
     }));
+
+  Notifications.addListener(() => {
+    console.log('received notification');
+    Actions.replace('RoutingScreen');
+  });
+
   dispatch({
     type: 'SCHEDULE_NOTIFICATION',
     schedule,

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ReadyTransition from './ReadyTransition';
-import { addExperimentRounds } from '../actions';
+import { addExperimentRound } from '../actions';
 
 const mapStateToProps = (state) => {
   const currentTime = Date.now();
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (answer, schedule) => dispatch(addExperimentRounds(
+  updateDuration: (answer, schedule) => dispatch(addExperimentRound(
     ownProps.roundNum,
     schedule,
     answer,

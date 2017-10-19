@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
-import { addExperimentRounds } from '../actions';
+import { addExperimentRound } from '../actions';
 import api from '../api';
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateDuration: (answer, schedule, prevAnswer) => {
-    dispatch(addExperimentRounds(
+    dispatch(addExperimentRound(
       ownProps.roundNum,
       schedule,
       answer,

@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
     nextScene: (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) ? 'NotEligible' : ownProps.nextScene,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
-      (answer[-1] !== undefined && (answer[-1] || '').trim() === '') || // for TextInputResponse
+      (answer[-1] !== undefined && typeof answer[-1] === 'string' && (answer[-1] || '').trim() === '') || // for TextInputResponse
       Object.entries(answer || {}).every(([key, value]) => key === 'time' || value === undefined), // for CheckboxList
     onPress: () => {
       if (ownProps.onPress) ownProps.onPress();
