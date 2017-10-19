@@ -18,27 +18,6 @@ const answers = (state = {}, action) => {
           time: action.time,
         },
       };
-    case 'ADD_NEW_ANSWER':
-      return {
-        ...state,
-        [action.header]: [
-          ...(state[action.header] || []),
-          action.answer,
-        ],
-      };
-    case 'UPDATE_ANSWER': {
-      const answer = state[action.header] || [];
-      return {
-        ...state,
-        [action.header]: [
-          ...answer.slice(0, -1),
-          {
-            ...answer[answer.length - 1],
-            ...action.answer,
-          },
-        ],
-      };
-    }
     default:
       return state;
   }

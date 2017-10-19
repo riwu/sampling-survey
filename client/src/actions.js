@@ -52,17 +52,17 @@ export const addExperimentRounds = (header, schedule, answer) => ({
   },
 });
 
-export const addNewAnswer = ({ header, answer }) => ({
-  type: 'ADD_NEW_ANSWER',
-  header,
-  answer,
+export const addNewTrial = answer => ({
+  type: 'ADD_NEW_TRIAL',
+  answer: {
+    ...answer,
+    time: Date.now(),
+  },
 });
 
-export const updateAnswer = ({ header, answer }) => ({
-  type: 'UPDATE_ANSWER',
-  header,
+export const updateTrial = answer => ({
+  type: 'UPDATE_TRIAL',
   answer,
-  time: Date.now(),
 });
 
 export const lowerTrialAttempt = () => ({

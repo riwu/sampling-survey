@@ -55,6 +55,25 @@ router.post('/answer', (req) => {
   });
 });
 
+router.post('trial', (req) => {
+  console.log('Posting trial', req.body);
+  connection.then((conn) => {
+    const {
+      round, blackDuration, redDuration, recordedDuration, deviceId, time,
+    } = req.body;
+    const row = {
+      device_deviceId: deviceId,
+      round,
+      blackDuration,
+      redDuration,
+      recordedDuration,
+      createdAt: toDate(time),
+    };
+    console.log('Inserting trial round', req.body);
+    conn.query('INSERT INTO trial SET ?', [row]).catch(e => console.log(e));
+  });
+});
+
 router.post('experiment', (req) => {
   console.log('Posting experiment schedule', req.body);
   connection.then(conn => req.body.schedule.forEach(time => conn.query(

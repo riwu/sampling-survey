@@ -1,27 +1,34 @@
 import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
-import { updateAnswer } from '../actions';
+import { updateTrial } from '../actions';
+import api from '../api';
 
-const header = 'Experiment trial';
-
-const mapStateToProps = (state) => {
-  const answers = state.answers[header] || [];
-  return {
-    actualDuration: (answers[answers.length - 1] || {}).redDuration,
-  };
-};
+const mapStateToProps = state => ({
+  answer: state.trialAnswers[state.trialAnswers - 1],
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: recordedDuration => dispatch(updateAnswer({
-    header,
-    answer: {
+  updateDuration: (recordedDuration, answer) => {
+    dispatch(updateTrial({
       round: ownProps.roundNum,
       recordedDuration,
-    },
-  })),
+    }));
+    api.postTrial({
+      ...answer,
+      recordedDuration,
+    });
+  },
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  actualDuration: (stateProps.answer || {}).redDuration,
+  updateDuration: recordedDuration =>
+    dispatchProps.updateDuration(recordedDuration, stateProps.answer),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(ReproduceDuration);

@@ -1,15 +1,8 @@
 import { connect } from 'react-redux';
 import ReadyTransition from './ReadyTransition';
-import { addNewAnswer } from '../actions';
-
-const mapDispatchToProps = dispatch => ({
-  updateDuration: answer => dispatch(addNewAnswer({
-    header: 'Experiment trial',
-    answer,
-  })),
-});
+import { addNewTrial } from '../actions';
 
 export default connect(
   null,
-  mapDispatchToProps,
+  { updateDuration: addNewTrial },
 )(ReadyTransition);

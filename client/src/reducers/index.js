@@ -6,6 +6,7 @@ import trialAttemptLeft from './trialAttemptLeft';
 import notificationSchedule from './notificationSchedule';
 import experimentAnswers from './experimentAnswers';
 import experimentRounds from './experimentRounds';
+import trialAnswers from './trialAnswers';
 
 const reducer = combineReducers({
   route,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   notificationSchedule,
   experimentAnswers,
   experimentRounds,
+  trialAnswers,
 });
 
 export default reducer;
