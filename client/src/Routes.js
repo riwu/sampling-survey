@@ -16,7 +16,7 @@ import Instruction6 from './instructions/ReproduceDuration';
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
-import Acknowledgement from './instructions/Acknowledgement';
+import Acknowledgement from './instructions/AcknowledgementContainer';
 
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
@@ -110,6 +110,7 @@ const App = () => (
       />
 
       <Scene key="NotEligible" component={Disqualified} />
+      <Scene key="SessionTimeOut" component={SessionTimeOut} />
     </Scene>
   </RouterWithRedux>
 );

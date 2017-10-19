@@ -69,8 +69,9 @@ export const lowerTrialAttempt = () => ({
   type: 'LOWER_TRIAL_ATTEMPT',
 });
 
-export const scheduleNotification = () => (dispatch) => {
-  const schedule = [Date.now() + 20000];
+export const scheduleNotification = answers => (dispatch) => {
+  console.log('schedule ans', answers);
+  const schedule = [Date.now() + 20000, Date.now() + 5 * 60000];
   schedule.forEach(time =>
     Notifications.scheduleLocalNotificationAsync({
       title: 'Complete your task now',
