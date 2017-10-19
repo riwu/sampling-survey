@@ -54,6 +54,9 @@ class ReproduceDuration extends React.Component {
   state = {
     startTimer: undefined,
   }
+  componentDidMount() {
+    this.timeBetweenMountAndStart = Date.now();
+  }
   render() {
     return (
       <ScrollView>
@@ -77,7 +80,11 @@ class ReproduceDuration extends React.Component {
             text="START TIMER"
             style={[styles.button, { backgroundColor: '#00e500' }]}
             disabled={!!this.state.startTimer}
-            onPress={() => this.setState({ startTimer: Date.now() })}
+            onPress={() => {
+              const currentTime = Date.now();
+              this.setState({ startTimer: currentTime });
+              this.timeBetweenMountAndStart = currentTime - this.timeBetweenMountAndStart;
+            }}
           />
           <Button
             text="STOP TIMER"
@@ -85,7 +92,10 @@ class ReproduceDuration extends React.Component {
             disabled={!this.state.startTimer}
             onPress={() => {
               const duration = Date.now() - this.state.startTimer;
-              this.props.updateDuration(duration);
+              this.props.updateDuration({
+                recordedDuration: duration,
+                timeBetweenMountAndStart: this.timeBetweenMountAndStart,
+              });
               if (this.props.actualDuration && (duration < 500 ||
                 Math.abs(duration - this.props.actualDuration) > 3000)) {
                 Actions.replace('FailedTrial', { roundNum: this.props.roundNum });

@@ -8,14 +8,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (recordedDuration, answer) => {
+  updateDuration: (answer, previousAnswer) => {
     dispatch(updateTrial({
       round: ownProps.roundNum,
-      recordedDuration,
+      ...answer,
     }));
     api.postTrial({
+      ...previousAnswer,
       ...answer,
-      recordedDuration,
     });
   },
 });
@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   actualDuration: (stateProps.answer || {}).redDuration,
-  updateDuration: recordedDuration =>
-    dispatchProps.updateDuration(recordedDuration, stateProps.answer),
+  updateDuration: answer =>
+    dispatchProps.updateDuration(answer, stateProps.answer),
 });
 
 export default connect(

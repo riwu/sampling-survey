@@ -13,24 +13,24 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (recordedDuration, schedule, answer) => {
+  updateDuration: (answer, schedule, prevAnswer) => {
     dispatch(addExperimentRounds(
       ownProps.roundNum,
       schedule,
-      { recordedDuration },
+      answer,
     ));
     api.postExperimentRound({
-      ...answer,
+      ...prevAnswer,
       round: ownProps.roundNum,
-      recordedDuration,
+      ...answer,
     });
   },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
-  updateDuration: recordedDuration =>
-    dispatchProps.updateDuration(recordedDuration, stateProps.schedule, stateProps.answer),
+  updateDuration: answer =>
+    dispatchProps.updateDuration(answer, stateProps.schedule, stateProps.answer),
 });
 
 export default connect(
