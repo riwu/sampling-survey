@@ -13,11 +13,14 @@ const connection = mysql.createConnection({
   password: process.env.STUFF_PASSWORD,
 });
 
-
 router.get('/disqualified/:deviceId', (req, res) => {
+  console.log('Get device', req.params);
   connection
     .then(conn => conn.query('SELECT disqualified FROM device WHERE deviceId = ?', [req.params.deviceId]))
-    .then(data => res.send(data)).catch(e => console.log(e));
+    .then((data) => {
+      console.log('Sending data', data);
+      return res.send(data);
+    }).catch(e => console.log(e));
 });
 
 router.post('/device', (req) => {

@@ -11,7 +11,7 @@ const api = new Frisbee({
   },
 });
 
-const get = path => api.get(API_BASE_URL + path).then(response => response.data);
+const get = path => api.get(path).then(response => response.body);
 const post = (path, payload) => api.post(path, { body: payload });
 
 export default {
