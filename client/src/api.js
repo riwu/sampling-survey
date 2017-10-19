@@ -39,4 +39,6 @@ export default {
   postExperimentRound: answer => post('experiment/round', { ...answer, deviceId: Constants.deviceId })
     .catch(e => console.log('Post experiment round', e, answer)),
   isDisqualified: () => get(`disqualified/${Constants.deviceId}`),
+  postAll: state => post('all', { ...state, deviceId: Constants.deviceId })
+    .catch(e => console.log('Post all', e)),
 };
