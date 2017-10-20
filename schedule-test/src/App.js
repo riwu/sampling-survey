@@ -63,7 +63,7 @@ const getSchedule = (partner, wakeup, sleep) => {
       }
     }
     if (currentSchedule.length === notiLeft) {
-      nonPartnerSchedule = currentSchedule;
+      nonPartnerSchedule = currentSchedule.map(hr => hr % 24);
       break;
     }
     freq -= 0.1;
