@@ -18,13 +18,10 @@ const mapStateToProps = (state, ownProps) => {
     onPress: () => {
       if (ownProps.onPress) ownProps.onPress();
       if (state.notificationSchedule.length === 0) {
-        if (ownProps.header === 'QUESTION 22') {
-          api.postAll(state);
-        }
-        // api.postAnswer({
-        //   answer,
-        //   question: ownProps.header,
-        // });
+        api.postAnswer({
+          answer,
+          question: ownProps.header,
+        });
       } else {
         api.postExperimentAnswer({
           answer,
