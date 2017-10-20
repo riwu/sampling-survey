@@ -13,7 +13,8 @@ const connection = mysql.createConnection({
   password: process.env.STUFF_PASSWORD,
 });
 
-router.post('/all', (req) => {
+router.post('/all', (req, res) => {
+  res.end();
   console.log('Posting all', req.body);
   connection.then((conn) => {
     Object.entries(req.body.answers || {}).forEach(([question, answer]) => {
@@ -36,7 +37,8 @@ router.get('/disqualified/:deviceId', (req, res) => {
     }).catch(e => console.log(e));
 });
 
-router.post('/device', (req) => {
+router.post('/device', (req, res) => {
+  res.end();
   console.log('Posting device', req.body);
   connection.then((conn) => {
     console.log('Inserting device', req.body);
@@ -44,7 +46,8 @@ router.post('/device', (req) => {
   }).catch(e => console.log(e));
 });
 
-router.post('/answer', (req) => {
+router.post('/answer', (req, res) => {
+  res.end();
   console.log('Posting answer', req.body);
   if (!req.body.answer) {
     return;
@@ -54,7 +57,8 @@ router.post('/answer', (req) => {
   });
 });
 
-router.post('/trial', (req) => {
+router.post('/trial', (req, res) => {
+  res.end();
   console.log('Posting trial', req.body);
   connection.then((conn) => {
     const {
@@ -74,7 +78,8 @@ router.post('/trial', (req) => {
   });
 });
 
-router.post('/experiment', (req) => {
+router.post('/experiment', (req, res) => {
+  res.end();
   console.log('Posting experiment schedule', req.body);
   connection.then(conn => req.body.schedule.forEach(time => conn.query(
     'INSERT INTO experiment VALUES(?, ?, DEFAULT)',
@@ -82,7 +87,8 @@ router.post('/experiment', (req) => {
   )));
 });
 
-router.post('/experiment/answer', (req) => {
+router.post('/experiment/answer', (req, res) => {
+  res.end();
   console.log('Posting experiment answer', req.body);
   if (!req.body.answer) {
     return;
@@ -114,7 +120,8 @@ router.post('/experiment/answer', (req) => {
   });
 });
 
-router.post('/experiment/round', (req) => {
+router.post('/experiment/round', (req, res) => {
+  res.end();
   console.log('Posting experiment round', req.body);
   connection.then((conn) => {
     const {
