@@ -2,15 +2,22 @@ import { connect } from 'react-redux';
 import ButtonToNextScene from './ButtonToNextScene';
 import isEligible from '../questionnaire/isEligible';
 import api from '../api';
+import getMatchingSchedule from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state, ownProps) => {
-  const currentTime = Date.now();
-  const schedule = state.notificationSchedule.find(time => currentTime >= time);
+  const schedule = getMatchingSchedule(state.notificationSchedule);
   const answer = state.notificationSchedule.length === 0
     ? state.answers[ownProps.header]
     : (state.experimentAnswers[schedule] || {})[ownProps.header];
+
+  let nextScene = ownProps.nextScene;
+  if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
+    nextScene = 'NotEligible';
+  } else if (ownProps.header === 'Question 5' && (Date.now() - schedule <= 30 * 60000)) {
+    nextScene = 'Finish';
+  }
   return {
-    nextScene: (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) ? 'NotEligible' : ownProps.nextScene,
+    nextScene,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
       (answer[-1] !== undefined && typeof answer[-1] === 'string' && (answer[-1] || '').trim() === '') || // for TextInputResponse

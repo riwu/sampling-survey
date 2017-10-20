@@ -1,13 +1,11 @@
 import { connect } from 'react-redux';
 import ReadyTransition from './ReadyTransition';
 import { addExperimentRound } from '../actions';
+import getMatchingSchedule from '../experiment/getMatchingSchedule';
 
-const mapStateToProps = (state) => {
-  const currentTime = Date.now();
-  return {
-    schedule: state.notificationSchedule.find(time => currentTime >= time),
-  };
-};
+const mapStateToProps = state => ({
+  schedule: getMatchingSchedule(state.notificationSchedule),
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateDuration: (answer, schedule) => dispatch(addExperimentRound(

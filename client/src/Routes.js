@@ -68,6 +68,7 @@ const experiment = [
     [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment,
+  SessionTimeOut,
   ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} noPrevious />],
 ];
 
@@ -112,7 +113,6 @@ const App = () => (
       />
 
       <Scene key="NotEligible" component={Disqualified} />
-      <Scene key="SessionTimeOut" component={SessionTimeOut} />
     </Scene>
   </RouterWithRedux>
 );

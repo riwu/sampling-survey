@@ -27,6 +27,7 @@ export const SessionTimeOut = mapToQuestion({
       }])}
     />
   ),
+  noPrevious: true,
 });
 
 export const Question1 = mapToQuestion({

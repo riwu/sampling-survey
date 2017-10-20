@@ -10,9 +10,9 @@ import reducer from './reducers';
 const middleware = [thunk, logger];
 const store = createStore(
   reducer,
-  //  autoRehydrate(),
+  autoRehydrate(),
   applyMiddleware(...middleware),
 );
-// persistStore(store, { storage: AsyncStorage });
+persistStore(store, { storage: AsyncStorage });
 
 export default store;

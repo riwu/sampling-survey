@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
 import { addExperimentRound } from '../actions';
 import api from '../api';
+import getMatchingSchedule from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state, ownProps) => {
-  const currentTime = Date.now();
-  const schedule = state.notificationSchedule.find(time => currentTime >= time);
+  const schedule = getMatchingSchedule(state.notificationSchedule);
   return {
     schedule,
     answer: (state.experimentRounds[schedule] || {})[ownProps.roundNum],

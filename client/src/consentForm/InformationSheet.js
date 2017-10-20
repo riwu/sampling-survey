@@ -40,10 +40,10 @@ const InformationSheet = ({ previousScene, nextScene, onPress }) => (
     </Text>
     <Text style={styles.text}>
         The Synergy Lab at Yale-NUS would like to invite you to take part in our
-        research study if you are above the age 21, residents of the United States,
-        users of the online recruitment service, heterosexual, in a current romantic relationship ,
-        has a smartphone and agreeable to using phone-based messaging/whatsapp/facebook messenger
-        for the experiment. Before you decide, we would like you to understand why the research is being done
+        research study if you are above the age 21, users of the online recruitment service, heterosexual,
+        in a current romantic relationship,
+        has a smartphone and agreeable to using phone-based messaging for the experiment.
+        Before you decide, we would like you to understand why the research is being done
         and what it would involve for you. Please carefully go through the information sheet.
         Feel free to take as long as you need.
     </Text>
@@ -51,7 +51,7 @@ const InformationSheet = ({ previousScene, nextScene, onPress }) => (
         We are interested in understanding more about the views, attitudes, and cognition related to love. This will require you to complete a set of online questionnaires (taking approximately 10 minutes).
     </Text>
     <Text style={styles.text}>
-        Additionally, we will contact you via your smartphone (through whatsapp, text messaging, or Facebook Messenger) 7 times a day for a week. Each time, we will require you to:
+        Additionally, we will contact you via your smartphone 7 times a day for a week. Each time, we will require you to:
       {'\n    \u2022'} Answer questions, and
       {'\n    \u2022'} Complete computerized cognitive tasks.
       {'\n    '}Each phone contact will require {'<'}5 minutes of your time.
