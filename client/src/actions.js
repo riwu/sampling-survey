@@ -191,7 +191,8 @@ export const scheduleNotification = answers => (dispatch) => {
   });
 
   Notifications.addListener(() => {
-    Actions.replace('RoutingScreen');
+    console.log('received');
+    Actions.replace('Question 1');
   });
 
   dispatch({

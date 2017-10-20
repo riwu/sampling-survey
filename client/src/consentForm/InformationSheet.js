@@ -33,7 +33,7 @@ const InformationSheet = ({ previousScene, nextScene, onPress }) => (
   <ScrollView style={styles.container}>
     <Text style={styles.header}>
         ONLINE PARTICIPANT INFORMATION SHEET
-        (Experience Sampling Studies)
+        (Experience Sampling Studies v1.5.0)
     </Text>
     <Text style={styles.title}>
         Study: Online questionnaires on romantic relationships
