@@ -173,7 +173,7 @@ export const scheduleNotification = answers => (dispatch) => {
 
   finalSchedule.sort();
 
-  finalSchedule.forEach(time =>
+  finalSchedule.forEach((time) => {
     Notifications.scheduleLocalNotificationAsync({
       title: 'Complete your task now',
       body: 'Click here to access your time estimation task',
@@ -187,7 +187,8 @@ export const scheduleNotification = answers => (dispatch) => {
       },
     }, {
       time,
-    }));
+    });
+  });
 
   Notifications.addListener(() => {
     Actions.replace('RoutingScreen');
