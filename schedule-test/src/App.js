@@ -29,8 +29,22 @@ const getSchedule = (partner, wakeup, sleep) => {
   const notiLeft = 7 - partnerSchedule.length;
   const freq = awakeHours.length / notiLeft;
   const nonPartnerSchedule = [];
+
+  const exceededSleep = (start, end, sleep) => {
+    for (let i = Math.trunc(start); i <= end; i+=1) {
+      if (i % 24 === sleep) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   for (let i = wakeup; i < (wakeup + 24); i += freq) {
     const maxHr = (i + freq) % 24;
+    if (exceededSleep(i, i+freq, sleep)) {
+      break;
+    }
+
     if (notNearSchedule(i) && notNearSchedule(maxHr)) {
       const minNext = nonPartnerSchedule.length === 0
         ? i
@@ -99,20 +113,20 @@ class App extends Component {
           <div>No. of notifications for non-partner hrs: {notiLeft}</div>
           <div>Partner schedule: </div>
           <div>
-            {partnerSchedule.map(t => <div>{t}</div>)}
+            {partnerSchedule.map(t => <div key={t}>{t}</div>)}
           </div>
-          <p>
+          <div className="paragraph">
             <div>Non-partner schedule: </div>
             <div>
-              {nonPartnerSchedule.map(t => <div>{t}</div>)}
+              {nonPartnerSchedule.map(t => <div key={t}>{t}</div>)}
             </div>
-          </p>
-          <p>
+          </div>
+          <div className="paragraph">
             <div>Overall schedule: </div>
             <div>
               {schedule.map(t => <div key={t}>{t}</div>)}
             </div>
-          </p>
+          </div>
         </div>
       </div>
     );
