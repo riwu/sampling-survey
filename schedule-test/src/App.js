@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import './App.css';
 
 function getRandom(min, max) {
@@ -27,14 +28,14 @@ const getSchedule = (partner, wakeup, sleep) => {
   }
   const notiLeft = 7 - partnerSchedule.length;
 
-  const exceededSleep = (start, end, sleep) => {
-    for (let i = Math.trunc(start); i <= end; i+=1) {
+  const exceededSleep = (start, end) => {
+    for (let i = Math.trunc(start); i <= end; i += 1) {
       if (i % 24 === sleep) {
         return true;
       }
     }
     return false;
-  }
+  };
 
   const frequency = awakeHours.length / notiLeft;
   let freq = frequency;
@@ -44,12 +45,12 @@ const getSchedule = (partner, wakeup, sleep) => {
     for (let i = wakeup; i < (wakeup + 24); i += freq) {
       const maxHr = (i + freq) % 24;
       let upperLimit = i + freq;
-      const exceeded = exceededSleep(i, i+freq, sleep);
+      const exceeded = exceededSleep(i, i + freq, sleep);
       if (exceeded) {
         upperLimit = sleep + (i > sleep ? 24 : 0);
       }
       if (notNearSchedule(i) && notNearSchedule(maxHr)) {
-        let minNext = (currentSchedule.length === 0)
+        const minNext = (currentSchedule.length === 0)
           ? i
           : Math.max(currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT, i);
         if (upperLimit <= minNext) {
@@ -95,6 +96,20 @@ class App extends Component {
       notiLeft,
       schedule,
     } = getSchedule(partnerHours, Number(this.state.wakeup), Number(this.state.sleep));
+
+    const finalSchedule = [];
+    for (let i = 1; i < 8; i += 1) {
+      const day = moment().add(i, 'd');
+      const daySchedule = getSchedule(partnerHours, Number(this.state.wakeup), Number(this.state.sleep)).schedule;
+      daySchedule.forEach((time) => {
+        const newHour = moment().add(i, 'd');
+        const hr = Math.floor(time);
+        newHour.set('hour', hr);
+        newHour.set('minute', Math.round((time - hr) * 60));
+        finalSchedule.push(newHour);
+      });
+    }
+
     return (
       <div>
         <div>Sleep time Between 0 (12 am) to 23 (11 pm) )
@@ -144,6 +159,12 @@ class App extends Component {
           </div>
           <p>Total notifications: {schedule.length}</p>
           { (schedule.length !== 7) && <p style={{color: 'red'}}>WARNING: NOT 7!</p>}
+          <div>Overall schedule:</div>
+          {finalSchedule.map(time => (
+            <div key={+time}>
+              {time.format()}
+            </div>
+          ))}
         </div>
       </div>
     );
