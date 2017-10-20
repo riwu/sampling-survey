@@ -1,4 +1,5 @@
-import { Notifications } from 'expo';
+import { Notifications, Permissions } from 'expo';
+import { Alert, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import api from './api';
@@ -142,8 +143,19 @@ const getSchedule = (partner, wakeup, sleep) => {
   return [...partnerSchedule, ...nonPartnerSchedule];
 };
 
+async function getiOSNotificationPermission() {
+  const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  if (status !== 'granted') {
+    await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  }
+}
+
+
 export const scheduleNotification = answers => (dispatch) => {
   console.log('schedule ans', answers);
+
+  getiOSNotificationPermission();
+
   const hoursMap = timeOptions.map(time => moment(time, 'h a').hours());
   const weekdayWakeUp = hoursMap[answers['QUESTION 5'].index];
   const weekdaySleep = hoursMap[answers['QUESTION 6'].index];
@@ -171,6 +183,7 @@ export const scheduleNotification = answers => (dispatch) => {
     });
   }
 
+  console.log(finalSchedule);
   finalSchedule.sort();
 
   finalSchedule.forEach((time) => {
@@ -190,8 +203,11 @@ export const scheduleNotification = answers => (dispatch) => {
     });
   });
 
-  Notifications.addListener(() => {
-    console.log('received');
+  Notifications.addListener((notification) => {
+    console.log('received', notification);
+    if (notification.origin === 'received' && Platform.OS === 'ios') {
+      Alert.alert('Complete your task now');
+    }
     Actions.replace('Question 1');
   });
 

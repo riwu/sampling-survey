@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
+import { Constants } from 'expo';
 import ButtonToNextScene from '../components/ButtonToNextScene';
 
 const styles = StyleSheet.create({
@@ -33,7 +34,8 @@ const InformationSheet = ({ previousScene, nextScene, onPress }) => (
   <ScrollView style={styles.container}>
     <Text style={styles.header}>
         ONLINE PARTICIPANT INFORMATION SHEET
-        (Experience Sampling Studies v1.5.0)
+        (Experience Sampling Studies)
+        v{Constants.manifest.version}
     </Text>
     <Text style={styles.title}>
         Study: Online questionnaires on romantic relationships
