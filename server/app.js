@@ -9,7 +9,7 @@ const index = require('./routes/index');
 const app = express();
 
 app.use(logger((tokens, req, res) => [
-  moment().format('YYYY-MM-DD HH:mm:ss'),
+  moment().utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
   tokens.method(req, res),
   tokens.url(req, res),
   tokens['response-time'](req, res), 'ms',
