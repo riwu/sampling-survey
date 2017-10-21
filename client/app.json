@@ -9,10 +9,11 @@
      "bundleIdentifier": "riwu.sampling-survey"
    },
    "android": {
-     "package": "riwu.sampling.survey"
+     "package": "riwu.sampling.survey",
+     "permissions": ["VIBRATE"]
    },
    "loading": {
-     "icon": "icon.png",
+     "icon": "icon.png"
    }
   }
 }
