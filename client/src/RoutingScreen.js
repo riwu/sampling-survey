@@ -8,7 +8,7 @@ class RoutingScreen extends React.Component {
     console.log('Mounting', this.props);
     this.timeout = setTimeout(() => {
       console.log('Going to information sheet');
-      Actions.replace('InformationSheet');
+      Actions.replace('InformationSheet');//    Acknowledgement
     }, 1000);
   }
 

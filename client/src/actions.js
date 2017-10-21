@@ -153,6 +153,7 @@ async function getiOSNotificationPermission() {
   }
 }
 
+// to change: i from 0 to 1, remove the temp if statement, remove the 2 moments
 export const scheduleNotification = answers => (dispatch) => {
   console.log('schedule ans', answers);
 
@@ -177,17 +178,21 @@ export const scheduleNotification = answers => (dispatch) => {
     daySchedule.forEach((time) => {
       const hr = Math.floor(time);
       const newHour = moment().add(i, 'd').hour(hr).minute(Math.round((time - hr) * 60));
-      finalSchedule.push(+newHour);
+      if ((+newHour - +moment()) > 60 * 60000) { // temp
+        finalSchedule.push(+newHour);
+      }
     });
   }
 
-  console.log(finalSchedule);
-  finalSchedule.sort();
+  finalSchedule.sort().reverse();
+
+  console.log('final schedule', finalSchedule.map(t => [t, moment(t).toDate().toString()]));
 
   finalSchedule.forEach((time) => {
     Notifications.scheduleLocalNotificationAsync({
       title: 'Complete your task now',
       body: 'Click here to access your time estimation task',
+      data: time,
       ios: {
         sound: true,
       },
@@ -203,10 +208,12 @@ export const scheduleNotification = answers => (dispatch) => {
 
   Notifications.addListener((notification) => {
     console.log('received', notification);
-    if (notification.origin === 'received' && Platform.OS === 'ios') {
-      Alert.alert('Complete your task now');
+    if (typeof notification.data === 'number') {
+      if (notification.origin === 'received' && Platform.OS === 'ios') {
+        Alert.alert('Complete your task now');
+      }
+      Actions.replace('Question 1');
     }
-    Actions.replace('Question 1');
   });
 
   dispatch({
