@@ -172,7 +172,7 @@ export const scheduleNotification = answers => (dispatch) => {
   const weekendPartner = getHours('QUESTION 10');
 
   const finalSchedule = [+moment().add(1, 'm')];
-  for (let i = 1; i < 8; i += 1) {
+  for (let i = 0; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
       ? getSchedule(weekendPartner, weekendWakeup, weekendSleep)
