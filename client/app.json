@@ -1,15 +1,18 @@
 {
   "expo": {
    "name": "Synergy Lab: Time Estimation Task",
+   "privacy": "public",
    "icon": "icon.png",
    "version": "1.6.6",
    "slug": "sampling-survey",
    "sdkVersion": "21.0.0",
    "ios": {
-     "bundleIdentifier": "riwu.sampling-survey"
+     "bundleIdentifier": "riwu.sampling-survey",
+     "supportsTablet": true
    },
    "android": {
      "package": "riwu.sampling.survey",
+     "versionCode": 2,
      "permissions": ["VIBRATE"]
    },
    "loading": {
