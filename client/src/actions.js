@@ -209,6 +209,10 @@ export const scheduleNotification = answers => (dispatch) => {
   Notifications.addListener((notification) => {
     console.log('received', notification);
     if (typeof notification.data === 'number') {
+      if (Date.now() - notification.data > 30 * 60000) {
+        Actions.replace('SessionTimeOut');
+        return;
+      }
       if (notification.origin === 'received' && Platform.OS === 'ios') {
         Alert.alert('Complete your task now');
       }
