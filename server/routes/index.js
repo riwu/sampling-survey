@@ -30,7 +30,7 @@ router.patch('/disqualify', (req, res) => {
   res.end();
   connection.then((conn) => {
     console.log('Inserting disqualify');
-    conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', [req.body]);
+    conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', [req.body.deviceId]);
   });
 });
 

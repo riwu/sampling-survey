@@ -43,5 +43,5 @@ export default {
   isDisqualified: () => get(`disqualified/${Constants.deviceId}`),
   postAll: state => post('all', { ...state, deviceId: Constants.deviceId })
     .catch(e => console.log('Post all', e)),
-  disqualify: () => patch('disqualify', Constants.deviceId),
+  disqualify: () => patch('disqualify', { deviceId: Constants.deviceId }),
 };
