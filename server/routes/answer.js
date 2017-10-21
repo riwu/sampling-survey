@@ -4,7 +4,7 @@ const insertAnswer = (conn, data) => conn.query(
   'DELETE FROM answer WHERE device_deviceId = ? AND question = ?',
   [data.deviceId, data.question],
 ).then(() => {
-  console.log('Inserting answer', data);
+  console.log('Inserting answer');
   Object.entries(data.answer)
     .forEach(([key, value]) => {
       if (key === 'time') return;

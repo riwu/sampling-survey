@@ -1,14 +1,20 @@
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 
 const index = require('./routes/index');
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(logger((tokens, req, res) => [
+  moment().format('YYYY-MM-DD HH:mm:ss'),
+  tokens.method(req, res),
+  tokens.url(req, res),
+  tokens['response-time'](req, res), 'ms',
+  JSON.stringify(req.body),
+].join(' ')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -23,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

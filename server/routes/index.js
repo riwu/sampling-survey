@@ -15,7 +15,6 @@ const connection = mysql.createConnection({
 
 router.post('/all', (req, res) => {
   res.end();
-  console.log('Posting all', req.body);
   connection.then((conn) => {
     Object.entries(req.body.answers || {}).forEach(([question, answer]) => {
       insertAnswer(conn, {
@@ -28,7 +27,6 @@ router.post('/all', (req, res) => {
 });
 
 router.get('/disqualified/:deviceId', (req, res) => {
-  console.log('Get device', req.params);
   connection
     .then(conn => conn.query('SELECT disqualified FROM device WHERE deviceId = ?', [req.params.deviceId]))
     .then((data) => {
@@ -39,16 +37,14 @@ router.get('/disqualified/:deviceId', (req, res) => {
 
 router.post('/device', (req, res) => {
   res.end();
-  console.log('Posting device', req.body);
   connection.then((conn) => {
-    console.log('Inserting device', req.body);
+    console.log('Inserting device');
     return conn.query('INSERT IGNORE INTO device SET ?', req.body);
   }).catch(e => console.log(e));
 });
 
 router.post('/answer', (req, res) => {
   res.end();
-  console.log('Posting answer', req.body);
   if (!req.body.answer) {
     return;
   }
@@ -59,7 +55,6 @@ router.post('/answer', (req, res) => {
 
 router.post('/trial', (req, res) => {
   res.end();
-  console.log('Posting trial', req.body);
   connection.then((conn) => {
     const {
       round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, deviceId, time,
@@ -73,23 +68,24 @@ router.post('/trial', (req, res) => {
       timeBetweenMountAndStart,
       createdAt: toDate(time),
     };
-    console.log('Inserting trial round', req.body);
+    console.log('Inserting trial round');
     conn.query('INSERT INTO trial SET ?', [row]).catch(e => console.log(e));
   });
 });
 
 router.post('/experiment', (req, res) => {
   res.end();
-  console.log('Posting experiment schedule', req.body);
-  connection.then(conn => req.body.schedule.forEach(time => conn.query(
-    'INSERT INTO experiment VALUES(?, ?, DEFAULT)',
-    [req.body.deviceId, toDate(time)],
-  )));
+  connection.then((conn) => {
+    console.log('Inserting experiment schedule');
+    req.body.schedule.forEach(time => conn.query(
+      'INSERT INTO experiment VALUES(?, ?, DEFAULT)',
+      [req.body.deviceId, toDate(time)],
+    ));
+  });
 });
 
 router.post('/experiment/answer', (req, res) => {
   res.end();
-  console.log('Posting experiment answer', req.body);
   if (!req.body.answer) {
     return;
   }
@@ -98,7 +94,7 @@ router.post('/experiment/answer', (req, res) => {
       'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
       [req.body.deviceId, req.body.question, toDate(req.body.schedule)],
     ).then(() => {
-      console.log('Inserting experiment answer', req.body);
+      console.log('Inserting experiment answer');
       Object.entries(req.body.answer)
         .forEach(([key, value]) => {
           if (key === 'time') return;
@@ -122,7 +118,6 @@ router.post('/experiment/answer', (req, res) => {
 
 router.post('/experiment/round', (req, res) => {
   res.end();
-  console.log('Posting experiment round', req.body);
   connection.then((conn) => {
     const {
       round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, deviceId, time, schedule,
@@ -137,7 +132,7 @@ router.post('/experiment/round', (req, res) => {
       createdAt: toDate(time),
       experiment_schedule: toDate(schedule),
     };
-    console.log('Inserting experiment round', req.body);
+    console.log('Inserting experiment round');
     conn.query('INSERT INTO round SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
   });
 });
