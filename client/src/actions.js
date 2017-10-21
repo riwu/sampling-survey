@@ -153,35 +153,32 @@ async function getiOSNotificationPermission() {
   }
 }
 
-
 export const scheduleNotification = answers => (dispatch) => {
   console.log('schedule ans', answers);
 
   getiOSNotificationPermission();
 
   const hoursMap = timeOptions.map(time => moment(time, 'h a').hours());
-  const weekdayWakeUp = hoursMap[answers['QUESTION 5'].index];
-  const weekdaySleep = hoursMap[answers['QUESTION 6'].index];
-  const weekendWakeup = hoursMap[answers['QUESTION 7'].index];
-  const weekendSleep = hoursMap[answers['QUESTION 8'].index];
+  const weekdayWakeUp = hoursMap[(answers['QUESTION 5'] || {}).index];
+  const weekdaySleep = hoursMap[(answers['QUESTION 6'] || {}).index];
+  const weekendWakeup = hoursMap[(answers['QUESTION 7'] || {}).index];
+  const weekendSleep = hoursMap[(answers['QUESTION 8'] || {}).index];
 
-  const getHours = question => Object.entries(answers[question])
+  const getHours = question => Object.entries(answers[question] || {})
     .filter(([index, value]) => value === true)
     .map(([index, value]) => hoursMap[index]);
   const weekdayPartner = getHours('QUESTION 9');
   const weekendPartner = getHours('QUESTION 10');
 
-  const finalSchedule = [+moment().add(1, 'm')];
+  const finalSchedule = [+moment().add(20, 's')];
   for (let i = 0; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
       ? getSchedule(weekendPartner, weekendWakeup, weekendSleep)
       : getSchedule(weekdayPartner, weekdayWakeUp, weekdaySleep);
     daySchedule.forEach((time) => {
-      const newHour = moment().add(i, 'd');
       const hr = Math.floor(time);
-      newHour.set('hour', hr);
-      newHour.set('minute', Math.round((time - hr) * 60));
+      const newHour = moment().add(i, 'd').hour(hr).minute(Math.round((time - hr) * 60));
       finalSchedule.push(+newHour);
     });
   }

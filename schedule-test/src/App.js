@@ -102,10 +102,8 @@ class App extends Component {
       const day = moment().add(i, 'd');
       const daySchedule = getSchedule(partnerHours, Number(this.state.wakeup), Number(this.state.sleep)).schedule;
       daySchedule.forEach((time) => {
-        const newHour = moment().add(i, 'd');
         const hr = Math.floor(time);
-        newHour.set('hour', hr);
-        newHour.set('minute', Math.round((time - hr) * 60));
+        const newHour = moment().add(i, 'd').hour(hr).minute(Math.round((time - hr) * 60));
         finalSchedule.push(newHour);
       });
     }

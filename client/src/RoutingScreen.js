@@ -23,8 +23,8 @@ class RoutingScreen extends React.Component {
     } else {
       const schedule = getMatchingSchedule(props.schedule);
       console.log('Schedule', schedule);
-      if (schedule && !Object.keys(props.experimentAnswers).includes(String(schedule))) {
-        console.log('Time diff', Date.now() - schedule <= 30 * 60000);
+      if (schedule && !Object.keys(props.experimentRounds).includes(String(schedule))) {
+        console.log('Time diff', (Date.now() - schedule) / 60000);
         if (Date.now() - schedule <= 30 * 60000) {
           route = 'Question 1';
         } else {
@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
   route: state.route,
   disqualified: state.disqualified,
   schedule: state.notificationSchedule,
-  experimentAnswers: state.experimentAnswers,
+  experimentRounds: state.experimentRounds,
 });
 
 export default connect(mapStateToProps)(RoutingScreen);
