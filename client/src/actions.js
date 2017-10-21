@@ -156,8 +156,6 @@ async function getiOSNotificationPermission() {
 export const scheduleNotification = answers => (dispatch) => {
   console.log('schedule ans', answers);
 
-  getiOSNotificationPermission();
-
   const hoursMap = timeOptions.map(time => moment(time, 'h a').hours());
   const weekdayWakeUp = hoursMap[(answers['QUESTION 5'] || {}).index];
   const weekdaySleep = hoursMap[(answers['QUESTION 6'] || {}).index];
@@ -170,7 +168,7 @@ export const scheduleNotification = answers => (dispatch) => {
   const weekdayPartner = getHours('QUESTION 9');
   const weekendPartner = getHours('QUESTION 10');
 
-  const finalSchedule = [+moment().add(20, 's')];
+  const finalSchedule = [+moment().add(20, 's'), +moment().add(5, 'm')];
   for (let i = 0; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
@@ -216,4 +214,6 @@ export const scheduleNotification = answers => (dispatch) => {
     schedule: finalSchedule,
   });
   api.postSchedule(finalSchedule);
+
+  getiOSNotificationPermission();
 };
