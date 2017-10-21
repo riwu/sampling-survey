@@ -5,9 +5,12 @@ import moment from 'moment';
 import api from './api';
 import timeOptions from './questionnaire/timeOptions';
 
-export const disqualify = () => ({
-  type: 'DISQUALIFY',
-});
+export const disqualify = () => (dispatch) => {
+  api.disqualify();
+  dispatch({
+    type: 'DISQUALIFY',
+  });
+};
 
 export const postDevice = () => (dispatch) => {
   api.isDisqualified().then((row) => {

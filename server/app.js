@@ -13,7 +13,7 @@ app.use(logger((tokens, req, res) => [
   tokens.method(req, res),
   tokens.url(req, res),
   tokens['response-time'](req, res), 'ms',
-  JSON.stringify(req.body),
+  typeof req.body === 'object' ? JSON.stringify(req.body) : req.body,
 ].join(' ')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

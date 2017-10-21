@@ -2,6 +2,7 @@ import Frisbee from 'frisbee';
 import { Constants } from 'expo';
 
 const API_BASE_URL = 'http://13.228.235.195:3002/';
+// const API_BASE_URL = 'http://localhost:3002/';
 
 const api = new Frisbee({
   baseURI: API_BASE_URL,
@@ -13,6 +14,7 @@ const api = new Frisbee({
 
 const get = path => api.get(path).then(response => response.body);
 const post = (path, payload) => api.post(path, { body: payload });
+const patch = (path, payload) => api.patch(path, { body: payload });
 
 export default {
   postDevice: () => {
@@ -41,4 +43,5 @@ export default {
   isDisqualified: () => get(`disqualified/${Constants.deviceId}`),
   postAll: state => post('all', { ...state, deviceId: Constants.deviceId })
     .catch(e => console.log('Post all', e)),
+  disqualify: () => patch('disqualify', Constants.deviceId),
 };
