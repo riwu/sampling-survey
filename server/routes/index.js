@@ -47,7 +47,7 @@ router.post('/device', (req, res) => {
   res.end();
   connection.then((conn) => {
     console.log('Inserting device');
-    return conn.query('INSERT IGNORE INTO device SET ?', req.body);
+    return conn.query('INSERT INTO device SET ? ON DUPLICATE KEY UPDATE ?', [req.body, req.body]);
   }).catch(e => console.log(e));
 });
 
