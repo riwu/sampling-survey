@@ -7,13 +7,14 @@ const getMatchingSchedule = (schedules) => {
     .find(([time, value]) => !value.hasEnded); // eslint-disable-line no-unused-vars
 
   if (matchingSchedule) {
-    const [scheduleTime, schedule] = matchingSchedule;
-    if (scheduleTime > now) {
+    const [scheduleStr, scheduleInfo] = matchingSchedule;
+    const schedule = Number(scheduleStr);
+    if (schedule > now) {
       route = 'NotReady';
     } else {
-      route = (now - (schedule.startTime || scheduleTime) > 30 * 60000) ? 'SESSION TIMED OUT' : 'Question 1';
+      route = (now - (scheduleInfo.startTime || schedule) > 30 * 60000) ? 'SESSION TIMED OUT' : 'Question 1';
     }
-    return { route, schedule: scheduleTime, startTime: schedule.startTime };
+    return { route, schedule, startTime: scheduleInfo.startTime };
   }
   route = 'RewardScreen';
   return { route };
