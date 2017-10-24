@@ -28,6 +28,7 @@ const question = {
 
 class Question1 extends React.Component {
   componentDidMount() {
+    console.log('started experiment question 1');
     this.props.experimentStarted();
   }
   render() {

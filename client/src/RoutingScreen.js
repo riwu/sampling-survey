@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { Notifications } from 'expo';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -6,25 +7,26 @@ import TimerEnhance from 'react-native-smart-timer-enhance';
 import getMatchingSchedule from './experiment/getMatchingSchedule';
 
 class RoutingScreen extends React.Component {
-  componentWillMount() {
-    if (Object.keys(this.props.schedule).length > 0) {
-      console.log('replacing at will mount');
-      Actions.replace(getMatchingSchedule(this.props.schedule).route);
-    }
-  }
-
   componentDidMount() {
-    console.log('Mounting', this.props);
-
+    console.log('Mounting', this.props.route, this.props.schedule);
+    if (Platform === 'android') {
+      Notifications.dismissAllNotificationsAsync();
+    }
+    if (Object.keys(this.props.schedule).length > 0) {
+      const route = getMatchingSchedule(this.props.schedule).route;
+      console.log('replacing at didMount', route);
+      Actions.replace(route);
+      return;
+    }
     this.timeout = this.setTimeout(() => {
       console.log('Going to information sheet');
       Notifications.cancelAllScheduledNotificationsAsync();
-      Actions.replace('InformationSheet'); //  Acknowledgement
+      Actions.replace('InformationSheet'); //    Acknowledgement
     }, 1000);
   }
 
   componentWillReceiveProps(props) {
-    console.log('receiving props', props);
+    console.log('receiving props', props.route, props.schedule);
     clearTimeout(this.timeout);
     let route;
     if (props.disqualified) {

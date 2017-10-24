@@ -18,6 +18,8 @@ import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
 import Acknowledgement from './instructions/AcknowledgementContainer';
 
+import AppStateListener from './misc/AppStateListener';
+
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
@@ -51,13 +53,12 @@ const questions = [
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ['Acknowledgement', <Acknowledgement />],
-  ['TrialPassed', <MiddleText
-    noPrevious
+  ['TrialPassed', <AppStateListener
     text={'Well done!\n' +
-    'Now that you understand the task, you will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
-    'This will not take more than 5 minutes of your time.\n' +
-    'Please respond within 30 minutes of prompting.\n\n' +
-    'You may close the app now.'}
+          'Now that you understand the task, you will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
+          'This will not take more than 5 minutes of your time.\n' +
+          'Please respond within 30 minutes of prompting.\n\n' +
+          'You may close the app now.'}
   />],
 ];
 
@@ -70,7 +71,7 @@ const experiment = [
     [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment,
-  ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} noPrevious />],
+  ['Finish', <AppStateListener text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} />],
 ];
 
 const mapToScene = info => info.map(([key, component], i, arr) => (
@@ -104,7 +105,7 @@ const App = () => (
       <Scene
         key="NotReady"
         component={() => (
-          <MiddleText text={'Your next session is not yet ready.\n\n' +
+          <AppStateListener text={'Your next session is not yet ready.\n\n' +
           'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
           'This will not take more than 5 minutes of your time.\n' +
           'Please respond within 30 minutes of prompting.\n\n' +

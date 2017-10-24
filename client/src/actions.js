@@ -182,7 +182,7 @@ export const scheduleNotification = answers => (dispatch) => {
   const weekdayPartner = getHours('QUESTION 9');
   const weekendPartner = getHours('QUESTION 10');
 
-  const finalSchedule = [+moment().add(5, 's'), +moment().add(5, 'm')];
+  const finalSchedule = [+moment().add(15, 's'), +moment().add(10, 'm')];
   for (let i = 0; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
@@ -221,6 +221,7 @@ export const scheduleNotification = answers => (dispatch) => {
     console.log('received', notification);
     if (typeof notification.data === 'number') {
       if (notification.origin === 'received' && Platform.OS === 'ios') {
+        console.log('showing alert');
         Alert.alert('Complete your task now');
       }
       Actions.replace('RoutingScreen');
