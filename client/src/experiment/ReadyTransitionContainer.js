@@ -4,7 +4,7 @@ import { addExperimentRound } from '../actions';
 import getMatchingSchedule from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = state => ({
-  schedule: getMatchingSchedule(state.notificationSchedule),
+  schedule: getMatchingSchedule(state.notificationSchedule).schedule,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

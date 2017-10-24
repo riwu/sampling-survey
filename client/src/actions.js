@@ -13,7 +13,6 @@ export const disqualify = () => (dispatch) => {
 };
 
 export const postDevice = () => (dispatch) => {
-  Notifications.cancelAllScheduledNotificationsAsync();
   api.isDisqualified().then((row) => {
     if ((row[0] || {}).disqualified) {
       // dispatch(disqualify());
@@ -74,6 +73,15 @@ export const updateTrial = answer => ({
 
 export const lowerTrialAttempt = () => ({
   type: 'LOWER_TRIAL_ATTEMPT',
+});
+
+export const experimentStarted = () => ({
+  type: 'EXPERIMENT_STARTED',
+});
+
+export const experimentEnded = schedule => ({
+  type: 'EXPERIMENT_ENDED',
+  schedule,
 });
 
 function getRandom(min, max) {
@@ -148,10 +156,14 @@ const getSchedule = (partner, wakeup, sleep) => {
 };
 
 async function getiOSNotificationPermission() {
+  console.log('getting status');
   const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  console.log('status', status);
   if (status !== 'granted') {
-    await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  }
+    const x = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    console.log('new', x.status, x); // "undetermined"
+  } // granted
+  // Settings, find app, allow notification!
 }
 
 // to change: i from 0 to 1, remove the temp if statement, remove the 2 moments
@@ -170,7 +182,7 @@ export const scheduleNotification = answers => (dispatch) => {
   const weekdayPartner = getHours('QUESTION 9');
   const weekendPartner = getHours('QUESTION 10');
 
-  const finalSchedule = [+moment().add(20, 's'), +moment().add(5, 'm')];
+  const finalSchedule = [+moment().add(5, 's'), +moment().add(5, 'm')];
   for (let i = 0; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
@@ -184,8 +196,6 @@ export const scheduleNotification = answers => (dispatch) => {
       }
     });
   }
-
-  finalSchedule.sort().reverse();
 
   console.log('final schedule', finalSchedule.map(t => [t, moment(t).toDate().toString()]));
 
@@ -210,14 +220,10 @@ export const scheduleNotification = answers => (dispatch) => {
   Notifications.addListener((notification) => {
     console.log('received', notification);
     if (typeof notification.data === 'number') {
-      if (Date.now() - notification.data > 30 * 60000) {
-        Actions.replace('SessionTimeOut');
-        return;
-      }
       if (notification.origin === 'received' && Platform.OS === 'ios') {
         Alert.alert('Complete your task now');
       }
-      Actions.replace('Question 1');
+      Actions.replace('RoutingScreen');
     }
   });
 

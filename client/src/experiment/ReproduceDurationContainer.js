@@ -5,7 +5,7 @@ import api from '../api';
 import getMatchingSchedule from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state, ownProps) => {
-  const schedule = getMatchingSchedule(state.notificationSchedule);
+  const { schedule } = getMatchingSchedule(state.notificationSchedule);
   return {
     schedule,
     answer: (state.experimentRounds[schedule] || {})[ownProps.roundNum],

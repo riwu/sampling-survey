@@ -4,7 +4,7 @@ import { addExperimentAnswer } from '../actions';
 import getMatchingSchedule from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state, ownProps) => {
-  const schedule = getMatchingSchedule(state.notificationSchedule);
+  const { schedule } = getMatchingSchedule(state.notificationSchedule);
   return {
     value: ((state.experimentAnswers[schedule] || {})[ownProps.header] || {})[-1],
     schedule,

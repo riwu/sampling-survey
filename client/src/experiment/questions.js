@@ -10,44 +10,7 @@ const OTHERS = [{
   hasTextInput: true,
 }];
 
-export const SessionTimeOut = mapToQuestion({
-  header: 'SESSION TIMED OUT',
-  question: 'I did not respond earlier because:',
-  responseComponent: (
-    <RadioOptions
-      radio_props={[
-        "I didn't have my phone with me.",
-        'I was sleeping.',
-        "I was doing something that couldn't be disrupted.",
-      ].map(option => ({
-        label: option,
-      })).concat([{
-        label: 'Some other reason (please specify):',
-        hasTextInput: true,
-      }])}
-    />
-  ),
-  noPrevious: true,
-});
-
-export const Question1 = mapToQuestion({
-  header: 'Question 1',
-  question: 'Right now, I am with (select all that apply):',
-  responseComponent: (
-    <RadioOptions
-      radio_props={[
-        'My boyfriend / girlfriend / partner / spouse',
-        'My friends / colleagues / schoolmates',
-        'My family',
-        'Alone',
-      ].map(option => ({
-        label: option,
-      })).concat(OTHERS)}
-    />
-  ),
-});
-
-export const questionsAfterExperiment = [
+const questionsAfterExperiment = [
   {
     header: 'Question 2',
     question: 'Did you multitask while doing our task?',
@@ -105,3 +68,5 @@ export const questionsAfterExperiment = [
     ),
   },
 ].map(props => mapToQuestion(props));
+
+export default questionsAfterExperiment;

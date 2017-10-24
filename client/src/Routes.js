@@ -20,7 +20,9 @@ import Acknowledgement from './instructions/AcknowledgementContainer';
 
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
-import { SessionTimeOut, Question1, questionsAfterExperiment } from './experiment/questions';
+import questionsAfterExperiment from './experiment/questions';
+import SessionTimeOut from './misc/SessionTimeOut';
+import Question1 from './experiment/Question1';
 import Disqualified from './questionnaire/DisqualifiedContainer';
 
 import RoutingScreen from './RoutingScreen';
@@ -60,7 +62,7 @@ const questions = [
 ];
 
 const experiment = [
-  Question1,
+  ['Question 1', <Question1 />],
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5].map((roundNum, i, arr) => [
     [`ReadyScreen${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
@@ -68,7 +70,6 @@ const experiment = [
     [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment,
-  SessionTimeOut,
   ['Finish', <MiddleText text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} noPrevious />],
 ];
 
@@ -113,6 +114,13 @@ const App = () => (
       />
 
       <Scene key="NotEligible" component={Disqualified} />
+      <Scene key="SESSION TIMED OUT" component={SessionTimeOut} />
+      <Scene
+        key="RewardScreen"
+        component={() => (
+          <MiddleText text={'Thank you for completing our experimental study.\nPlease input the following code into MTurk for your reimbursement.\nCode: YNCSL'} />
+        )}
+      />
     </Scene>
   </RouterWithRedux>
 );
