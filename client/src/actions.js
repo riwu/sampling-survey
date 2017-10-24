@@ -197,7 +197,7 @@ export const scheduleNotification = answers => (dispatch) => {
     });
   }
 
-  console.log('final schedule', finalSchedule.map(t => [t, moment(t).toDate().toString()]));
+  console.log('final schedule', finalSchedule.slice().sort().map(t => [t, moment(t).toDate().toString()]));
 
   finalSchedule.forEach((time) => {
     Notifications.scheduleLocalNotificationAsync({
