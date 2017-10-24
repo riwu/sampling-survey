@@ -35,23 +35,24 @@ const sceneStyle = {
 
 const questions = [
   ['InformationSheet', <InformationSheet />],
-  ['ConsentForm', <ConsentForm />],
-  ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
-  ...surveyQuestions,
-  ['InstructionTest', <InstructionTest />],
-  ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
-  ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
-  ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
-  ['Instruction4', <RedScreen />],
-  ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
-  ['Instruction6', <Instruction6 />],
-  ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
-
-  ...[1, 2, 3].map((roundNum, i, arr) => [
-    [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
-    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
-  ]).reduce((arr, round) => [...arr, ...round], []),
+  // ['ConsentForm', <ConsentForm />],
+  // ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
+  ...surveyQuestions.slice(0, 1),
+  ...surveyQuestions.slice(4, 10),
+  // ['InstructionTest', <InstructionTest />],
+  // ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
+  // ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
+  // ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
+  // ['Instruction4', <RedScreen />],
+  // ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
+  // ['Instruction6', <Instruction6 />],
+  // ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
+  //
+  // ...[1, 2, 3].map((roundNum, i, arr) => [
+  //   [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
+  //   [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
+  //   [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
+  // ]).reduce((arr, round) => [...arr, ...round], []),
   ['Acknowledgement', <Acknowledgement />],
   ['TrialPassed', <AppStateListener
     text={'Well done!\n' +
