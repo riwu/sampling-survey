@@ -13,6 +13,7 @@ export const disqualify = () => (dispatch) => {
 };
 
 export const postDevice = () => (dispatch) => {
+  Notifications.cancelAllScheduledNotificationsAsync();
   api.isDisqualified().then((row) => {
     if ((row[0] || {}).disqualified) {
       // dispatch(disqualify());
