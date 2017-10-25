@@ -12,6 +12,7 @@ const getMatchingSchedule = (schedules) => {
     if (schedule > now) {
       route = 'NotReady';
     } else {
+      console.log('Schedule start', (new Date(scheduleInfo.startTime)).toString());
       route = (now - (scheduleInfo.startTime || schedule) > 30 * 60000) ? 'SESSION TIMED OUT' : 'Question 1';
     }
     return { route, schedule, startTime: scheduleInfo.startTime };

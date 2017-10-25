@@ -8,11 +8,11 @@ const notificationSchedule = (state = {}, action) => {
         return obj;
       }, {});
     case 'EXPERIMENT_STARTED': {
-      const schedule = getMatchingSchedule(state).schedule;
+      const { schedule, startTime } = getMatchingSchedule(state);
       return {
         ...state,
         [schedule]: {
-          startTime: schedule.startTime || Date.now(),
+          startTime: startTime || Date.now(),
         },
       };
     }
