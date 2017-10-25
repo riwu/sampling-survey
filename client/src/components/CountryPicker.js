@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import CountryPicker from 'react-native-country-picker-modal';
+import CountryPicker from 'react-native-country-picker-modal-fix';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
 import Button from './Button';
 

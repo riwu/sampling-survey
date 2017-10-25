@@ -5,7 +5,7 @@
    "icon": "icon.png",
    "version": "1.7.2",
    "slug": "sampling-survey",
-   "sdkVersion": "21.0.0",
+   "sdkVersion": "22.0.0",
    "ios": {
      "bundleIdentifier": "riwu.sampling-survey",
      "supportsTablet": true
