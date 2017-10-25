@@ -25,7 +25,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^6.1.0",
     "babel-plugin-transform-remove-console": "^6.8.5",
     "expo": "^22.0.0",
     "frisbee": "^1.6.1",

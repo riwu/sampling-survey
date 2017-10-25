@@ -1,6 +1,6 @@
 import React from 'react';
-import Checkbox from './react-native-checkbox-heaven';
 import { connect } from 'react-redux';
+import Checkbox from './react-native-checkbox-heaven';
 import { setAnswerText } from '../actions';
 
 const CheckboxComponent = props => (

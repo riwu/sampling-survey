@@ -1,7 +1,7 @@
-import IonIcon from '@expo/vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
 const iconDb = {
-  component: IonIcon,
+  component: Ionicons,
   iconName: 'iosMix',
   checkedIconName: 'ios-checkbox',
   uncheckedIconName: 'ios-square-outline',
