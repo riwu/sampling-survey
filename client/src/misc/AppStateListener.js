@@ -12,11 +12,11 @@ const goToRoutingScreen = (state) => {
 
 class AppStateListener extends React.Component {
   componentDidMount() {
-    console.log('mounting trial passed');
+    console.log('mounting app listener', this.props.text);
     AppState.addEventListener('change', goToRoutingScreen);
   }
   componentWillUnmount() {
-    console.log('unmounting trial passed');
+    console.log('unmounting app listener', this.props.text);
     AppState.removeEventListener('change', goToRoutingScreen);
   }
   render() {

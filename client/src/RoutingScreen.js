@@ -16,20 +16,32 @@ class RoutingScreen extends React.Component {
       // this trick clears local notifications
       Notifications.setBadgeNumberAsync(1).then(() => Notifications.setBadgeNumberAsync(0));
     }
+
     if (Object.keys(this.props.schedule).length > 0) {
       const route = getMatchingSchedule(this.props.schedule).route;
       console.log('replacing at didMount', route);
+      this.redirected = true;
       Actions.replace(route);
       return;
     }
     this.timeout = this.setTimeout(() => {
       console.log('Going to information sheet');
       Notifications.cancelAllScheduledNotificationsAsync();
-      Actions.replace('InformationSheet'); //    Acknowledgement
+      Actions.replace('InformationSheet'); //        Acknowledgement
     }, 1000);
   }
 
-  componentWillReceiveProps(props) {
+  shouldComponentUpdate(nextProps) {
+    console.log('redirected', this.redirected, nextProps.route);
+    return !this.redirected;
+  }
+
+  componentDidUpdate() {
+    if (this.redirected) {
+      console.log('already redirected');
+      return;
+    }
+    const props = this.props;
     console.log('receiving props', props.route, props.schedule);
     clearTimeout(this.timeout);
     let route;
@@ -41,6 +53,7 @@ class RoutingScreen extends React.Component {
       route = getMatchingSchedule(props.schedule).route;
     }
     console.log('replacing route', route);
+    this.redirected = true;
     Actions.replace(route);
   }
 
