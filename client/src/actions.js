@@ -211,6 +211,7 @@ export const scheduleNotification = answers => (dispatch) => {
         sound: true,
         priority: 'max',
         vibrate: true,
+        icon: '../icon.png',
       },
     }, {
       time,

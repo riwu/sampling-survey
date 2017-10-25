@@ -3,7 +3,7 @@
    "name": "Synergy Lab: Time Estimation Task",
    "privacy": "public",
    "icon": "icon.png",
-   "version": "1.7.0",
+   "version": "1.7.2",
    "slug": "sampling-survey",
    "sdkVersion": "21.0.0",
    "ios": {
