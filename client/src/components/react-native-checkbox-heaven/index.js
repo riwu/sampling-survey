@@ -2,10 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import iconDb from './iconDb';
 
-const defaultIcon = iconDb[8];
+const defaultIcon = iconDb;
 
 class CheckBox extends React.Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.state = { checked: this.props.checked };
   }
 
@@ -20,11 +21,6 @@ class CheckBox extends React.Component {
   _renderIcon(iconName) {
     const { iconSize, iconStyle, checkedColor, uncheckedColor } = this.props;
     const checked = this.state.checked;
-    const index = iconDb.findIndex(i => i.iconName === iconName);
-
-    if (index !== -1) {
-      defaultIcon = iconDb[index];
-    }
 
     const { component: Icon, checkedIconName, uncheckedIconName } = defaultIcon;
 
