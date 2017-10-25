@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from 'react-native-checkbox-heaven';
+import Checkbox from './react-native-checkbox-heaven';
 import { connect } from 'react-redux';
 import { setAnswerText } from '../actions';
 
