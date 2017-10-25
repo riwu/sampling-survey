@@ -1,5 +1,13 @@
+export let schedule;
+let startTime;
+
+const hasTimeOut = now => (now - (startTime || schedule)) > 30 * 60000;
+
+export const getNextScene = (nextScene, now = new Date()) =>
+  ((schedule && hasTimeOut(now)) ? 'SESSION TIMED OUT' : nextScene);
+
+
 const getMatchingSchedule = (schedules) => {
-  const now = Date.now();
   let route;
   const matchingSchedule = Object.entries(schedules)
     // eslint-disable-next-line no-unused-vars
@@ -8,12 +16,13 @@ const getMatchingSchedule = (schedules) => {
 
   if (matchingSchedule) {
     const [scheduleStr, scheduleInfo] = matchingSchedule;
-    const schedule = Number(scheduleStr);
+    schedule = Number(scheduleStr);
+    startTime = scheduleInfo.startTime;
+    const now = Date.now();
     if (schedule > now) {
       route = 'NotReady';
     } else {
-      console.log('Schedule start', (new Date(scheduleInfo.startTime)).toString());
-      route = (now - (scheduleInfo.startTime || schedule) > 30 * 60000) ? 'SESSION TIMED OUT' : 'Question 1';
+      route = getNextScene('Question 1', now);
     }
     return { route, schedule, startTime: scheduleInfo.startTime };
   }

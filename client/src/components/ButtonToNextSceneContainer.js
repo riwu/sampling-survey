@@ -10,7 +10,6 @@ const mapStateToProps = (state, ownProps) => {
   const answer = schedule
     ? (state.experimentAnswers[schedule] || {})[ownProps.header]
     : state.answers[ownProps.header];
-
   let nextScene = ownProps.nextScene;
   if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
     nextScene = 'NotEligible';
@@ -23,6 +22,7 @@ const mapStateToProps = (state, ownProps) => {
   } else if (route === 'SESSION TIMED OUT') {
     nextScene = route;
   }
+
   return {
     nextScene,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :

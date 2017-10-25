@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
+import { getNextScene } from '../experiment/getMatchingSchedule';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +64,10 @@ const ReadyScreen = ({ nextScene, roundText }) => (
         </View>
         <View style={{ flex: 0.1 }} />
       </View>
-      <Button text="Ready" onPress={() => Actions.replace(nextScene)} />
+      <Button
+        text="Ready"
+        onPress={() => Actions.replace(getNextScene(nextScene))}
+      />
     </View>
   </ScrollView>
 );

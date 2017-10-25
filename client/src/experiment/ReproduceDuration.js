@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
+import { getNextScene } from '../experiment/getMatchingSchedule';
 
 const styles = StyleSheet.create({
   container: {
@@ -101,7 +102,7 @@ class ReproduceDuration extends React.Component {
                 Actions.replace('FailedTrial', { roundNum: this.props.roundNum });
                 return;
               }
-              Actions.replace(this.props.nextScene);
+              Actions.replace(getNextScene(this.props.nextScene));
             }}
           />
         </View>

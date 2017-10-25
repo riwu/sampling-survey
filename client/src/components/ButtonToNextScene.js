@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from './Button';
+import { getNextScene } from '../experiment/getMatchingSchedule';
 
 const styles = StyleSheet.create({
   buttons: {
@@ -23,7 +24,7 @@ const ButtonToNextScene = ({ nextScene, disabled, previousScene, onPress }) => (
       <Button
         onPress={() => {
           if (onPress) onPress();
-          Actions.replace(nextScene);
+          Actions.replace(getNextScene(nextScene));
         }}
         text={nextScene === 'Finish' ? 'Finish' : 'Next'}
         disabled={disabled}
