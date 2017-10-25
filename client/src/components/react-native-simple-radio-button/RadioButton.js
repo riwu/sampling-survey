@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, LayoutAnimation, Dimensions } from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown';
+import Dropdown from '../react-native-material-dropdown';
 import RadioButtonInput from './RadioButtonInput';
 import RadioButtonLabel from './RadioButtonLabel';
 import TextInput from '../TextInput';
