@@ -8,12 +8,13 @@ import getMatchingSchedule from './experiment/getMatchingSchedule';
 
 class RoutingScreen extends React.Component {
   componentDidMount() {
-    console.log('Mounting', this.props.route, this.props.schedule);
-
-    if (Platform === 'android') {
+    console.log('Mounting', this.props.route, this.props.schedule, Platform);
+    if (Platform.OS === 'android') {
+      console.log('dismissing android notifications');
       Notifications.dismissAllNotificationsAsync();
-    } else if (Platform === 'ios') {
+    } else if (Platform.OS === 'ios') {
       // this trick clears local notifications
+      console.log('dismissing ios notifications');
       Notifications.setBadgeNumberAsync(1).then(() => Notifications.setBadgeNumberAsync(0));
     }
 

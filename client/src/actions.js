@@ -1,5 +1,5 @@
 import { Notifications, Permissions } from 'expo';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, AppState } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import api from './api';
@@ -219,8 +219,8 @@ export const scheduleNotification = answers => (dispatch) => {
   });
 
   Notifications.addListener((notification) => {
-    console.log('received', notification);
-    if (typeof notification.data === 'number') {
+    console.log('received', notification, AppState.currentState);
+    if (typeof notification.data === 'number' && AppState.currentState === 'active') {
       if (notification.origin === 'received' && Platform.OS === 'ios') {
         console.log('showing alert');
         Alert.alert('Complete your task now');
