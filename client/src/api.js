@@ -36,7 +36,8 @@ export default {
     .catch(e => console.log('Post experiment schedule', e, schedule)),
   postTrial: answer => post('trial', { ...answer, deviceId: Constants.deviceId })
     .catch(e => console.log('Post trial', e, answer)),
-  postExperimentStarted: answer => post('experiment/started', { ...answer, deviceId: Constants.deviceId }),
+  postExperimentStarted: answer => post('experiment/started', { ...answer, deviceId: Constants.deviceId })
+    .catch(e => console.log('Post experiment start', e, answer)),
   postExperimentAnswer: answer => post('experiment/answer', { ...answer, deviceId: Constants.deviceId })
     .catch(e => console.log('Post experiment ans', e, answer)),
   postExperimentRound: answer => post('experiment/round', { ...answer, deviceId: Constants.deviceId })

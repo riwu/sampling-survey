@@ -85,10 +85,10 @@ router.post('/experiment', (req, res) => {
   res.end();
   connection.then((conn) => {
     console.log('Inserting experiment schedule');
-    req.body.schedule.forEach(time => conn.query(
-      'INSERT INTO experiment VALUES(?, ?, DEFAULT)',
-      [req.body.deviceId, toDate(time)],
-    ));
+    req.body.schedule.forEach((time) => {
+      const row = { device_deviceId: req.body.deviceId, schedule: toDate(time) };
+      conn.query('INSERT IGNORE INTO experiment SET ?', row);
+    });
   });
 });
 
@@ -97,7 +97,7 @@ router.post('/experiment/started', (req, res) => {
   connection.then((conn) => {
     conn.query(
       'UPDATE experiment SET startedAt = ? WHERE device_deviceId = ? AND schedule = ?',
-      [req.body.startedAt, req.body.deviceId, req.body.schedule],
+      [toDate(req.body.startedAt), req.body.deviceId, toDate(req.body.schedule)],
     );
   });
 });
