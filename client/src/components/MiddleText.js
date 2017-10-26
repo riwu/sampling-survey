@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import ButtonToNextScene from './ButtonToNextScene';
 
 const styles = StyleSheet.create({
@@ -14,23 +14,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 20,
     marginRight: 20,
+    marginTop: 20,
+    marginBottom: 20,
   },
 });
 
 const MiddleText = ({ text, nextScene, previousScene, noPrevious }) => {
   const previous = noPrevious ? undefined : previousScene;
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>
-        {text}
-      </Text>
-      {(previous || nextScene) &&
-        <ButtonToNextScene
-          nextScene={nextScene}
-          previousScene={previous}
-        />
-      }
-    </View>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.container}>
+        <Text style={styles.header}>
+          {text}
+        </Text>
+        {(previous || nextScene) &&
+          <ButtonToNextScene
+            nextScene={nextScene}
+            previousScene={previous}
+          />
+        }
+      </View>
+
+    </ScrollView>
   );
 };
 

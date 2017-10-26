@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MiddleText from '../components/MiddleText';
+import getResponseRate from './getResponseRate';
 
 const RewardScreen = ({ meetCriteria }) => (
   <MiddleText
@@ -13,7 +14,7 @@ const RewardScreen = ({ meetCriteria }) => (
 );
 
 const mapStateToProps = state => ({
-  meetCriteria: state.experimentAnswers,
+  meetCriteria: getResponseRate(state.experimentAnswers) >= 60,
 });
 
 export default connect(mapStateToProps)(RewardScreen);

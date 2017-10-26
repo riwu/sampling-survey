@@ -1,7 +1,9 @@
 import React from 'react';
-import { AppState } from 'react-native';
+import { connect } from 'react-redux';
+import { AppState, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MiddleText from '../components/MiddleText';
+import getResponseRate from './getResponseRate';
 
 const goToRoutingScreen = (state) => {
   console.log('state changed', state);
@@ -20,13 +22,26 @@ class AppStateListener extends React.Component {
     AppState.removeEventListener('change', goToRoutingScreen);
   }
   render() {
+    const responseRate = this.props.responseRate;
     return (
       <MiddleText
         noPrevious
-        text={this.props.text}
+        text={
+          <Text>
+            {this.props.text + (responseRate === undefined ? ''
+              : `\n\nYour response rate is ${this.props.responseRate}%.`)}
+            <Text style={{ color: 'red' }}>
+              {responseRate !== undefined && responseRate < 50 &&
+               '\nA response rate of 80% is required for reimbursement!'}
+            </Text>
+          </Text>}
       />
     );
   }
 }
 
-export default AppStateListener;
+const mapStateToProps = (state, ownProps) => ({
+  responseRate: ownProps.showResponseRate ? getResponseRate(state.experimentAnswers) : undefined,
+});
+
+export default connect(mapStateToProps)(AppStateListener);

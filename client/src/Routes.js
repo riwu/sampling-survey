@@ -79,7 +79,10 @@ const experiment = [
     [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment,
-  ['Finish', <AppStateListener text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'} />],
+  ['Finish', <AppStateListener
+    showResponseRate
+    text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'}
+  />],
 ];
 
 const mapToScene = info => info.map(([key, component], i, arr) => (
@@ -113,11 +116,13 @@ const App = () => (
       <Scene
         key="NotReady"
         component={() => (
-          <AppStateListener text={'Your next session is not yet ready.\n\n' +
-          'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
-          'This will not take more than 5 minutes of your time.\n' +
-          'Please respond within 30 minutes of prompting.\n\n' +
-          'You may close the app now.'}
+          <AppStateListener
+            showResponseRate
+            text={'Your next session is not yet ready.\n\n' +
+                  'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
+                  'This will not take more than 5 minutes of your time.\n' +
+                  'Please respond within 30 minutes of prompting.\n\n' +
+                  'You may close the app now.'}
           />
         )}
       />
