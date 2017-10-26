@@ -1,5 +1,3 @@
-import { schedule } from '../experiment/getMatchingSchedule';
-
 const notificationSchedule = (state = {}, action) => {
   switch (action.type) {
     case 'SCHEDULE_NOTIFICATION':
@@ -10,8 +8,8 @@ const notificationSchedule = (state = {}, action) => {
     case 'EXPERIMENT_STARTED':
       return {
         ...state,
-        [schedule]: {
-          startTime: Date.now(),
+        [action.schedule]: {
+          startTime: action.startedAt,
         },
       };
     case 'EXPERIMENT_ENDED':

@@ -92,6 +92,16 @@ router.post('/experiment', (req, res) => {
   });
 });
 
+router.post('/experiment/started', (req, res) => {
+  res.end();
+  connection.then((conn) => {
+    conn.query(
+      'UPDATE experiment SET startedAt = ? WHERE device_deviceId = ? AND schedule = ?',
+      [req.body.startedAt, req.body.deviceId, req.body.schedule],
+    );
+  });
+});
+
 router.post('/experiment/answer', (req, res) => {
   res.end();
   if (!req.body.answer) {

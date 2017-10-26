@@ -75,9 +75,15 @@ export const lowerTrialAttempt = () => ({
   type: 'LOWER_TRIAL_ATTEMPT',
 });
 
-export const experimentStarted = () => ({
-  type: 'EXPERIMENT_STARTED',
-});
+export const experimentStarted = schedule => (dispatch) => {
+  const startedAt = Date.now();
+  api.postExperimentStarted({ schedule, startedAt });
+  dispatch({
+    type: 'EXPERIMENT_STARTED',
+    schedule,
+    startedAt,
+  });
+};
 
 export const experimentEnded = schedule => ({
   type: 'EXPERIMENT_ENDED',
