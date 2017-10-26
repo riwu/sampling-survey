@@ -18,6 +18,7 @@ const notificationSchedule = (state = {}, action) => {
       return {
         ...state,
         [action.schedule]: {
+          ...state[action.schedule],
           hasEnded: true,
         },
       };

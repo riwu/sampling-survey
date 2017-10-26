@@ -19,7 +19,7 @@ class RoutingScreen extends React.Component {
     }
 
     if (Object.keys(this.props.schedule).length > 0) {
-      const route = getMatchingSchedule(this.props.schedule).route;
+      const route = getMatchingSchedule(this.props.schedule);
       console.log('replacing at didMount', route);
       this.redirected = true;
       Actions.replace(route);
@@ -51,7 +51,7 @@ class RoutingScreen extends React.Component {
     } else if (Object.keys(props.schedule).length === 0) {
       route = props.route;
     } else {
-      route = getMatchingSchedule(props.schedule, props.route).route;
+      route = getMatchingSchedule(props.schedule, props.route);
     }
     console.log('replacing route', route);
     this.redirected = true;

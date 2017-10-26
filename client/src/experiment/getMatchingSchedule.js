@@ -3,7 +3,8 @@ export let schedule; // eslint-disable-line import/no-mutable-exports
 const hasTimeOut = (now, startTime) => (now - (startTime || schedule)) > 30 * 60000;
 
 export const getNextScene = (nextScene, startTime, now = Date.now()) =>
-  ((schedule && hasTimeOut(now, startTime)) ? 'SESSION TIMED OUT' : nextScene);
+  ((schedule && !['NotReady', 'SESSION TIMED OUT', 'Question 1'].includes(nextScene) // checks for if it's at session time out
+    && hasTimeOut(now, startTime)) ? 'SESSION TIMED OUT' : nextScene);
 
 const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
   let route;
