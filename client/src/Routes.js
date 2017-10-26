@@ -18,14 +18,15 @@ import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
 import Acknowledgement from './instructions/AcknowledgementContainer';
 
-import AppStateListener from './misc/AppStateListener';
-
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
-import SessionTimeOut from './misc/SessionTimeOut';
 import Question1 from './experiment/Question1';
 import Disqualified from './questionnaire/DisqualifiedContainer';
+
+import AppStateListener from './misc/AppStateListener';
+import SessionTimeOut from './misc/SessionTimeOut';
+import RewardScreen from './misc/RewardScreen';
 
 import RoutingScreen from './RoutingScreen';
 
@@ -123,12 +124,7 @@ const App = () => (
 
       <Scene key="NotEligible" component={Disqualified} />
       <Scene key="SESSION TIMED OUT" component={SessionTimeOut} />
-      <Scene
-        key="RewardScreen"
-        component={() => (
-          <MiddleText text={'Thank you for completing our experimental study.\nPlease input the following code into MTurk for your reimbursement.\nCode: YNCSL'} />
-        )}
-      />
+      <Scene key="RewardScreen" component={RewardScreen} />
     </Scene>
   </RouterWithRedux>
 );
