@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Question from '../components/Question';
 import RadioOptions from '../components/RadioOptionsContainer';
-import getMatchingSchedule from '../experiment/getMatchingSchedule';
+import { schedule } from '../experiment/getMatchingSchedule';
 
-const SessionTimeOut = (props) => {
-  const { schedule, startTime } = getMatchingSchedule(props.notificationSchedule);
+const SessionTimeOut = ({ startTime }) => {
   const time = moment(schedule).format('ddd, D MMM, h:mma');
   const question = {
     header: 'SESSION TIMED OUT',
@@ -41,7 +40,7 @@ const SessionTimeOut = (props) => {
 };
 
 const mapStateToProps = state => ({
-  notificationSchedule: state.notificationSchedule,
+  startTime: (state.notificationSchedule[schedule] || {}).startTime,
 });
 
 export default connect(mapStateToProps)(SessionTimeOut);

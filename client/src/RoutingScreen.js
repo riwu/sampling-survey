@@ -51,7 +51,7 @@ class RoutingScreen extends React.Component {
     } else if (Object.keys(props.schedule).length === 0) {
       route = props.route;
     } else {
-      route = getMatchingSchedule(props.schedule).route;
+      route = getMatchingSchedule(props.schedule, props.route).route;
     }
     console.log('replacing route', route);
     this.redirected = true;

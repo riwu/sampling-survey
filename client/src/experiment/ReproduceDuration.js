@@ -102,7 +102,7 @@ class ReproduceDuration extends React.Component {
                 Actions.replace('FailedTrial', { roundNum: this.props.roundNum });
                 return;
               }
-              Actions.replace(getNextScene(this.props.nextScene));
+              Actions.replace(getNextScene(this.props.nextScene, this.props.startTime));
             }}
           />
         </View>

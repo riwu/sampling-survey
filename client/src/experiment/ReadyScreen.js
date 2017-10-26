@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
-import { getNextScene } from '../experiment/getMatchingSchedule';
+import { getNextScene, schedule } from '../experiment/getMatchingSchedule';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReadyScreen = ({ nextScene, roundText }) => (
+const ReadyScreen = ({ nextScene, roundText, startTime }) => (
   <ScrollView>
     <View style={styles.container}>
       <Text style={styles.header}>READY FOR YOUR TASK?</Text>
@@ -66,10 +67,14 @@ const ReadyScreen = ({ nextScene, roundText }) => (
       </View>
       <Button
         text="Ready"
-        onPress={() => Actions.replace(getNextScene(nextScene))}
+        onPress={() => Actions.replace(getNextScene(nextScene, startTime))}
       />
     </View>
   </ScrollView>
 );
 
-export default ReadyScreen;
+const mapStateToProps = state => ({
+  startTime: (state.notificationSchedule[schedule] || {}).startTime,
+});
+
+export default connect(mapStateToProps)(ReadyScreen);

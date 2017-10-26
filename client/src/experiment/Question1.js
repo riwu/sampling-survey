@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Question from '../components/Question';
 import RadioOptions from '../components/RadioOptionsContainer';
 import { experimentStarted } from '../actions';
+import { schedule } from './getMatchingSchedule';
 
 const OTHERS = [{
   label: 'Others (please specify):',
@@ -29,7 +30,9 @@ const question = {
 class Question1 extends React.Component {
   componentDidMount() {
     console.log('started experiment question 1');
-    this.props.experimentStarted();
+    if (!this.props.hasStarted) {
+      this.props.experimentStarted();
+    }
   }
   render() {
     return (
@@ -41,4 +44,8 @@ class Question1 extends React.Component {
   }
 }
 
-export default connect(null, { experimentStarted })(Question1);
+const mapStateToProps = state => ({
+  hasStarted: !!state.notificationSchedule[schedule].startTime,
+});
+
+export default connect(mapStateToProps, { experimentStarted })(Question1);

@@ -2,18 +2,15 @@ import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
 import { addExperimentRound } from '../actions';
 import api from '../api';
-import getMatchingSchedule from '../experiment/getMatchingSchedule';
+import { schedule } from '../experiment/getMatchingSchedule';
 
-const mapStateToProps = (state, ownProps) => {
-  const { schedule } = getMatchingSchedule(state.notificationSchedule);
-  return {
-    schedule,
-    answer: (state.experimentRounds[schedule] || {})[ownProps.roundNum],
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  answer: (state.experimentRounds[schedule] || {})[ownProps.roundNum],
+  startTime: (state.notificationSchedule[schedule] || {}).startTime,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (answer, schedule, prevAnswer) => {
+  updateDuration: (answer, prevAnswer) => {
     dispatch(addExperimentRound(
       ownProps.roundNum,
       schedule,
@@ -30,8 +27,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
-  updateDuration: answer =>
-    dispatchProps.updateDuration(answer, stateProps.schedule, stateProps.answer),
+  startTime: stateProps.startTime,
+  updateDuration: answer => dispatchProps.updateDuration(answer, stateProps.answer),
 });
 
 export default connect(

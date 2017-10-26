@@ -1,4 +1,4 @@
-import getMatchingSchedule from '../experiment/getMatchingSchedule';
+import { schedule } from '../experiment/getMatchingSchedule';
 
 const notificationSchedule = (state = {}, action) => {
   switch (action.type) {
@@ -7,16 +7,13 @@ const notificationSchedule = (state = {}, action) => {
         obj[time] = {}; // eslint-disable-line no-param-reassign
         return obj;
       }, {});
-    case 'EXPERIMENT_STARTED': {
-      const { schedule, startTime } = getMatchingSchedule(state);
+    case 'EXPERIMENT_STARTED':
       return {
         ...state,
         [schedule]: {
-          startTime: startTime || Date.now(),
+          startTime: Date.now(),
         },
       };
-    }
-
     case 'EXPERIMENT_ENDED':
       return {
         ...state,

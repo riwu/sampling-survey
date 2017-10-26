@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import ButtonToNextScene from './ButtonToNextScene';
 import isEligible from '../questionnaire/isEligible';
 import api from '../api';
-import getMatchingSchedule from '../experiment/getMatchingSchedule';
+import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
 import { experimentEnded } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
-  const { route, schedule } = getMatchingSchedule(state.notificationSchedule);
+  const { route } = getMatchingSchedule(state.notificationSchedule);
   const answer = schedule
     ? (state.experimentAnswers[schedule] || {})[ownProps.header]
     : state.answers[ownProps.header];
@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
     nextScene = 'NotEligible';
   } else if (ownProps.header === 'SESSION TIMED OUT' || (ownProps.header === 'Question 5' && route !== 'SESSION TIMED OUT')) {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
-    const newRoute = getMatchingSchedule(newSchedule).route;
+    const newRoute = getMatchingSchedule(newSchedule, undefined, true).route;
     if (newRoute === 'RewardScreen' || ownProps.header === 'SESSION TIMED OUT') {
       nextScene = newRoute;
     }
@@ -25,6 +25,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     nextScene,
+    startTime: (state.notificationSchedule[schedule] || {}).startTime,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
       (answer[-1] !== undefined && typeof answer[-1] === 'string' && (answer[-1] || '').trim() === '') || // for TextInputResponse

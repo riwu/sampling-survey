@@ -1,27 +1,23 @@
 import { connect } from 'react-redux';
 import RadioOptions from './RadioOptions';
 import { setAnswerIndex, setAnswerText, addExperimentAnswer } from '../actions';
-import getMatchingSchedule from '../experiment/getMatchingSchedule';
+import { schedule } from '../experiment/getMatchingSchedule';
 
-const mapStateToProps = (state, ownProps) => {
-  const { schedule } = getMatchingSchedule(state.notificationSchedule);
-  return {
-    answer: schedule
-      ? (state.experimentAnswers[schedule] || {})[ownProps.header]
-      : state.answers[ownProps.header],
-    schedule,
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  answer: schedule
+    ? (state.experimentAnswers[schedule] || {})[ownProps.header]
+    : state.answers[ownProps.header],
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  setAnswerIndex: (index, schedule) => {
+  setAnswerIndex: (index) => {
     if (schedule) {
       dispatch(addExperimentAnswer(ownProps.header, schedule, { index }));
     } else {
       dispatch(setAnswerIndex(ownProps.header, index));
     }
   },
-  setAnswerText: (index, text, schedule) => {
+  setAnswerText: (index, text) => {
     if (schedule) {
       dispatch(addExperimentAnswer(ownProps.header, schedule, { [index]: text }));
     } else {
@@ -30,15 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  answer: stateProps.answer,
-  setAnswerIndex: index => dispatchProps.setAnswerIndex(index, stateProps.schedule),
-  setAnswerText: (index, text) => dispatchProps.setAnswerText(index, text, stateProps.schedule),
-});
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps,
 )(RadioOptions);
