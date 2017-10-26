@@ -27,11 +27,11 @@ router.post('/all', (req, res) => {
 
 router.patch('/disqualify', (req, res) => {
   res.end();
-  conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', [req.body.deviceId]);
+  conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', req.body.deviceId);
 });
 
 router.get('/disqualified/:deviceId', (req, res) => {
-  conn.query('SELECT disqualified FROM device WHERE deviceId = ?', [req.params.deviceId])
+  conn.query('SELECT disqualified FROM device WHERE deviceId = ?', req.params.deviceId)
     .then((data) => {
       console.log('Sending data', data);
       return res.send(data);
@@ -65,7 +65,7 @@ router.post('/trial', (req, res) => {
     timeBetweenMountAndStart,
     createdAt: toDate(time),
   };
-  conn.query('INSERT INTO trial SET ?', [row]);
+  conn.query('INSERT INTO trial SET ?', row);
 });
 
 router.post('/experiment', (req, res) => {
@@ -130,7 +130,7 @@ router.post('/experiment/round', (req, res) => {
     createdAt: toDate(time),
     experiment_schedule: toDate(schedule),
   };
-  conn.query('INSERT INTO round SET ? ON DUPLICATE KEY UPDATE ?', [row, row]);
+  conn.query('INSERT IGNORE INTO round SET ?', row);
 });
 
 module.exports = router;

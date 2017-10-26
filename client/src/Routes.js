@@ -53,6 +53,12 @@ const questions = [
   //   [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
   //   [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   // ]).reduce((arr, round) => [...arr, ...round], []),
+  ['EnableNotification', <MiddleText text={
+    'You will be prompted to allow notifications from the app.\n' +
+    'Please press Allow so that the app can notify you for the tasks.\n\n' +
+    'Press Next to continue.'
+  }
+  />],
   ['Acknowledgement', <Acknowledgement />],
   ['TrialPassed', <AppStateListener
     text={'Well done!\n' +

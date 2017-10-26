@@ -1,4 +1,4 @@
-import { Notifications, Permissions } from 'expo';
+import { Notifications } from 'expo';
 import { Alert, Platform, AppState } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
@@ -161,17 +161,6 @@ const getSchedule = (partner, wakeup, sleep) => {
   return [...partnerSchedule, ...nonPartnerSchedule];
 };
 
-async function getiOSNotificationPermission() {
-  console.log('getting status');
-  const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-  console.log('status', status);
-  if (status !== 'granted') {
-    const x = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    console.log('new', x.status, x); // "undetermined"
-  } // granted
-  // Settings, find app, allow notification!
-}
-
 // to change: i from 0 to 1, remove the temp if statement, remove the 2 moments
 export const scheduleNotification = answers => (dispatch) => {
   console.log('schedule ans', answers);
@@ -240,6 +229,4 @@ export const scheduleNotification = answers => (dispatch) => {
     schedule: finalSchedule,
   });
   api.postSchedule(finalSchedule);
-
-  getiOSNotificationPermission();
 };
