@@ -17,16 +17,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const MiddleText = ({ text, nextScene, previousScene, noPrevious }) => (
-  <View style={styles.container}>
-    <Text style={styles.header}>
-      {text}
-    </Text>
-    <ButtonToNextScene
-      nextScene={nextScene}
-      previousScene={noPrevious ? undefined : previousScene}
-    />
-  </View>
-);
+const MiddleText = ({ text, nextScene, previousScene, noPrevious }) => {
+  const previous = noPrevious ? undefined : previousScene;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>
+        {text}
+      </Text>
+      {(previous || nextScene) &&
+        <ButtonToNextScene
+          nextScene={nextScene}
+          previousScene={previous}
+        />
+      }
+    </View>
+  );
+};
 
 export default MiddleText;

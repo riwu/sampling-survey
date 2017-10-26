@@ -29,7 +29,7 @@ const question = {
 
 class Question1 extends React.Component {
   componentDidMount() {
-    console.log('started experiment question 1');
+    console.log('started experiment question 1', this.props.hasStarted);
     if (!this.props.hasStarted) {
       this.props.experimentStarted();
     }

@@ -5,24 +5,23 @@ import api from '../api';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
 import { experimentEnded } from '../actions';
 
+const isLast = header => ['SESSION TIMED OUT', 'Question 5'].includes(header);
+
 const mapStateToProps = (state, ownProps) => {
-  const { route } = getMatchingSchedule(state.notificationSchedule);
   const answer = schedule
     ? (state.experimentAnswers[schedule] || {})[ownProps.header]
     : state.answers[ownProps.header];
+
   let nextScene = ownProps.nextScene;
   if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
     nextScene = 'NotEligible';
-  } else if (ownProps.header === 'SESSION TIMED OUT' || (ownProps.header === 'Question 5' && route !== 'SESSION TIMED OUT')) {
+  } else if (isLast(ownProps.header)) {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
-    const newRoute = getMatchingSchedule(newSchedule, undefined, true).route;
+    const newRoute = getMatchingSchedule(newSchedule, undefined, true);
     if (newRoute === 'RewardScreen' || ownProps.header === 'SESSION TIMED OUT') {
       nextScene = newRoute;
     }
-  } else if (route === 'SESSION TIMED OUT') {
-    nextScene = route;
   }
-
   return {
     nextScene,
     startTime: (state.notificationSchedule[schedule] || {}).startTime,
@@ -33,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
     onPress: (finishedExperiment) => {
       if (ownProps.onPress) ownProps.onPress();
       if (schedule) {
-        if (['SESSION TIMED OUT', 'Question 5'].includes(ownProps.header)) {
+        if (isLast(ownProps.header)) {
           finishedExperiment(schedule);
         }
         api.postExperimentAnswer({

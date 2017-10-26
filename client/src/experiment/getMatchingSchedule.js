@@ -24,10 +24,9 @@ const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
     if (!checkOnly) {
       schedule = matchedSchedule;
     }
-    return { route, schedule: matchedSchedule, startTime: scheduleInfo.startTime };
+    return route;
   }
-  route = 'RewardScreen';
-  return { route };
+  return 'RewardScreen';
 };
 
 export default getMatchingSchedule;
