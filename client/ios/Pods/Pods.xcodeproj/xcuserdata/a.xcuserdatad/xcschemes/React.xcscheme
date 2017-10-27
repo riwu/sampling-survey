@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EDCEBFF5BF32311C1A3477364493713B"
+               BlueprintIdentifier = "38FE088399BF2322892352F5CE4CD40E"
                BuildableName = "libReact.a"
                BlueprintName = "React"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EDCEBFF5BF32311C1A3477364493713B"
+            BlueprintIdentifier = "38FE088399BF2322892352F5CE4CD40E"
             BuildableName = "libReact.a"
             BlueprintName = "React"
             ReferencedContainer = "container:Pods.xcodeproj">

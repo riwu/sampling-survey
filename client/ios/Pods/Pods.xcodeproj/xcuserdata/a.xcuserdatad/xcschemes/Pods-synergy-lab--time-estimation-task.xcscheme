@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5F9C22877F8BE55C65ABD908F1238437"
+               BlueprintIdentifier = "C4626E95F777F6175370D24194AAB153"
                BuildableName = "libPods-synergy-lab--time-estimation-task.a"
                BlueprintName = "Pods-synergy-lab--time-estimation-task"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5F9C22877F8BE55C65ABD908F1238437"
+            BlueprintIdentifier = "C4626E95F777F6175370D24194AAB153"
             BuildableName = "libPods-synergy-lab--time-estimation-task.a"
             BlueprintName = "Pods-synergy-lab--time-estimation-task"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -79,6 +79,6 @@ dependencies {
   compile('io.nlopez.smartlocation:library:3.2.11') {
     transitive = false
   }
-  
-  
+
+  compile project(':react-native-device-info')
 }

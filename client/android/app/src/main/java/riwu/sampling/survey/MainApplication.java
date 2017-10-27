@@ -7,6 +7,8 @@ import com.facebook.react.ReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
 
@@ -17,7 +19,7 @@ public class MainApplication extends MultiDexApplication {
     return Arrays.<ReactPackage>asList(
         // Add your own packages here!
         // TODO: add cool native modules
-
+            new RNDeviceInfo()
         // Needed for `react-native link`
         // new MainReactPackage()
     );
