@@ -67,7 +67,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow Synergy Lab: Time Estimation Task to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Synergy Lab: Time Estimation Task to access your device's accelerometer</string>
+	<string>Allow Synergy Lab: Time Estimation Task to access your device&apos;s accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give Synergy Lab: Time Estimation Task permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -85,7 +85,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ionicons.ttf</string>
+	</array>
 </dict>
 </plist>

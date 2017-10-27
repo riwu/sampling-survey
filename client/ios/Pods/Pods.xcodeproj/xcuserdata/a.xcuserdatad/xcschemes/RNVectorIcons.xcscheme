@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'EDCEBFF5BF32311C1A3477364493713B'
-               BlueprintName = 'React'
+               BlueprintIdentifier = '136783B27B09E9C5F13FA3C2C56C6C21'
+               BlueprintName = 'RNVectorIcons'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libReact.a'>
+               BuildableName = 'libRNVectorIcons.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

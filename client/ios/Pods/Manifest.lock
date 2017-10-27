@@ -94,6 +94,8 @@ PODS:
   - GPUImage (0.1.7)
   - KVOController (1.2.0)
   - lottie-ios (2.1.3)
+  - React (0.49.3):
+    - React/Core (= 0.49.3)
   - React/ART (0.49.3):
     - React/Core
   - React/Core (0.49.3):
@@ -136,6 +138,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNVectorIcons (4.4.2):
+    - React
   - yoga (0.49.3.React)
 
 DEPENDENCIES:
@@ -157,6 +161,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
@@ -171,6 +176,8 @@ EXTERNAL SOURCES:
     :podspec: ../node_modules/react-native/third-party-podspecs/GLog.podspec
   React:
     :path: ../node_modules/react-native
+  RNVectorIcons:
+    :path: ../node_modules/react-native-vector-icons
   yoga:
     :path: ../node_modules/react-native/ReactCommon/yoga
 
@@ -209,8 +216,9 @@ SPEC CHECKSUMS:
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   lottie-ios: 8c150606598931621e927377f1426d2d3e99282d
   React: 5751f5630c58f7ef31a00cf03044878295bceff0
+  RNVectorIcons: c1821d56c775cc5a3bca66c77dfc8cb4a90d27e2
   yoga: 6e56575501ecea04196f9c9f08b90cf97cd5da24
 
-PODFILE CHECKSUM: ee5ac1ad4a4a225fb531c7521d58f8322b2860c8
+PODFILE CHECKSUM: d3e5f8bc6fbbca36fedc4c927cfe0f75917ab1e8
 
 COCOAPODS: 1.3.1

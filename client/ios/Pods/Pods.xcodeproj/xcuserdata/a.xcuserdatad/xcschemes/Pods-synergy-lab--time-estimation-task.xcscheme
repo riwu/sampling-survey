@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '774A8E572D48E0150E30A1722BB29C2F'
+               BlueprintIdentifier = '5F9C22877F8BE55C65ABD908F1238437'
                BlueprintName = 'Pods-synergy-lab--time-estimation-task'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-synergy-lab--time-estimation-task.a'>
