@@ -14,9 +14,9 @@ const mapStateToProps = (state, ownProps) => {
     : state.answers[ownProps.header];
 
   let nextScene = ownProps.nextScene;
-  if (ownProps.header === 'QUESTION 10' && !isEligible(state.answers)) { // TODO: change to QUESTION 22
+  if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
     nextScene = 'NotEligible';
-  } else if (ownProps.header === 'QUESTION 65' && Platform.OS !== 'ios') {
+  } else if (ownProps.header === 'ReproduceDurationTrial3' && Platform.OS !== 'ios') {
     nextScene = 'Acknowledgement';
   } else if (isLast(ownProps.header)) {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };

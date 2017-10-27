@@ -16,7 +16,7 @@ const SessionTimeOut = ({ startTime }) => {
       <RadioOptions
         radio_props={(startTime ? [
           'I had to put down my phone.',
-          'I fell asleep sleeping.',
+          'I fell asleep.',
           'I was distracted by the people I am with',
         ] : [
           "I didn't have my phone with me.",
