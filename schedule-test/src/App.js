@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import './App.css';
+import timeOptions from './timeOptions';
 
 function getRandom(min, max) {
   return (Math.random() * (max - min)) + min;
@@ -85,6 +86,7 @@ class App extends Component {
     sleep: "23",
     wakeup: "6",
     partner: '9, 12',
+    timeIndex: "12",
   }
   render() {
     const partnerHours = this.state.partner.split(',').filter(v => v.trim() !== '' && !isNaN(v)).map(v => Number(v))
@@ -110,6 +112,16 @@ class App extends Component {
 
     return (
       <div>
+        <div className='paragraph' >Time option converter: {' '}
+          <input
+            type="number"
+            min={0}
+            max={23}
+            value={this.state.timeIndex}
+            onChange={e => this.setState({ timeIndex: e.target.value })}
+          />
+        {' option ' + this.state.timeIndex} is equivalent to {timeOptions[this.state.timeIndex]}
+        </div>
         <div>Sleep time Between 0 (12 am) to 23 (11 pm) )
           <input
             type="number"
