@@ -30,13 +30,23 @@ class ReadyTransition extends React.Component {
   }
   componentDidMount() {
     const blackDuration = (Math.floor(Math.random() * 3) + 1) * 1000;
-    console.log('v', Object.values(this.props.answers || {}));
-    const used = Object.values(this.props.answers || {}).map(({ redDuration }) => redDuration);
-    console.log('used time', used);
-    const rand = [2000, 4000, 6000, 8000, 10000].filter(time => !used.includes(time));
-    console.log('rand', rand);
+    let rand;
+    const filter = (used, duration) => used.every(({ redDuration }) => redDuration !== duration);
+    console.log('ready', this.props.trialRoundNum, this.props.answers);
+    if (this.props.trialRoundNum === undefined) {
+      rand = [2000, 4000, 6000, 8000, 10000].filter(duration =>
+        filter(Object.values(this.props.answers || {}), duration));
+    } else {
+      const last = this.props.answers[this.props.answers.length - 1] || {};
+      if (this.props.trialRoundNum === last.round) {
+        console.log('using last');
+        rand = [last.redDuration];
+      } else {
+        rand = [2000, 6000, 10000].filter(duration => filter(this.props.answers, duration));
+      }
+    }
     const redDuration = rand[getRandomInt(0, rand.length)];
-    console.log('red duration', redDuration);
+    console.log('red', redDuration, rand);
     this.props.updateDuration({
       blackDuration,
       redDuration,

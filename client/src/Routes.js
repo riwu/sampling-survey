@@ -49,11 +49,11 @@ const questions = [
   // ['Instruction6', <Instruction6 />],
   // ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
   //
-  // ...[1, 2, 3].map((roundNum, i, arr) => [
-  //   [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-  //   [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial />],
-  //   [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
-  // ]).reduce((arr, round) => [...arr, ...round], []),
+  ...[1, 2, 3].map((roundNum, i, arr) => [
+    [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} />],
+    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
+  ]).reduce((arr, round) => [...arr, ...round], []),
   ['EnableNotification', <MiddleText text={
     'You will be prompted to allow notifications from the app.\n' +
     'Please press Allow so that the app can notify you for the tasks.\n\n' +
