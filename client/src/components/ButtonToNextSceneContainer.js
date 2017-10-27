@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
     const newRoute = getMatchingSchedule(newSchedule, undefined, true);
     if (newRoute === 'RewardScreen' || ownProps.header === 'SESSION TIMED OUT') {
-      nextScene = newRoute;
+      nextScene = 'RoutingScreen';
     }
   }
   return {
