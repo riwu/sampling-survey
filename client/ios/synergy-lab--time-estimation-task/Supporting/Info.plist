@@ -89,5 +89,7 @@
 	<array>
 		<string>Ionicons.ttf</string>
 	</array>
+	<key>EXAnalyticsDisabled</key>
+	<true/>
 </dict>
 </plist>
