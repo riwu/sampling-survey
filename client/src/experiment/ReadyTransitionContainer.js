@@ -11,7 +11,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   )),
 });
 
+const mapStateToProps = state => ({
+  answers: state.experimentRounds[schedule],
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(ReadyTransition);

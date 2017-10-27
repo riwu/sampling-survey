@@ -18,13 +18,25 @@ const styles = StyleSheet.create({
   },
 });
 
+function getRandomInt(min, max) { // The maximum is exclusive and the minimum is inclusive
+  const minCeil = Math.ceil(min);
+  const maxCeil = Math.floor(max);
+  return Math.floor(Math.random() * (maxCeil - minCeil)) + minCeil;
+}
+
 class ReadyTransition extends React.Component {
   state = {
     turned: false,
   }
   componentDidMount() {
     const blackDuration = (Math.floor(Math.random() * 3) + 1) * 1000;
-    const redDuration = 1000 * { 0: 2, 1: 6, 2: 10 }[Math.floor(Math.random() * 3)];
+    console.log('v', Object.values(this.props.answers || {}));
+    const used = Object.values(this.props.answers || {}).map(({ redDuration }) => redDuration);
+    console.log('used time', used);
+    const rand = [2000, 4000, 6000, 8000, 10000].filter(time => !used.includes(time));
+    console.log('rand', rand);
+    const redDuration = rand[getRandomInt(0, rand.length)];
+    console.log('red duration', redDuration);
     this.props.updateDuration({
       blackDuration,
       redDuration,
