@@ -3,7 +3,7 @@
     "name": "Synergy Lab: Time Estimation Task",
     "privacy": "public",
     "icon": "icon.png",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "slug": "sampling-survey",
     "sdkVersion": "22.0.0",
     "ios": {
@@ -14,7 +14,7 @@
     },
     "android": {
       "package": "riwu.sampling.survey",
-      "versionCode": 9,
+      "versionCode": 10,
       "permissions": [
         "VIBRATE"
       ]
