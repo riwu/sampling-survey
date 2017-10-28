@@ -12,6 +12,7 @@ import InstructionTest from './instructions/InstructionTestContainer';
 import InstructionWithCross from './instructions/InstructionWithCross';
 import RedScreen from './instructions/RedScreen';
 import Instruction6 from './instructions/ReproduceDuration';
+import EnableNotification from './instructions/EnableNotification';
 
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
@@ -53,12 +54,7 @@ const questions = [
     [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
-  ['EnableNotification', <MiddleText text={
-    'You will be prompted to allow notifications from the app.\n' +
-    'Please press Allow so that the app can notify you for the tasks.\n\n' +
-    'Press Next to continue.'
-  }
-  />],
+  ['EnableNotification', <EnableNotification />],
   ['Acknowledgement', <Acknowledgement />],
   ['TrialPassed', <AppStateListener
     text={'Well done!\n' +

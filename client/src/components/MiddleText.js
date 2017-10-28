@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MiddleText = ({ text, nextScene, previousScene, noPrevious }) => {
+const MiddleText = ({ text, nextScene, previousScene, noPrevious, onPress }) => {
   const previous = noPrevious ? undefined : previousScene;
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -31,6 +31,7 @@ const MiddleText = ({ text, nextScene, previousScene, noPrevious }) => {
           <ButtonToNextScene
             nextScene={nextScene}
             previousScene={previous}
+            onPress={onPress}
           />
         }
       </View>
