@@ -17,6 +17,6 @@ const store = createStore(
   autoRehydrate(),
   applyMiddleware(...middleware),
 );
-persistStore(store, { storage: AsyncStorage }).purge();
+persistStore(store, { storage: AsyncStorage });
 
 export default store;
