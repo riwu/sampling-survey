@@ -36,21 +36,21 @@ export default {
   },
   postAnswer: (answer) => {
     console.log('posting answer', answer);
-    return post('answer', { ...answer, deviceId: Constants.deviceId })
+    return post('answer', { ...answer, deviceId })
       .catch(e => console.log('Post answer api', e, answer));
   },
-  postSchedule: schedule => post('experiment', { schedule, deviceId: Constants.deviceId })
+  postSchedule: schedule => post('experiment', { schedule, deviceId })
     .catch(e => console.log('Post experiment schedule', e, schedule)),
-  postTrial: answer => post('trial', { ...answer, deviceId: Constants.deviceId })
+  postTrial: answer => post('trial', { ...answer, deviceId })
     .catch(e => console.log('Post trial', e, answer)),
-  postExperimentStarted: answer => post('experiment/started', { ...answer, deviceId: Constants.deviceId })
+  postExperimentStarted: answer => post('experiment/started', { ...answer, deviceId })
     .catch(e => console.log('Post experiment start', e, answer)),
-  postExperimentAnswer: answer => post('experiment/answer', { ...answer, deviceId: Constants.deviceId })
+  postExperimentAnswer: answer => post('experiment/answer', { ...answer, deviceId })
     .catch(e => console.log('Post experiment ans', e, answer)),
-  postExperimentRound: answer => post('experiment/round', { ...answer, deviceId: Constants.deviceId })
+  postExperimentRound: answer => post('experiment/round', { ...answer, deviceId })
     .catch(e => console.log('Post experiment round', e, answer)),
-  isDisqualified: () => get(`disqualified/${Constants.deviceId}`),
-  postAll: state => post('all', { ...state, deviceId: Constants.deviceId })
+  isDisqualified: () => get(`disqualified/${deviceId}`),
+  postAll: state => post('all', { ...state, deviceId })
     .catch(e => console.log('Post all', e)),
-  disqualify: () => patch('disqualify', { deviceId: Constants.deviceId }),
+  disqualify: () => patch('disqualify', { deviceId }),
 };
