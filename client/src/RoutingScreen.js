@@ -48,7 +48,7 @@ class RoutingScreen extends React.Component {
     let route;
     if (props.disqualified) {
       route = 'NotEligible';
-    } else if (Object.keys(props.schedule).length === 0) {
+    } else if (Object.keys(props.schedule).length === 0 || props.route === 'RewardScreen') {
       route = props.route;
     } else {
       route = getMatchingSchedule(props.schedule, props.route);

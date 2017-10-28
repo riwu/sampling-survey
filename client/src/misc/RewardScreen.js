@@ -6,9 +6,9 @@ import getResponseRate from './getResponseRate';
 const RewardScreen = ({ meetCriteria }) => (
   <MiddleText
     text={meetCriteria
-      ? 'Thank you for completing our experimental study.\n' +
-        'Please input the following code into MTurk for your reimbursement.\nCode: YNCSL'
-      : 'You did not meet the requirement of 80% response rate for our task.\n' +
+      ? 'Thank you for completing our experimental study.\n\n' +
+        'Please input the following code into MTurk for your reimbursement.\n\nCode: YNCSL'
+      : 'You did not meet the requirement of 80% response rate for our task.\n\n' +
         'We regret to inform you that you will not be reimbursed for your participation.'}
   />
 );

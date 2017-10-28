@@ -27,7 +27,7 @@ const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
     }
     return route;
   }
-  return 'RewardScreen';
+  return 'GetData';
 };
 
 export default getMatchingSchedule;

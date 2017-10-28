@@ -27,6 +27,7 @@ import Disqualified from './questionnaire/DisqualifiedContainer';
 
 import AppStateListener from './misc/AppStateListener';
 import SessionTimeOut from './misc/SessionTimeOut';
+import GetData from './misc/GetData';
 import RewardScreen from './misc/RewardScreen';
 
 import RoutingScreen from './RoutingScreen';
@@ -123,6 +124,7 @@ const App = () => (
 
       <Scene key="NotEligible" component={Disqualified} />
       <Scene key="SESSION TIMED OUT" component={SessionTimeOut} />
+      <Scene key="GetData" component={GetData} />
       <Scene key="RewardScreen" component={RewardScreen} />
     </Scene>
   </RouterWithRedux>

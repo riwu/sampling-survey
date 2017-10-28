@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   } else if (isLast(ownProps.header)) {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
     const newRoute = getMatchingSchedule(newSchedule, undefined, true);
-    if (newRoute === 'RewardScreen' || ownProps.header === 'SESSION TIMED OUT') {
+    if (newRoute === 'GetData' || ownProps.header === 'SESSION TIMED OUT') {
       nextScene = 'RoutingScreen';
     }
   }
