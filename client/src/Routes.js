@@ -50,8 +50,7 @@ const questions = [
   // ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
   //
   ...[1, 2, 3].map((roundNum, i, arr) => [
-    [`ReadyScreenTrial${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ['EnableNotification', <MiddleText text={
@@ -107,7 +106,7 @@ const App = () => (
         component={failedProps => (
           <MiddleText
             text="Your response was incorrect. Please try again."
-            nextScene={`ReadyScreenTrial${failedProps.roundNum}`}
+            nextScene={`ReadyTransitionTrial${failedProps.roundNum}`}
           />
         )}
       />

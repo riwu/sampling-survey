@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
   subContainer: {
     alignItems: 'center',
   },
+  instructionContainer: {
+    flexDirection: 'row',
+  },
   header: {
     color: 'white',
     marginTop: 50,
@@ -25,11 +28,12 @@ const styles = StyleSheet.create({
   instructions: {
     backgroundColor: 'lightgrey',
     marginBottom: 10,
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 20,
+    marginRight: 20,
     borderRadius: 10,
     borderWidth: 10,
     borderColor: 'lightgrey',
+    flex: 0.8,
   },
   instructionTitle: {
     fontSize: 17,
@@ -96,37 +100,50 @@ class ReadyScreen extends React.Component {
     return (
       <ScrollView style={[styles.container, this.state.turned && styles.turned]}>
         <View style={styles.subContainer}>
-          <Text style={[styles.header, this.state.startedTransition && { opacity: 0 }]}>READY FOR YOUR TASK?</Text>
-          <Text style={[styles.subHeader, this.state.startedTransition && { opacity: 0 }]}>ROUND {roundText}</Text>
+          <Text style={[styles.header, this.state.startedTransition && { opacity: 0 }]}>
+            READY FOR YOUR TASK?
+          </Text>
+          <Text style={[styles.subHeader, this.state.startedTransition && { opacity: 0 }]}>
+            ROUND {roundText}
+          </Text>
           <Text style={styles.plus} >+</Text>
           {!this.state.startedTransition &&
-            <View style={styles.subContainer}>
-              <View style={styles.instructions}>
-                <Text style={styles.instructionTitle}>Tell us how long the screen turns red for</Text>
-                <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                  <Text>1. </Text>
-                  <Text>Click 'ready' and the screen will turn red.</Text>
-                </View>
+            <View style={{ alignItems: 'center' }}>
+              <View style={styles.instructionContainer}>
+                <View style={{ flex: 0.1 }} />
 
-                <View style={{ flexDirection: 'row' }}>
-                  <Text>2. </Text>
-                  <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1 }}>
-                    <Text>When the screen is red:</Text>
-                    <View style={{ flexDirection: 'row', marginBottom: 2, marginTop: 3 }}>
-                      <Text>- </Text>
-                      <Text>Focus on the cross above (+)</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', marginBottom: 2 }}>
-                      <Text>- </Text>
-                      <Text><Text style={{ textDecorationLine: 'underline' }}>Don't count</Text> how much time has passed</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', marginBottom: 2 }} >
-                      <Text>- </Text>
-                      <Text>We're interested in what it <Text style={{ fontStyle: 'italic' }}>feels like</Text> to you</Text>
+                <View style={styles.instructions}>
+                  <Text style={styles.instructionTitle}>
+                    Tell us how long the screen turns red for
+                  </Text>
+                  <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                    <Text>1. </Text>
+                    <Text>Click {'\'ready\''} and the screen will turn red.</Text>
+                  </View>
+
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text>2. </Text>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1 }}>
+                      <Text>When the screen is red:</Text>
+                      <View style={{ flexDirection: 'row', marginBottom: 2, marginTop: 3 }}>
+                        <Text>- </Text>
+                        <Text>Focus on the cross above (+)</Text>
+                      </View>
+                      <View style={{ flexDirection: 'row', marginBottom: 2 }}>
+                        <Text>- </Text>
+                        <Text><Text style={{ textDecorationLine: 'underline' }}>Don{'\''}t count</Text> how much time has passed</Text>
+                      </View>
+                      <View style={{ flexDirection: 'row', marginBottom: 2 }} >
+                        <Text>- </Text>
+                        <Text>We{'\''}re interested in what it <Text style={{ fontStyle: 'italic' }}>feels like</Text> to you</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
+
+                <View style={{ flex: 0.1 }} />
               </View>
+
               <Button
                 text="Ready"
                 onPress={() => {
