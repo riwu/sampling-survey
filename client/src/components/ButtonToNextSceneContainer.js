@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { Platform } from 'react-native';
 import ButtonToNextScene from './ButtonToNextScene';
 import isEligible from '../questionnaire/isEligible';
 import api from '../api';
@@ -12,12 +11,9 @@ const mapStateToProps = (state, ownProps) => {
   const answer = schedule
     ? (state.experimentAnswers[schedule] || {})[ownProps.header]
     : state.answers[ownProps.header];
-
   let nextScene = ownProps.nextScene;
   if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
     nextScene = 'NotEligible';
-  } else if (ownProps.header === 'ReproduceDurationTrial3' && Platform.OS !== 'ios') {
-    nextScene = 'Acknowledgement';
   } else if (isLast(ownProps.header)) {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
     const newRoute = getMatchingSchedule(newSchedule, undefined, true);

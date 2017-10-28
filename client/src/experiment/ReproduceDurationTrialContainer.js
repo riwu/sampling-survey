@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
+import { Platform } from 'react-native';
 import ReproduceDuration from './ReproduceDuration';
 import { updateTrial } from '../actions';
 import api from '../api';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   answer: state.trialAnswers[state.trialAnswers.length - 1],
+  nextScene: (ownProps.roundNum === 3 && Platform.OS !== 'ios') ? 'Acknowledgement' : ownProps.nextScene,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -23,6 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
+  nextScene: stateProps.nextScene,
   actualDuration: (stateProps.answer || {}).redDuration,
   updateDuration: answer =>
     dispatchProps.updateDuration(answer, stateProps.answer),
