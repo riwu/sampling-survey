@@ -22,7 +22,7 @@ android {
     applicationId "riwu.sampling.survey"
     minSdkVersion 19
     targetSdkVersion 25
-    versionCode 16
+    versionCode 17
     versionName "1.8.4"
     multiDexEnabled true
     ndk {
