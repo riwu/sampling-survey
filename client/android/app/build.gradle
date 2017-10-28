@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-project.ext.vectoricons = [
-        iconFontNames: [ 'Ionicons.ttf' ] // Name of the font files you want to copy
-]
+
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
@@ -24,8 +22,8 @@ android {
     applicationId "riwu.sampling.survey"
     minSdkVersion 19
     targetSdkVersion 25
-    versionCode 10
-    versionName "1.0"
+    versionCode 12
+    versionName "1.8.2"
     multiDexEnabled true
     ndk {
       abiFilters 'armeabi-v7a', 'x86'
