@@ -33,10 +33,7 @@ const styles = StyleSheet.create({
   instructionTitle: {
     fontSize: 17,
     fontWeight: 'bold',
-    padding: 10,
-    textAlign: 'center',
-  },
-  text: {
+    padding: 6,
     textAlign: 'center',
   },
   button: {
@@ -67,13 +64,25 @@ class ReproduceDuration extends React.Component {
             <View style={{ flex: 0.1 }} />
             <View style={styles.instructions}>
               <Text style={styles.instructionTitle}>Reproduce the duration</Text>
-              <Text style={styles.text}>1. Press 'START' when you're ready</Text>
-              <Text style={styles.text}>2. Press 'STOP' when you think you've reproduced the duration the screen was red for.</Text>
+              <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                <Text>1. </Text>
+                <Text>Press 'START' when you're ready</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <Text>2. </Text>
+                <Text style={{ marginBottom: 5 }}>Press 'STOP' when you think you've reproduced the duration the screen was red for.</Text>
+              </View>
               <Text style={styles.text}>Remember:</Text>
-              <Text style={styles.text}>- <Text style={{ textDecorationLine: 'underline' }}>Don't count</Text> how much time has passed</Text>
-              <Text style={styles.text}>- We're interested in what it
-                <Text style={{ fontStyle: 'italic' }}> feels like</Text> to you
-              </Text>
+              <View style={{ flexDirection: 'row', marginBottom: 2 }}>
+                <Text>- </Text>
+                <Text><Text style={{ textDecorationLine: 'underline' }}>Don't count</Text> how much time has passed</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <Text>- </Text>
+                <Text>We're interested in what it
+                  <Text style={{ fontStyle: 'italic' }}> feels like</Text> to you
+                </Text>
+              </View>
             </View>
             <View style={{ flex: 0.1 }} />
           </View>

@@ -74,8 +74,7 @@ const experiment = [
   ['Question 1', <Question1 />],
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5].map((roundNum, i, arr) => [
-    [`ReadyScreen${roundNum}`, <ReadyScreen roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReadyTransition${roundNum}`, <ReadyTransition roundNum={roundNum} />],
+    [`ReadyTransition${roundNum}`, <ReadyTransition roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
     [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment,

@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
-import ReadyTransition from './ReadyTransition';
+import ReadyScreen from './ReadyScreen';
 import { addExperimentRound } from '../actions';
 import { schedule } from '../experiment/getMatchingSchedule';
+
+const mapStateToProps = state => ({
+  answers: state.experimentRounds[schedule],
+  startTime: (state.notificationSchedule[schedule] || {}).startTime,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateDuration: answer => dispatch(addExperimentRound(
@@ -11,11 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   )),
 });
 
-const mapStateToProps = state => ({
-  answers: state.experimentRounds[schedule],
-});
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ReadyTransition);
+)(ReadyScreen);
