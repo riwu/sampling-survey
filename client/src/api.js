@@ -1,8 +1,9 @@
 import Frisbee from 'frisbee';
 import { Constants } from 'expo';
 import DeviceInfo from 'react-native-device-info';
+import { Platform } from 'react-native';
 
-const deviceId = DeviceInfo ? DeviceInfo.getUniqueID() : Constants.deviceId;
+const deviceId = Platform.OS === 'android' ? DeviceInfo.getUniqueID() : Constants.deviceId;
 
 const API_BASE_URL = 'http://13.228.235.195:3002/';
 // const API_BASE_URL = 'http://localhost:3002/';
@@ -28,9 +29,9 @@ export default {
       isDevice,
       linkingUrl,
       version: manifest.version,
-      country: DeviceInfo ? DeviceInfo.getTimezone() : null,
+      country: Platform.OS === 'android' ? DeviceInfo.getTimezone() : null,
       timezone: (new Date()).getTimezoneOffset(),
-      isTablet: DeviceInfo ? DeviceInfo.isTablet() : null,
+      isTablet: Platform.OS === 'android' ? DeviceInfo.isTablet() : null,
     });
   },
   postAnswer: (answer) => {
