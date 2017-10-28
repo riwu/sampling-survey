@@ -1,5 +1,8 @@
 import Frisbee from 'frisbee';
 import { Constants } from 'expo';
+import DeviceInfo from 'react-native-device-info';
+
+const deviceId = DeviceInfo ? DeviceInfo.getUniqueID() : Constants.deviceId;
 
 const API_BASE_URL = 'http://13.228.235.195:3002/';
 // const API_BASE_URL = 'http://localhost:3002/';
@@ -18,13 +21,16 @@ const patch = (path, payload) => api.patch(path, { body: payload });
 
 export default {
   postDevice: () => {
-    const { deviceId, deviceName, isDevice, linkingUrl, manifest } = Constants;
+    const { deviceName, isDevice, linkingUrl, manifest } = Constants;
     return post('device', {
       deviceId,
       deviceName,
       isDevice,
       linkingUrl,
       version: manifest.version,
+      country: DeviceInfo ? DeviceInfo.getTimezone() : null,
+      timezone: (new Date()).getTimezoneOffset(),
+      isTablet: DeviceInfo ? DeviceInfo.isTablet() : null,
     });
   },
   postAnswer: (answer) => {
