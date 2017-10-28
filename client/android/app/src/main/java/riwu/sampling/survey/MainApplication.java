@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.oblador.vectoricons.VectorIconsPackage;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
@@ -20,6 +21,7 @@ public class MainApplication extends MultiDexApplication {
         // Add your own packages here!
         // TODO: add cool native modules
             new RNDeviceInfo()
+            ,new VectorIconsPackage()
         // Needed for `react-native link`
         // new MainReactPackage()
     );

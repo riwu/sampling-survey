@@ -94,4 +94,5 @@ dependencies {
     transitive = false
   }
   compile project(':react-native-device-info')
+  compile project(':react-native-vector-icons')
 }
