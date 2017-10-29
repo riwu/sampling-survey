@@ -16,43 +16,67 @@ mysql.createConnection({
   password: process.env.STUFF_PASSWORD,
 }).then((connection) => { conn = connection; });
 
+const insertAnswer = (answer, isExperiment) => Promise.all(Object.entries(answer.answer)
+  .filter(([key, value]) => key !== 'time' && (key !== 'index' || answer.answer[value] === undefined))
+  .map(([key, value]) => {
+    const isIndex = key === 'index';
+    const index = Number(key);
+    const row = {
+      question: answer.question,
+      index: isIndex ? value : index,
+      text: isIndex ? undefined : value,
+      final: isIndex || (answer.answer.index ? answer.answer.index === index : 1),
+      createdAt: toDate(answer.answer.time),
+    };
+    let table;
+    if (isExperiment) {
+      row.experiment_device_deviceId = answer.deviceId;
+      row.experiment_schedule = toDate(answer.schedule);
+      table = 'experiment_answer';
+    } else {
+      row.device_deviceId = answer.deviceId;
+      table = 'answer';
+    }
+    return conn.query(`INSERT INTO ${table} SET ?`, row);
+  }));
+
+const insertRound = trial => (answer) => {
+  const {
+    round, blackDuration, redDuration, recordedDuration,
+    timeBetweenMountAndStart, deviceId, time, schedule,
+  } = answer;
+  const row = {
+    experiment_device_deviceId: deviceId,
+    round,
+    blackDuration,
+    redDuration,
+    recordedDuration,
+    timeBetweenMountAndStart,
+    createdAt: toDate(time),
+  };
+  if (trial) {
+    row.device_deviceId = deviceId;
+  } else {
+    row.experiment_device_deviceId = deviceId;
+    row.experiment_schedule = toDate(schedule);
+  }
+  return conn.query(`INSERT IGNORE INTO ${trial ? 'trial' : 'round'} SET ?`, row);
+};
+
 module.exports = {
   isDisqualified: deviceId => conn.query('SELECT disqualified FROM device WHERE deviceId = ?', deviceId),
   device: answer => conn.query('INSERT INTO device SET ? ON DUPLICATE KEY UPDATE ?', [answer, answer]),
   disqualify: deviceId => conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', deviceId),
-  answer: data => conn.query(
+  answer: answer => conn.query(
     'DELETE FROM answer WHERE device_deviceId = ? AND question = ?',
-    [data.deviceId, data.question],
-  ).then(() => Promise.all(Object.entries(data.answer)
-    .filter(([key, value]) => key !== 'time' && (key !== 'index' || data.answer[value] === undefined))
-    .map(([key, value]) => {
-      const isIndex = key === 'index';
-      const index = Number(key);
-      const row = {
-        device_deviceId: data.deviceId,
-        question: data.question,
-        index: isIndex ? value : index,
-        text: isIndex ? undefined : value,
-        final: isIndex || (data.answer.index ? data.answer.index === index : 1),
-        createdAt: toDate(data.answer.time),
-      };
-      return conn.query('INSERT INTO answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]).catch(e => console.log(e));
-    }))),
-  trial: (answer) => {
-    const {
-      round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, deviceId, time,
-    } = answer;
-    const row = {
-      device_deviceId: deviceId,
-      round,
-      blackDuration,
-      redDuration,
-      recordedDuration,
-      timeBetweenMountAndStart,
-      createdAt: toDate(time),
-    };
-    return conn.query('INSERT IGNORE INTO trial SET ?', row);
-  },
+    [answer.deviceId, answer.question],
+  ).then(() => insertAnswer(answer, false)),
+  experimentAnswer: answer => conn.query(
+    'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
+    [answer.deviceId, answer.question, toDate(answer.schedule)],
+  ).then(() => insertAnswer(answer, true)),
+  trial: insertRound(true),
+  experimentRounds: insertRound(false),
   experiment: (schedule, deviceId) => schedule.map((time) => {
     const row = { device_deviceId: deviceId, schedule: toDate(time) };
     return conn.query('INSERT IGNORE INTO experiment SET ?', row);
@@ -61,43 +85,4 @@ module.exports = {
     'UPDATE experiment SET startedAt = ? WHERE device_deviceId = ? AND schedule = ?',
     [toDate(answer.startedAt), answer.deviceId, toDate(answer.schedule)],
   ),
-  experimentAnswer: answer => conn.query(
-    'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
-    [answer.deviceId, answer.question, toDate(answer.schedule)],
-  ).then(() => {
-    console.log('Inserting experiment answer');
-    return Promise.all(Object.entries(answer.answer)
-      .filter(([key, value]) => key !== 'time' && (key !== 'index' || answer.answer[value] === undefined))
-      .map(([key, value]) => {
-        const isIndex = key === 'index';
-        const index = Number(key);
-        const row = {
-          experiment_device_deviceId: answer.deviceId,
-          question: answer.question,
-          index: isIndex ? value : index,
-          text: isIndex ? undefined : value,
-          final: isIndex || (answer.answer.index ? answer.answer.index === index : 1),
-          createdAt: toDate(answer.answer.time),
-          experiment_schedule: toDate(answer.schedule),
-        };
-        return conn.query('INSERT INTO experiment_answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]);
-      }));
-  }),
-  experimentRounds: (answer) => {
-    const {
-      round, blackDuration, redDuration, recordedDuration,
-      timeBetweenMountAndStart, deviceId, time, schedule,
-    } = answer;
-    const row = {
-      experiment_device_deviceId: deviceId,
-      round,
-      blackDuration,
-      redDuration,
-      recordedDuration,
-      timeBetweenMountAndStart,
-      createdAt: toDate(time),
-      experiment_schedule: toDate(schedule),
-    };
-    return conn.query('INSERT IGNORE INTO round SET ?', row);
-  },
 };

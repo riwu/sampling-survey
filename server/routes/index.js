@@ -8,46 +8,38 @@ router.get('/disqualified/:deviceId', (req, res) => {
 });
 
 router.post('/all', async (req, res) => {
-  res.end();
-  const state = req.body;
-  const { deviceId } = state.device;
-  await query.device(state.device);
-  await Promise.all(Object.entries(state.notificationSchedule).map(([schedule, info]) =>
-    Promise.all([
-      query.experiment(schedule, deviceId).then(() => query.experimentStarted({
-        startedAt: info.startTime,
-        deviceId,
-        schedule,
-      })),
+  try {
+    const state = req.body;
+    const { deviceId } = state.device;
+    await query.device(state.device);
 
-    ])));
-  Object.entries(state.experimentAnswers).map(([schedule, answers]) =>
-    Object.entries(answers).map(([question, answer]) =>
-      query.experimentAnswer({
-        ...answer, schedule, deviceId, question,
-      })));
-
-  Object.entries(state.experimentRounds).map(([schedule, answers]) =>
-    Object.entries(answers).map(([round, answer]) =>
-      query.experimentRounds({
-        ...answer, round, deviceId, schedule,
-      })));
-
-
-  await Promise.all([
-    query.disqualify(deviceId),
-    ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),
-    ...state.trial,
-
-
-  ]);
-  Object.entries(state.answers || {}).forEach(([question, answer]) => {
-    query.answer({
-      answer,
-      question,
-      deviceId,
-    });
-  });
+    await Promise.all([
+      query.disqualify(deviceId),
+      ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),
+      ...Object.entries(state.answers).map(([question, answer]) =>
+        query.answer({ answer, question, deviceId })),
+      Promise.all(Object.entries(state.notificationSchedule).map(([schedule, info]) =>
+        query.experiment(schedule, deviceId).then(() => query.experimentStarted({
+          startedAt: info.startTime,
+          deviceId,
+          schedule,
+        })))).then(() => Promise.all([
+        ...Object.entries(state.experimentAnswers).map(([schedule, answers]) =>
+          Promise.all(Object.entries(answers).map(([question, answer]) =>
+            query.experimentAnswer({
+              ...answer, schedule, deviceId, question,
+            })))),
+        ...Object.entries(state.experimentRounds).map(([schedule, answers]) =>
+          Promise.all(Object.entries(answers).map(([round, answer]) =>
+            query.experimentRounds({
+              ...answer, round, deviceId, schedule,
+            })))),
+      ])),
+    ]);
+    res.end();
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 router.post('/device', (req, res) => {
