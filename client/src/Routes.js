@@ -13,23 +13,24 @@ import InstructionWithCross from './instructions/InstructionWithCross';
 import RedScreen from './instructions/RedScreen';
 import Instruction6 from './instructions/ReproduceDuration';
 import EnableNotification from './instructions/EnableNotification';
+import FailedTrial from './instructions/FailedTrial';
+import Acknowledgement from './instructions/AcknowledgementContainer';
 
 import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
-import Acknowledgement from './instructions/AcknowledgementContainer';
 
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
 import Question1 from './experiment/Question1';
-import Disqualified from './questionnaire/DisqualifiedContainer';
 
 import AppStateListener from './misc/AppStateListener';
 import SessionTimeOut from './misc/SessionTimeOut';
 import GetData from './misc/GetData';
 import RewardScreen from './misc/RewardScreen';
 
+import Disqualified from './questionnaire/DisqualifiedContainer';
 import RoutingScreen from './RoutingScreen';
 
 const sceneStyle = {
@@ -100,12 +101,7 @@ const App = () => (
 
       <Scene
         key="FailedTrial"
-        component={failedProps => (
-          <MiddleText
-            text="Your response was incorrect. Please try again."
-            nextScene={`ReadyTransitionTrial${failedProps.roundNum}`}
-          />
-        )}
+        component={FailedTrial}
       />
 
       <Scene

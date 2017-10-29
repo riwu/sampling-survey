@@ -64,7 +64,7 @@ class ReadyScreen extends React.Component {
   }
 
   startTransition() {
-    const blackDuration = (Math.floor(Math.random() * 3) + 1) * 1000;
+    const blackDuration = getRandomInt(1, 4) * 1000;
     let rand;
     const filter = (used, duration) => used.every(({ redDuration }) => redDuration !== duration);
     console.log('ready', this.props.trialRoundNum, this.props.answers);

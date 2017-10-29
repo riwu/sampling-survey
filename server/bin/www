@@ -13,6 +13,7 @@ const http = require('http');
  */
 
 const port = normalizePort(process.env.PORT || '3002');
+console.log('Listening on port', port);
 app.set('port', port);
 
 /**

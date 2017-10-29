@@ -2,18 +2,17 @@ const mysql = require('promise-mysql');
 const moment = require('moment');
 
 const toDate = (time) => {
-  const date = moment(time).utcOffset(8).format('YYYY-MM-DD HH:mm:ss');
-  console.log('Converted', time, 'to', date);
+  const date = moment(Number(time)).utcOffset(8).format('YYYY-MM-DD HH:mm:ss');
   return date;
 };
 
 let conn;
 mysql.createConnection({
-  host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
-  user: 'sampling_survey',
+  // host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
+  host: 'localhost',
+  user: 'root',
   database: 'sampling_survey',
-  port: 1150,
-  password: process.env.STUFF_PASSWORD,
+  port: 3306,
 }).then((connection) => { conn = connection; });
 
 const insertAnswer = (answer, isExperiment) => Promise.all(Object.entries(answer.answer)
@@ -22,22 +21,17 @@ const insertAnswer = (answer, isExperiment) => Promise.all(Object.entries(answer
     const isIndex = key === 'index';
     const index = Number(key);
     const row = {
+      deviceId: answer.deviceId,
       question: answer.question,
       index: isIndex ? value : index,
       text: isIndex ? undefined : value,
       final: isIndex || (answer.answer.index ? answer.answer.index === index : 1),
       createdAt: toDate(answer.answer.time),
     };
-    let table;
     if (isExperiment) {
-      row.experiment_device_deviceId = answer.deviceId;
-      row.experiment_schedule = toDate(answer.schedule);
-      table = 'experiment_answer';
-    } else {
-      row.device_deviceId = answer.deviceId;
-      table = 'answer';
+      row.schedule = toDate(answer.schedule);
     }
-    return conn.query(`INSERT INTO ${table} SET ?`, row);
+    return conn.query(`INSERT INTO ${isExperiment ? 'experiment_answer' : 'answer'} SET ?`, row);
   }));
 
 const insertRound = trial => (answer) => {
@@ -46,7 +40,7 @@ const insertRound = trial => (answer) => {
     timeBetweenMountAndStart, deviceId, time, schedule,
   } = answer;
   const row = {
-    experiment_device_deviceId: deviceId,
+    deviceId,
     round,
     blackDuration,
     redDuration,
@@ -54,13 +48,10 @@ const insertRound = trial => (answer) => {
     timeBetweenMountAndStart,
     createdAt: toDate(time),
   };
-  if (trial) {
-    row.device_deviceId = deviceId;
-  } else {
-    row.experiment_device_deviceId = deviceId;
-    row.experiment_schedule = toDate(schedule);
+  if (!trial) {
+    row.schedule = toDate(schedule);
   }
-  return conn.query(`INSERT IGNORE INTO ${trial ? 'trial' : 'round'} SET ?`, row);
+  return conn.query(`INSERT INTO ${trial ? 'trial' : 'round'} SET ? ON DUPLICATE KEY UPDATE deviceId = deviceId`, row);
 };
 
 module.exports = {
@@ -68,21 +59,21 @@ module.exports = {
   device: answer => conn.query('INSERT INTO device SET ? ON DUPLICATE KEY UPDATE ?', [answer, answer]),
   disqualify: deviceId => conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', deviceId),
   answer: answer => conn.query(
-    'DELETE FROM answer WHERE device_deviceId = ? AND question = ?',
+    'DELETE FROM answer WHERE deviceId = ? AND question = ?',
     [answer.deviceId, answer.question],
   ).then(() => insertAnswer(answer, false)),
   experimentAnswer: answer => conn.query(
-    'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
+    'DELETE FROM experiment_answer WHERE deviceId = ? AND question = ? AND schedule = ?',
     [answer.deviceId, answer.question, toDate(answer.schedule)],
   ).then(() => insertAnswer(answer, true)),
   trial: insertRound(true),
   experimentRounds: insertRound(false),
-  experiment: (schedule, deviceId) => schedule.map((time) => {
-    const row = { device_deviceId: deviceId, schedule: toDate(time) };
-    return conn.query('INSERT IGNORE INTO experiment SET ?', row);
-  }),
+  experiment: (schedule, deviceId) => Promise.all(schedule.map((time) => {
+    const row = { deviceId, schedule: toDate(time) };
+    return conn.query('INSERT INTO experiment SET ? ON DUPLICATE KEY UPDATE deviceId = deviceId', row);
+  })),
   experimentStarted: answer => conn.query(
-    'UPDATE experiment SET startedAt = ? WHERE device_deviceId = ? AND schedule = ?',
+    'UPDATE experiment SET startedAt = ? WHERE deviceId = ? AND schedule = ?',
     [toDate(answer.startedAt), answer.deviceId, toDate(answer.schedule)],
   ),
 };

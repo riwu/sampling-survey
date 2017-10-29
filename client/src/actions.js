@@ -14,6 +14,7 @@ export const disqualify = () => (dispatch) => {
 
 export const postDevice = () => (dispatch) => {
   api.isDisqualified().then((row) => {
+    console.log('disqualify', row);
     if ((row[0] || {}).disqualified) {
       // dispatch(disqualify());
       // Actions.replace('NotEligible');

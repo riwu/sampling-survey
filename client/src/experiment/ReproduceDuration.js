@@ -108,7 +108,8 @@ class ReproduceDuration extends React.Component {
               });
               if (this.props.actualDuration && (duration < 500 ||
                 Math.abs(duration - this.props.actualDuration) > 3000)) {
-                Actions.replace('FailedTrial', { roundNum: this.props.roundNum });
+                console.log('Failed at round', this.props.roundNum);
+                Actions.replace('FailedTrial');
                 return;
               }
               Actions.replace(getNextScene(this.props.nextScene, this.props.startTime));
