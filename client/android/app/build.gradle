@@ -21,8 +21,8 @@ android {
     applicationId "riwu.sampling.survey"
     minSdkVersion 19
     targetSdkVersion 24
-    versionCode 19
-    versionName "1.8.6"
+    versionCode 22
+    versionName "1.9.0"
     multiDexEnabled true
     ndk {
       abiFilters 'armeabi-v7a', 'x86'
