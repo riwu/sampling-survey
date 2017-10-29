@@ -8,11 +8,11 @@ const toDate = (time) => {
 
 let conn;
 mysql.createConnection({
-  // host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
-  host: 'localhost',
-  user: 'root',
+  host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
+  user: 'sampling_survey',
   database: 'sampling_survey',
-  port: 3306,
+  port: 1150,
+  password: process.env.STUFF_PASSWORD,
 }).then((connection) => { conn = connection; });
 
 const insertAnswer = (answer, isExperiment) => Promise.all(Object.entries(answer.answer)
