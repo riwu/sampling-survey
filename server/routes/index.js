@@ -1,136 +1,93 @@
 const express = require('express');
-const mysql = require('promise-mysql');
-const toDate = require('./toDate');
-const insertAnswer = require('./answer');
+const query = require('./query');
 
 const router = express.Router();
 
-let conn;
-mysql.createConnection({
-  host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
-  user: 'sampling_survey',
-  database: 'sampling_survey',
-  port: 1150,
-  password: process.env.STUFF_PASSWORD,
-}).then((connection) => { conn = connection; });
+router.get('/disqualified/:deviceId', (req, res) => {
+  query.isDisqualified(req.params.deviceId).then(data => res.send(data));
+});
 
-router.post('/all', (req, res) => {
+router.post('/all', async (req, res) => {
   res.end();
-  Object.entries(req.body.answers || {}).forEach(([question, answer]) => {
-    insertAnswer(conn, {
+  const state = req.body;
+  const { deviceId } = state.device;
+  await query.device(state.device);
+  await Promise.all(Object.entries(state.notificationSchedule).map(([schedule, info]) =>
+    Promise.all([
+      query.experiment(schedule, deviceId).then(() => query.experimentStarted({
+        startedAt: info.startTime,
+        deviceId,
+        schedule,
+      })),
+
+    ])));
+  Object.entries(state.experimentAnswers).map(([schedule, answers]) =>
+    Object.entries(answers).map(([question, answer]) =>
+      query.experimentAnswer({
+        ...answer, schedule, deviceId, question,
+      })));
+
+  Object.entries(state.experimentRounds).map(([schedule, answers]) =>
+    Object.entries(answers).map(([round, answer]) =>
+      query.experimentRounds({
+        ...answer, round, deviceId, schedule,
+      })));
+
+
+  await Promise.all([
+    query.disqualify(deviceId),
+    ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),
+    ...state.trial,
+
+
+  ]);
+  Object.entries(state.answers || {}).forEach(([question, answer]) => {
+    query.answer({
       answer,
       question,
-      deviceId: req.body.deviceId,
+      deviceId,
     });
   });
-});
-
-router.patch('/disqualify', (req, res) => {
-  res.end();
-  conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', req.body.deviceId);
-});
-
-router.get('/disqualified/:deviceId', (req, res) => {
-  conn.query('SELECT disqualified FROM device WHERE deviceId = ?', req.params.deviceId)
-    .then((data) => {
-      console.log('Sending data', data);
-      return res.send(data);
-    });
 });
 
 router.post('/device', (req, res) => {
   res.end();
-  conn.query('INSERT INTO device SET ? ON DUPLICATE KEY UPDATE ?', [req.body, req.body]);
+  query.device(req.body);
+});
+
+router.patch('/disqualify', (req, res) => {
+  res.end();
+  query.disqualify(req.body.deviceId);
 });
 
 router.post('/answer', (req, res) => {
   res.end();
-  if (!req.body.answer) {
-    return;
-  }
-  insertAnswer(conn, req.body);
+  query.answer(req.body);
 });
 
 router.post('/trial', (req, res) => {
   res.end();
-  const {
-    round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, deviceId, time,
-  } = req.body;
-  const row = {
-    device_deviceId: deviceId,
-    round,
-    blackDuration,
-    redDuration,
-    recordedDuration,
-    timeBetweenMountAndStart,
-    createdAt: toDate(time),
-  };
-  conn.query('INSERT INTO trial SET ?', row);
+  query.trial(req.body);
 });
 
 router.post('/experiment', (req, res) => {
   res.end();
-  req.body.schedule.forEach((time) => {
-    const row = { device_deviceId: req.body.deviceId, schedule: toDate(time) };
-    conn.query('INSERT IGNORE INTO experiment SET ?', row);
-  });
+  query.experiment(req.body.schedule, req.body.deviceId);
 });
 
 router.post('/experiment/started', (req, res) => {
   res.end();
-  conn.query(
-    'UPDATE experiment SET startedAt = ? WHERE device_deviceId = ? AND schedule = ?',
-    [toDate(req.body.startedAt), req.body.deviceId, toDate(req.body.schedule)],
-  );
+  query.experimentStarted(req.body);
 });
 
 router.post('/experiment/answer', (req, res) => {
   res.end();
-  if (!req.body.answer) {
-    return;
-  }
-  conn.query(
-    'DELETE FROM experiment_answer WHERE experiment_device_deviceId = ? AND question = ? AND experiment_schedule = ?',
-    [req.body.deviceId, req.body.question, toDate(req.body.schedule)],
-  ).then(() => {
-    console.log('Inserting experiment answer');
-    Object.entries(req.body.answer)
-      .forEach(([key, value]) => {
-        if (key === 'time') return;
-        const isIndex = key === 'index';
-        if (isIndex && req.body.answer[value] !== undefined) return;
-        const index = Number(key);
-        const row = {
-          experiment_device_deviceId: req.body.deviceId,
-          question: req.body.question,
-          index: isIndex ? value : index,
-          text: isIndex ? undefined : value,
-          final: isIndex || (req.body.answer.index ? req.body.answer.index === index : 1),
-          createdAt: toDate(req.body.answer.time),
-          experiment_schedule: toDate(req.body.schedule),
-        };
-        conn.query('INSERT INTO experiment_answer SET ? ON DUPLICATE KEY UPDATE ?', [row, row]);
-      });
-  });
+  query.experimentAnswer(req.body);
 });
 
 router.post('/experiment/round', (req, res) => {
   res.end();
-  const {
-    round, blackDuration, redDuration, recordedDuration,
-    timeBetweenMountAndStart, deviceId, time, schedule,
-  } = req.body;
-  const row = {
-    experiment_device_deviceId: deviceId,
-    round,
-    blackDuration,
-    redDuration,
-    recordedDuration,
-    timeBetweenMountAndStart,
-    createdAt: toDate(time),
-    experiment_schedule: toDate(schedule),
-  };
-  conn.query('INSERT IGNORE INTO round SET ?', row);
+  query.experimentRounds(req.body);
 });
 
 module.exports = router;
