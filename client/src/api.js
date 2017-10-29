@@ -30,6 +30,11 @@ try {
   deviceId = Constants.deviceId;
 }
 
+console.log('deviceId', deviceId, Constants.deviceId);
+// TODO: temporary
+patch('/updateDevice', { oldID: Constants.deviceId, newID: deviceId })
+  .catch(e => console.log('updateDevice', e));
+
 const deviceInfo = {
   deviceId,
   deviceName,

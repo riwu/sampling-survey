@@ -3,6 +3,12 @@ const query = require('./query');
 
 const router = express.Router();
 
+// TODO: temporary
+router.patch('/updateDevice', (req, res) => {
+  res.end();
+  query.updateDevice(req.body);
+});
+
 router.get('/disqualified/:deviceId', (req, res) => {
   query.isDisqualified(req.params.deviceId).then((data) => {
     console.log('data', data);

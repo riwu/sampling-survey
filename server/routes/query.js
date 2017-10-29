@@ -76,4 +76,5 @@ module.exports = {
     'UPDATE experiment SET startedAt = ? WHERE deviceId = ? AND schedule = ?',
     [toDate(answer.startedAt), answer.deviceId, toDate(answer.schedule)],
   ),
+  updateDevice: ({ oldID, newID }) => conn.query('UPDATE device SET deviceId = ? WHERE deviceId = ?', [newID, oldID]),
 };
