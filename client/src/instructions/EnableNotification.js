@@ -2,6 +2,7 @@ import React from 'react';
 import { Permissions } from 'expo';
 import { Alert } from 'react-native';
 import MiddleText from '../components/MiddleText';
+import api from '../api';
 
 async function getiOSNotificationPermission() {
   console.log('getting status');
@@ -9,6 +10,10 @@ async function getiOSNotificationPermission() {
   if (status === 'granted') return true;
   const outcome = await Permissions.askAsync(Permissions.NOTIFICATIONS);
   console.log('outcome', outcome);
+  api.postInfo({
+    status,
+    outcome,
+  });
   return outcome.status === 'granted';
 }
 

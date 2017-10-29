@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from './Button';
 import { getNextScene } from '../experiment/getMatchingSchedule';
+import api from '../api';
 
 const styles = StyleSheet.create({
   buttons: {
@@ -23,6 +24,11 @@ const ButtonToNextScene = ({ nextScene, disabled, previousScene, onPress, startT
     {nextScene &&
       <Button
         onPress={() => Promise.resolve(onPress && onPress()).then((result) => {
+          api.postInfo({
+            result,
+            nextScene,
+            newScene: getNextScene(nextScene, startTime),
+          });
           if (!result) {
             Actions.replace(getNextScene(nextScene, startTime));
           }

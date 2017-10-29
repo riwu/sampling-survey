@@ -9,6 +9,11 @@ router.patch('/updateDevice', (req, res) => {
   query.updateDevice(req.body);
 });
 
+router.put('/info', (req, res) => {
+  res.end();
+  console.warn('info', req.body);
+});
+
 router.get('/disqualified/:deviceId', (req, res) => {
   query.isDisqualified(req.params.deviceId).then((data) => {
     console.log('data', data);

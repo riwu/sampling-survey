@@ -66,4 +66,6 @@ export default {
   isDisqualified: () => get(`disqualified/${deviceId}`),
   postAll: state => put('all', { ...state, device: deviceInfo }),
   disqualify: () => patch('disqualify', { deviceId }),
+
+  postInfo: message => put('info', message),
 };
