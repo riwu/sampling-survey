@@ -6,6 +6,7 @@ import api from '../api';
 
 async function getiOSNotificationPermission() {
   console.log('getting status');
+  return true;
   const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   if (status === 'granted') return true;
   const outcome = await Permissions.askAsync(Permissions.NOTIFICATIONS);

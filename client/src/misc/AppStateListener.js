@@ -36,15 +36,16 @@ class AppStateListener extends React.Component {
     return (
       <MiddleText
         noPrevious
-        text={
+        text={(
           <Text>
             {this.props.text + (responseRate === undefined ? ''
               : `\n\nYour response rate is ${this.props.responseRate}%.`)}
+            {responseRate !== undefined && responseRate < 50 &&
             <Text style={{ color: 'red' }}>
-              {responseRate !== undefined && responseRate < 50 &&
-               '\nA response rate of 80% is required for reimbursement!'}
-            </Text>
-          </Text>}
+              {'\n'}A response rate of 80% is required for reimbursement!
+            </Text>}
+          </Text>
+        )}
       />
     );
   }
