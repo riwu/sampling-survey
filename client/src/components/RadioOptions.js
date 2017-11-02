@@ -20,7 +20,7 @@ const RadioOptions = (props) => {
         <RadioForm
           style={styles.options}
           labelColor="white"
-          buttonSize={12}
+          buttonSize={20}
           animation={false}
           {...componentProps}
         />

@@ -19,10 +19,6 @@ export default class RadioForm extends React.Component {
   constructor(props) {
     super(props);
     this.textRefs = {};
-    if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental &&
-      UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
   }
 
   renderButton(obj, i, objs) {
