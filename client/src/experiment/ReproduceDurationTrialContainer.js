@@ -7,19 +7,13 @@ import api from '../api';
 const mapStateToProps = (state, ownProps) => ({
   answer: state.trialAnswers[state.trialAnswers.length - 1],
   nextScene: (ownProps.roundNum === 3 && Platform.OS !== 'ios') ? 'Acknowledgement' : ownProps.nextScene,
+  state,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (answer, previousAnswer) => {
-    dispatch(updateTrial({
-      round: ownProps.roundNum,
-      ...answer,
-    }));
-    api.postTrial({
-      ...previousAnswer,
-      ...answer,
-      round: ownProps.roundNum,
-    });
+const mapDispatchToProps = dispatch => ({
+  updateDuration: (answer, state) => {
+    dispatch(updateTrial(answer));
+    api.postAll(state);
   },
 });
 
@@ -28,7 +22,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   nextScene: stateProps.nextScene,
   actualDuration: (stateProps.answer || {}).redDuration,
   updateDuration: answer =>
-    dispatchProps.updateDuration(answer, stateProps.answer),
+    dispatchProps.updateDuration(answer, stateProps.state),
 });
 
 export default connect(

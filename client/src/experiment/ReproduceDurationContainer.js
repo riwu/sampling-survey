@@ -4,31 +4,26 @@ import { addExperimentRound } from '../actions';
 import api from '../api';
 import { schedule } from '../experiment/getMatchingSchedule';
 
-const mapStateToProps = (state, ownProps) => ({
-  answer: (state.experimentRounds[schedule] || {})[ownProps.roundNum],
+const mapStateToProps = state => ({
   startTime: (state.notificationSchedule[schedule] || {}).startTime,
+  state,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: (answer, prevAnswer) => {
+  updateDuration: (answer, state) => {
     dispatch(addExperimentRound(
       ownProps.roundNum,
       schedule,
       answer,
     ));
-    api.postExperimentRound({
-      ...prevAnswer,
-      ...answer,
-      round: ownProps.roundNum,
-      schedule,
-    });
+    api.postAll(state);
   },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   startTime: stateProps.startTime,
-  updateDuration: answer => dispatchProps.updateDuration(answer, stateProps.answer),
+  updateDuration: answer => dispatchProps.updateDuration(answer, stateProps.state),
 });
 
 export default connect(

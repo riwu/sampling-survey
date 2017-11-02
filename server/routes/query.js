@@ -51,7 +51,7 @@ const insertRound = trial => (answer) => {
   if (!trial) {
     row.schedule = toDate(schedule);
   }
-  return conn.query(`INSERT INTO ${trial ? 'trial' : 'round'} SET ? ON DUPLICATE KEY UPDATE deviceId = deviceId`, row);
+  return conn.query(`INSERT INTO ${trial ? 'trial' : 'round'} SET ? ON DUPLICATE KEY UPDATE ?`, [row, row]);
 };
 
 module.exports = {

@@ -8,9 +8,6 @@ import { experimentEnded } from '../actions';
 const isLast = header => ['SESSION TIMED OUT QUESTION', 'Question 5'].includes(header);
 
 const mapStateToProps = (state, ownProps) => {
-  const answer = schedule
-    ? (state.experimentAnswers[schedule] || {})[ownProps.header]
-    : state.answers[ownProps.header];
   let nextScene = ownProps.nextScene;
   if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
     nextScene = 'NotEligible';
@@ -26,21 +23,10 @@ const mapStateToProps = (state, ownProps) => {
     startTime: (state.notificationSchedule[schedule] || {}).startTime,
     onPress: (finishedExperiment) => {
       if (ownProps.onPress) ownProps.onPress();
-      if (schedule) {
-        if (isLast(ownProps.header)) {
-          finishedExperiment(schedule);
-        }
-        api.postExperimentAnswer({
-          answer,
-          schedule,
-          question: ownProps.header,
-        });
-      } else {
-        api.postAnswer({
-          answer,
-          question: ownProps.header,
-        });
+      if (schedule && isLast(ownProps.header)) {
+        finishedExperiment(schedule);
       }
+      api.postAll(state);
     },
   };
 };

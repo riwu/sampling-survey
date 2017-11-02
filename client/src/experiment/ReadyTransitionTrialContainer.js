@@ -9,7 +9,11 @@ const mapStateToProps = (state, ownProps) => ({
   startTime: (state.notificationSchedule[schedule] || {}).startTime,
 });
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateDuration: answer => dispatch(addNewTrial({ ...answer, round: ownProps.roundNum })),
+});
+
 export default connect(
   mapStateToProps,
-  { updateDuration: addNewTrial },
+  mapDispatchToProps,
 )(ReadyScreen);
