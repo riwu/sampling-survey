@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-// apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -21,8 +21,8 @@ android {
     applicationId "riwu.sampling.survey"
     minSdkVersion 19
     targetSdkVersion 24
-    versionCode 23
-    versionName "1.9.2"
+    versionCode 24
+    versionName "1.9.4"
     multiDexEnabled true
     ndk {
       abiFilters 'armeabi-v7a', 'x86'
