@@ -24,9 +24,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     nextScene,
     startTime: (state.notificationSchedule[schedule] || {}).startTime,
-    disabled: ownProps.disabled !== undefined ? ownProps.disabled :
-      answer === undefined ||
-      (answer[-1] !== undefined && typeof answer[-1] === 'string' && answer[-1].trim() === ''), // for TextInputResponse
     onPress: (finishedExperiment) => {
       if (ownProps.onPress) ownProps.onPress();
       if (schedule) {

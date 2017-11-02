@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import TextInput from './TextInputContainer';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
+import { schedule } from '../experiment/getMatchingSchedule';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +23,19 @@ const TextInputComponent = (props) => {
         nextScene={nextScene}
         previousScene={previousScene}
         header={header}
+        disabled={props.disabled}
       />
     </View>
   );
 };
 
-export default TextInputComponent;
+const mapStateToProps = (state, ownProps) => {
+  const answer = schedule
+    ? (state.experimentAnswers[schedule] || {})[ownProps.header]
+    : state.answers[ownProps.header];
+  return ({
+    disabled: answer === undefined || answer[-1].trim() === '',
+  });
+};
+
+export default connect(mapStateToProps)(TextInputComponent);

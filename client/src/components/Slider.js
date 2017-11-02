@@ -30,6 +30,7 @@ const SliderComponent = props => (
     </View>
     <ButtonToNextScene
       {...props}
+      disabled={props.value === undefined}
     />
   </View>
 );
