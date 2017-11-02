@@ -22,11 +22,10 @@ const questionInfo = {
   ),
 };
 
-const WithWho = ({ question, header }) => (
+const WithWho = props => (
   <Question
     {...questionInfo}
-    header={header}
-    question={question}
+    {...props}
   />
 );
 
