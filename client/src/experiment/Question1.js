@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Question from '../components/Question';
-import RadioOptions from '../components/RadioOptionsContainer';
+import CheckboxList from '../components/CheckboxList';
 import { experimentStarted } from '../actions';
 import { schedule } from './getMatchingSchedule';
 
@@ -14,8 +14,8 @@ const question = {
   header: 'Question 1',
   question: 'Right now, I am with (select all that apply):',
   responseComponent: (
-    <RadioOptions
-      radio_props={[
+    <CheckboxList
+      labels={[
         'My boyfriend / girlfriend / partner / spouse',
         'My friends / colleagues / schoolmates',
         'My family',

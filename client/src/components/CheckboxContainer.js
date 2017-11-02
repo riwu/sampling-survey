@@ -1,28 +1,60 @@
 import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Checkbox from './react-native-checkbox-heaven';
-import { setAnswerText } from '../actions';
+import { setAnswerText, addExperimentAnswer } from '../actions';
+import TextInput from './TextInput';
+import { schedule } from '../experiment/getMatchingSchedule';
+
+const styles = StyleSheet.create({
+  text: {
+    marginLeft: 40,
+  },
+});
 
 const CheckboxComponent = props => (
-  <Checkbox
-    {...props}
-    checkedColor="#008080"
-    checked={props.checked}
-    iconSize={40}
-    onChange={checked => props.setAnswerText(checked || undefined)}
-  />
+  <View>
+    <Checkbox
+      {...props}
+      label={props.label.label}
+      checkedColor="#008080"
+      checked={props.value}
+      iconSize={40}
+      onChange={(checked) => {
+        props.setAnswerText(checked || undefined);
+        if (checked && props.label.hasTextInput) {
+          this.ref.focus();
+        }
+      }}
+    />
+    <TextInput
+      show={!!props.label.hasTextInput && (props.value !== undefined)}
+      setTextRef={(ref) => { this.ref = ref; }}
+      style={styles.text}
+      value={props.value === true ? '' : props.value}
+      onChangeText={props.setAnswerText}
+    />
+  </View>
 );
 
 const mapStateToProps = (state, ownProps) => ({
-  checked: (state.answers[ownProps.header] || {})[ownProps.index],
+  value: ((schedule
+    ? (state.experimentAnswers[schedule] || {})[ownProps.header]
+    : state.answers[ownProps.header]) || {})[ownProps.index],
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  setAnswerText: text => dispatch(setAnswerText({
-    header: ownProps.header,
-    index: ownProps.index,
-    text,
-  })),
+  setAnswerText: (text) => {
+    if (schedule) {
+      dispatch(addExperimentAnswer(ownProps.header, schedule, { [ownProps.index]: text }));
+    } else {
+      dispatch(setAnswerText({
+        header: ownProps.header,
+        index: ownProps.index,
+        text,
+      }));
+    }
+  },
 });
 
 

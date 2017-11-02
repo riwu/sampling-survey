@@ -103,8 +103,7 @@ export default class RadioButton extends React.Component {
         <TextInput
           style={Style.textInput}
           setTextRef={this.props.setTextRef}
-          opacity={showTextInput ? 1 : 0}
-          editable={showTextInput}
+          show={showTextInput}
           onFocus={this.props.onPress}
           onChangeText={this.props.setAnswerText}
           value={this.props.answerText}

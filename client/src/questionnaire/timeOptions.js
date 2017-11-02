@@ -9,7 +9,7 @@ const timeOptions = [];
 let count = 0;
 for (let col = 0; col < 3; col += 1) {
   for (let i = 0; i < times.length; i += 3, count += 1) {
-    timeOptions[i + col] = times[count];
+    timeOptions[i + col] = { label: times[count] };
   }
 }
 

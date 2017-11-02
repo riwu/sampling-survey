@@ -1,13 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Checkbox from './CheckboxContainer';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
+import { schedule } from '../experiment/getMatchingSchedule';
 
 const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   checkbox: {
     width: width / 3.9, // make sure it can fit exactly 3
-    marginBottom: 15,
     marginLeft: 20,
   },
   label: {
@@ -23,11 +24,11 @@ const styles = StyleSheet.create({
 
 const CheckboxList = props => (
   <View>
-    <View style={styles.container}>
+    <View style={props.horizontal ? styles.container : { alignSelf: 'center' }}>
       {props.labels.map((label, index) => (
         <Checkbox
-          style={styles.checkbox}
-          key={label}
+          style={props.horizontal ? styles.checkbox : {}}
+          key={label.label}
           label={label}
           labelStyle={styles.label}
           index={index}
@@ -41,9 +42,26 @@ const CheckboxList = props => (
   </View>
 );
 
-CheckboxList.defaultProps = {
-  answer: {},
+const mapStateToProps = (state, ownProps) => {
+  const answer = schedule
+    ? (state.experimentAnswers[schedule] || {})[ownProps.header]
+    : state.answers[ownProps.header];
+  let disabled = true;
+  Object.entries(answer || {}).some(([key, value]) => {
+    if (key === 'time') return false;
+    if (ownProps.labels[key].hasTextInput &&
+      (typeof (value) !== 'string' || value.trim() === '')) {
+      disabled = true;
+      return true;
+    }
+    if (value !== undefined) {
+      disabled = false;
+    }
+    return false;
+  });
+  return ({
+    disabled,
+  });
 };
 
-
-export default CheckboxList;
+export default connect(mapStateToProps)(CheckboxList);

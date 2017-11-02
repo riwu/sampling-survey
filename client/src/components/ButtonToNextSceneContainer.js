@@ -26,8 +26,7 @@ const mapStateToProps = (state, ownProps) => {
     startTime: (state.notificationSchedule[schedule] || {}).startTime,
     disabled: ownProps.disabled !== undefined ? ownProps.disabled :
       answer === undefined ||
-      (answer[-1] !== undefined && typeof answer[-1] === 'string' && (answer[-1] || '').trim() === '') || // for TextInputResponse
-      Object.entries(answer || {}).every(([key, value]) => key === 'time' || value === undefined), // for CheckboxList
+      (answer[-1] !== undefined && typeof answer[-1] === 'string' && answer[-1].trim() === ''), // for TextInputResponse
     onPress: (finishedExperiment) => {
       if (ownProps.onPress) ownProps.onPress();
       if (schedule) {

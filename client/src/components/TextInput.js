@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
 
 const TextInputComponent = props => (
   <TextInput
+    opacity={props.show ? 1 : 0}
+    editable={props.show}
     maxLength={99}
     underlineColorAndroid="transparent"
     {...props}
@@ -23,5 +25,9 @@ const TextInputComponent = props => (
     }}
   />
 );
+
+TextInputComponent.defaultProps = {
+  show: true,
+};
 
 export default TextInputComponent;

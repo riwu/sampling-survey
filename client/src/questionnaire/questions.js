@@ -16,14 +16,12 @@ const OTHERS = [{
 const timeResponse = (
   <RadioOptions
     formHorizontal
-    radio_props={timeOptions.map(option => ({
-      label: option,
-    }))}
+    radio_props={timeOptions}
   />
 );
 
 const timeResponseWithCheckbox = (
-  <CheckboxList labels={timeOptions} />
+  <CheckboxList labels={timeOptions} horizontal />
 );
 
 const scaleResponse = (
