@@ -16,6 +16,7 @@ class Question1 extends React.Component {
       <WithWho
         header="Question 1"
         question="Right now, I am with (select all that apply):"
+        {...this.props}
       />
     );
   }
