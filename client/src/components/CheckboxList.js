@@ -49,8 +49,8 @@ const mapStateToProps = (state, ownProps) => {
   let disabled = true;
   Object.entries(answer || {}).some(([key, value]) => {
     if (key === 'time') return false;
-    if (ownProps.labels[key].hasTextInput &&
-      (typeof (value) !== 'string' || value.trim() === '')) {
+    if (ownProps.labels[key].hasTextInput && value !== undefined &&
+      (typeof value !== 'string' || value.trim() === '')) {
       disabled = true;
       return true;
     }

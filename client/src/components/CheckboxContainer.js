@@ -23,13 +23,18 @@ const CheckboxComponent = props => (
       onChange={(checked) => {
         props.setAnswerText(checked || undefined);
         if (checked && props.label.hasTextInput) {
+          console.log('focusing');
           this.ref.focus();
         }
       }}
     />
     <TextInput
       show={!!props.label.hasTextInput && (props.value !== undefined)}
-      setTextRef={(ref) => { this.ref = ref; }}
+      setTextRef={(ref) => {
+        if (props.label.hasTextInput) {
+          this.ref = ref;
+        }
+      }}
       style={styles.text}
       value={props.value === true ? '' : props.value}
       onChangeText={props.setAnswerText}
