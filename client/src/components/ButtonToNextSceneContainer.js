@@ -5,7 +5,7 @@ import api from '../api';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
 import { experimentEnded } from '../actions';
 
-const isLast = header => ['SESSION TIMED OUT', 'Question 5'].includes(header);
+const isLast = header => ['SESSION TIMED OUT QUESTION', 'Question 5'].includes(header);
 
 const mapStateToProps = (state, ownProps) => {
   const answer = schedule
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   } else if (isLast(ownProps.header)) {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
     const newRoute = getMatchingSchedule(newSchedule, undefined, true);
-    if (newRoute === 'GetData' || ownProps.header === 'SESSION TIMED OUT') {
+    if (newRoute === 'GetData' || ownProps.header === 'SESSION TIMED OUT QUESTION') {
       nextScene = 'RoutingScreen';
     }
   }
