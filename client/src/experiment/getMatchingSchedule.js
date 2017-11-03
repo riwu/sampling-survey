@@ -6,7 +6,7 @@ export const getNextScene = (nextScene, startTime, now = Date.now()) => {
   if (schedule && (!['RoutingScreen', 'SESSION TIMED OUT QUESTION'].includes(nextScene)) && hasTimeOut(now, startTime)) {
     return (nextScene === 'Question 1') ? 'SESSION TIMED OUT QUESTION' : 'SESSION TIMED OUT';
   }
-  return nextScene;
+  return nextScene || 'Question 1';
 };
 
 const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
@@ -26,7 +26,7 @@ const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
     if (matchedSchedule > now) {
       route = 'NotReady';
     } else {
-      route = getNextScene(prevRoute === 'SESSION TIMED OUT QUESTION' ? 'Question 1' : (prevRoute || 'Question 1'),
+      route = getNextScene(prevRoute === 'SESSION TIMED OUT QUESTION' ? 'Question 1' : prevRoute,
         scheduleInfo.startTime, now);
     }
     return route;

@@ -24,8 +24,8 @@ import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
 import Question1 from './experiment/Question1';
-import WithWho from './experiment/WithWho';
 
+import TimeOutQns from './misc/TimeOutQns';
 import AppStateListener from './misc/AppStateListener';
 import SessionTimeOut from './misc/SessionTimeOut';
 import GetData from './misc/GetData';
@@ -84,7 +84,7 @@ const experiment = [
 
 const timeOut = [
   ['SESSION TIMED OUT', <SessionTimeOut />],
-  ['SESSION TIMED OUT QUESTION', <WithWho header="SESSION TIMED OUT QUESTION" question="I was with (select all that apply):" />],
+  ['SESSION TIMED OUT QUESTION', <TimeOutQns />],
 ];
 
 const mapToScene = info => info.map(([key, component], i, arr) => (

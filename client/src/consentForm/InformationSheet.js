@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Constants } from 'expo';
+import IonIcon from 'react-native-vector-icons/Ionicons'; // to preload
 import ButtonToNextScene from '../components/ButtonToNextScene';
 
 const styles = StyleSheet.create({
