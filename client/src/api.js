@@ -12,10 +12,11 @@ const [patch, put] = ['patch', 'put'].map(method =>
     method,
     url: path,
     data: payload,
-  }).catch((err) => {
-    console.log('encountered error for', path, ':', (err.response || {}).data);
-    throw new Error((err.response || {}).data);
-  }));
+  }).then(response => response.data)
+    .catch((err) => {
+      console.log('encountered error for', path, ':', (err.response || {}).data);
+      throw new Error((err.response || {}).data);
+    }));
 
 const { deviceName, isDevice, linkingUrl, manifest } = Constants;
 let deviceId;

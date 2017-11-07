@@ -5,6 +5,11 @@ import moment from 'moment';
 import api from './api';
 import timeOptions from './questionnaire/timeOptions';
 
+export const setCode = code => ({
+  type: 'SET_CODE',
+  code,
+});
+
 export const disqualify = () => (dispatch) => {
   api.disqualify();
   dispatch({

@@ -49,7 +49,9 @@ router.put('/all', async (req, res, next) => {
         query.answer({ answer, question, deviceId })),
       insertExperiment(state, deviceId),
     ]);
-    res.end();
+
+    const data = await query.getCode();
+    res.send(data[0].code);
   } catch (err) {
     next(err);
   }
