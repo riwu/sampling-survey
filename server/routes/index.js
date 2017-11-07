@@ -12,7 +12,7 @@ router.patch('/updateDevice', (req, res) => {
 router.get('/disqualified/:deviceId', (req, res) => {
   query.isDisqualified(req.params.deviceId).then((data) => {
     console.log('data', data);
-    res.send(data);
+    res.send((data[0] || {}).disqualified === 1);
   });
 });
 
