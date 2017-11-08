@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ReadyScreen from './ReadyScreen';
-import { addExperimentRound } from '../actions/index';
+import { addExperimentRound } from '../actions';
 import { schedule } from '../experiment/getMatchingSchedule';
 import api from '../actions/api';
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Slider from './Slider';
-import { addExperimentAnswer } from '../actions/index';
+import { addExperimentAnswer } from '../actions';
 import { schedule } from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state, ownProps) => ({

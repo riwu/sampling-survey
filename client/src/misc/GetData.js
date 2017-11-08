@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import MiddleText from '../components/MiddleText';
 import api from '../actions/api';
-import { setCode } from '../actions/index';
+import { setCode } from '../actions';
 
 const GetData = ({ state, ...props }) => (
   <MiddleText

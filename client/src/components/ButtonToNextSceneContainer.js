@@ -3,7 +3,7 @@ import ButtonToNextScene from './ButtonToNextScene';
 import isEligible from '../questionnaire/isEligible';
 import api from '../actions/api';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
-import { experimentEnded } from '../actions/index';
+import { experimentEnded } from '../actions';
 
 const isLast = header => ['SESSION TIMED OUT QUESTION', 'Question 5'].includes(header);
 

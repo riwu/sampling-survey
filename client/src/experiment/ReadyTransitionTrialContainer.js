@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ReadyScreen from './ReadyScreen';
-import { addNewTrial } from '../actions/index';
+import { addNewTrial } from '../actions';
 import { schedule } from '../experiment/getMatchingSchedule';
 import api from '../actions/api';
 

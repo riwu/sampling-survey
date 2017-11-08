@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
-import { addExperimentRound, experimentWarned } from '../actions/index';
+import { addExperimentRound, experimentWarned } from '../actions';
 import { schedule } from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state) => {

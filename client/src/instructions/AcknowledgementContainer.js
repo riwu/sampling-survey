@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Acknowledgement from './Acknowledgement';
-import { scheduleNotification } from '../actions/index';
+import { scheduleNotification } from '../actions';
 
 const mapStateToProps = state => ({
   answers: state.answers,
