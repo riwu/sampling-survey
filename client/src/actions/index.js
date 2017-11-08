@@ -3,7 +3,7 @@ import { Alert, Platform, AppState } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import api from './api';
-import timeOptions from './questionnaire/timeOptions';
+import timeOptions from '../questionnaire/timeOptions';
 
 export const setCode = code => ({
   type: 'SET_CODE',

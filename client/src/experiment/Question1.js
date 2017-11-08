@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { experimentStarted } from '../actions';
+import { experimentStarted } from '../actions/index';
 import { schedule } from './getMatchingSchedule';
 import WithWho from './WithWho';
 

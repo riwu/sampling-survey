@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TextInput from './TextInput';
-import { setAnswerText } from '../actions';
+import { setAnswerText } from '../actions/index';
 
 const mapStateToProps = (state, ownProps) => ({
   value: (state.answers[ownProps.header] || [])[-1],

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import RadioOptions from './RadioOptions';
-import { setAnswerIndex, setAnswerText, addExperimentAnswer } from '../actions';
+import { setAnswerIndex, setAnswerText, addExperimentAnswer } from '../actions/index';
 import { schedule } from '../experiment/getMatchingSchedule';
 
 const mapStateToProps = (state, ownProps) => ({

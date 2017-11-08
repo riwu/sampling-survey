@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Constants } from 'expo';
-import { disqualify } from '../actions';
+import { disqualify } from '../actions/index';
 import MiddleText from '../components/MiddleText';
 
 class Disqualified extends React.Component {

@@ -2,8 +2,8 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import MiddleText from '../components/MiddleText';
-import api from '../api';
-import { setCode } from '../actions';
+import api from '../actions/api';
+import { setCode } from '../actions/index';
 
 const GetData = ({ state, ...props }) => (
   <MiddleText

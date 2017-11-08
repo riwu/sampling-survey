@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Checkbox from './react-native-checkbox-heaven';
-import { setAnswerText, addExperimentAnswer } from '../actions';
+import { setAnswerText, addExperimentAnswer } from '../actions/index';
 import TextInput from './TextInput';
 import { schedule } from '../experiment/getMatchingSchedule';
 

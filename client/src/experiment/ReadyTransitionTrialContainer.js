@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import ReadyScreen from './ReadyScreen';
-import { addNewTrial } from '../actions';
+import { addNewTrial } from '../actions/index';
 import { schedule } from '../experiment/getMatchingSchedule';
-import api from '../api';
+import api from '../actions/api';
 
 const mapStateToProps = (state, ownProps) => ({
   answers: state.trialAnswers,

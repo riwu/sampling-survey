@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CountryPicker from './CountryPicker';
-import { setAnswerText } from '../actions';
+import { setAnswerText } from '../actions/index';
 
 const mapStateToProps = (state, ownProps) => ({
   cca2: (state.answers[ownProps.header] || [])[-1] || 'SG',

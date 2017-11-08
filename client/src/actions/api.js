@@ -3,7 +3,7 @@ import { Constants } from 'expo';
 import DeviceInfo from 'react-native-device-info';
 
 axios.defaults.baseURL = 'http://13.228.235.195:3002/';
-// axios.defaults.baseURL = 'http://169.254.66.103:3002/';
+axios.defaults.baseURL = 'http://192.168.1.187:3002/';
 
 const get = path => axios.get(path).then(response => response.data);
 

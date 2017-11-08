@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import ButtonToNextScene from './ButtonToNextScene';
 import isEligible from '../questionnaire/isEligible';
-import api from '../api';
+import api from '../actions/api';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
-import { experimentEnded } from '../actions';
+import { experimentEnded } from '../actions/index';
 
 const isLast = header => ['SESSION TIMED OUT QUESTION', 'Question 5'].includes(header);
 
