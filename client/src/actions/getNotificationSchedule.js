@@ -1,4 +1,4 @@
-import { Notifications } from 'expo';
+import Notifications from 'react-native-push-notification';
 import { Alert, Platform, AppState } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
@@ -75,6 +75,67 @@ const getSchedule = (partner, wakeup, sleep) => {
   return [...partnerSchedule, ...nonPartnerSchedule];
 };
 
+Notifications.configure({
+
+  // (required) Called when a remote or local notification is opened or received
+  // onNotification: (notification) => {
+  //   console.log('received', notification, AppState.currentState);
+  //   if (typeof notification.data === 'number' && AppState.currentState === 'active') {
+  //     if (notification.origin === 'received' && Platform.OS === 'ios') {
+  //       console.log('showing alert');
+  //       Alert.alert('Complete your task now');
+  //     }
+  //     Actions.replace('RoutingScreen');
+  //   }
+  // },
+
+  onNotification(notification) {
+    console.log('NOTIFICATION:', notification);
+  },
+
+  // IOS ONLY (optional): default: all - Permissions to register.
+  permissions: {
+    alert: true,
+    badge: true,
+    sound: true,
+  },
+
+  // Should the initial notification be popped automatically
+  // default: true
+  popInitialNotification: true,
+
+  /**
+    * (optional) default: true
+    * - Specified if permissions (ios) and token (android and ios) will requested or not,
+    * - if not, you must call PushNotificationsHandler.requestPermissions() later
+    */
+  requestPermissions: true,
+});
+
+const scheduleNotification = (finalSchedule) => {
+  finalSchedule.forEach((time) => {
+    Notifications.localNotification({
+      vibrate: true,
+      vibration: 3000,
+
+      tag: 'some_tag', // (optional) add tag to message
+      group: 'group', // (optional) add group to message
+      ongoing: true,
+
+
+      title: 'Complete your task now',
+      message: 'Click here to access your time estimation task',
+      number: '10',
+
+      popInitialNotification: false,
+
+      date: time,
+      // icon: '../icon.png',
+
+    });
+  });
+};
+
 // to change: i from 0 to 1, remove the temp if statement, remove the 2 moments
 const getNotificationSchedule = (answers) => {
   console.log('schedule ans', answers);
@@ -91,7 +152,7 @@ const getNotificationSchedule = (answers) => {
   const weekdayPartner = getHours('QUESTION 9');
   const weekendPartner = getHours('QUESTION 10');
 
-  const finalSchedule = [+moment().add(15, 's')];
+  const finalSchedule = [+moment().add(1, 's')];
   for (let i = 0; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
@@ -107,36 +168,8 @@ const getNotificationSchedule = (answers) => {
   }
 
   console.log('final schedule', finalSchedule.slice().sort().map(t => [t, moment(t).toDate().toString()]));
-
-  finalSchedule.forEach((time) => {
-    Notifications.scheduleLocalNotificationAsync({
-      title: 'Complete your task now',
-      body: 'Click here to access your time estimation task',
-      data: time,
-      ios: {
-        sound: true,
-      },
-      android: {
-        sound: true,
-        priority: 'max',
-        vibrate: true,
-        icon: '../icon.png',
-      },
-    }, {
-      time,
-    });
-  });
-
-  Notifications.addListener((notification) => {
-    console.log('received', notification, AppState.currentState);
-    if (typeof notification.data === 'number' && AppState.currentState === 'active') {
-      if (notification.origin === 'received' && Platform.OS === 'ios') {
-        console.log('showing alert');
-        Alert.alert('Complete your task now');
-      }
-      Actions.replace('RoutingScreen');
-    }
-  });
+  scheduleNotification(finalSchedule);
+  return finalSchedule;
 };
 
 export default getNotificationSchedule;
