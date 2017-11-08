@@ -1,19 +1,26 @@
 const experimentRounds = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_EXPERIMENT_ROUND': {
-      const prevRounds = state[action.schedule];
+    case 'ADD_EXPERIMENT_ROUND':
       return {
         ...state,
-        [action.schedule]: {
-          ...prevRounds,
-          [action.header]: {
-            ...(prevRounds || {})[action.header],
+        [action.schedule]: [
+          ...state[action.schedule],
+          action.answer,
+        ],
+      };
+    case 'UPDATE_EXPERIMENT_ROUND': {
+      const rounds = state[action.schedule];
+      return {
+        ...state,
+        [action.schedule]: [
+          ...rounds.slice(0, -1),
+          {
+            ...rounds[rounds.length - 1],
             ...action.answer,
           },
-        },
+        ],
       };
     }
-
     default:
       return state;
   }

@@ -10,9 +10,8 @@ const mapStateToProps = state => ({
   postAll: () => api.postAll(state),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   updateDuration: answer => dispatch(addExperimentRound(
-    ownProps.roundNum,
     schedule,
     answer,
   )),

@@ -29,9 +29,9 @@ const insertExperiment = async (state, deviceId) => {
         })))),
 
     ...Object.entries(state.experimentRounds).map(([schedule, answers]) =>
-      Promise.all(Object.entries(answers).map(([round, answer]) =>
+      Promise.all(answers.map(answer =>
         query.experimentRounds({
-          ...answer, schedule, deviceId, round,
+          ...answer, schedule, deviceId,
         })))),
   ]);
 };

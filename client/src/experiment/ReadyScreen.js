@@ -67,18 +67,22 @@ class ReadyScreen extends React.Component {
     this.props.postAll();
     const blackDuration = getRandomInt(1, 4) * 1000;
     let rand;
-    const filter = (used, duration) => used.every(({ redDuration }) => redDuration !== duration);
     console.log('ready', this.props.trialRoundNum, this.props.answers);
     if (this.props.trialRoundNum === undefined) {
       rand = [2000, 4000, 6000, 8000, 10000].filter(duration =>
-        filter(Object.values(this.props.answers || {}), duration));
+        (this.props.answers || []).every(({ redDuration, recordedDuration }) =>
+          redDuration !== duration || recordedDuration < 1000) &&
+          (this.props.answers || []).filter(({ redDuration }) =>
+            redDuration === duration).length < 2,
+      );
     } else {
       const last = this.props.answers[this.props.answers.length - 1] || {};
       if (this.props.trialRoundNum === last.round) {
         console.log('using last');
         rand = [last.redDuration];
       } else {
-        rand = [2000, 6000, 10000].filter(duration => filter(this.props.answers, duration));
+        rand = [2000, 6000, 10000].filter(duration =>
+          this.props.answers.every(({ redDuration }) => redDuration !== duration));
       }
     }
     const redDuration = rand[getRandomInt(0, rand.length)];
@@ -86,6 +90,7 @@ class ReadyScreen extends React.Component {
     this.props.updateDuration({
       blackDuration,
       redDuration,
+      round: this.props.roundNum,
     });
     this.setState({ startedTransition: true });
     setTimeout(() => {

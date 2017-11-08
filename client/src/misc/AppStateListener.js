@@ -16,7 +16,7 @@ const goToRoutingScreen = (state) => {
 
 class AppStateListener extends React.Component {
   componentDidMount() {
-    console.log('mounting app listener', this.props.text);
+    console.log('mounting app listener', this.props.text.slice(0, 10));
     AppState.addEventListener('change', goToRoutingScreen);
     this.timeout = this.setInterval(() => {
       const route = getMatchingSchedule(this.props.notificationSchedule, null, true);

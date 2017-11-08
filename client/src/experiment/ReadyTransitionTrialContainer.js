@@ -11,11 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
   postAll: () => api.postAll(state),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateDuration: answer => dispatch(addNewTrial({ ...answer, round: ownProps.roundNum })),
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  { updateDuration: addNewTrial },
 )(ReadyScreen);

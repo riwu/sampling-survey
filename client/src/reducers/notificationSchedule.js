@@ -20,6 +20,14 @@ const notificationSchedule = (state = {}, action) => {
           hasEnded: true,
         },
       };
+    case 'EXPERIMENT_WARNED':
+      return {
+        ...state,
+        [action.schedule]: {
+          ...state[action.schedule],
+          warned: true,
+        },
+      };
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 import { getNextScene } from '../experiment/getMatchingSchedule';
@@ -56,6 +56,7 @@ class ReproduceDuration extends React.Component {
     this.timeBetweenMountAndStart = Date.now();
   }
   render() {
+    const props = this.props;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -102,17 +103,28 @@ class ReproduceDuration extends React.Component {
             disabled={!this.state.startTimer}
             onPress={() => {
               const duration = Date.now() - this.state.startTimer;
-              this.props.updateDuration({
+              props.updateDuration({
                 recordedDuration: duration,
                 timeBetweenMountAndStart: this.timeBetweenMountAndStart,
               });
-              if (this.props.actualDuration && (duration < 500 ||
-                Math.abs(duration - this.props.actualDuration) > 3000)) {
-                console.log('Failed at round', this.props.roundNum);
+              if (props.actualDuration && (duration < 500 || // for trial
+                Math.abs(duration - props.actualDuration) > 3000)) {
                 Actions.replace('FailedTrial');
                 return;
               }
-              Actions.replace(getNextScene(this.props.nextScene, this.props.startTime));
+              if (props.startTime && duration < 1000) { // for actual experiment
+                if (!props.hasWarned) {
+                  props.experimentWarned();
+                  Alert.alert("Please do not multi-task, it's important for us to collect good data");
+                }
+                const currentRedDuration = props.answers[props.answers.length - 1].redDuration;
+                if (props.answers.slice(0, -1)
+                  .every(round => round.redDuration !== currentRedDuration)) { // only repeat once
+                  Actions.replace(getNextScene(`ReadyTransition${props.roundNum}`, props.startTime));
+                  return;
+                }
+              }
+              Actions.replace(getNextScene(props.nextScene, props.startTime));
             }}
           />
         </View>

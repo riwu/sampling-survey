@@ -54,15 +54,21 @@ export const addExperimentAnswer = (header, schedule, answer) => ({
   },
 });
 
-export const addExperimentRound = (header, schedule, answer) => ({
+export const addExperimentRound = (schedule, answer) => ({
   type: 'ADD_EXPERIMENT_ROUND',
-  header,
   schedule,
   answer: {
     ...answer,
     time: Date.now(),
   },
 });
+
+export const updateExperimentRound = (schedule, answer) => ({
+  type: 'UPDATE_EXPERIMENT_ROUND',
+  schedule,
+  answer,
+});
+
 
 export const addNewTrial = answer => ({
   type: 'ADD_NEW_TRIAL',
@@ -93,6 +99,11 @@ export const experimentStarted = schedule => (dispatch) => {
 
 export const experimentEnded = schedule => ({
   type: 'EXPERIMENT_ENDED',
+  schedule,
+});
+
+export const experimentWarned = schedule => ({
+  type: 'EXPERIMENT_WARNED',
   schedule,
 });
 

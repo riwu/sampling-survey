@@ -1,21 +1,26 @@
 import { connect } from 'react-redux';
 import ReproduceDuration from './ReproduceDuration';
-import { addExperimentRound } from '../actions';
+import { addExperimentRound, experimentWarned } from '../actions';
 import { schedule } from '../experiment/getMatchingSchedule';
 
-const mapStateToProps = state => ({
-  startTime: (state.notificationSchedule[schedule] || {}).startTime,
-  state,
-});
+const mapStateToProps = (state) => {
+  const currentSchedule = state.notificationSchedule[schedule] || {};
+  return {
+    startTime: currentSchedule.startTime,
+    state,
+    hasWarned: currentSchedule.warned,
+    answers: state.experimentRounds[schedule],
+  };
+};
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   updateDuration: (answer) => {
     dispatch(addExperimentRound(
-      ownProps.roundNum,
       schedule,
       answer,
     ));
   },
+  experimentWarned: () => dispatch(experimentWarned(schedule)),
 });
 
 export default connect(
