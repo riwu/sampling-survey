@@ -12,6 +12,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 public class MainApplication extends MultiDexApplication {
 
@@ -20,10 +21,11 @@ public class MainApplication extends MultiDexApplication {
     return Arrays.<ReactPackage>asList(
         // Add your own packages here!
         // TODO: add cool native modules
+        // Needed for `react-native link`
+        // new MainReactPackage(),
             new RNDeviceInfo()
             ,new VectorIconsPackage()
-        // Needed for `react-native link`
-        // new MainReactPackage()
+            ,new ReactNativePushNotificationPackage()
     );
   }
 }
