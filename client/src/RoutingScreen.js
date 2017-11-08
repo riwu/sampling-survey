@@ -3,12 +3,20 @@ import { Platform } from 'react-native';
 import { Notifications } from 'expo';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import TimerEnhance from 'react-native-smart-timer-enhance';
 import getMatchingSchedule from './experiment/getMatchingSchedule';
 
 class RoutingScreen extends React.Component {
-  componentDidMount() {
-    console.log('Mounting', this.props.route, this.props.schedule, Platform);
+  componentWillMount() {
+    const props = this.props;
+    console.log('Mounting', props.route, props.schedule, Platform);
+
+    if (!props.route) {
+      console.log('new device');
+      Notifications.cancelAllScheduledNotificationsAsync();
+      Actions.replace('InformationSheet'); //        Acknowledgement
+      return;
+    }
+
     if (Platform.OS === 'android') {
       console.log('dismissing android notifications');
       Notifications.dismissAllNotificationsAsync();
@@ -18,43 +26,13 @@ class RoutingScreen extends React.Component {
       Notifications.setBadgeNumberAsync(1).then(() => Notifications.setBadgeNumberAsync(0));
     }
 
-    if (Object.keys(this.props.schedule).length > 0) {
-      const route = getMatchingSchedule(this.props.schedule);
-      console.log('replacing at didMount', route);
-      this.redirected = true;
-      Actions.replace(route);
-      return;
-    }
-    this.timeout = this.setTimeout(() => {
-      console.log('Going to information sheet');
-      Notifications.cancelAllScheduledNotificationsAsync();
-      Actions.replace('InformationSheet'); //        Acknowledgement
-    }, 1000);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    console.log('redirected', this.redirected, nextProps.route);
-    return !this.redirected;
-  }
-
-  componentDidUpdate() {
-    if (this.redirected) {
-      console.log('already redirected');
-      return;
-    }
-    const props = this.props;
-    console.log('receiving props', props.route, props.schedule);
-    clearTimeout(this.timeout);
-    let route;
+    let route = props.route;
     if (props.disqualified) {
       route = 'NotEligible';
-    } else if (Object.keys(props.schedule).length === 0 || props.route === 'RewardScreen') {
-      route = props.route;
-    } else {
+    } else if (Object.keys(props.schedule).length > 0 && props.route !== 'RewardScreen') {
       route = getMatchingSchedule(props.schedule, props.route);
     }
     console.log('replacing route', route);
-    this.redirected = true;
     Actions.replace(route);
   }
 
@@ -69,4 +47,4 @@ const mapStateToProps = state => ({
   schedule: state.notificationSchedule,
 });
 
-export default connect(mapStateToProps)(TimerEnhance(RoutingScreen));
+export default connect(mapStateToProps)(RoutingScreen);

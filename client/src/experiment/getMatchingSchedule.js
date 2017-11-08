@@ -26,9 +26,10 @@ const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
     if (matchedSchedule > now) {
       route = 'NotReady';
     } else {
-      route = getNextScene(prevRoute === 'SESSION TIMED OUT QUESTION' ? 'Question 1' : prevRoute,
+      route = getNextScene(['SESSION TIMED OUT QUESTION', 'RoutingScreen'].includes(prevRoute) ? 'Question 1' : prevRoute,
         scheduleInfo.startTime, now);
     }
+    console.log('route', route);
     return route;
   }
   return 'GetData';
