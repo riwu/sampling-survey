@@ -1,9 +1,6 @@
 {
-  "presets": ["babel-preset-expo"],
+  "presets": ["react-native"],
   "env": {
-    "development": {
-      "plugins": ["transform-react-jsx-source"]
-    },
     "production": {
       "plugins": ["transform-remove-console"]
     }

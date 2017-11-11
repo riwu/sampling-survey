@@ -3,9 +3,7 @@
     "name": "Synergy Lab: Time Estimation Task",
     "privacy": "public",
     "icon": "icon.png",
-    "version": "1.9.6",
     "slug": "sampling-survey",
-    "sdkVersion": "22.0.0",
     "ios": {
       "bundleIdentifier": "riwu.sampling-survey",
       "supportsTablet": true,
@@ -25,11 +23,5 @@
     "notification": {
       "icon": "icon.png"
     },
-    "isDetached": true,
-    "detach": {
-      "scheme": "exp9d67daaf49924ef3bb8710f4bf65523b",
-      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.0.4-sdk22.0.0-10110e7c-e9b1-43e6-b7e0-8a0e971480e8.tar.gz",
-      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.0.0-exp.0-sdk22.0.0-bcb62dac-b993-47ff-951b-e8ecf086f9e0.tar.gz"
-    }
   }
 }
