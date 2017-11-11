@@ -1,9 +1,22 @@
 import axios from 'axios';
-import { Constants } from 'expo';
 import DeviceInfo from 'react-native-device-info';
 
 axios.defaults.baseURL = 'http://13.228.235.195:3002/';
 axios.defaults.baseURL = 'http://192.168.1.187:3002/';
+
+const deviceId = DeviceInfo.getUniqueID();
+
+const deviceInfo = {
+  deviceId,
+  deviceName: DeviceInfo.getDeviceName(),
+  isDevice: !DeviceInfo.isEmulator(),
+  version: DeviceInfo.getVersion(),
+  timezone: (new Date()).getTimezoneOffset(),
+  country: DeviceInfo.getTimezone(),
+  isTablet: DeviceInfo.isTablet(),
+};
+
+console.log('info', deviceInfo);
 
 const get = path => axios.get(path).then(response => response.data);
 
@@ -11,60 +24,31 @@ const [patch, put] = ['patch', 'put'].map(method =>
   (path, payload) => axios({
     method,
     url: path,
-    data: payload,
+    data: { ...payload, deviceId },
   }).then(response => response.data)
     .catch((err) => {
       console.log('encountered error for', path, ':', (err.response || {}).data);
       throw new Error((err.response || {}).data);
     }));
 
-const { deviceName, isDevice, linkingUrl, manifest } = Constants;
-let deviceId;
-let country;
-let isTablet;
-try {
-  deviceId = DeviceInfo.getUniqueID();
-  country = DeviceInfo.getTimezone();
-  isTablet = DeviceInfo.isTablet();
-} catch (e) {
-  console.log('Unable to use DeviceInfo', e);
-  deviceId = Constants.deviceId;
-}
-
-console.log('deviceId', deviceId, Constants.deviceId);
-// TODO: temporary
-patch('/updateDevice', { oldID: Constants.deviceId, newID: deviceId })
-  .catch(e => console.log('updateDevice', e));
-
-const deviceInfo = {
-  deviceId,
-  deviceName,
-  isDevice,
-  linkingUrl,
-  version: manifest.version,
-  timezone: (new Date()).getTimezoneOffset(),
-  country,
-  isTablet,
-};
-
 export default {
   postDevice: () => put('device', deviceInfo),
   postAnswer: (answer) => {
     console.log('posting answer', answer);
-    return put('answer', { ...answer, deviceId })
+    return put('answer', answer)
       .catch(e => console.log('Post answer api', e, answer));
   },
-  postSchedule: schedule => put('experiment', { schedule, deviceId })
+  postSchedule: schedule => put('experiment', { schedule })
     .catch(e => console.log('Post experiment schedule', e, schedule)),
-  postTrial: answer => put('trial', { ...answer, deviceId })
+  postTrial: answer => put('trial', answer)
     .catch(e => console.log('Post trial', e, answer)),
-  postExperimentStarted: answer => patch('experiment/started', { ...answer, deviceId })
+  postExperimentStarted: answer => patch('experiment/started', answer)
     .catch(e => console.log('Post experiment start', e, answer)),
-  postExperimentAnswer: answer => put('experiment/answer', { ...answer, deviceId })
+  postExperimentAnswer: answer => put('experiment/answer', answer)
     .catch(e => console.log('Post experiment ans', e, answer)),
-  postExperimentRound: answer => put('experiment/round', { ...answer, deviceId })
+  postExperimentRound: answer => put('experiment/round', answer)
     .catch(e => console.log('Post experiment round', e, answer)),
   isDisqualified: () => get(`disqualified/${deviceId}`),
   postAll: state => put('all', { ...state, device: deviceInfo }),
-  disqualify: () => patch('disqualify', { deviceId }),
+  disqualify: () => patch('disqualify'),
 };

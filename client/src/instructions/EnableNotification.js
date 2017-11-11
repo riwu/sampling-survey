@@ -1,5 +1,4 @@
 import React from 'react';
-import { Permissions } from 'expo';
 import { Alert } from 'react-native';
 import MiddleText from '../components/MiddleText';
 

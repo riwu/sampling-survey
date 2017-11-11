@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
-import { Constants } from 'expo';
-import IonIcon from 'react-native-vector-icons/Ionicons'; // to preload
+import DeviceInfo from 'react-native-device-info';
 import ButtonToNextScene from '../components/ButtonToNextScene';
 
 const styles = StyleSheet.create({
@@ -36,7 +35,7 @@ const InformationSheet = ({ previousScene, nextScene, onPress }) => (
     <Text style={styles.header}>
         ONLINE PARTICIPANT INFORMATION SHEET
         (Experience Sampling Studies)
-        v{Constants.manifest.version}
+        v{DeviceInfo.getVersion()}
     </Text>
     <Text style={styles.title}>
         Study: Online questionnaires on romantic relationships

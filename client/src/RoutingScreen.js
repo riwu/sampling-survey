@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { Notifications } from 'expo';
+import { Notifications } from 'react-native-push-notification';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import getMatchingSchedule from './experiment/getMatchingSchedule';
