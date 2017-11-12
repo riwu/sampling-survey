@@ -4,7 +4,7 @@ const experimentRounds = (state = {}, action) => {
       return {
         ...state,
         [action.schedule]: [
-          ...state[action.schedule],
+          ...state[action.schedule] || [],
           action.answer,
         ],
       };

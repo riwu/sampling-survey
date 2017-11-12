@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { Notifications } from 'react-native-push-notification';
+import Notifications from 'react-native-push-notification';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import getMatchingSchedule from './experiment/getMatchingSchedule';
@@ -12,18 +12,9 @@ class RoutingScreen extends React.Component {
 
     if (!props.route) {
       console.log('new device');
-      Notifications.cancelAllScheduledNotificationsAsync();
-      Actions.replace('InformationSheet'); //        Acknowledgement
+      Notifications.cancelAllLocalNotifications();
+      Actions.replace('InformationSheet');
       return;
-    }
-
-    if (Platform.OS === 'android') {
-      console.log('dismissing android notifications');
-      Notifications.dismissAllNotificationsAsync();
-    } else if (Platform.OS === 'ios') {
-      // this trick clears local notifications
-      console.log('dismissing ios notifications');
-      Notifications.setBadgeNumberAsync(1).then(() => Notifications.setBadgeNumberAsync(0));
     }
 
     let route = props.route;

@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Notifications from 'react-native-push-notification';
 import { AppState, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import TimerEnhance from 'react-native-smart-timer-enhance';
 import MiddleText from '../components/MiddleText';
 import getResponseRate from './getResponseRate';
-import getMatchingSchedule from '../experiment/getMatchingSchedule';
+import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
+import { scheduleNotification } from '../actions/getNotificationSchedule';
 
 const goToRoutingScreen = (state) => {
   console.log('state changed', state);
@@ -17,6 +19,18 @@ const goToRoutingScreen = (state) => {
 class AppStateListener extends React.Component {
   componentDidMount() {
     console.log('mounting app listener', this.props.text.slice(0, 10));
+
+    if (this.props.responseRate !== undefined) { // Finish or end of session screen
+      console.log('setting app icon to 0');
+      Notifications.setApplicationIconBadgeNumber(0);
+      Notifications.cancelAllLocalNotifications();
+      const futureSchedule = Object.keys(this.props.notificationSchedule)
+        .map(time => Number(time))
+        .filter(time => time > schedule);
+      console.log('schedule', schedule, futureSchedule);
+      scheduleNotification(futureSchedule);
+    }
+
     AppState.addEventListener('change', goToRoutingScreen);
     this.timeout = this.setInterval(() => {
       const route = getMatchingSchedule(this.props.notificationSchedule, null, true);
