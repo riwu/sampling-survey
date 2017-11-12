@@ -1,6 +1,6 @@
 import Notifications from 'react-native-push-notification';
-import { Alert, Platform } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+// import { Alert, Platform } from 'react-native';
+// import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import timeOptions from '../questionnaire/timeOptions';
 
@@ -89,14 +89,16 @@ export const scheduleNotification = (schedule) => {
 };
 
 Notifications.configure({
-  onNotification: (notification) => {
-    console.log('received', notification);
-    if (notification.foreground && Platform.OS === 'ios') {
-      console.log('showing alert');
-      Alert.alert('Complete your task now');
-    }
-    Actions.replace('RoutingScreen');
-  },
+  // If clicked while doing experiment,
+  // will redirect to question 1 since props.route will be routing screen
+  // onNotification: (notification) => {
+  //   console.log('received', notification);
+  //   if (notification.foreground && Platform.OS === 'ios') {
+  //     console.log('showing alert');
+  //     Alert.alert('Complete your task now');
+  //   }
+  //   Actions.replace('RoutingScreen');
+  // },
 
   popInitialNotification: false,
   requestPermissions: false,
