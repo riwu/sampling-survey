@@ -3,24 +3,9 @@ import { Alert } from 'react-native';
 import Notifications from 'react-native-push-notification';
 import MiddleText from '../components/MiddleText';
 
-async function getiOSNotificationPermission() {
-  console.log('getting status');
-
-  const granted = await new Promise((resolve) => {
-    Notifications.checkPermissions(({ alert }) => {
-      console.log('alert', alert);
-      resolve(alert === 1);
-    });
-  });
-
-  if (granted) return true;
-
-  return new Promise((resolve) => {
-    Notifications.requestPermissions(({ alert }) => {
-      console.log('alert', alert);
-      resolve(alert === 1);
-    });
-  });
+function getiOSNotificationPermission() {
+  console.log('getting permission');
+  return Notifications.requestPermissions().then(({ alert }) => alert === 1);
 }
 
 // next scene must be named Finish to show finish button. Better design: pass as props
