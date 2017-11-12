@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   instructions: {
     backgroundColor: 'lightgrey',
     marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    paddingRight: 15,
+    paddingLeft: 15,
     borderRadius: 10,
     borderWidth: 10,
     borderColor: 'lightgrey',

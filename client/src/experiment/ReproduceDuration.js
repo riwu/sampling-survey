@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   instructions: {
     backgroundColor: 'lightgrey',
     marginTop: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 15,
+    paddingLeft: 15,
     borderRadius: 10,
     borderWidth: 10,
     borderColor: 'lightgrey',
