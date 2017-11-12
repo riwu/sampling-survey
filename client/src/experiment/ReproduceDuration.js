@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from '../components/Button';
 import { getNextScene } from '../experiment/getMatchingSchedule';
+import { getRemainingSequence } from './ReadyScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -112,16 +113,24 @@ class ReproduceDuration extends React.Component {
                 Actions.replace('FailedTrial');
                 return;
               }
-              if (props.startTime && duration < 1000) { // for actual experiment
-                if (!props.hasWarned) {
-                  props.experimentWarned();
-                  Alert.alert("Please do not multi-task, it's important for us to collect good data");
-                }
-                const currentRedDuration = props.answers[props.answers.length - 1].redDuration;
-                if (props.answers.slice(0, -1)
-                  .every(round => round.redDuration !== currentRedDuration)) { // only repeat once
-                  Actions.replace(getNextScene(`ReadyTransition${props.roundNum}`, props.startTime));
+              if (props.startTime) { // for actual experiment
+                const seq = getRemainingSequence(props.answers);
+                if (seq.length === 0) {
+                  console.log('All random sequence generated');
+                  Actions.replace(getNextScene('Question 2', props.startTime));
                   return;
+                }
+
+                if (duration < 1000 && props.answers[props.answers.length - 1].redDuration > 2000) {
+                  if (!props.hasWarned) {
+                    props.experimentWarned();
+                    Alert.alert("Please do not multi-task, it's important for us to collect good data");
+                  }
+                  // only repeat once
+                  if ((props.answers[props.answers.length - 2] || {}).round !== props.roundNum) {
+                    Actions.replace(getNextScene(`ReadyTransition${props.roundNum}`, props.startTime));
+                    return;
+                  }
                 }
               }
               Actions.replace(getNextScene(props.nextScene, props.startTime));

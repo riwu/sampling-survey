@@ -25,10 +25,11 @@ project.xcworkspace
 # Android/IntelliJ
 #
 build/
-.idea
 .gradle
+.idea
 local.properties
 *.iml
+keystore.properties
 
 # node.js
 #

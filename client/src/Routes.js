@@ -54,7 +54,7 @@ const questions = [
   // ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
   //
   ...[3].map((roundNum, i, arr) => [
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${3}`} />],
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ['EnableNotification', <EnableNotification />],

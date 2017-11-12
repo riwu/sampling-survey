@@ -57,6 +57,13 @@ function getRandomInt(min, max) { // The maximum is exclusive and the minimum is
   return Math.floor(Math.random() * (maxCeil - minCeil)) + minCeil;
 }
 
+export const getRemainingSequence = answers => [2000, 4000, 6000, 8000, 10000].filter(duration =>
+  (answers || []).every(({ redDuration, recordedDuration }) =>
+    redDuration !== duration || recordedDuration < 1000) &&
+    (answers || []).filter(({ redDuration }) =>
+      redDuration === duration).length < 2,
+);
+
 class ReadyScreen extends React.Component {
   state = {
     startedTransition: false,
@@ -69,12 +76,7 @@ class ReadyScreen extends React.Component {
     let rand;
     console.log('ready', this.props.trialRoundNum, this.props.answers);
     if (this.props.trialRoundNum === undefined) {
-      rand = [2000, 4000, 6000, 8000, 10000].filter(duration =>
-        (this.props.answers || []).every(({ redDuration, recordedDuration }) =>
-          redDuration !== duration || recordedDuration < 1000) &&
-          (this.props.answers || []).filter(({ redDuration }) =>
-            redDuration === duration).length < 2,
-      );
+      rand = getRemainingSequence(this.props.answers);
     } else {
       const last = this.props.answers[this.props.answers.length - 1] || {};
       if (this.props.trialRoundNum === last.round) {
