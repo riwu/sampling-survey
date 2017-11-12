@@ -25,7 +25,8 @@ const ButtonToNextScene = ({ nextScene, disabled, previousScene, onPress, startT
       <Button
         onPress={() => Promise.resolve(onPress && onPress()).then((result) => {
           if (!result) {
-            Actions.replace(getNextScene(nextScene, startTime));
+            console.log('next scene', nextScene);
+            Actions.replace(getNextScene(nextScene, startTime, undefined, previousScene));
           }
         })}
         text={['Finish', 'TrialPassed'].includes(nextScene) ? 'Finish' : 'Next'}

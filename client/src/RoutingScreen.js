@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import Notifications from 'react-native-push-notification';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -8,7 +7,7 @@ import getMatchingSchedule from './experiment/getMatchingSchedule';
 class RoutingScreen extends React.Component {
   componentWillMount() {
     const props = this.props;
-    console.log('Mounting', props.route, props.schedule, Platform);
+    console.log('Mounting', props.route, props.schedule);
 
     if (!props.route) {
       console.log('new device');

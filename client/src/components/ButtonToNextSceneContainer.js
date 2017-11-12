@@ -11,11 +11,13 @@ const mapStateToProps = (state, ownProps) => {
   let nextScene = ownProps.nextScene;
   if (ownProps.header === 'QUESTION 22' && !isEligible(state.answers)) {
     nextScene = 'NotEligible';
-  } else if (isLast(ownProps.header)) {
+  } else if (ownProps.header === 'SESSION TIMED OUT QUESTION') {
+    nextScene = 'RoutingScreen';
+  } else if (ownProps.header === 'Question 5') {
     const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
     const newRoute = getMatchingSchedule(newSchedule, undefined, true);
-    if (newRoute === 'GetData' || ownProps.header === 'SESSION TIMED OUT QUESTION') {
-      nextScene = 'RoutingScreen';
+    if (newRoute === 'GetData') {
+      nextScene = newRoute;
     }
   }
   return {

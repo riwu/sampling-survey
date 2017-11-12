@@ -38,7 +38,7 @@ class AppStateListener extends React.Component {
         clearInterval(this.timeout);
         Actions.replace('RoutingScreen');
       }
-    }, 1000);
+    }, 500);
   }
   componentWillUnmount() {
     console.log('unmounting app listener', this.props.text);
