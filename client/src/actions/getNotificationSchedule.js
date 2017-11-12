@@ -80,19 +80,10 @@ export const scheduleNotification = (schedule) => {
     Notifications.localNotificationSchedule({
       vibrate: true,
       vibration: 2000,
-
       title: 'Complete your task now',
       message: 'Click here to access your time estimation task',
       number: '1',
-
-      id: String(Math.floor(time / 1000)),
-      userInfo: {
-        id: String(Math.floor(time / 1000)),
-      },
-
       date: new Date(time),
-      smallIcon: '../icon.png',
-      largeIcon: '../icon.png',
     });
   });
 };
