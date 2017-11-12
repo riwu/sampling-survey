@@ -3,7 +3,7 @@ export let schedule; // eslint-disable-line import/no-mutable-exports
 const hasTimeOut = (now, startTime) => (now - (startTime || schedule)) > 30 * 60000;
 
 export const getNextScene = (nextScene, startTime, now = Date.now()) => {
-  if (schedule && (!['RoutingScreen', 'SESSION TIMED OUT QUESTION'].includes(nextScene)) && hasTimeOut(now, startTime)) {
+  if (schedule && (!['RoutingScreen', 'SESSION TIMED OUT QUESTION', 'RewardScreen'].includes(nextScene)) && hasTimeOut(now, startTime)) {
     return (nextScene === 'Question 1') ? 'SESSION TIMED OUT QUESTION' : 'SESSION TIMED OUT';
   }
   return nextScene || 'Question 1';

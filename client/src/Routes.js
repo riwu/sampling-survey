@@ -87,6 +87,11 @@ const timeOut = [
   ['SESSION TIMED OUT QUESTION', <TimeOutQns />],
 ];
 
+const completed = [
+  ['GetData', <GetData />],
+  ['RewardScreen', <RewardScreen />],
+];
+
 const mapToScene = info => info.map(([key, component], i, arr) => (
   <Scene
     key={key}
@@ -105,6 +110,7 @@ const App = () => (
       {mapToScene(questions)}
       {mapToScene(experiment)}
       {mapToScene(timeOut)}
+      {mapToScene(completed)}
 
       <Scene
         key="FailedTrial"
@@ -126,8 +132,6 @@ const App = () => (
       />
 
       <Scene key="NotEligible" component={Disqualified} />
-      <Scene key="GetData" component={GetData} />
-      <Scene key="RewardScreen" component={RewardScreen} />
     </Scene>
   </RouterWithRedux>
 );
