@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import TimerEnhance from 'react-native-smart-timer-enhance';
 import MiddleText from '../components/MiddleText';
 import getResponseRate from './getResponseRate';
-import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
+import getMatchingSchedule from '../experiment/getMatchingSchedule';
 import { scheduleNotification } from '../actions/getNotificationSchedule';
 
 const goToRoutingScreen = (state) => {
@@ -26,8 +26,8 @@ class AppStateListener extends React.Component {
       Notifications.cancelAllLocalNotifications();
       const futureSchedule = Object.keys(this.props.notificationSchedule)
         .map(time => Number(time))
-        .filter(time => time > schedule);
-      console.log('schedule', schedule, futureSchedule);
+        .filter(time => time > (Date.now() + 3000));
+      console.log('schedule', futureSchedule);
       scheduleNotification(futureSchedule);
     }
 
