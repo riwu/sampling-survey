@@ -22,7 +22,7 @@ export const postDevice = () => (dispatch) => {
     }
   }).catch(e => console.log('Check disqualified action', e));
 
-  api.postDevice().catch(e => console.log('Post device action', e));
+  // api.postDevice().catch(e => console.log('Post device action', e));
 };
 
 export const setAnswerIndex = (header, index) => ({
@@ -85,7 +85,7 @@ export const lowerTrialAttempt = () => ({
 
 export const experimentStarted = schedule => (dispatch) => {
   const startedAt = Date.now();
-  api.postExperimentStarted({ schedule, startedAt });
+  // api.postExperimentStarted({ schedule, startedAt });
   dispatch({
     type: 'EXPERIMENT_STARTED',
     schedule,

@@ -108,7 +108,7 @@ Notifications.configure({
 const getNotificationSchedule = (answers) => {
   console.log('schedule ans', answers);
 
-  const hoursMap = timeOptions.map(time => moment(time, 'h a').hours());
+  const hoursMap = timeOptions.map(time => moment(time.label, 'h a').hours());
   const weekdayWakeUp = hoursMap[(answers['QUESTION 5'] || {}).index];
   const weekdaySleep = hoursMap[(answers['QUESTION 6'] || {}).index];
   const weekendWakeup = hoursMap[(answers['QUESTION 7'] || {}).index];
