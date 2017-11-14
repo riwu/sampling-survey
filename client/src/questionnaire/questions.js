@@ -33,6 +33,15 @@ const scaleResponse = (
   />
 );
 
+const satisfactionResponse = (
+  <RadioOptions
+    radio_props={['Not at all 1', '2', '3', '4', '5',
+      '6', 'Extremely 7'].map(option => ({
+      label: option,
+    }))}
+  />
+);
+
 const questions = [
   {
     question: 'MTurkID no:',
@@ -303,6 +312,19 @@ const questions = [
         })).concat(OTHERS)}
       />
     ),
+  },
+
+  {
+    question: 'How satisfied are you with your relationship?',
+    responseComponent: satisfactionResponse,
+  },
+  {
+    question: 'How content are you with your relationship?',
+    responseComponent: satisfactionResponse,
+  },
+  {
+    question: 'How happy are you with your relationship?',
+    responseComponent: satisfactionResponse,
   },
 
   {

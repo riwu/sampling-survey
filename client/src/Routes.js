@@ -44,6 +44,7 @@ const questions = [
   // ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
   ...surveyQuestions.slice(0, 1),
   ...surveyQuestions.slice(4, 10),
+  ...surveyQuestions.slice(22, 25),
   // ['InstructionTest', <InstructionTest />],
   // ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
   // ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
