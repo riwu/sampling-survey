@@ -23,19 +23,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const Question = ({ header, question, responseComponent, nextScene, previousScene, noPrevious, onPress }) => (
-  <ScrollView>
-    <Text style={styles.header}>{header}</Text>
-    <View style={styles.textContainer}>
-      <Text style={styles.question}>{question}</Text>
-    </View>
-    {React.cloneElement(responseComponent, {
-      header,
-      nextScene,
-      previousScene: noPrevious ? undefined : previousScene,
-      onPress,
-    })}
-  </ScrollView>
-);
+const Question = ({ header, question, responseComponent, nextScene, previousScene,
+  noPrevious, onPress }) =>
+  (
+    <ScrollView>
+      <Text style={styles.header}>{header}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.question}>{question}</Text>
+      </View>
+      {React.cloneElement(responseComponent, {
+        header,
+        nextScene,
+        previousScene: noPrevious ? undefined : previousScene,
+        onPress,
+      })}
+    </ScrollView>
+  );
 
 export default Question;

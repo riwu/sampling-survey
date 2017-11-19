@@ -43,7 +43,6 @@ const InformationSheet = ({ previousScene, nextScene, onPress }) => (
     <Text style={styles.text}>
         The Synergy Lab at Yale-NUS would like to invite you to take part in our
         research study if you are above the age 21, users of the online recruitment service, heterosexual,
-        in a current romantic relationship,
         has a smartphone and agreeable to using phone-based messaging for the experiment.
         Before you decide, we would like you to understand why the research is being done
         and what it would involve for you. Please carefully go through the information sheet.

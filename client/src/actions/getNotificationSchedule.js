@@ -104,7 +104,6 @@ Notifications.configure({
   requestPermissions: false,
 });
 
-// to change: i from 0 to 1, remove the temp if statement, remove the 2 moments
 const getNotificationSchedule = (answers) => {
   console.log('schedule ans', answers);
 
@@ -115,13 +114,13 @@ const getNotificationSchedule = (answers) => {
   const weekendSleep = hoursMap[(answers['QUESTION 8'] || {}).index];
 
   const getHours = question => Object.entries(answers[question] || {})
-    .filter(([index, value]) => value === true)
-    .map(([index, value]) => hoursMap[index]);
+    .filter(([index, value]) => value === true) // eslint-disable-line
+    .map(([index, value]) => hoursMap[index]); // eslint-disable-line
   const weekdayPartner = getHours('QUESTION 9');
   const weekendPartner = getHours('QUESTION 10');
 
-  const finalSchedule = [+moment().add(15, 's')];
-  for (let i = 0; i < 8; i += 1) {
+  const finalSchedule = [];
+  for (let i = 1; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
       ? getSchedule(weekendPartner, weekendWakeup, weekendSleep)
@@ -129,9 +128,7 @@ const getNotificationSchedule = (answers) => {
     daySchedule.forEach((time) => {
       const hr = Math.floor(time);
       const newHour = moment().add(i, 'd').hour(hr).minute(Math.round((time - hr) * 60));
-      if ((+newHour - +moment()) > 60 * 60000) { // temp
-        finalSchedule.push(+newHour);
-      }
+      finalSchedule.push(+newHour);
     });
   }
 

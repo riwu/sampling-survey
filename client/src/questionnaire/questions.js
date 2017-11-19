@@ -58,6 +58,10 @@ const questions = [
     ),
   },
   {
+    question: 'Age:',
+    responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} width={25} />,
+  },
+  {
     question: 'What is your sexual orientation?',
     responseComponent: (
       <RadioOptions
@@ -68,71 +72,35 @@ const questions = [
     ),
   },
   {
-    question: 'How often do you meet your partner in a week?',
+    question: 'Current marital/relationship status:',
     responseComponent: (
       <RadioOptions
-        radio_props={['0-1 times', '2-3 times', '4 times or more'].map(option => ({
+        radio_props={[{ label: 'Single' }].concat([{
+          label: 'In a relationship',
+          dropDown: {
+            label: 'Duration',
+            data: [
+              '<2 weeks',
+              '2 weeks',
+              '1 month',
+              '1-2 months',
+              '2-3 months',
+              '3-6 months',
+              '>6 months',
+            ],
+          },
+        }]).concat([
+          'Engaged',
+          'Cohabitating',
+          'Married',
+          'Widowed',
+          'Separated',
+          'Divorced',
+        ].map(option => ({
           label: option,
-        }))}
+        }))).concat(OTHERS)}
       />
     ),
-  },
-  {
-    question: (
-      <Text>
-        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
-        {' '}<UnderlinedText>weekday</UnderlinedText>?
-      </Text>
-    ),
-    responseComponent: timeResponse,
-  },
-  {
-    question: (
-      <Text>
-        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
-        {' '}<UnderlinedText>weekday</UnderlinedText>?
-      </Text>
-    ),
-    responseComponent: timeResponse,
-  },
-  {
-    question: (
-      <Text>
-        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
-        {' '}<UnderlinedText>weekend</UnderlinedText>?
-      </Text>
-    ),
-    responseComponent: timeResponse,
-  },
-  {
-    question: (
-      <Text>
-        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
-        {' '}<UnderlinedText>weekend</UnderlinedText>?
-      </Text>
-    ),
-    responseComponent: timeResponse,
-  },
-
-  {
-    question: (
-      <Text>
-        On <UnderlinedText>weekdays</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
-      </Text>
-    ),
-    responseComponent: timeResponseWithCheckbox,
-  },
-  {
-    question: (
-      <Text>
-        On <UnderlinedText>weekends</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
-      </Text>
-    ),
-    responseComponent: timeResponseWithCheckbox,
-  },
-  {
-    question: 'Age:',
-    responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} width={25} />,
   },
   {
     question: 'Race:',
@@ -187,37 +155,6 @@ const questions = [
   {
     question: 'Country of birth:',
     responseComponent: <CountryPicker />,
-  },
-  {
-    question: 'Current marital/relationship status:',
-    responseComponent: (
-      <RadioOptions
-        radio_props={[{ label: 'Single' }].concat([{
-          label: 'In a relationship',
-          dropDown: {
-            label: 'Duration',
-            data: [
-              '<2 weeks',
-              '2 weeks',
-              '1 month',
-              '1-2 months',
-              '2-3 months',
-              '3-6 months',
-              '>6 months',
-            ],
-          },
-        }]).concat([
-          'Engaged',
-          'Cohabitating',
-          'Married',
-          'Widowed',
-          'Separated',
-          'Divorced',
-        ].map(option => ({
-          label: option,
-        }))).concat(OTHERS)}
-      />
-    ),
   },
   {
     question: 'Education (highest qualification obtained):',
@@ -313,7 +250,69 @@ const questions = [
       />
     ),
   },
+  {
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
+        {' '}<UnderlinedText>weekday</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+  {
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
+        {' '}<UnderlinedText>weekday</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+  {
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
+        {' '}<UnderlinedText>weekend</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
+  {
+    question: (
+      <Text>
+        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
+        {' '}<UnderlinedText>weekend</UnderlinedText>?
+      </Text>
+    ),
+    responseComponent: timeResponse,
+  },
 
+  {
+    question: 'How often do you meet your partner in a week?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={['0-1 times', '2-3 times', '4 times or more'].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
+  },
+  {
+    question: (
+      <Text>
+        On <UnderlinedText>weekdays</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
+      </Text>
+    ),
+    responseComponent: timeResponseWithCheckbox,
+  },
+  {
+    question: (
+      <Text>
+        On <UnderlinedText>weekends</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
+      </Text>
+    ),
+    responseComponent: timeResponseWithCheckbox,
+  },
   {
     question: 'How satisfied are you with your relationship?',
     responseComponent: satisfactionResponse,

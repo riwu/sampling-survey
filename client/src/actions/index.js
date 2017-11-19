@@ -1,3 +1,4 @@
+import { Actions } from 'react-native-router-flux';
 import api from './api';
 import getNotificationSchedule from './getNotificationSchedule';
 
@@ -17,8 +18,8 @@ export const postDevice = () => (dispatch) => {
   api.isDisqualified().then((disqualified) => {
     console.log('disqualify', disqualified);
     if (disqualified) {
-      // dispatch(disqualify());
-      // Actions.replace('NotEligible');
+      dispatch(disqualify());
+      Actions.replace('NotEligible');
     }
   }).catch(e => console.log('Check disqualified action', e));
 

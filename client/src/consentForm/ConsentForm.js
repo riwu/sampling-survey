@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 15,
-    flex: 0.95,
+    flex: 0.94,
+    marginRight: 3,
   },
   container: {
     marginTop: 30,

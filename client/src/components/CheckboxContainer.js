@@ -42,6 +42,10 @@ const CheckboxComponent = props => (
   </View>
 );
 
+CheckboxComponent.defaultProps = {
+  label: {},
+};
+
 const mapStateToProps = (state, ownProps) => ({
   value: ((schedule
     ? (state.experimentAnswers[schedule] || {})[ownProps.header]
@@ -61,7 +65,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }
   },
 });
-
 
 export default connect(
   mapStateToProps,

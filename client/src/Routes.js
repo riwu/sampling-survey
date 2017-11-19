@@ -16,7 +16,6 @@ import EnableNotification from './instructions/EnableNotification';
 import FailedTrial from './instructions/FailedTrial';
 import Acknowledgement from './instructions/AcknowledgementContainer';
 
-import ReadyScreen from './experiment/ReadyScreen';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
 
@@ -40,22 +39,20 @@ const sceneStyle = {
 
 const questions = [
   ['InformationSheet', <InformationSheet />],
-  // ['ConsentForm', <ConsentForm />],
-  // ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
-  ...surveyQuestions.slice(0, 1),
-  ...surveyQuestions.slice(4, 10),
-  ...surveyQuestions.slice(22, 25),
-  // ['InstructionTest', <InstructionTest />],
-  // ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
-  // ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
-  // ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
-  // ['Instruction4', <RedScreen />],
-  // ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
-  // ['Instruction6', <Instruction6 />],
-  // ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
-  //
-  ...[3].map((roundNum, i, arr) => [
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${3}`} />],
+  ['ConsentForm', <ConsentForm />],
+  ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
+  ...surveyQuestions,
+  ['InstructionTest', <InstructionTest />],
+  ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
+  ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
+  ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
+  ['Instruction4', <RedScreen />],
+  ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
+  ['Instruction6', <Instruction6 />],
+  ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
+
+  ...[1, 2, 3].map((roundNum, i, arr) => [
+    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
     [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
   ['EnableNotification', <EnableNotification />],
@@ -76,7 +73,7 @@ const experiment = [
     [`ReadyTransition${roundNum}`, <ReadyTransition roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
     [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
   ]).reduce((arr, round) => [...arr, ...round], []),
-  ...questionsAfterExperiment,
+  ...questionsAfterExperiment, // differentiated from survey questions by PascalCase 'Question'
   ['Finish', <AppStateListener
     showResponseRate
     text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'}

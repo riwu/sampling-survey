@@ -1,7 +1,7 @@
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
 
-axios.defaults.baseURL = 'http://13.228.235.195:3002/';
+axios.defaults.baseURL = 'https://wangriwu.com:3002/';
 // axios.defaults.baseURL = 'http://192.168.1.187:3002/';
 
 const deviceId = DeviceInfo.getUniqueID();

@@ -5,6 +5,7 @@ import Notifications from 'react-native-push-notification';
 import MiddleText from '../components/MiddleText';
 import api from '../actions/api';
 import { setCode } from '../actions';
+import { isSingle } from '../questionnaire/isEligible';
 
 class GetData extends React.Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ class GetData extends React.Component {
         text="Please enable Internet to allow data to be collected."
         nextScene="RewardScreen"
         noPrevious
-        onPress={() => api.postAll(state).then((code) => {
+        onPress={() => api.postAll({ ...state, codeType: isSingle(state) ? 'single' : 'relationship' }).then((code) => {
           console.log('res', code);
           props.setCode(code);
           return false;
