@@ -55,10 +55,10 @@ const insertRound = trial => (answer) => {
 };
 
 module.exports = {
-  getCode: () => conn.query('SELECT * FROM mturk_code'),
+  getCode: codeType => conn.query('SELECT ?? FROM mturk_code', codeType),
   isDisqualified: deviceId => conn.query('SELECT disqualified FROM device WHERE deviceId = ?', deviceId),
   device: answer => conn.query('INSERT INTO device SET ? ON DUPLICATE KEY UPDATE ?', [answer, answer]),
-  disqualify: deviceId => conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', deviceId),
+  disqualify: (deviceId) => {}, // conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', deviceId)
   answer: answer => conn.query(
     'DELETE FROM answer WHERE deviceId = ? AND question = ?',
     [answer.deviceId, answer.question],
@@ -77,5 +77,4 @@ module.exports = {
     'UPDATE experiment SET startedAt = ? WHERE deviceId = ? AND schedule = ?',
     [toDate(answer.startedAt), answer.deviceId, toDate(answer.schedule)],
   ),
-  updateDevice: ({ oldID, newID }) => conn.query('UPDATE device SET deviceId = ? WHERE deviceId = ?', [newID, oldID]),
 };
