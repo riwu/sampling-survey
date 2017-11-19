@@ -3,10 +3,8 @@ const query = require('./query');
 
 const router = express.Router();
 
-// TODO: temporary
-router.patch('/updateDevice', (req, res) => {
-  res.end();
-  query.updateDevice(req.body);
+router.get('/', (req, res) => {
+  res.send('Sampling survey API');
 });
 
 router.get('/disqualified/:deviceId', (req, res) => {
@@ -93,67 +91,6 @@ router.put('/experiment/answer', (req, res) => {
 });
 
 router.put('/experiment/round', (req, res) => {
-  res.end();
-  query.experimentRounds(req.body);
-});
-
-
-// TODO to be removed: duplication for backward compatibility
-router.post('/all', async (req, res, next) => {
-  try {
-    const state = req.body;
-    const { deviceId } = state.device;
-    await query.device(state.device);
-
-    await Promise.all([
-      query.disqualify(deviceId),
-      ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),
-      ...Object.entries(state.answers).map(([question, answer]) =>
-        query.answer({ answer, question, deviceId })),
-      insertExperiment(state, deviceId),
-    ]);
-    res.end();
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.post('/device', (req, res) => {
-  res.end();
-  query.device(req.body);
-});
-
-router.patch('/disqualify', (req, res) => {
-  res.end();
-  query.disqualify(req.body.deviceId);
-});
-
-router.post('/answer', (req, res) => {
-  res.end();
-  query.answer(req.body);
-});
-
-router.post('/trial', (req, res) => {
-  res.end();
-  query.trial(req.body);
-});
-
-router.post('/experiment', (req, res) => {
-  res.end();
-  query.experiment(req.body.schedule, req.body.deviceId);
-});
-
-router.post('/experiment/started', (req, res) => {
-  res.end();
-  query.experimentStarted(req.body);
-});
-
-router.post('/experiment/answer', (req, res) => {
-  res.end();
-  query.experimentAnswer(req.body);
-});
-
-router.post('/experiment/round', (req, res) => {
   res.end();
   query.experimentRounds(req.body);
 });
