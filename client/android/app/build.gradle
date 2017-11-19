@@ -78,6 +78,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 
 project.ext.vectoricons = [
@@ -111,8 +112,8 @@ android {
         applicationId "riwu.sampling.survey"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 35
-        versionName "2.0.3"
+        versionCode 36
+        versionName "2.0.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -161,6 +162,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-code-push')
+    compile project(':appcenter-crashes')
+    compile project(':appcenter-analytics')
+    compile project(':appcenter')
     compile project(':react-native-push-notification')
     compile project(':react-native-device-info')
     compile fileTree(include: ['*.jar'], dir: 'libs')
