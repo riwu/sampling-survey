@@ -2,14 +2,12 @@ const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const moment = require('moment');
 
 const index = require('./routes/index');
 
 const app = express();
 
 app.use(logger((tokens, req, res) => [
-  moment().utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
   tokens.method(req, res),
   tokens.url(req, res),
   tokens['response-time'](req, res), 'ms',
