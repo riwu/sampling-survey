@@ -108,16 +108,19 @@ const getNotificationSchedule = (answers) => {
   console.log('schedule ans', answers);
 
   const hoursMap = timeOptions.map(time => moment(time.label, 'h a').hours());
-  const weekdayWakeUp = hoursMap[(answers['QUESTION 5'] || {}).index];
-  const weekdaySleep = hoursMap[(answers['QUESTION 6'] || {}).index];
-  const weekendWakeup = hoursMap[(answers['QUESTION 7'] || {}).index];
-  const weekendSleep = hoursMap[(answers['QUESTION 8'] || {}).index];
+  const weekdayWakeUp = hoursMap[(answers['QUESTION 16'] || {}).index];
+  const weekdaySleep = hoursMap[(answers['QUESTION 17'] || {}).index];
+  const weekendWakeup = hoursMap[(answers['QUESTION 18'] || {}).index];
+  const weekendSleep = hoursMap[(answers['QUESTION 19'] || {}).index];
 
   const getHours = question => Object.entries(answers[question] || {})
     .filter(([index, value]) => value === true) // eslint-disable-line
     .map(([index, value]) => hoursMap[index]); // eslint-disable-line
-  const weekdayPartner = getHours('QUESTION 9');
-  const weekendPartner = getHours('QUESTION 10');
+  const weekdayPartner = getHours('QUESTION 21');
+  const weekendPartner = getHours('QUESTION 22');
+
+  console.log('hours chosen', weekdayWakeUp, weekdaySleep, weekendWakeup, weekendSleep,
+    weekdayPartner, weekendPartner);
 
   const finalSchedule = [];
   for (let i = 1; i < 8; i += 1) {
