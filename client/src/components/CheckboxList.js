@@ -27,7 +27,8 @@ const CheckboxList = props => (
     <View style={props.horizontal ? styles.container : { alignSelf: 'center' }}>
       {props.labels.map((label, index) => (
         <Checkbox
-          style={props.horizontal ? styles.checkbox : {}}
+          style={[props.horizontal ? styles.checkbox : {},
+            !label.hasTextInput && { marginBottom: 17 }]}
           key={label.label}
           label={label}
           labelStyle={styles.label}

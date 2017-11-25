@@ -28,8 +28,9 @@ const CheckboxComponent = props => (
         }
       }}
     />
+    {props.label.hasTextInput &&
     <TextInput
-      show={!!props.label.hasTextInput && (props.value !== undefined)}
+      show={props.value !== undefined}
       setTextRef={(ref) => {
         if (props.label.hasTextInput) {
           this.ref = ref;
@@ -39,6 +40,7 @@ const CheckboxComponent = props => (
       value={props.value === true ? '' : props.value}
       onChangeText={props.setAnswerText}
     />
+    }
   </View>
 );
 
