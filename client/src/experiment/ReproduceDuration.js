@@ -124,7 +124,7 @@ class ReproduceDuration extends React.Component {
                 if (duration < 1000 && props.answers[props.answers.length - 1].redDuration > 2000) {
                   if (!props.hasWarned) {
                     props.experimentWarned();
-                    Alert.alert("Please do not multi-task, it's important for us to collect good data");
+                    Alert.alert('Please do not multi-task', "It's important for us to collect good data");
                   }
                   // only repeat once
                   if ((props.answers[props.answers.length - 2] || {}).round !== props.roundNum) {
