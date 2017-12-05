@@ -108,11 +108,6 @@ class ReproduceDuration extends React.Component {
                 recordedDuration: duration,
                 timeBetweenMountAndStart: this.timeBetweenMountAndStart,
               });
-              if (props.actualDuration && (duration < 500 || // for trial
-                Math.abs(duration - props.actualDuration) > 3000)) {
-                Actions.replace('FailedTrial');
-                return;
-              }
               if (props.startTime) { // for actual experiment
                 const seq = getRemainingSequence(props.answers);
                 if (seq.length === 0) {
@@ -120,17 +115,21 @@ class ReproduceDuration extends React.Component {
                   Actions.replace(getNextScene('Question 2', props.startTime));
                   return;
                 }
+              }
 
-                if (duration < 1000 && props.answers[props.answers.length - 1].redDuration > 2000) {
-                  if (!props.hasWarned) {
-                    props.experimentWarned();
-                    Alert.alert('Please do not multi-task', "It's important for us to collect good data");
-                  }
-                  // only repeat once
-                  if ((props.answers[props.answers.length - 2] || {}).round !== props.roundNum) {
-                    Actions.replace(getNextScene(`ReadyTransition${props.roundNum}`, props.startTime));
-                    return;
-                  }
+              if (duration < 1000 && props.answers[props.answers.length - 1].redDuration > 2000) {
+                if (!props.startTime) { // for trial
+                  Actions.replace('FailedTrial');
+                  return;
+                }
+                if (!props.hasWarned) {
+                  props.experimentWarned();
+                  Alert.alert('Please do not multi-task', "It's important for us to collect good data");
+                }
+                // only repeat once
+                if ((props.answers[props.answers.length - 2] || {}).round !== props.roundNum) {
+                  Actions.replace(getNextScene(`ReadyTransition${props.roundNum}`, props.startTime));
+                  return;
                 }
               }
               Actions.replace(getNextScene(props.nextScene, props.startTime));

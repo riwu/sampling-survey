@@ -5,7 +5,7 @@ import { updateTrial } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   nextScene: (ownProps.roundNum === 3 && Platform.OS !== 'ios') ? 'Acknowledgement' : ownProps.nextScene,
-  actualDuration: (state.trialAnswers[state.trialAnswers.length - 1] || {}).redDuration,
+  answers: state.trialAnswers,
 });
 
 export default connect(

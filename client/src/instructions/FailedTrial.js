@@ -4,7 +4,7 @@ import MiddleText from '../components/MiddleText';
 
 const FailedTrial = ({ round }) => (
   <MiddleText
-    text="Your response was incorrect. Please try again."
+    text="Remember, please reproduce how long you felt the RED screen was shown."
     nextScene={`ReadyTransitionTrial${round}`}
   />
 );
