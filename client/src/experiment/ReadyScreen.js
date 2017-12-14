@@ -59,7 +59,7 @@ function getRandomInt(min, max) { // The maximum is exclusive and the minimum is
 
 export const getRemainingSequence = answers => [2000, 4000, 6000, 8000, 10000].filter(duration =>
   (answers || []).every(({ redDuration, recordedDuration }) =>
-    redDuration !== duration || recordedDuration < 1000) &&
+    redDuration !== duration || (recordedDuration < 1000 && redDuration > 2000)) &&
     (answers || []).filter(({ redDuration }) =>
       redDuration === duration).length < 2,
 );
