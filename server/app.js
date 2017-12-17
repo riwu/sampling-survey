@@ -34,12 +34,13 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
+  console.error('Gotten error', err);
+  if (res._headerSent) return; // eslint-disable-line no-underscore-dangle
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  console.log('Gotten error', err);
-  console.log('Message', err.message);
   res.status(err.status || 400).send(err.message);
 });
 
