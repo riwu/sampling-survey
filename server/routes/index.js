@@ -23,13 +23,18 @@ const insertExperiment = async (state, deviceId) => {
     ...Object.entries(state.experimentAnswers).map(([schedule, answers]) =>
       Promise.all(Object.entries(answers).map(([question, answer]) =>
         query.experimentAnswer({
-          answer, schedule, deviceId, question,
+          answer,
+          schedule,
+          deviceId,
+          question,
         })))),
 
     ...Object.entries(state.experimentRounds).map(([schedule, answers]) =>
       Promise.all(answers.map(answer =>
         query.experimentRounds({
-          ...answer, schedule, deviceId,
+          ...answer,
+          schedule,
+          deviceId,
         })))),
   ]);
 };
