@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('morgan');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
@@ -7,12 +7,18 @@ const index = require('./routes/index');
 
 const app = express();
 
-app.use(logger((tokens, req, res) => [
-  tokens.method(req, res),
-  tokens.url(req, res),
-  tokens['response-time'](req, res), 'ms',
-  JSON.stringify(req.body),
-].join(' ')));
+app.use(morgan(
+  (tokens, req, res) =>
+    [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens['response-time'](req, res),
+      'ms',
+      JSON.stringify(req.body),
+    ].join(' '),
+  { skip: req => req.url === '/' },
+));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
