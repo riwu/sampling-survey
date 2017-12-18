@@ -84,7 +84,8 @@ module.exports = {
     conn.query('SELECT disqualified FROM device WHERE deviceId = ?', deviceId),
   device: answer =>
     conn.query('INSERT INTO device SET ? ON DUPLICATE KEY UPDATE ?', [answer, answer]),
-  disqualify: (deviceId) => {}, // conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', deviceId)
+  disqualify: deviceId =>
+    conn.query('UPDATE device SET disqualified = 1 WHERE deviceId = ?', deviceId),
   answer: answer => insertAnswer(answer, false),
   experimentAnswer: answer => insertAnswer(answer, true),
   trial: insertRound(true),
