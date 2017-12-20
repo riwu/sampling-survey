@@ -11,11 +11,11 @@ const toDate = (time) => {
 let conn;
 mysql
   .createConnection({
-    host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
-    user: 'sampling_survey',
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
     database: 'sampling_survey',
-    port: 1150,
-    password: process.env.STUFF_PASSWORD,
+    port: process.env.MYSQL_PORT,
+    password: process.env.MYSQL_PASSWORD,
   })
   .then((connection) => {
     conn = connection;

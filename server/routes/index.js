@@ -4,7 +4,7 @@ const query = require('./query');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('Sampling survey API');
+  res.send('Sampling');
 });
 
 router.get('/disqualified/:deviceId', (req, res) => {
