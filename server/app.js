@@ -7,22 +7,6 @@ const index = require('./routes/index');
 
 const app = express();
 
-app.use(morgan(
-  (tokens, req, res) =>
-    [
-      tokens.method(req, res),
-      tokens.url(req, res),
-      tokens['response-time'](req, res),
-      'ms',
-      JSON.stringify(req.body),
-    ].join(' '),
-  { skip: req => req.url === '/' },
-));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
 app.get('/', (req, res) => {
   res.end();
 });
@@ -30,6 +14,19 @@ app.get('/favicon.ico', (req, res) => {
   // for browser request
   res.status(204).send();
 });
+
+app.use(morgan((tokens, req, res) =>
+  [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens['response-time'](req, res),
+    'ms',
+    JSON.stringify(req.body),
+  ].join(' ')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use('/', index);
 
