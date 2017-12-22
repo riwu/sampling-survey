@@ -3,10 +3,6 @@ const query = require('./query');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Sampling');
-});
-
 router.get('/disqualified/:deviceId', (req, res) => {
   query.isDisqualified(req.params.deviceId).then((data) => {
     console.log('data', data);
