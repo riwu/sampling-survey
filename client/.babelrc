@@ -4,6 +4,5 @@
     "production": {
       "plugins": ["transform-remove-console"]
     }
-  },
-  "plugins": ["transform-inline-environment-variables"]
+  }
 }
