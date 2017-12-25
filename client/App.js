@@ -7,7 +7,7 @@ import store, { persistor } from './src/store';
 
 const App = () => (
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    <PersistGate persistor={persistor} >
       <Routes />
     </PersistGate>
   </Provider>
