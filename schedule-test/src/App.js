@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import axios from 'axios';
 import './App.css';
 import timeOptions from './timeOptions';
 
+axios.defaults.baseURL = `${process.env.REACT_APP_SAMPLING_URL}/`;
+const [post] = ['post'].map(method => (path, payload) =>
+  axios({
+    method,
+    url: path,
+    data: payload,
+  }).then(response => response.data)
+);
+
 function getRandom(min, max) {
-  return (Math.random() * (max - min)) + min;
+  return Math.random() * (max - min) + min;
 }
 
 function getHourDiff(h1, h2) {
-  return Math.min(Math.abs(h1 - h2), Math.abs((h1 + 24) - h2), Math.abs(h1 - (h2 + 24)));
+  return Math.min(
+    Math.abs(h1 - h2),
+    Math.abs(h1 + 24 - h2),
+    Math.abs(h1 - (h2 + 24))
+  );
 }
 
 const TIME_OUT = 0.5;
@@ -19,8 +33,9 @@ const getSchedule = (partner, wakeup, sleep) => {
     partner.forEach(time => partnerSchedule.push(time + 0.5));
   }
   const awakeHours = [];
-  const notNearSchedule = hr => partnerSchedule.every(time => getHourDiff(time, hr) > 1.6);
-  for (let i = wakeup; i < (wakeup + 24); i += 1) {
+  const notNearSchedule = hr =>
+    partnerSchedule.every(time => getHourDiff(time, hr) > 1.6);
+  for (let i = wakeup; i < wakeup + 24; i += 1) {
     const hr = i % 24;
     if (hr === sleep) break;
     if (notNearSchedule(hr)) {
@@ -43,7 +58,7 @@ const getSchedule = (partner, wakeup, sleep) => {
   let nonPartnerSchedule = [];
   while (freq > 0) {
     const currentSchedule = [];
-    for (let i = wakeup; i < (wakeup + 24); i += freq) {
+    for (let i = wakeup; i < wakeup + 24; i += freq) {
       const maxHr = (i + freq) % 24;
       let upperLimit = i + freq;
       const exceeded = exceededSleep(i, i + freq, sleep);
@@ -51,9 +66,13 @@ const getSchedule = (partner, wakeup, sleep) => {
         upperLimit = sleep + (i > sleep ? 24 : 0);
       }
       if (notNearSchedule(i) && notNearSchedule(maxHr)) {
-        const minNext = (currentSchedule.length === 0)
-          ? i
-          : Math.max(currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT, i);
+        const minNext =
+          currentSchedule.length === 0
+            ? i
+            : Math.max(
+                currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT,
+                i
+              );
         if (upperLimit <= minNext) {
           break;
         }
@@ -78,18 +97,25 @@ const getSchedule = (partner, wakeup, sleep) => {
     awakeHours,
     notiLeft,
     schedule: [...partnerSchedule, ...nonPartnerSchedule],
-  }
+  };
 };
 
 class App extends Component {
   state = {
-    sleep: "23",
-    wakeup: "6",
+    sleep: '23',
+    wakeup: '6',
     partner: '9, 12',
-    timeIndex: "12",
-  }
+    timeIndex: '12',
+    data: null,
+  };
   render() {
-    const partnerHours = this.state.partner.split(',').filter(v => v.trim() !== '' && !isNaN(v)).map(v => Number(v))
+    if (this.state.data) {
+      return JSON.stringify(this.state.data);
+    }
+    const partnerHours = this.state.partner
+      .split(',')
+      .filter(v => v.trim() !== '' && !isNaN(v))
+      .map(v => Number(v));
     const {
       partnerSchedule,
       nonPartnerSchedule,
@@ -97,22 +123,45 @@ class App extends Component {
       awakeHours,
       notiLeft,
       schedule,
-    } = getSchedule(partnerHours, Number(this.state.wakeup), Number(this.state.sleep));
+    } = getSchedule(
+      partnerHours,
+      Number(this.state.wakeup),
+      Number(this.state.sleep)
+    );
 
     const finalSchedule = [];
     for (let i = 1; i < 8; i += 1) {
       const day = moment().add(i, 'd');
-      const daySchedule = getSchedule(partnerHours, Number(this.state.wakeup), Number(this.state.sleep)).schedule;
-      daySchedule.forEach((time) => {
+      const daySchedule = getSchedule(
+        partnerHours,
+        Number(this.state.wakeup),
+        Number(this.state.sleep)
+      ).schedule;
+      daySchedule.forEach(time => {
         const hr = Math.floor(time);
-        const newHour = moment().add(i, 'd').hour(hr).minute(Math.round((time - hr) * 60));
+        const newHour = moment()
+          .add(i, 'd')
+          .hour(hr)
+          .minute(Math.round((time - hr) * 60));
         finalSchedule.push(newHour);
       });
     }
 
     return (
       <div>
-        <div className='paragraph' >Time option converter: {' '}
+        <span>Password: </span>
+        <input autoFocus onChange={e => (this.password = e.target.value)} />
+        <button
+          onClick={() =>
+            post('answers', { password: this.password })
+              .then(data => this.setState({ data }))
+              .catch(() => alert('No Internet connection or invalid password'))
+          }
+        >
+          Submit
+        </button>
+        <div className="paragraph">
+          Time option converter:{' '}
           <input
             type="number"
             min={0}
@@ -120,61 +169,59 @@ class App extends Component {
             value={this.state.timeIndex}
             onChange={e => this.setState({ timeIndex: e.target.value })}
           />
-        {' option ' + this.state.timeIndex} is equivalent to {timeOptions[this.state.timeIndex]}
+          {' option ' + this.state.timeIndex} is equivalent to{' '}
+          {timeOptions[this.state.timeIndex]}
         </div>
-        <div>Sleep time Between 0 (12 am) to 23 (11 pm) )
+        <div>
+          Sleep time Between 0 (12 am) to 23 (11 pm) )
           <input
             type="number"
             value={this.state.sleep}
             min={0}
             max={23}
-            onChange={(e) => this.setState({ sleep: e.target.value })}
-           />
+            onChange={e => this.setState({ sleep: e.target.value })}
+          />
         </div>
-        <div>Wakeup time Between 0 (12 am) to 23 (11 pm) )
+        <div>
+          Wakeup time Between 0 (12 am) to 23 (11 pm) )
           <input
             type="number"
             value={this.state.wakeup}
             min={0}
             max={23}
-            onChange={(e) => this.setState({ wakeup: e.target.value })}
-           />
+            onChange={e => this.setState({ wakeup: e.target.value })}
+          />
         </div>
-        <div>Partner hours (separate by commas)
+        <div>
+          Partner hours (separate by commas)
           <input
             value={this.state.partner}
-            onChange={(e) => this.setState({ partner: e.target.value})}
-           />
+            onChange={e => this.setState({ partner: e.target.value })}
+          />
         </div>
-        <div style={{marginTop: '20px'}}>
+        <div style={{ marginTop: '20px' }}>
           <div>Partner hours selected: {partnerHours.join(', ')}</div>
-          <div>Awake hours excluding partner hours: {awakeHours.join(', ')}</div>
+          <div>
+            Awake hours excluding partner hours: {awakeHours.join(', ')}
+          </div>
           <div>Notification frequency for non-partner hrs (in hrs): {freq}</div>
           <div>No. of notifications for non-partner hrs: {notiLeft}</div>
           <div>Partner schedule: </div>
-          <div>
-            {partnerSchedule.map(t => <div key={t}>{t}</div>)}
-          </div>
+          <div>{partnerSchedule.map(t => <div key={t}>{t}</div>)}</div>
           <div className="paragraph">
             <div>Non-partner schedule: </div>
-            <div>
-              {nonPartnerSchedule.map(t => <div key={t}>{t}</div>)}
-            </div>
+            <div>{nonPartnerSchedule.map(t => <div key={t}>{t}</div>)}</div>
           </div>
           <div className="paragraph">
             <div>Overall schedule: </div>
-            <div>
-              {schedule.map(t => <div key={t}>{t}</div>)}
-            </div>
+            <div>{schedule.map(t => <div key={t}>{t}</div>)}</div>
           </div>
           <p>Total notifications: {schedule.length}</p>
-          { (schedule.length !== 7) && <p style={{color: 'red'}}>WARNING: NOT 7!</p>}
+          {schedule.length !== 7 && (
+            <p style={{ color: 'red' }}>WARNING: NOT 7!</p>
+          )}
           <div>Overall schedule:</div>
-          {finalSchedule.map(time => (
-            <div key={+time}>
-              {time.format()}
-            </div>
-          ))}
+          {finalSchedule.map(time => <div key={+time}>{time.format()}</div>)}
         </div>
       </div>
     );
