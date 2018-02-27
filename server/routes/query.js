@@ -13,7 +13,7 @@ mysql
   .createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
-    database: 'sampling_survey',
+    database: 'synergy_hunger',
     port: process.env.MYSQL_PORT,
     password: process.env.MYSQL_PASSWORD,
   })
