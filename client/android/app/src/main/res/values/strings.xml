@@ -1,6 +1,3 @@
 <resources>
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">wKdjvcNVvhpf-nCLx2dJFh3vgkCdb5a33bd1-a931-4530-b73e-02b1443faaf0</string>
-    <string moduleConfig="true" name="appcenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
-    <string moduleConfig="true" name="appcenterAnalytics_whenToEnableAnalytics">ALWAYS_SEND</string>
     <string name="app_name">Synergy Lab: Time Estimation Task</string>
 </resources>
