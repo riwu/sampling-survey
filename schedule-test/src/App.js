@@ -4,7 +4,7 @@ import axios from 'axios';
 import './App.css';
 import timeOptions from './timeOptions';
 
-axios.defaults.baseURL = `${process.env.REACT_APP_SAMPLING_URL}/`;
+axios.defaults.baseURL = `${process.env.REACT_APP_SAMPLING_HUNGER_URL}/`;
 const [post] = ['post'].map(method => (path, payload) =>
   axios({
     method,

@@ -13,14 +13,23 @@ const styles = StyleSheet.create({
 });
 
 const RadioOptions = (props) => {
-  const { nextScene, previousScene, disableIfLast, header, onPress, ...componentProps } = props;
+  const {
+    nextScene,
+    previousScene,
+    style,
+    disableIfLast,
+    header,
+    onPress,
+    buttonSize,
+    ...componentProps
+  } = props;
   return (
     <View>
       <View style={styles.container}>
         <RadioForm
-          style={styles.options}
+          style={[styles.options, style]}
           labelColor="white"
-          buttonSize={20}
+          buttonSize={buttonSize || 20}
           animation={false}
           {...componentProps}
         />
@@ -31,11 +40,15 @@ const RadioOptions = (props) => {
         nextScene={nextScene}
         previousScene={previousScene}
         onPress={onPress}
-        disabled={(disableIfLast && props.answer.index === props.radio_props.length - 1)
-          || props.answer.index === undefined ||
-          (!!(props.radio_props[props.answer.index].hasTextInput ||
-            props.radio_props[props.answer.index].dropDown)
-            && !(props.answer[props.answer.index] || '').trim())}
+        disabled={
+          (disableIfLast && props.answer.index === props.radio_props.length - 1) ||
+          props.answer.index === undefined ||
+          (!!(
+            props.radio_props[props.answer.index].hasTextInput ||
+            props.radio_props[props.answer.index].dropDown
+          ) &&
+            !(props.answer[props.answer.index] || '').trim())
+        }
       />
     </View>
   );
