@@ -18,8 +18,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "build":
-      "react-native bundle --entry-file='index.js' --bundle-output='./ios/sampling/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "build": "react-native bundle --entry-file='index.js' --bundle-output='./ios/sampling/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
   },
   "jest": {
@@ -27,6 +26,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.3.0",
     "babel-plugin-transform-remove-console": "^6.9.0",
     "moment": "^2.19.1",
     "react": "16.2.0",
