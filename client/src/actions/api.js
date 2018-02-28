@@ -29,8 +29,7 @@ const [patch, put] = ['patch', 'put'].map(method => (path, payload) =>
     .catch((err) => {
       console.log('encountered error for', path, ':', (err.response || {}).data);
       throw new Error((err.response || {}).data);
-    }),
-);
+    }));
 
 export default {
   postDevice: () => put('device', deviceInfo),
@@ -40,8 +39,7 @@ export default {
   },
   postSchedule: schedule =>
     put('experiment', { schedule }).catch(e =>
-      console.log('Post experiment schedule', e, schedule),
-    ),
+      console.log('Post experiment schedule', e, schedule)),
   postTrial: answer => put('trial', answer).catch(e => console.log('Post trial', e, answer)),
   postExperimentStarted: answer =>
     patch('experiment/started', answer).catch(e => console.log('Post experiment start', e, answer)),
