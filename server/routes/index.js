@@ -71,6 +71,12 @@ router.put('/all', async (req, res, next) => {
   }
 });
 
+// TODO: remove after app upgrade
+router.put('/experiment', (req, res) => {
+  res.end();
+  query.experiment(req.body.schedule, req.body.deviceId);
+});
+
 const timeOptions = [
   '12 am',
   '8 am',
