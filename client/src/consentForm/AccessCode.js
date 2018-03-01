@@ -45,7 +45,7 @@ class AccessCode extends React.Component {
           nextScene={props.nextScene}
           previousScene={props.previousScene}
           onPress={() =>
-            verifyAccess(this.code).catch((err) => {
+            verifyAccess(this.code.trim()).catch((err) => {
               console.log('e', typeof err, err);
               if (((err || {}).response || {}).status === 401) {
                 Alert.alert(`Access code '${this.code}' is wrong!`);

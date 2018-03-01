@@ -1427,7 +1427,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = riwu.synergy.hunger;
+				PRODUCT_BUNDLE_IDENTIFIER = "riwu.sampling-survey";
 				PRODUCT_NAME = sampling;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1460,7 +1460,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = riwu.synergy.hunger;
+				PRODUCT_BUNDLE_IDENTIFIER = "riwu.sampling-survey";
 				PRODUCT_NAME = sampling;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
