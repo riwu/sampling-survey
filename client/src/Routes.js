@@ -40,44 +40,85 @@ const sceneStyle = {
 const questions = [
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
+  [
+    'ReimbursementWarning',
+    <MiddleText
+      text={
+        'Please note that reimbursement will only be done within NUS.' +
+        '\n\nDetails of time and date will be provided upon completion of experiment.'
+      }
+    />,
+  ],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
   ...surveyQuestions,
   ['InstructionTest', <InstructionTest />],
-  ['Instruction1', <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />],
-  ['Instruction2', <InstructionWithCross text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'} />],
+  [
+    'Instruction1',
+    <MiddleText text="Your task is to estimate how long your screen is red." noPrevious />,
+  ],
+  [
+    'Instruction2',
+    <InstructionWithCross
+      text={'First, you will see a black screen with a cross.\n\nPlease look at the cross.'}
+    />,
+  ],
   ['Instruction3', <InstructionWithCross text="At some point, the screen will turn red" />],
   ['Instruction4', <RedScreen />],
   ['Instruction5', <MiddleText text="Now tell us how long the screen was red." noPrevious />],
   ['Instruction6', <Instruction6 />],
-  ['Instruction7', <MiddleText text="Well done! Now there will be 3 rounds of trials for you to practice." noPrevious />],
+  [
+    'Instruction7',
+    <MiddleText
+      text="Well done! Now there will be 3 rounds of trials for you to practice."
+      noPrevious
+    />,
+  ],
 
-  ...[1, 2, 3].map((roundNum, i, arr) => [
-    [`ReadyTransitionTrial${roundNum}`, <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
-  ]).reduce((arr, round) => [...arr, ...round], []),
+  ...[1, 2, 3]
+    .map((roundNum, i, arr) => [
+      [
+        `ReadyTransitionTrial${roundNum}`,
+        <ReadyTransitionTrial roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />,
+      ],
+      [`ReproduceDurationTrial${roundNum}`, <ReproduceDurationTrial roundNum={roundNum} />],
+    ])
+    .reduce((arr, round) => [...arr, ...round], []),
   ['EnableNotification', <EnableNotification />],
   ['Acknowledgement', <Acknowledgement />],
-  ['TrialPassed', <AppStateListener
-    text={'Well done!\n' +
-          'Now that you understand the task, you will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
-          'This will not take more than 5 minutes of your time.\n' +
-          'Please respond within 30 minutes of prompting.\n\n' +
-          'You may close the app now.'}
-  />],
+  [
+    'TrialPassed',
+    <AppStateListener
+      text={
+        'Well done!\n' +
+        'Now that you understand the task, you will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
+        'This will not take more than 5 minutes of your time.\n' +
+        'Please respond within 30 minutes of prompting.\n\n' +
+        'You may close the app now.'
+      }
+    />,
+  ],
 ];
 
 const experiment = [
   ['Question 1', <Question1 />],
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
-  ...[1, 2, 3, 4, 5].map((roundNum, i, arr) => [
-    [`ReadyTransition${roundNum}`, <ReadyTransition roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />],
-    [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
-  ]).reduce((arr, round) => [...arr, ...round], []),
+  ...[1, 2, 3, 4, 5]
+    .map((roundNum, i, arr) => [
+      [
+        `ReadyTransition${roundNum}`,
+        <ReadyTransition roundNum={roundNum} roundText={`${roundNum} of ${arr.length}`} />,
+      ],
+      [`ReproduceDuration${roundNum}`, <ReproduceDuration roundNum={roundNum} />],
+    ])
+    .reduce((arr, round) => [...arr, ...round], []),
   ...questionsAfterExperiment, // differentiated from survey questions by PascalCase 'Question'
-  ['Finish', <AppStateListener
-    showResponseRate
-    text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'}
-  />],
+  [
+    'Finish',
+    <AppStateListener
+      showResponseRate
+      text={'Your response has been noted.\nThank you for your time.\n\n- END OF SESSION -'}
+    />,
+  ],
 ];
 
 const timeOut = [
@@ -85,20 +126,20 @@ const timeOut = [
   ['SESSION TIMED OUT QUESTION', <TimeOutQns />],
 ];
 
-const completed = [
-  ['GetData', <GetData />],
-  ['RewardScreen', <RewardScreen />],
-];
+const completed = [['GetData', <GetData />], ['RewardScreen', <RewardScreen />]];
 
-const mapToScene = info => info.map(([key, component], i, arr) => (
-  <Scene
-    key={key}
-    component={() => React.cloneElement(component, {
-      nextScene: (arr[i + 1] || [])[0],
-      previousScene: (arr[i - 1] || [])[0],
-    })}
-  />
-));
+const mapToScene = info =>
+  info.map(([key, component], i, arr) => (
+    <Scene
+      key={key}
+      component={() =>
+        React.cloneElement(component, {
+          nextScene: (arr[i + 1] || [])[0],
+          previousScene: (arr[i - 1] || [])[0],
+        })
+      }
+    />
+  ));
 
 const App = () => (
   <RouterWithRedux sceneStyle={sceneStyle}>
@@ -110,21 +151,20 @@ const App = () => (
       {mapToScene(timeOut)}
       {mapToScene(completed)}
 
-      <Scene
-        key="FailedTrial"
-        component={FailedTrial}
-      />
+      <Scene key="FailedTrial" component={FailedTrial} />
 
       <Scene
         key="NotReady"
         component={() => (
           <AppStateListener
             showResponseRate
-            text={'Your next session is not yet ready.\n\n' +
-                  'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
-                  'This will not take more than 5 minutes of your time.\n' +
-                  'Please respond within 30 minutes of prompting.\n\n' +
-                  'You may close the app now.'}
+            text={
+              'Your next session is not yet ready.\n\n' +
+              'You will be prompted, 7 times a day at random times over the course of the next week to complete this same task.\n' +
+              'This will not take more than 5 minutes of your time.\n' +
+              'Please respond within 30 minutes of prompting.\n\n' +
+              'You may close the app now.'
+            }
           />
         )}
       />
