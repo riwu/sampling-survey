@@ -30,7 +30,7 @@ const EnableNotification = () => (
           [
             {
               text: 'Open Settings',
-              onPress: () => Linking.openURL('app-settings:Notifications'),
+              onPress: () => Linking.openURL('app-settings:'),
             },
           ],
         );

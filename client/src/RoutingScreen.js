@@ -6,7 +6,7 @@ import getMatchingSchedule from './experiment/getMatchingSchedule';
 
 class RoutingScreen extends React.Component {
   componentWillMount() {
-    const props = this.props;
+    const { props } = this;
     console.log('Mounting', props.route, props.schedule);
 
     if (!props.route) {
@@ -16,7 +16,7 @@ class RoutingScreen extends React.Component {
       return;
     }
 
-    let route = props.route;
+    let { route } = props;
     if (props.disqualified) {
       route = 'NotEligible';
     } else if (Object.keys(props.schedule).length > 0 && props.route !== 'RewardScreen') {
