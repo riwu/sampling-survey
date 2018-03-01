@@ -43,7 +43,7 @@ router.put('/all', async (req, res, next) => {
 
   try {
     const { deviceId } = state.device;
-    await query.device(state.device);
+    await query.device({ ...state.device, id: req.headers['x-forwarded-for'] });
 
     await Promise.all([
       ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),

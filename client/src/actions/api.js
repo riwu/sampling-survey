@@ -13,9 +13,8 @@ const deviceInfo = {
   timezone: new Date().getTimezoneOffset(),
   country: DeviceInfo.getTimezone(),
   isTablet: DeviceInfo.isTablet(),
+  model: DeviceInfo.getModel(),
 };
-
-console.log('info', deviceInfo);
 
 const get = path => axios.get(path).then(response => response.data);
 
