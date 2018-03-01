@@ -2,6 +2,7 @@ import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
 
 axios.defaults.baseURL = `${process.env.SAMPLING_API_URL}/`;
+// axios.defaults.baseURL = 'http://localhost:3000/';
 
 const deviceId = DeviceInfo.getUniqueID();
 
@@ -28,3 +29,4 @@ const [post, patch, put] = ['post', 'patch', 'put'].map(method => (path, data) =
 export const isDisqualified = () => get(`disqualified/${deviceId}`);
 export const disqualify = () => patch('disqualify', { deviceId });
 export const postAll = (state, codeType) => put('all', { ...state, device: deviceInfo, codeType });
+export const verifyAccess = code => post('/verifyAccess', { code });

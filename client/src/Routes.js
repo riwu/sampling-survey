@@ -4,6 +4,7 @@ import RouterWithRedux from './RouterWithRedux';
 
 import MiddleText from './components/MiddleText';
 
+import AccessCode from './consentForm/AccessCode';
 import InformationSheet from './consentForm/InformationSheetContainer';
 import ConsentForm from './consentForm/ConsentForm';
 import surveyQuestions from './questionnaire/questions';
@@ -49,6 +50,7 @@ const questions = [
       }
     />,
   ],
+  ['AccessCode', <AccessCode />],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
   ...surveyQuestions,
   ['InstructionTest', <InstructionTest />],

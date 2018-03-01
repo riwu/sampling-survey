@@ -15,6 +15,16 @@ router.patch('/disqualify', (req, res) => {
   query.disqualify(req.body.deviceId);
 });
 
+router.post('/verifyAccess', async (req, res) => {
+  const code = await query.getCode('appAccess');
+  console.log('code', code);
+  if ((req.body.code || '').toLowerCase() === (code || '').toLowerCase()) {
+    res.end();
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 const insertExperiment = async (state, deviceId) => {
   await query.experiment(Object.keys(state.notificationSchedule), deviceId);
   return Promise.all([
