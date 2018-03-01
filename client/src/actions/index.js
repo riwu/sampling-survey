@@ -1,7 +1,13 @@
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
-import api from './api';
+import * as api from './api';
 import getNotificationSchedule from './getNotificationSchedule';
+import { isSingle } from '../questionnaire/isEligible';
+
+export const postAll = getCode => (dispatch, getState) => {
+  const state = getState();
+  return api.postAll(state, getCode && (isSingle(state) ? 'single' : 'relationship'));
+};
 
 export const setCode = code => ({
   type: 'SET_CODE',
@@ -15,8 +21,9 @@ export const disqualify = () => (dispatch) => {
   });
 };
 
-export const postDevice = () => dispatch =>
-  api
+export const checkIfDisqualified = () => (dispatch) => {
+  dispatch(postAll());
+  return api
     .isDisqualified()
     .then((disqualified) => {
       console.log('disqualify', disqualified);
@@ -29,6 +36,7 @@ export const postDevice = () => dispatch =>
       Alert.alert('Failed to verify device', 'Make sure you have Internet connection!');
       return err;
     });
+};
 
 export const setAnswerIndex = (header, index) => ({
   type: 'SET_ANSWER_INDEX',
@@ -89,7 +97,6 @@ export const lowerTrialAttempt = () => ({
 
 export const experimentStarted = schedule => (dispatch) => {
   const startedAt = Date.now();
-  // api.postExperimentStarted({ schedule, startedAt });
   dispatch({
     type: 'EXPERIMENT_STARTED',
     schedule,
@@ -113,5 +120,5 @@ export const scheduleNotification = answers => (dispatch) => {
     type: 'SCHEDULE_NOTIFICATION',
     schedule: finalSchedule,
   });
-  return api.postSchedule(finalSchedule);
+  return dispatch(postAll());
 };

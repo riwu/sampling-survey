@@ -10,6 +10,11 @@ router.get('/disqualified/:deviceId', (req, res) => {
   });
 });
 
+router.patch('/disqualify', (req, res) => {
+  res.end();
+  query.disqualify(req.body.deviceId);
+});
+
 const insertExperiment = async (state, deviceId) => {
   await query.experiment(Object.keys(state.notificationSchedule), deviceId);
   return Promise.all([
@@ -64,46 +69,6 @@ router.put('/all', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-router.put('/device', (req, res) => {
-  res.end();
-  query.device(req.body);
-});
-
-router.patch('/disqualify', (req, res) => {
-  res.end();
-  query.disqualify(req.body.deviceId);
-});
-
-router.put('/answer', (req, res) => {
-  res.end();
-  query.answer(req.body);
-});
-
-router.put('/trial', (req, res) => {
-  res.end();
-  query.trial(req.body);
-});
-
-router.put('/experiment', (req, res) => {
-  res.end();
-  query.experiment(req.body.schedule, req.body.deviceId);
-});
-
-router.patch('/experiment/started', (req, res) => {
-  res.end();
-  query.experimentStarted(req.body);
-});
-
-router.put('/experiment/answer', (req, res) => {
-  res.end();
-  query.experimentAnswer(req.body);
-});
-
-router.put('/experiment/round', (req, res) => {
-  res.end();
-  query.experimentRounds(req.body);
 });
 
 const timeOptions = [

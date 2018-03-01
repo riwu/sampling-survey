@@ -14,24 +14,25 @@ const styles = StyleSheet.create({
 });
 
 // Hardcoded 'Finish'. Better design: pass as props
-const ButtonToNextScene = ({ nextScene, disabled, previousScene, onPress, startTime }) => (
+const ButtonToNextScene = ({
+  nextScene, disabled, previousScene, onPress, startTime,
+}) => (
   <View style={styles.buttons}>
-    {previousScene &&
+    {previousScene && <Button onPress={() => Actions.replace(previousScene)} text="Back" />}
+    {nextScene && (
       <Button
-        onPress={() => Actions.replace(previousScene)}
-        text="Back"
-      />}
-    {nextScene &&
-      <Button
-        onPress={() => Promise.resolve(onPress && onPress()).then((result) => {
-          if (!result) {
-            console.log('next scene', nextScene);
-            Actions.replace(getNextScene(nextScene, startTime, undefined, previousScene));
-          }
-        })}
+        onPress={() =>
+          Promise.resolve(onPress && onPress()).then((result) => {
+            if (!result) {
+              console.log('next scene', nextScene);
+              Actions.replace(getNextScene(nextScene, startTime, undefined, previousScene));
+            }
+          })
+        }
         text={['Finish', 'TrialPassed'].includes(nextScene) ? 'Finish' : 'Next'}
         disabled={disabled}
-      />}
+      />
+    )}
   </View>
 );
 
