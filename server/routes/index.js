@@ -187,7 +187,8 @@ const answerMap = {
 };
 
 router.post('/answers', async (req, res) => {
-  if (req.body.password !== process.env.PASSWORD) {
+  const code = await query.getCode('webAccess');
+  if (req.body.password.toLowerCase() !== code.toLowerCase()) {
     res.sendStatus(401);
     return;
   }
