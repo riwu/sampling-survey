@@ -18,17 +18,12 @@ const deviceInfo = {
 
 const get = path => axios.get(path).then(response => response.data);
 
-const [patch, put] = ['patch', 'put'].map(method => (path, data) =>
+const [post, patch, put] = ['post', 'patch', 'put'].map(method => (path, data) =>
   axios({
     method,
     url: path,
     data,
-  })
-    .then(response => response.data)
-    .catch((err) => {
-      console.log('encountered error for', path, ':', (err.response || {}).data);
-      throw new Error((err.response || {}).data);
-    }));
+  }).then(response => response.data));
 
 export const isDisqualified = () => get(`disqualified/${deviceId}`);
 export const disqualify = () => patch('disqualify', { deviceId });

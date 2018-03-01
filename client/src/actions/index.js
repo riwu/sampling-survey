@@ -35,7 +35,7 @@ export const checkIfDisqualified = () => (dispatch) => {
       return disqualified;
     })
     .catch((err) => {
-      Alert.alert('Failed to verify device', 'Make sure you have Internet connection!');
+      Alert.alert('Failed to verify device', 'Make sure you have Internet connection.');
       return err;
     });
 };

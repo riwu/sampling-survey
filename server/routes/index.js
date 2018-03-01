@@ -58,13 +58,9 @@ router.put('/all', async (req, res, next) => {
     ]);
 
     if (state.codeType) {
-      const data = await query.getCode(state.codeType);
-      if (!data.length) {
-        console.warn('no data for code type', state.codeType);
-        res.end();
-      }
+      const code = await query.getCode(state.codeType);
       await query.disqualify(deviceId);
-      res.send(Object.values(data[0])[0]);
+      res.send(code);
     }
   } catch (err) {
     next(err);
@@ -188,7 +184,7 @@ const answerMap = {
 
 router.post('/answers', async (req, res) => {
   const code = await query.getCode('webAccess');
-  if (req.body.password.toLowerCase() !== code.toLowerCase()) {
+  if ((req.body.password || '').toLowerCase() !== (code || '').toLowerCase()) {
     res.sendStatus(401);
     return;
   }
