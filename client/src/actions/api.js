@@ -13,41 +13,18 @@ const deviceInfo = {
   timezone: new Date().getTimezoneOffset(),
   country: DeviceInfo.getTimezone(),
   isTablet: DeviceInfo.isTablet(),
+  model: DeviceInfo.getModel(),
 };
-
-console.log('info', deviceInfo);
 
 const get = path => axios.get(path).then(response => response.data);
 
-const [patch, put] = ['patch', 'put'].map(method => (path, payload) =>
+const [patch, put] = ['patch', 'put'].map(method => (path, data) =>
   axios({
     method,
     url: path,
-    data: { ...payload, deviceId },
-  })
-    .then(response => response.data)
-    .catch((err) => {
-      console.log('encountered error for', path, ':', (err.response || {}).data);
-      throw new Error((err.response || {}).data);
-    }));
+    data,
+  }).then(response => response.data));
 
-export default {
-  postDevice: () => put('device', deviceInfo),
-  postAnswer: (answer) => {
-    console.log('posting answer', answer);
-    return put('answer', answer).catch(e => console.log('Post answer api', e, answer));
-  },
-  postSchedule: schedule =>
-    put('experiment', { schedule }).catch(e =>
-      console.log('Post experiment schedule', e, schedule)),
-  postTrial: answer => put('trial', answer).catch(e => console.log('Post trial', e, answer)),
-  postExperimentStarted: answer =>
-    patch('experiment/started', answer).catch(e => console.log('Post experiment start', e, answer)),
-  postExperimentAnswer: answer =>
-    put('experiment/answer', answer).catch(e => console.log('Post experiment ans', e, answer)),
-  postExperimentRound: answer =>
-    put('experiment/round', answer).catch(e => console.log('Post experiment round', e, answer)),
-  isDisqualified: () => get(`disqualified/${deviceId}`),
-  postAll: state => put('all', { ...state, device: deviceInfo }),
-  disqualify: () => patch('disqualify'),
-};
+export const isDisqualified = () => get(`disqualified/${deviceId}`);
+export const disqualify = () => patch('disqualify', { deviceId });
+export const postAll = (state, codeType) => put('all', { ...state, device: deviceInfo, codeType });

@@ -1,6 +1,13 @@
 import { Actions } from 'react-native-router-flux';
-import api from './api';
+import { Alert } from 'react-native';
+import * as api from './api';
 import getNotificationSchedule from './getNotificationSchedule';
+import { isSingle } from '../questionnaire/isEligible';
+
+export const postAll = getCode => (dispatch, getState) => {
+  const state = getState();
+  return api.postAll(state, getCode && (isSingle(state) ? 'single' : 'relationship'));
+};
 
 export const setCode = code => ({
   type: 'SET_CODE',
@@ -9,21 +16,28 @@ export const setCode = code => ({
 
 export const disqualify = () => (dispatch) => {
   api.disqualify();
-  dispatch({
+  return dispatch({
     type: 'DISQUALIFY',
   });
 };
 
-export const postDevice = () => (dispatch) => {
-  api.isDisqualified().then((disqualified) => {
-    console.log('disqualify', disqualified);
-    if (disqualified) {
-      dispatch(disqualify());
-      Actions.replace('NotEligible');
-    }
-  }).catch(e => console.log('Check disqualified action', e));
-
-  // api.postDevice().catch(e => console.log('Post device action', e));
+export const checkIfDisqualified = () => (dispatch) => {
+  dispatch(postAll());
+  return api
+    .isDisqualified()
+    .then((disqualified) => {
+      console.log('disqualify', disqualified);
+      if (disqualified) {
+        console.log('disqualifying');
+        dispatch(disqualify());
+        Actions.replace('NotEligible');
+      }
+      return disqualified;
+    })
+    .catch((err) => {
+      Alert.alert('Failed to verify device', 'Make sure you have Internet connection.');
+      return err;
+    });
 };
 
 export const setAnswerIndex = (header, index) => ({
@@ -66,7 +80,6 @@ export const updateExperimentRound = (schedule, answer) => ({
   answer,
 });
 
-
 export const addNewTrial = answer => ({
   type: 'ADD_NEW_TRIAL',
   answer: {
@@ -86,7 +99,6 @@ export const lowerTrialAttempt = () => ({
 
 export const experimentStarted = schedule => (dispatch) => {
   const startedAt = Date.now();
-  // api.postExperimentStarted({ schedule, startedAt });
   dispatch({
     type: 'EXPERIMENT_STARTED',
     schedule,
@@ -104,12 +116,11 @@ export const experimentWarned = schedule => ({
   schedule,
 });
 
-
 export const scheduleNotification = answers => (dispatch) => {
   const finalSchedule = getNotificationSchedule(answers);
   dispatch({
     type: 'SCHEDULE_NOTIFICATION',
     schedule: finalSchedule,
   });
-  api.postSchedule(finalSchedule);
+  return dispatch(postAll());
 };

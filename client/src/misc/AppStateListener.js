@@ -20,13 +20,14 @@ class AppStateListener extends React.Component {
   componentDidMount() {
     console.log('mounting app listener', this.props.text.slice(0, 10));
 
-    if (this.props.responseRate !== undefined) { // Finish or end of session screen
+    if (this.props.responseRate !== undefined) {
+      // Finish or end of session screen
       console.log('setting app icon to 0');
       Notifications.setApplicationIconBadgeNumber(0);
       Notifications.cancelAllLocalNotifications();
       const futureSchedule = Object.keys(this.props.notificationSchedule)
         .map(time => Number(time))
-        .filter(time => time > (Date.now() + 3000));
+        .filter(time => time > Date.now() + 3000);
       console.log('schedule', futureSchedule);
       scheduleNotification(futureSchedule);
     }
@@ -46,20 +47,22 @@ class AppStateListener extends React.Component {
     clearInterval(this.timeout);
   }
   render() {
-    const responseRate = this.props.responseRate;
+    const { responseRate } = this.props;
     return (
       <MiddleText
         noPrevious
-        text={(
+        text={
           <Text>
-            {this.props.text + (responseRate === undefined ? ''
-              : `\n\nYour response rate is ${this.props.responseRate}%.`)}
-            {responseRate !== undefined && responseRate < 50 &&
-            <Text style={{ color: 'red' }}>
-              {'\n'}A response rate of 80% is required for reimbursement!
-            </Text>}
+            {this.props.text +
+              (responseRate === undefined ? '' : `\n\nYour response rate is ${responseRate}%.`)}
+            {responseRate !== undefined &&
+              responseRate < 50 && (
+                <Text style={{ color: 'red' }}>
+                  {'\n'}A response rate of 80% is required for reimbursement!
+                </Text>
+              )}
           </Text>
-        )}
+        }
       />
     );
   }

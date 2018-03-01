@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import Notifications from 'react-native-push-notification';
 import MiddleText from '../components/MiddleText';
 
@@ -18,14 +18,25 @@ const EnableNotification = () => (
     }
     nextScene="Acknowledgement"
     noPrevious
-    onPress={() => getiOSNotificationPermission().then((granted) => {
-      console.log('granted', granted);
-      if (granted) {
-        return false;
-      }
-      Alert.alert('Please enable notification', 'Go to Settings > Find this app > Notifications > Allow Notifications');
-      return true;
-    })}
+    onPress={() =>
+      getiOSNotificationPermission().then((granted) => {
+        console.log('granted', granted);
+        if (granted) {
+          return false;
+        }
+        Alert.alert(
+          'Please enable notification',
+          'Go to Settings > Find this app > Notifications > Allow Notifications',
+          [
+            {
+              text: 'Open Settings',
+              onPress: () => Linking.openURL('app-settings:'),
+            },
+          ],
+        );
+        return true;
+      })
+    }
   />
 );
 

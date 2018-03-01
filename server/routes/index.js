@@ -10,6 +10,11 @@ router.get('/disqualified/:deviceId', (req, res) => {
   });
 });
 
+router.patch('/disqualify', (req, res) => {
+  res.end();
+  query.disqualify(req.body.deviceId);
+});
+
 const insertExperiment = async (state, deviceId) => {
   await query.experiment(Object.keys(state.notificationSchedule), deviceId);
   return Promise.all([
@@ -43,7 +48,7 @@ router.put('/all', async (req, res, next) => {
 
   try {
     const { deviceId } = state.device;
-    await query.device(state.device);
+    await query.device({ ...state.device, id: req.headers['x-forwarded-for'] });
 
     await Promise.all([
       ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),
@@ -53,57 +58,19 @@ router.put('/all', async (req, res, next) => {
     ]);
 
     if (state.codeType) {
-      const data = await query.getCode(state.codeType);
-      if (!data.length) {
-        console.warn('no data for code type', state.codeType);
-        res.end();
-      }
+      const code = await query.getCode(state.codeType);
       await query.disqualify(deviceId);
-      res.send(Object.values(data[0])[0]);
+      res.send(code);
     }
   } catch (err) {
     next(err);
   }
 });
 
-router.put('/device', (req, res) => {
-  res.end();
-  query.device(req.body);
-});
-
-router.patch('/disqualify', (req, res) => {
-  res.end();
-  query.disqualify(req.body.deviceId);
-});
-
-router.put('/answer', (req, res) => {
-  res.end();
-  query.answer(req.body);
-});
-
-router.put('/trial', (req, res) => {
-  res.end();
-  query.trial(req.body);
-});
-
+// TODO: remove after app upgrade
 router.put('/experiment', (req, res) => {
   res.end();
   query.experiment(req.body.schedule, req.body.deviceId);
-});
-
-router.patch('/experiment/started', (req, res) => {
-  res.end();
-  query.experimentStarted(req.body);
-});
-
-router.put('/experiment/answer', (req, res) => {
-  res.end();
-  query.experimentAnswer(req.body);
-});
-
-router.put('/experiment/round', (req, res) => {
-  res.end();
-  query.experimentRounds(req.body);
 });
 
 const timeOptions = [
@@ -216,7 +183,8 @@ const answerMap = {
 };
 
 router.post('/answers', async (req, res) => {
-  if (req.body.password !== process.env.PASSWORD) {
+  const code = await query.getCode('webAccess');
+  if ((req.body.password || '').toLowerCase() !== (code || '').toLowerCase()) {
     res.sendStatus(401);
     return;
   }

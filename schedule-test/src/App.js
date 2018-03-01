@@ -153,7 +153,7 @@ class App extends Component {
         <input autoFocus onChange={e => (this.password = e.target.value)} />
         <button
           onClick={() =>
-            post('answers', { password: this.password })
+            post('answers', { password: (this.password || '').trim() })
               .then(data => this.setState({ data }))
               .catch(() => alert('No Internet connection or invalid password'))
           }

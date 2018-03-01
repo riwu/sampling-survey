@@ -78,6 +78,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 
 project.ext.vectoricons = [
@@ -110,7 +111,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "riwu.sampling.survey"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1513759377
         versionName "2.1.6"
@@ -162,6 +163,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-app-settings')
+    compile project(':react-native-permission-settings')
     compile project(':react-native-code-push')
     compile project(':react-native-push-notification')
     compile project(':react-native-device-info')

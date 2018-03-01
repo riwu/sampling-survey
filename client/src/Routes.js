@@ -40,6 +40,15 @@ const sceneStyle = {
 const questions = [
   ['InformationSheet', <InformationSheet />],
   ['ConsentForm', <ConsentForm />],
+  [
+    'ReimbursementWarning',
+    <MiddleText
+      text={
+        'Please note that reimbursement will only be done within NUS.' +
+        '\n\nDetails of time and date will be provided upon completion of experiment.'
+      }
+    />,
+  ],
   ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
   ...surveyQuestions.slice(0, 19),
   ['InstructionTest', <InstructionTest />],

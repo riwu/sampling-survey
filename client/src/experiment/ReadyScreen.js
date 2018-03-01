@@ -51,27 +51,25 @@ const styles = StyleSheet.create({
   },
 });
 
-function getRandomInt(min, max) { // The maximum is exclusive and the minimum is inclusive
+function getRandomInt(min, max) {
+  // The maximum is exclusive and the minimum is inclusive
   const minCeil = Math.ceil(min);
   const maxCeil = Math.floor(max);
   return Math.floor(Math.random() * (maxCeil - minCeil)) + minCeil;
 }
 
-export const getRemainingSequence = answers => [2000, 4000, 6000, 8000, 10000].filter(duration =>
-  (answers || []).every(({ redDuration, recordedDuration }) =>
-    redDuration !== duration || (recordedDuration < 1000 && redDuration > 2000)) &&
-    (answers || []).filter(({ redDuration }) =>
-      redDuration === duration).length < 2,
-);
+export const getRemainingSequence = answers =>
+  [2000, 4000, 6000, 8000, 10000].filter(duration =>
+    (answers || []).every(({ redDuration, recordedDuration }) =>
+      redDuration !== duration || (recordedDuration < 1000 && redDuration > 2000)) && (answers || []).filter(({ redDuration }) => redDuration === duration).length < 2);
 
 class ReadyScreen extends React.Component {
   state = {
     startedTransition: false,
     turned: false,
-  }
+  };
 
   startTransition() {
-    this.props.postAll();
     const blackDuration = getRandomInt(1, 4) * 1000;
     let rand;
     console.log('ready', this.props.trialRoundNum, this.props.answers);
@@ -114,8 +112,8 @@ class ReadyScreen extends React.Component {
           <Text style={[styles.subHeader, this.state.startedTransition && { opacity: 0 }]}>
             ROUND {roundText}
           </Text>
-          <Text style={styles.plus} >+</Text>
-          {!this.state.startedTransition &&
+          <Text style={styles.plus}>+</Text>
+          {!this.state.startedTransition && (
             <View style={{ alignItems: 'center' }}>
               <View style={styles.instructionContainer}>
                 <View style={{ flex: 0.1 }} />
@@ -126,7 +124,7 @@ class ReadyScreen extends React.Component {
                   </Text>
                   <View style={{ flexDirection: 'row', marginBottom: 5 }}>
                     <Text>1. </Text>
-                    <Text>Click {'\'ready\''} and the screen will turn red.</Text>
+                    <Text>Click {"'ready'"} and the screen will turn red.</Text>
                   </View>
 
                   <View style={{ flexDirection: 'row' }}>
@@ -139,11 +137,17 @@ class ReadyScreen extends React.Component {
                       </View>
                       <View style={{ flexDirection: 'row', marginBottom: 2 }}>
                         <Text>- </Text>
-                        <Text><Text style={{ textDecorationLine: 'underline' }}>Don{'\''}t count</Text> how much time has passed</Text>
+                        <Text>
+                          <Text style={{ textDecorationLine: 'underline' }}>Don{"'"}t count</Text>{' '}
+                          how much time has passed
+                        </Text>
                       </View>
-                      <View style={{ flexDirection: 'row', marginBottom: 2 }} >
+                      <View style={{ flexDirection: 'row', marginBottom: 2 }}>
                         <Text>- </Text>
-                        <Text>We{'\''}re interested in what it <Text style={{ fontStyle: 'italic' }}>feels like</Text> to you</Text>
+                        <Text>
+                          We{"'"}re interested in what it{' '}
+                          <Text style={{ fontStyle: 'italic' }}>feels like</Text> to you
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -164,7 +168,7 @@ class ReadyScreen extends React.Component {
                 }}
               />
             </View>
-          }
+          )}
         </View>
       </ScrollView>
     );

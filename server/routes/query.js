@@ -79,7 +79,8 @@ const insertRound = trial => (answer) => {
 };
 
 module.exports = {
-  getCode: codeType => conn.query('SELECT ?? FROM mturk_code', codeType),
+  getCode: codeType =>
+    conn.query('SELECT ?? FROM code', codeType).then(row => (row[0] || {})[codeType]),
   isDisqualified: deviceId =>
     conn.query('SELECT disqualified FROM device WHERE deviceId = ?', deviceId),
   device: answer =>
