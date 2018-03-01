@@ -3,6 +3,7 @@ package com.sampling;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.krazylabs.OpenAppSettingsPackage;
 import com.alienslab.permissionsettings.PermissionSettingsPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new OpenAppSettingsPackage(),
             new PermissionSettingsPackage(),
             new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
             new ReactNativePushNotificationPackage(),
