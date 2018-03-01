@@ -28,9 +28,11 @@ export const checkIfDisqualified = () => (dispatch) => {
     .then((disqualified) => {
       console.log('disqualify', disqualified);
       if (disqualified) {
+        console.log('disqualifying');
         dispatch(disqualify());
         Actions.replace('NotEligible');
       }
+      return disqualified;
     })
     .catch((err) => {
       Alert.alert('Failed to verify device', 'Make sure you have Internet connection!');

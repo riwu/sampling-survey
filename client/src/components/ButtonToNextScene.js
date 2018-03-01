@@ -23,8 +23,8 @@ const ButtonToNextScene = ({
       <Button
         onPress={() =>
           Promise.resolve(onPress && onPress()).then((result) => {
+            console.log('press result', result, nextScene);
             if (!result) {
-              console.log('next scene', nextScene);
               Actions.replace(getNextScene(nextScene, startTime, undefined, previousScene));
             }
           })
