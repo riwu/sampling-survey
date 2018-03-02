@@ -58,13 +58,13 @@ router.put('/all', async (req, res, next) => {
 
   try {
     const { deviceId } = state.device;
-    await query.device({ ...state.device, id: req.headers['x-forwarded-for'] });
-
+    await query.device(state.device);
     await Promise.all([
       ...state.trialAnswers.map(answer => query.trial({ ...answer, deviceId })),
       ...Object.entries(state.answers).map(([question, answer]) =>
         query.answer({ answer, question, deviceId })),
       insertExperiment(state, deviceId),
+      query.insertSession({ ip: req.headers['x-forwarded-for'], deviceId }),
     ]);
 
     if (state.codeType) {
