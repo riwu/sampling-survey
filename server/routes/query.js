@@ -81,6 +81,8 @@ const insertRound = trial => (answer) => {
 module.exports = {
   getCode: codeType =>
     conn.query('SELECT ?? FROM code', codeType).then(row => (row[0] || {})[codeType]),
+  insertSession: session =>
+    conn.query('INSERT INTO session SET ? ON DUPLICATE KEY UPDATE ?', [session, session]),
   isDisqualified: deviceId =>
     conn.query('SELECT disqualified FROM device WHERE deviceId = ?', deviceId),
   device: answer =>
