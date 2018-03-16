@@ -21,9 +21,8 @@ export const disqualify = () => (dispatch) => {
   });
 };
 
-export const checkIfDisqualified = () => (dispatch) => {
-  dispatch(postAll());
-  return api
+export const checkIfDisqualified = () => dispatch =>
+  api
     .isDisqualified()
     .then((disqualified) => {
       console.log('disqualify', disqualified);
@@ -38,7 +37,6 @@ export const checkIfDisqualified = () => (dispatch) => {
       Alert.alert('Failed to verify device', 'Make sure you have Internet connection.');
       return err;
     });
-};
 
 export const setAnswerIndex = (header, index) => ({
   type: 'SET_ANSWER_INDEX',
