@@ -8,14 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSlidingComplete: value => dispatch(addExperimentAnswer(
-    ownProps.header,
-    schedule,
-    { [-1]: value },
-  )),
+  onSlidingComplete: value =>
+    dispatch(addExperimentAnswer(ownProps.header, schedule, { [-1]: value })),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Slider);
+export default connect(mapStateToProps, mapDispatchToProps)(Slider);

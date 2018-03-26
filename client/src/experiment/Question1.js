@@ -23,7 +23,7 @@ class Question1 extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  hasStarted: !!state.notificationSchedule[schedule].startTime,
+  hasStarted: !!(state.notificationSchedule[schedule] || {}).startTime,
 });
 
 export default connect(mapStateToProps, { experimentStarted })(Question1);

@@ -1,76 +1,52 @@
 import React from 'react';
-import { View, Image, Dimensions } from 'react-native';
 import RadioOptions from '../components/RadioOptionsContainer';
 import Question from '../components/Question';
-import arousal from '../../assets/arousal.png';
-import valence from '../../assets/valence.png';
+import Slider from '../components/SliderContainer';
 
 const mapToQuestion = props => [props.header, <Question {...props} />];
-
-const getPercentageResponse = (lowest, highest) => (
-  <RadioOptions
-    radio_props={[
-      `0 - ${lowest}`,
-      '10',
-      '20',
-      '30',
-      '40',
-      '50',
-      '60',
-      '70',
-      '80',
-      '90',
-      `100 - ${highest}`,
-    ].map(option => ({
-      label: option,
-    }))}
-  />
-);
-
-const ImageResponse = props => (
-  <View>
-    <Image
-      source={props.image}
-      resizeMode="contain"
-      style={{ width: Dimensions.get('window').width }}
-    />
-    <RadioOptions
-      style={{ flexDirection: 'row' }}
-      buttonSize={15}
-      radio_props={['', '', '', '', '', '', '', '', ''].map(option => ({
-        label: option,
-      }))}
-      {...props}
-    />
-  </View>
-);
 
 const questionsAfterExperiment = [
   {
     header: 'Question 0',
     question: 'How hungry do you feel right now?',
-    responseComponent: getPercentageResponse('Not hungry at all', 'Extremely hungry'),
+    responseComponent: <Slider minText="Not hungry at all" maxText="Extremely hungry" />,
     noPrevious: true,
   },
   {
     header: 'Question 2',
-    question: 'How full do you feel right now?',
-    responseComponent: getPercentageResponse('Not full at all', 'Extremely full'),
+    question: 'Right now, I feel',
+    responseComponent: <Slider minText="Not fearful at all" maxText="Very fearful" />,
   },
   {
     header: 'Question 3',
-    question: 'How sleepy/alert do you feel right now?',
-    responseComponent: getPercentageResponse('Not sleepy at all', 'Extremely sleepy'),
+    question: 'How alert or sleepy do you feel right now?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[
+          '1: Very alert',
+          '2',
+          '3: Alert - normal level',
+          '4',
+          '5: Neither alert nor sleepy',
+          '6',
+          '7: Sleepy, but no effort to keep awake',
+          '8',
+          '9: Very sleepy, great effort to keep awake',
+        ].map(option => ({
+          label: option,
+        }))}
+      />
+    ),
   },
   {
     header: 'Question 4',
-    question: 'How positive or negative are you feeling right now?',
-    responseComponent: <ImageResponse image={valence} />,
+    question: 'Right now, I feel',
+    responseComponent: <Slider minText="Not happy at all" maxText="Very happy" />,
   },
   {
     header: 'Question 5',
-    question: 'How passive or active are you feeling right now?',
-    responseComponent: <ImageResponse image={arousal} />,
+    question: 'Right now, I feel',
+    responseComponent: <Slider minText="Very pleasant" maxText="Very pleasant" />,
   },
 ].map(props => mapToQuestion(props));
 
