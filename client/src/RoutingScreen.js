@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import NotificationSettingsAndroid from 'react-native-permission-settings';
 import OpenAppSettings from 'react-native-app-settings';
 import getMatchingSchedule from './experiment/getMatchingSchedule';
+import { postAll } from './actions';
 
 const showAlert = openSettings =>
   Alert.alert(
@@ -47,6 +48,7 @@ class RoutingScreen extends React.Component {
       console.log('new device');
       Notifications.cancelAllLocalNotifications();
       Actions.replace('InformationSheet');
+      props.postAll();
       return;
     }
 
@@ -72,4 +74,4 @@ const mapStateToProps = state => ({
   schedule: state.notificationSchedule,
 });
 
-export default connect(mapStateToProps)(RoutingScreen);
+export default connect(mapStateToProps, { postAll })(RoutingScreen);
