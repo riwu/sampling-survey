@@ -44,7 +44,7 @@ const questions = [
     'ReimbursementWarning',
     <MiddleText
       text={
-        'Please note that reimbursement will only be done within NUS.' +
+        "If you're receiving reimbursement, note that reimbursement will only be done within NUS." +
         '\n\nDetails of time and date will be provided upon completion of experiment.'
       }
     />,

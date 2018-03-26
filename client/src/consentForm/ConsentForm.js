@@ -40,41 +40,35 @@ const styles = StyleSheet.create({
   },
 });
 
-const statements = ['I confirm that I have read and understand the Participant Information Sheet for the above study.',
-  'I understand that all personal information will remain confidential and that all efforts will be made to ensure I cannot be identified (except as might be required by law).',
-  'I agree that data gathered in this study may be stored anonymously and securely, and may be used for future related research studies that will be subject to an Institutional Review Board’s approval.',
-  'I understand that my participation is voluntary and that I am free to withdraw at any time without giving a reason by closing the browser.',
-  'I agree that I am at least 21 years of age.',
-  'I agree to take part in this study.',
+const statements = [
+  'I confirm that I have read and understand the Participant Information Sheet for the above study.',
+  'I understand that all personal information will remain confidential and that all efforts will ' +
+    'be made to ensure I cannot be identified (except as might be required by law).',
+  'I agree that data gathered in this study may be stored anonymously and securely, and may be ' +
+    'used for future related research studies that will be subject to an Institutional Review Board’s approval.',
+  'I understand that my participation is voluntary and that I am free to withdraw at any time without giving a reason.',
 ];
 
 const HEADER = 'ConsentForm';
 
 const ConsentForm = props => (
   <ScrollView style={styles.container}>
-    <Text style={styles.header}>
-      {'ONLINE PARTICIPANT\nCONSENT FORM'}
-    </Text>
-    <Text style={styles.title}>
-          Please check to select all boxes
-    </Text>
+    <Text style={styles.header}>{'ONLINE PARTICIPANT\nCONSENT FORM'}</Text>
+    <Text style={styles.title}>Please check to select all boxes</Text>
     {statements.map((text, index) => (
       <View style={styles.checkboxContainer} key={text}>
         <Text style={styles.text}>
           {index + 1}. {text}
         </Text>
-        <Checkbox
-          index={index}
-          header={HEADER}
-        />
+        <Checkbox index={index} header={HEADER} />
       </View>
     ))}
     <ButtonToNextScene
       header={HEADER}
       nextScene={props.nextScene}
       previousScene={props.previousScene}
-      disabled={Object.values(props.answer)
-        .filter(checked => checked === true).length < statements.length
+      disabled={
+        Object.values(props.answer).filter(checked => checked === true).length < statements.length
       }
     />
   </ScrollView>
@@ -88,6 +82,4 @@ const mapStateToProps = state => ({
   answer: state.answers[HEADER],
 });
 
-export default connect(
-  mapStateToProps,
-)(ConsentForm);
+export default connect(mapStateToProps)(ConsentForm);
