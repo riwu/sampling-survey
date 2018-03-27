@@ -8,7 +8,7 @@ import MiddleText from '../components/MiddleText';
 import getResponseRate from './getResponseRate';
 import getMatchingSchedule from '../experiment/getMatchingSchedule';
 import { scheduleNotification } from '../actions/getNotificationSchedule';
-import { FIRST_EXPERIMENT_ROUTE } from './constants';
+import { FIRST_EXPERIMENT_ROUTE } from '../constants';
 
 const goToRoutingScreen = (state) => {
   console.log('state changed', state);

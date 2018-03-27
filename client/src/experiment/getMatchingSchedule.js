@@ -1,4 +1,4 @@
-import { FIRST_EXPERIMENT_ROUTE } from './constants';
+import { FIRST_EXPERIMENT_ROUTE } from '../constants';
 
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
