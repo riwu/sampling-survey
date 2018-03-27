@@ -22,7 +22,6 @@ import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
-import Question1 from './experiment/Question1';
 
 import TimeOutQns from './misc/TimeOutQns';
 import AppStateListener from './misc/AppStateListener';
@@ -101,8 +100,7 @@ const questions = [
 ];
 
 const experiment = [
-  [FIRST_EXPERIMENT_ROUTE, <Question1 />],
-  ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
+  [FIRST_EXPERIMENT_ROUTE, <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5]
     .map((roundNum, i, arr) => [
       [

@@ -7,7 +7,7 @@ const mapToQuestion = props => [props.header, <Question {...props} />];
 
 const questionsAfterExperiment = [
   {
-    header: 'Question 0',
+    header: 'Question 1',
     question: 'How hungry do you feel right now?',
     responseComponent: <Slider minText="Not hungry at all" maxText="Extremely hungry" />,
     noPrevious: true,
