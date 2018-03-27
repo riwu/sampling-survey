@@ -33,6 +33,8 @@ import RewardScreen from './misc/RewardScreen';
 import Disqualified from './questionnaire/DisqualifiedContainer';
 import RoutingScreen from './RoutingScreen';
 
+import { FIRST_EXPERIMENT_ROUTE } from './constants';
+
 const sceneStyle = {
   backgroundColor: 'black',
 };
@@ -99,8 +101,8 @@ const questions = [
   ],
 ];
 
-export const experiment = [
-  ['Question 1', <Question1 />],
+const experiment = [
+  [FIRST_EXPERIMENT_ROUTE, <Question1 />],
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5]
     .map((roundNum, i, arr) => [
