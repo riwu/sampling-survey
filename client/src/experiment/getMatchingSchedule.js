@@ -1,6 +1,4 @@
-import { experiment } from '../Routes';
-
-const firstExperimentRoute = experiment[0][0];
+import { FIRST_EXPERIMENT_ROUTE } from './constants';
 
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
@@ -18,7 +16,7 @@ export const getNextScene = (nextScene, startTime, now = Date.now(), previousSce
   ) {
     return 'SESSION TIMED OUT';
   }
-  return (nextScene !== 'RoutingScreen' && nextScene) || firstExperimentRoute;
+  return (nextScene !== 'RoutingScreen' && nextScene) || FIRST_EXPERIMENT_ROUTE;
 };
 
 const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
