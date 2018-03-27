@@ -34,7 +34,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     if (schedule && isLast(ownProps.header)) {
       dispatch(experimentEnded(schedule));
     }
-    if (['SubjectId', 'Question 5', 'SESSION TIMED OUT QUESTION'].includes(ownProps.header)) {
+    if (
+      ownProps.header.startsWith('QUESTION') ||
+      ['Question 5', 'SESSION TIMED OUT QUESTION'].includes(ownProps.header)
+    ) {
       dispatch(postAll());
     }
   },

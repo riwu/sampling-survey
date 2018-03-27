@@ -10,14 +10,21 @@ const styles = StyleSheet.create({
     width: 100,
     alignSelf: 'center',
   },
+  textInput: {
+    width: 130,
+    fontSize: 20,
+    marginTop: 10,
+  },
 });
 
 const TextInputComponent = (props) => {
-  const { nextScene, header, previousScene, ...inputProps } = props;
+  const {
+    nextScene, header, previousScene, ...inputProps
+  } = props;
   return (
     <View>
       <View style={[styles.container, props.width && { width: props.width }]}>
-        <TextInput header={header} {...inputProps} autoFocus />
+        <TextInput header={header} {...inputProps} autoFocus style={styles.textInput} />
       </View>
       <ButtonToNextScene
         nextScene={nextScene}
@@ -33,9 +40,9 @@ const mapStateToProps = (state, ownProps) => {
   const answer = schedule
     ? (state.experimentAnswers[schedule] || {})[ownProps.header]
     : state.answers[ownProps.header];
-  return ({
+  return {
     disabled: answer === undefined || answer[-1].trim() === '',
-  });
+  };
 };
 
 export default connect(mapStateToProps)(TextInputComponent);
