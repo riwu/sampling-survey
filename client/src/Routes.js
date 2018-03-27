@@ -99,7 +99,7 @@ const questions = [
   ],
 ];
 
-const experiment = [
+export const experiment = [
   ['Question 1', <Question1 />],
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5]
