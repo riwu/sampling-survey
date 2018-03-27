@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
 import ButtonToNextScene from '../components/ButtonToNextScene';
 
 const styles = StyleSheet.create({

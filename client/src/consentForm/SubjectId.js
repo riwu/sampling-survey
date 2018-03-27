@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import TextInput from '../components/TextInputContainer';
-import ButtonToNextScene from '../components/ButtonToNextScene';
+import TextInput from '../components/TextInputResponse';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,8 +25,13 @@ const styles = StyleSheet.create({
 const SubjectId = props => (
   <View style={styles.container}>
     <Text style={styles.text}>Please enter your Subject ID:</Text>
-    <TextInput autoCapitalize="none" autoFocus style={styles.textInput} header="SubjectId" />
-    <ButtonToNextScene nextScene={props.nextScene} previousScene={props.previousScene} />
+    <TextInput
+      autoCapitalize="none"
+      autoFocus
+      style={styles.textInput}
+      header="SubjectId"
+      {...props}
+    />
   </View>
 );
 
