@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 const InstructionWithCross = ({ nextScene, text, isRed }) => (
   <View style={[styles.container, isRed && styles.isRed]}>
-    <Text style={styles.plus} >+</Text>
+    <Text style={styles.plus}>+</Text>
     <View style={styles.instructionContainer}>
       <View style={{ flex: 0.1 }} />
       <View style={styles.instructions}>

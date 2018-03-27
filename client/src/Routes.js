@@ -6,7 +6,7 @@ import MiddleText from './components/MiddleText';
 
 import InformationSheet from './consentForm/InformationSheetContainer';
 import ConsentForm from './consentForm/ConsentForm';
-import surveyQuestions from './questionnaire/questions';
+import SubjectId from './consentForm/SubjectId';
 
 import InstructionTest from './instructions/InstructionTestContainer';
 import InstructionWithCross from './instructions/InstructionWithCross';
@@ -49,8 +49,7 @@ const questions = [
       }
     />,
   ],
-  ['BeginQuestions', <MiddleText text="To begin, let's answer some questions" />],
-  ...surveyQuestions.slice(0, 19),
+  ['SubjectId', <SubjectId />],
   ['InstructionTest', <InstructionTest />],
   [
     'Instruction1',
