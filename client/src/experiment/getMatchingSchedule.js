@@ -1,17 +1,26 @@
+import { experiment } from '../Routes';
+
+const firstExperimentRoute = experiment[0][0];
+
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
-const hasTimeOut = (now, startTime) => (now - (startTime || schedule)) > 30 * 60000;
+const hasTimeOut = (now, startTime) => now - (startTime || schedule) > 30 * 60000;
 
 export const getNextScene = (nextScene, startTime, now = Date.now(), previousScene) => {
-  if (previousScene === 'SESSION TIMED OUT') { // if currently at SESSION TIMED OUT QUESTION
+  if (previousScene === 'SESSION TIMED OUT') {
+    // if currently at SESSION TIMED OUT QUESTION
     return 'RoutingScreen';
   }
-  if (schedule && (!['SESSION TIMED OUT QUESTION', 'RewardScreen', 'GetData'].includes(nextScene)) && hasTimeOut(now, startTime)) {
+  if (
+    schedule &&
+    !['SESSION TIMED OUT QUESTION', 'RewardScreen', 'GetData'].includes(nextScene) &&
+    hasTimeOut(now, startTime)
+  ) {
     return 'SESSION TIMED OUT';
   }
-  return (nextScene !== 'RoutingScreen' && nextScene) || 'Question 1';
+  return (nextScene !== 'RoutingScreen' && nextScene) || firstExperimentRoute;
 };
-// '', 'RoutingScreen'].includes(prevRoute) ? 'Question 1'
+
 const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
   const matchingSchedule = Object.entries(schedules)
     // eslint-disable-next-line no-unused-vars
