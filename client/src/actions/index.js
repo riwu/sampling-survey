@@ -2,11 +2,10 @@ import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 import * as api from './api';
 import getNotificationSchedule from './getNotificationSchedule';
-import { isSingle } from '../questionnaire/isEligible';
 
 export const postAll = getCode => (dispatch, getState) => {
   const state = getState();
-  return api.postAll(state, getCode && (isSingle(state) ? 'single' : 'relationship'));
+  return api.postAll(state, getCode && 'single');
 };
 
 export const setCode = code => ({
