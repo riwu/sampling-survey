@@ -29,7 +29,7 @@
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
-        android:label="Synergy Lab: Time Estimation Task"
+        android:label="Time Estimation Task Lavonna"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
         <intent-filter>
