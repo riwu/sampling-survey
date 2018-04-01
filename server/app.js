@@ -1,6 +1,5 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
@@ -22,6 +21,8 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204).send();
 });
 
+app.use(bodyParser.json({ limit: '5mb' }));
+
 app.use(morgan((tokens, req, res) =>
   [
     tokens.method(req, res),
@@ -30,10 +31,6 @@ app.use(morgan((tokens, req, res) =>
     'ms',
     JSON.stringify(req.body),
   ].join(' ')));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use('/', index);
 
