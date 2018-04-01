@@ -2,23 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { experimentStarted } from '../actions';
 import { schedule } from './getMatchingSchedule';
-import WithWho from './WithWho';
+import MiddleText from '../components/MiddleText';
 
-class Question1 extends React.Component {
+class WarnMultiTask extends React.Component {
   componentDidMount() {
-    console.log('started experiment question 1', this.props.hasStarted);
+    console.log('started experiment', this.props.hasStarted);
     if (!this.props.hasStarted) {
       this.props.experimentStarted(schedule);
     }
   }
   render() {
-    return (
-      <WithWho
-        header="Question 1"
-        question="Right now, I am with (select all that apply):"
-        {...this.props}
-      />
-    );
+    return <MiddleText text="DO NOT MULTITASK" />;
   }
 }
 
@@ -26,4 +20,4 @@ const mapStateToProps = state => ({
   hasStarted: !!(state.notificationSchedule[schedule] || {}).startTime,
 });
 
-export default connect(mapStateToProps, { experimentStarted })(Question1);
+export default connect(mapStateToProps, { experimentStarted })(WarnMultiTask);
