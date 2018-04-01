@@ -3,8 +3,9 @@ import ButtonToNextScene from './ButtonToNextScene';
 import isEligible, { isSingle } from '../questionnaire/isEligible';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
 import { experimentEnded, postAll } from '../actions';
+import questions from '../experiment/questions';
 
-const isLast = header => ['SESSION TIMED OUT QUESTION', 'Question 5'].includes(header);
+const [lastQuestion] = questions[questions.length - 1];
 
 const getNextScene = (state, ownProps) => {
   switch (ownProps.header) {
@@ -22,7 +23,7 @@ const getNextScene = (state, ownProps) => {
       break;
     case 'SESSION TIMED OUT QUESTION':
       return 'RoutingScreen';
-    case 'Question 5': {
+    case lastQuestion: {
       const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
       const newRoute = getMatchingSchedule(newSchedule, undefined, true);
       if (newRoute === 'GetData') {
@@ -44,13 +45,13 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onPress: () => {
     if (ownProps.onPress) ownProps.onPress();
-    if (schedule && isLast(ownProps.header)) {
-      dispatch(experimentEnded(schedule));
-    }
     if (
-      ownProps.header.startsWith('QUESTION') ||
-      ['Question 5', 'SESSION TIMED OUT QUESTION'].includes(ownProps.header)
+      ['SESSION TIMED OUT QUESTION', lastQuestion].includes(ownProps.header) ||
+      ownProps.header.startsWith('QUESTION')
     ) {
+      if (schedule) {
+        dispatch(experimentEnded(schedule));
+      }
       dispatch(postAll());
     }
   },
