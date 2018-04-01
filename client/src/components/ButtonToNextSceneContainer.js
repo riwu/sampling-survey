@@ -3,12 +3,13 @@ import ButtonToNextScene from './ButtonToNextScene';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
 import { experimentEnded, postAll } from '../actions';
 import questions from '../experiment/questions';
+import { LAST_TIME_OUT_QUESITON } from '../constants';
 
 const [lastQuestion] = questions[questions.length - 1];
 
 const getNextScene = (state, ownProps) => {
   switch (ownProps.header) {
-    case 'SESSION TIMED OUT QUESTION':
+    case LAST_TIME_OUT_QUESITON:
       return 'RoutingScreen';
     case lastQuestion: {
       const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
@@ -33,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onPress: () => {
     if (ownProps.onPress) ownProps.onPress();
     if (
-      ['SESSION TIMED OUT QUESTION', lastQuestion].includes(ownProps.header) ||
+      [LAST_TIME_OUT_QUESITON, lastQuestion].includes(ownProps.header) ||
       ownProps.header.startsWith('QUESTION')
     ) {
       if (schedule) {
