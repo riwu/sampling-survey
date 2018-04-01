@@ -23,7 +23,6 @@ import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
 
-import TimeOutQns from './misc/TimeOutQns';
 import AppStateListener from './misc/AppStateListener';
 import SessionTimeOut from './misc/SessionTimeOut';
 import GetData from './misc/GetData';
@@ -121,10 +120,7 @@ const experiment = [
   ],
 ];
 
-const timeOut = [
-  ['SESSION TIMED OUT', <SessionTimeOut />],
-  [LAST_TIME_OUT_QUESTION, <TimeOutQns />],
-];
+const timeOut = [[LAST_TIME_OUT_QUESTION, <SessionTimeOut />]];
 
 const completed = [['GetData', <GetData />], ['RewardScreen', <RewardScreen />]];
 
