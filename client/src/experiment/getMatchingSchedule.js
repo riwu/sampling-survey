@@ -2,7 +2,7 @@ import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESTION } from '../constants';
 
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
-const hasTimeOut = (now, startTime) => now - (startTime || schedule) > 0 * 60000;
+const hasTimeOut = (now, startTime) => now - (startTime || schedule) > 30 * 60000;
 
 export const getNextScene = (nextScene, startTime, now = Date.now(), currentScene) => {
   if (currentScene === LAST_TIME_OUT_QUESTION) {
