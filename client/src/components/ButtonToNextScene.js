@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
 // Hardcoded 'Finish'. Better design: pass as props
 const ButtonToNextScene = ({
-  nextScene, disabled, previousScene, onPress, startTime,
+  nextScene, disabled, previousScene, onPress, startTime, header,
 }) => (
   <View style={styles.buttons}>
     {previousScene && <Button onPress={() => Actions.replace(previousScene)} text="Back" />}
@@ -23,9 +23,15 @@ const ButtonToNextScene = ({
       <Button
         onPress={() =>
           Promise.resolve(onPress && onPress()).then((result) => {
-            console.log('press result', result, nextScene);
+            console.log(
+              'press result',
+              result,
+              nextScene,
+              previousScene,
+              getNextScene(nextScene, startTime, undefined, header),
+            );
             if (!result) {
-              Actions.replace(getNextScene(nextScene, startTime, undefined, previousScene));
+              Actions.replace(getNextScene(nextScene, startTime, undefined, header));
             }
           })
         }

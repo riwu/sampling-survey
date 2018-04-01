@@ -1,21 +1,24 @@
-import { FIRST_EXPERIMENT_ROUTE } from '../constants';
+import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESTION } from '../constants';
 
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
-const hasTimeOut = (now, startTime) => now - (startTime || schedule) > 30 * 60000;
+const hasTimeOut = (now, startTime) => now - (startTime || schedule) > 0 * 60000;
 
-export const getNextScene = (nextScene, startTime, now = Date.now()) => {
+export const getNextScene = (nextScene, startTime, now = Date.now(), currentScene) => {
+  if (currentScene === LAST_TIME_OUT_QUESTION) {
+    return 'RoutingScreen';
+  }
   if (schedule && !['RewardScreen', 'GetData'].includes(nextScene) && hasTimeOut(now, startTime)) {
+    console.log('timed out');
     return 'SESSION TIMED OUT';
   }
-  return (nextScene !== 'RoutingScreen' && nextScene) || FIRST_EXPERIMENT_ROUTE;
+  return nextScene || FIRST_EXPERIMENT_ROUTE;
 };
 
 const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
   const matchingSchedule = Object.entries(schedules)
-    // eslint-disable-next-line no-unused-vars
-    .sort(([time1, value1], [time2, value2]) => time1 - time2)
-    .find(([time, value]) => !value.hasEnded); // eslint-disable-line no-unused-vars
+    .sort(([time1], [time2]) => time1 - time2)
+    .find(([, value]) => !value.hasEnded);
 
   if (!matchingSchedule) {
     return 'GetData';
@@ -30,7 +33,7 @@ const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
   if (matchedSchedule > now) {
     route = 'NotReady';
   } else {
-    route = getNextScene(prevRoute, scheduleInfo.startTime, now);
+    route = getNextScene(prevRoute !== 'RoutingScreen' && prevRoute, scheduleInfo.startTime, now);
   }
   console.log('route', route);
   return route;
