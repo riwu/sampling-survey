@@ -1,4 +1,4 @@
-import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESITON } from '../constants';
+import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESTION } from '../constants';
 
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
@@ -10,7 +10,7 @@ export const getNextScene = (nextScene, startTime, now = Date.now(), previousSce
   }
   if (
     schedule &&
-    ![LAST_TIME_OUT_QUESITON, 'RewardScreen', 'GetData'].includes(nextScene) &&
+    ![LAST_TIME_OUT_QUESTION, 'RewardScreen', 'GetData'].includes(nextScene) &&
     hasTimeOut(now, startTime)
   ) {
     return 'SESSION TIMED OUT';
