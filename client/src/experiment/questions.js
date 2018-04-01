@@ -48,6 +48,15 @@ const questionsAfterExperiment = [
     question: 'Right now, I feel',
     responseComponent: <Slider minText="Very pleasant" maxText="Very pleasant" />,
   },
+  {
+    header: 'Question 6',
+    question: 'Did you eat anything in the last 30 mins?',
+    responseComponent: (
+      <RadioOptions
+        radio_props={[{ label: 'Yes (please specify):', hasTextInput: true }, { label: 'No' }]}
+      />
+    ),
+  },
 ].map(props => mapToQuestion(props));
 
 export default questionsAfterExperiment;
