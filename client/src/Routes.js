@@ -32,7 +32,7 @@ import RewardScreen from './misc/RewardScreen';
 import Disqualified from './questionnaire/DisqualifiedContainer';
 import RoutingScreen from './RoutingScreen';
 
-import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESITON } from './constants';
+import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESTION } from './constants';
 
 const sceneStyle = {
   backgroundColor: 'black',
@@ -123,7 +123,7 @@ const experiment = [
 
 const timeOut = [
   ['SESSION TIMED OUT', <SessionTimeOut />],
-  [LAST_TIME_OUT_QUESITON, <TimeOutQns />],
+  [LAST_TIME_OUT_QUESTION, <TimeOutQns />],
 ];
 
 const completed = [['GetData', <GetData />], ['RewardScreen', <RewardScreen />]];
