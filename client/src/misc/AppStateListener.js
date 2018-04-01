@@ -8,6 +8,7 @@ import MiddleText from '../components/MiddleText';
 import getResponseRate from './getResponseRate';
 import getMatchingSchedule from '../experiment/getMatchingSchedule';
 import { scheduleNotification } from '../actions/getNotificationSchedule';
+import { FIRST_EXPERIMENT_ROUTE } from '../constants';
 
 const goToRoutingScreen = (state) => {
   console.log('state changed', state);
@@ -35,7 +36,7 @@ class AppStateListener extends React.Component {
     AppState.addEventListener('change', goToRoutingScreen);
     this.timeout = this.setInterval(() => {
       const route = getMatchingSchedule(this.props.notificationSchedule, null, true);
-      if (route === 'Question 1') {
+      if (route === FIRST_EXPERIMENT_ROUTE) {
         clearInterval(this.timeout);
         Actions.replace('RoutingScreen');
       }

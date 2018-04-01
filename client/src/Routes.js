@@ -34,6 +34,8 @@ import RewardScreen from './misc/RewardScreen';
 import Disqualified from './questionnaire/DisqualifiedContainer';
 import RoutingScreen from './RoutingScreen';
 
+import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESTION } from './constants';
+
 const sceneStyle = {
   backgroundColor: 'black',
 };
@@ -102,7 +104,7 @@ const questions = [
 ];
 
 const experiment = [
-  ['Question 1', <Question1 />],
+  [FIRST_EXPERIMENT_ROUTE, <Question1 />],
   ['MultiTask', <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5]
     .map((roundNum, i, arr) => [
@@ -125,7 +127,7 @@ const experiment = [
 
 const timeOut = [
   ['SESSION TIMED OUT', <SessionTimeOut />],
-  ['SESSION TIMED OUT QUESTION', <TimeOutQns />],
+  [LAST_TIME_OUT_QUESTION, <TimeOutQns />],
 ];
 
 const completed = [['GetData', <GetData />], ['RewardScreen', <RewardScreen />]];

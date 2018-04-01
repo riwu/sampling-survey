@@ -5,10 +5,12 @@ import Question from '../components/Question';
 
 const mapToQuestion = props => [props.header, <Question {...props} />];
 
-const OTHERS = [{
-  label: 'Others (please specify):',
-  hasTextInput: true,
-}];
+const OTHERS = [
+  {
+    label: 'Others (please specify):',
+    hasTextInput: true,
+  },
+];
 
 const questionsAfterExperiment = [
   {
@@ -16,10 +18,7 @@ const questionsAfterExperiment = [
     question: 'Did you multitask while doing our task?',
     responseComponent: (
       <RadioOptions
-        radio_props={[
-          { label: 'Yes (please elaborate):', hasTextInput: true },
-          { label: 'No' },
-        ]}
+        radio_props={[{ label: 'Yes (please elaborate):', hasTextInput: true }, { label: 'No' }]}
       />
     ),
     noPrevious: true,
@@ -33,9 +32,11 @@ const questionsAfterExperiment = [
           'Work- or study-related activities',
           'Leisure activities',
           'Essential activities (eg. house chores, bath)',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        ]
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
@@ -63,9 +64,7 @@ const questionsAfterExperiment = [
   {
     header: 'Question 5',
     question: 'How happy or sad do you feel right now?',
-    responseComponent: (
-      <Slider />
-    ),
+    responseComponent: <Slider />,
   },
 ].map(props => mapToQuestion(props));
 
