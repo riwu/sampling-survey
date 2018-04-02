@@ -19,7 +19,6 @@ import Acknowledgement from './instructions/AcknowledgementContainer';
 import ReadyTransitionTrial from './experiment/ReadyTransitionTrialContainer';
 import ReproduceDurationTrial from './experiment/ReproduceDurationTrialContainer';
 
-import WarnMultiTask from './experiment/WarnMultiTask';
 import ReadyTransition from './experiment/ReadyTransitionContainer';
 import ReproduceDuration from './experiment/ReproduceDurationContainer';
 import questionsAfterExperiment from './experiment/questions';
@@ -101,7 +100,7 @@ const questions = [
 ];
 
 const experiment = [
-  [FIRST_EXPERIMENT_ROUTE, <WarnMultiTask />],
+  [FIRST_EXPERIMENT_ROUTE, <MiddleText text="DO NOT MULTITASK" />],
   ...[1, 2, 3, 4, 5]
     .map((roundNum, i, arr) => [
       [
