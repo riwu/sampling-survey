@@ -1,0 +1,5 @@
+#!/bin/bash
+yarn run build:ios &&
+yarn run build:android &&
+code-push release-react synergy_hungeri ios -m -t "<=$1" &&
+code-push release-react synergy_hungera android -m -t "<=$1"

@@ -5,11 +5,11 @@ import moment from 'moment';
 import timeOptions from '../questionnaire/timeOptions';
 
 function getRandom(min, max) {
-  return (Math.random() * (max - min)) + min;
+  return Math.random() * (max - min) + min;
 }
 
 function getHourDiff(h1, h2) {
-  return Math.min(Math.abs(h1 - h2), Math.abs((h1 + 24) - h2), Math.abs(h1 - (h2 + 24)));
+  return Math.min(Math.abs(h1 - h2), Math.abs(h1 + 24 - h2), Math.abs(h1 - (h2 + 24)));
 }
 
 const TIME_OUT = 0.5;
@@ -21,7 +21,7 @@ const getSchedule = (partner, wakeup, sleep) => {
   }
   const awakeHours = [];
   const notNearSchedule = hr => partnerSchedule.every(time => getHourDiff(time, hr) > 1.6);
-  for (let i = wakeup; i < (wakeup + 24); i += 1) {
+  for (let i = wakeup; i < wakeup + 24; i += 1) {
     const hr = i % 24;
     if (hr === sleep) break;
     if (notNearSchedule(hr)) {
@@ -44,7 +44,7 @@ const getSchedule = (partner, wakeup, sleep) => {
   let nonPartnerSchedule = [];
   while (freq > 0) {
     const currentSchedule = [];
-    for (let i = wakeup; i < (wakeup + 24); i += freq) {
+    for (let i = wakeup; i < wakeup + 24; i += freq) {
       const maxHr = (i + freq) % 24;
       let upperLimit = i + freq;
       const exceeded = exceededSleep(i, i + freq, sleep);
@@ -52,9 +52,10 @@ const getSchedule = (partner, wakeup, sleep) => {
         upperLimit = sleep + (i > sleep ? 24 : 0);
       }
       if (notNearSchedule(i) && notNearSchedule(maxHr)) {
-        const minNext = (currentSchedule.length === 0)
-          ? i
-          : Math.max(currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT, i);
+        const minNext =
+          currentSchedule.length === 0
+            ? i
+            : Math.max(currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT, i);
         if (upperLimit <= minNext) {
           break;
         }
@@ -113,14 +114,22 @@ const getNotificationSchedule = (answers) => {
   const weekendWakeup = hoursMap[(answers['QUESTION 18'] || {}).index];
   const weekendSleep = hoursMap[(answers['QUESTION 19'] || {}).index];
 
-  const getHours = question => Object.entries(answers[question] || {})
-    .filter(([index, value]) => value === true) // eslint-disable-line
-    .map(([index, value]) => hoursMap[index]); // eslint-disable-line
+  const getHours = question =>
+    Object.entries(answers[question] || {})
+      .filter(([index, value]) => value === true) // eslint-disable-line
+      .map(([index, value]) => hoursMap[index]); // eslint-disable-line
   const weekdayPartner = getHours('QUESTION 21');
   const weekendPartner = getHours('QUESTION 22');
 
-  console.log('hours chosen', weekdayWakeUp, weekdaySleep, weekendWakeup, weekendSleep,
-    weekdayPartner, weekendPartner);
+  console.log(
+    'hours chosen',
+    weekdayWakeUp,
+    weekdaySleep,
+    weekendWakeup,
+    weekendSleep,
+    weekdayPartner,
+    weekendPartner,
+  );
 
   const finalSchedule = [];
   for (let i = 1; i < 8; i += 1) {
@@ -130,12 +139,26 @@ const getNotificationSchedule = (answers) => {
       : getSchedule(weekdayPartner, weekdayWakeUp, weekdaySleep);
     daySchedule.forEach((time) => {
       const hr = Math.floor(time);
-      const newHour = moment().add(i, 'd').hour(hr).minute(Math.round((time - hr) * 60));
+      const newHour = moment()
+        .add(i, 'd')
+        .hour(hr)
+        .minute(Math.round((time - hr) * 60));
       finalSchedule.push(+newHour);
     });
   }
 
-  console.log('final schedule', finalSchedule.slice().sort().map(t => [t, moment(t).toDate().toString()]));
+  console.log(
+    'final schedule',
+    finalSchedule
+      .slice()
+      .sort()
+      .map(t => [
+        t,
+        moment(t)
+          .toDate()
+          .toString(),
+      ]),
+  );
   scheduleNotification(finalSchedule);
   return finalSchedule;
 };
