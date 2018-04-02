@@ -46,7 +46,7 @@ const questionsAfterExperiment = [
   {
     header: 'Question 5',
     question: 'Right now, I feel',
-    responseComponent: <Slider minText="Very pleasant" maxText="Very pleasant" />,
+    responseComponent: <Slider minText="Very unpleasant" maxText="Very pleasant" />,
   },
   {
     header: 'Question 6',
