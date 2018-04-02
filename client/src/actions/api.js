@@ -19,7 +19,7 @@ const deviceInfo = {
 
 const get = path => axios.get(path).then(response => response.data);
 
-const [patch, put] = ['patch', 'put'].map(method => (path, data) =>
+const [post, patch, put] = ['post', 'patch', 'put'].map(method => (path, data) =>
   axios({
     method,
     url: path,

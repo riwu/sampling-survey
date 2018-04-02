@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Notifications from 'react-native-push-notification';
 import MiddleText from '../components/MiddleText';
 import { setCode, postAll } from '../actions';
-import { isSingle } from '../questionnaire/isEligible';
 
 class GetData extends React.Component {
   componentDidMount() {
