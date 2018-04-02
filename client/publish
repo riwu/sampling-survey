@@ -1,4 +1,5 @@
 #!/bin/bash
+rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json 
 yarn run build:ios &&
 yarn run build:android &&
 code-push release-react synergy_hungeri ios -m -t "<=$1" &&
