@@ -112,7 +112,7 @@ class ReproduceDuration extends React.Component {
                 const seq = getRemainingSequence(props.answers);
                 if (seq.length === 0) {
                   console.log('All random sequence generated');
-                  Actions.replace(getNextScene('Question 2', props.startTime));
+                  Actions.replace(getNextScene('Question 1', props.startTime));
                   return;
                 }
               }
