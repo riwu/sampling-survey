@@ -8,18 +8,13 @@ const toDate = (time) => {
   return date;
 };
 
-let conn;
-mysql
-  .createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    database: 'synergy_hunger',
-    port: process.env.MYSQL_PORT,
-    password: process.env.MYSQL_PASSWORD,
-  })
-  .then((connection) => {
-    conn = connection;
-  });
+const conn = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  database: 'synergy_hunger',
+  port: process.env.MYSQL_PORT,
+  password: process.env.MYSQL_PASSWORD,
+});
 
 const insertAnswer = (answer, isExperiment) =>
   Promise.all(Object.entries(answer.answer)
