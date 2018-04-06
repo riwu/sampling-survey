@@ -100,9 +100,6 @@ const timeOptions = [
   '11 pm',
 ];
 
-const satisfactionResponse = ['Not at all 1', '2', '3', '4', '5', '6', 'Extremely 7'];
-const scaleResponse = ['Not at all true 1', '2', '3', '4', '5', '6', '7', '8', 'Definitely true 9'];
-
 const answerMap = {
   2: timeOptions,
   3: timeOptions,
@@ -111,19 +108,7 @@ const answerMap = {
 };
 
 const experimentAnswerMap = {
-  'Question 1': [
-    'My boyfriend / girlfriend / partner / spouse',
-    'My friends / colleagues / schoolmates',
-    'My family',
-    'Alone',
-  ],
-  'Question 2': ['Yes', 'No'],
   'Question 3': [
-    'Work- or study-related activities',
-    'Leisure activities',
-    'Essential activities (eg. house chores, bath)',
-  ],
-  'Question 4': [
     '1: Very alert',
     '2',
     '3: Alert - normal level',
@@ -134,17 +119,12 @@ const experimentAnswerMap = {
     '8',
     '9: Very sleepy, great effort to keep awake',
   ],
+  'Question 6': ['Yes', 'No'],
   'SESSION TIMED OUT': [
     'I did not check my phone',
     "I didn't have my phone with me.",
     'I was sleeping.',
     "I was doing something that couldn't be disrupted.",
-  ],
-  'SESSION TIMED OUT QUESTION': [
-    'My boyfriend / girlfriend / partner / spouse',
-    'My friends / colleagues / schoolmates',
-    'My family',
-    'Alone',
   ],
 };
 
@@ -160,13 +140,11 @@ router.post('/answers', async (req, res) => {
   const answers = query.getAnswer().each((row) => {
     // for questions that can select multiple options; concatenate with previous answer
     const previousAnswer = (data[row.deviceId] || {})[row.question];
-    // checkbox options, ignore text and use index
-    const text = [21, 22].includes(row.question) ? null : row.text;
     data[row.deviceId] = {
       ...data[row.deviceId],
       [row.question]:
         (previousAnswer === undefined ? '' : `${previousAnswer},`) +
-        (text || answerMap[row.question][row.index]), // ignore index if text present
+        (row.text || answerMap[row.question][row.index]), // ignore index if text present
     };
   });
 
@@ -175,9 +153,6 @@ router.post('/answers', async (req, res) => {
     const experiments = deviceAnswers.experiments || {};
     const scheduleAnswers = experiments[row.schedule] || {};
     const previousAnswer = scheduleAnswers[row.question];
-    const text = ['Question 1', 'SESSION TIMED OUT QUESTION'].includes(row.question)
-      ? null
-      : row.text;
     data[row.deviceId] = {
       ...deviceAnswers,
       experiments: {
@@ -186,7 +161,7 @@ router.post('/answers', async (req, res) => {
           ...scheduleAnswers,
           [row.question]:
             (previousAnswer === undefined ? '' : `${previousAnswer},`) +
-            (text || experimentAnswerMap[row.question][row.index]),
+            (row.text || experimentAnswerMap[row.question][row.index]),
         },
       },
     };
