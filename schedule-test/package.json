@@ -4,9 +4,15 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
+    "flat": "^4.0.0",
+    "json2csv": "^4.0.2",
     "moment": "^2.21.0",
     "react": "^16.0.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.0.0",
+    "react-json-pretty": "^1.7.6",
+    "react-router-bootstrap": "^0.24.4",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14"
   },
   "scripts": {
@@ -14,5 +20,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
   }
 }
