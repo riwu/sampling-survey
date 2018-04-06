@@ -103,5 +103,13 @@ module.exports = {
       toDate(answer.schedule),
     ]),
   getAnswer: () =>
-    conn.query('SELECT deviceId, CONVERT(SUBSTRING(question, 10), UNSIGNED INTEGER) AS question, `index`, text FROM answer WHERE final = 1 AND question NOT IN ("Acknowledgement", "ConsentForm") AND createdAt > "2018-01-01 00:00:00"'),
+    conn.query('SELECT deviceId, CONVERT(SUBSTRING(question, 10), UNSIGNED INTEGER) AS question, ' +
+        '`index`, text FROM answer WHERE final = 1 AND question NOT IN ("Acknowledgement", ' +
+        '"ConsentForm") AND createdAt > "2018-01-01 00:00:00"'),
+  getExperimentAnswer: () =>
+    conn.query('SELECT deviceId, schedule, question, `index`, text FROM experiment_answer' +
+        ' WHERE final = 1 AND createdAt > "2018-01-01 00:00:00"'),
+  getRounds: () =>
+    conn.query('SELECT deviceId, round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, schedule' +
+        ' FROM round WHERE createdAt > "2018-01-01 00:00:00"'),
 };
