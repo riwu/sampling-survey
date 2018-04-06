@@ -1,28 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment';
-import axios from 'axios';
-import './App.css';
-import timeOptions from './timeOptions';
-
-axios.defaults.baseURL = `${process.env.REACT_APP_SAMPLING_URL}/`;
-const [post] = ['post'].map(method => (path, payload) =>
-  axios({
-    method,
-    url: path,
-    data: payload,
-  }).then(response => response.data)
-);
+import timeOptions from '../util/timeOptions';
+import './Schedule.css';
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
 }
 
 function getHourDiff(h1, h2) {
-  return Math.min(
-    Math.abs(h1 - h2),
-    Math.abs(h1 + 24 - h2),
-    Math.abs(h1 - (h2 + 24))
-  );
+  return Math.min(Math.abs(h1 - h2), Math.abs(h1 + 24 - h2), Math.abs(h1 - (h2 + 24)));
 }
 
 const TIME_OUT = 0.5;
@@ -33,8 +19,7 @@ const getSchedule = (partner, wakeup, sleep) => {
     partner.forEach(time => partnerSchedule.push(time + 0.5));
   }
   const awakeHours = [];
-  const notNearSchedule = hr =>
-    partnerSchedule.every(time => getHourDiff(time, hr) > 1.6);
+  const notNearSchedule = hr => partnerSchedule.every(time => getHourDiff(time, hr) > 1.6);
   for (let i = wakeup; i < wakeup + 24; i += 1) {
     const hr = i % 24;
     if (hr === sleep) break;
@@ -69,10 +54,7 @@ const getSchedule = (partner, wakeup, sleep) => {
         const minNext =
           currentSchedule.length === 0
             ? i
-            : Math.max(
-                currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT,
-                i
-              );
+            : Math.max(currentSchedule[currentSchedule.length - 1] + 0.5 + TIME_OUT, i);
         if (upperLimit <= minNext) {
           break;
         }
@@ -100,21 +82,17 @@ const getSchedule = (partner, wakeup, sleep) => {
   };
 };
 
-class App extends Component {
+class Schedule extends React.Component {
   state = {
     sleep: '23',
     wakeup: '6',
     partner: '9, 12',
     timeIndex: '12',
-    data: null,
   };
   render() {
-    if (this.state.data) {
-      return JSON.stringify(this.state.data);
-    }
     const partnerHours = this.state.partner
       .split(',')
-      .filter(v => v.trim() !== '' && !isNaN(v))
+      .filter(v => v.trim() !== '' && !Number.isNaN(v))
       .map(v => Number(v));
     const {
       partnerSchedule,
@@ -123,21 +101,16 @@ class App extends Component {
       awakeHours,
       notiLeft,
       schedule,
-    } = getSchedule(
-      partnerHours,
-      Number(this.state.wakeup),
-      Number(this.state.sleep)
-    );
+    } = getSchedule(partnerHours, Number(this.state.wakeup), Number(this.state.sleep));
 
     const finalSchedule = [];
     for (let i = 1; i < 8; i += 1) {
-      const day = moment().add(i, 'd');
       const daySchedule = getSchedule(
         partnerHours,
         Number(this.state.wakeup),
-        Number(this.state.sleep)
+        Number(this.state.sleep),
       ).schedule;
-      daySchedule.forEach(time => {
+      daySchedule.forEach((time) => {
         const hr = Math.floor(time);
         const newHour = moment()
           .add(i, 'd')
@@ -149,17 +122,6 @@ class App extends Component {
 
     return (
       <div>
-        <span>Password: </span>
-        <input autoFocus onChange={e => (this.password = e.target.value)} />
-        <button
-          onClick={() =>
-            post('answers', { password: (this.password || '').trim() })
-              .then(data => this.setState({ data }))
-              .catch(() => alert('No Internet connection or invalid password'))
-          }
-        >
-          Submit
-        </button>
         <div className="paragraph">
           Time option converter:{' '}
           <input
@@ -169,8 +131,7 @@ class App extends Component {
             value={this.state.timeIndex}
             onChange={e => this.setState({ timeIndex: e.target.value })}
           />
-          {' option ' + this.state.timeIndex} is equivalent to{' '}
-          {timeOptions[this.state.timeIndex]}
+          {` option ${this.state.timeIndex}`} is equivalent to {timeOptions[this.state.timeIndex]}
         </div>
         <div>
           Sleep time Between 0 (12 am) to 23 (11 pm) )
@@ -201,9 +162,7 @@ class App extends Component {
         </div>
         <div style={{ marginTop: '20px' }}>
           <div>Partner hours selected: {partnerHours.join(', ')}</div>
-          <div>
-            Awake hours excluding partner hours: {awakeHours.join(', ')}
-          </div>
+          <div>Awake hours excluding partner hours: {awakeHours.join(', ')}</div>
           <div>Notification frequency for non-partner hrs (in hrs): {freq}</div>
           <div>No. of notifications for non-partner hrs: {notiLeft}</div>
           <div>Partner schedule: </div>
@@ -217,9 +176,7 @@ class App extends Component {
             <div>{schedule.map(t => <div key={t}>{t}</div>)}</div>
           </div>
           <p>Total notifications: {schedule.length}</p>
-          {schedule.length !== 7 && (
-            <p style={{ color: 'red' }}>WARNING: NOT 7!</p>
-          )}
+          {schedule.length !== 7 && <p style={{ color: 'red' }}>WARNING: NOT 7!</p>}
           <div>Overall schedule:</div>
           {finalSchedule.map(time => <div key={+time}>{time.format()}</div>)}
         </div>
@@ -228,4 +185,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Schedule;

@@ -8,18 +8,13 @@ const toDate = (time) => {
   return date;
 };
 
-let conn;
-mysql
-  .createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    database: 'sampling_survey',
-    port: process.env.MYSQL_PORT,
-    password: process.env.MYSQL_PASSWORD,
-  })
-  .then((connection) => {
-    conn = connection;
-  });
+const conn = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  database: 'sampling_survey',
+  port: process.env.MYSQL_PORT,
+  password: process.env.MYSQL_PASSWORD,
+});
 
 const insertAnswer = (answer, isExperiment) =>
   Promise.all(Object.entries(answer.answer)
@@ -108,5 +103,13 @@ module.exports = {
       toDate(answer.schedule),
     ]),
   getAnswer: () =>
-    conn.query('SELECT deviceId, CONVERT(SUBSTRING(question, 10), UNSIGNED INTEGER) AS question, `index`, text FROM answer WHERE final = 1 AND question NOT IN ("Acknowledgement", "ConsentForm") AND createdAt > "2018-01-01 00:00:00"'),
+    conn.query('SELECT deviceId, CONVERT(SUBSTRING(question, 10), UNSIGNED INTEGER) AS question, ' +
+        '`index`, text FROM answer WHERE final = 1 AND question NOT IN ("Acknowledgement", ' +
+        '"ConsentForm") AND createdAt > "2018-01-01 00:00:00"'),
+  getExperimentAnswer: () =>
+    conn.query('SELECT deviceId, schedule, question, `index`, text FROM experiment_answer' +
+        ' WHERE final = 1 AND createdAt > "2018-01-01 00:00:00" ORDER BY schedule'),
+  getRounds: () =>
+    conn.query('SELECT deviceId, round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, schedule' +
+        ' FROM round WHERE createdAt > "2018-01-01 00:00:00" ORDER BY schedule'),
 };

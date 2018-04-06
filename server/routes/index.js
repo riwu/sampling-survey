@@ -186,31 +186,129 @@ const answerMap = {
   23: satisfactionResponse,
   24: satisfactionResponse,
   25: satisfactionResponse,
-  ...[...Array(44).keys()].reduce((obj, i) => {
-    obj[`${i + 26}`] = scaleResponse;
-    return obj;
+  ...[...Array(44).keys()].reduce((acc, i) => {
+    acc[`${i + 26}`] = scaleResponse;
+    return acc;
   }, {}),
+};
+
+const experimentAnswerMap = {
+  'Question 1': [
+    'My boyfriend / girlfriend / partner / spouse',
+    'My friends / colleagues / schoolmates',
+    'My family',
+    'Alone',
+  ],
+  'Question 2': ['Yes', 'No'],
+  'Question 3': [
+    'Work- or study-related activities',
+    'Leisure activities',
+    'Essential activities (eg. house chores, bath)',
+  ],
+  'Question 4': [
+    '1: Very alert',
+    '2',
+    '3: Alert - normal level',
+    '4',
+    '5: Neither alert nor sleepy',
+    '6',
+    '7: Sleepy, but no effort to keep awake',
+    '8',
+    '9: Very sleepy, great effort to keep awake',
+  ],
+  'SESSION TIMED OUT': [
+    'I did not check my phone',
+    "I didn't have my phone with me.",
+    'I was sleeping.',
+    "I was doing something that couldn't be disrupted.",
+  ],
+  'SESSION TIMED OUT QUESTION': [
+    'My boyfriend / girlfriend / partner / spouse',
+    'My friends / colleagues / schoolmates',
+    'My family',
+    'Alone',
+  ],
 };
 
 router.post('/answers', async (req, res) => {
   const code = await query.getCode('webAccess');
-  if ((req.body.password || '').toLowerCase() !== (code || '').toLowerCase()) {
+  if ((code || '').toLowerCase() !== (req.body.password || '').toLowerCase()) {
     res.sendStatus(401);
     return;
   }
-  const rows = query.getAnswer();
-  const data = await rows.reduce((obj, row) => {
-    const previousAnswer = (obj[row.deviceId] || {})[row.question];
+
+  const data = {};
+
+  const answers = query.getAnswer().each((row) => {
+    // for questions that can select multiple options; concatenate with previous answer
+    const previousAnswer = (data[row.deviceId] || {})[row.question];
+    // checkbox options, ignore text and use index
     const text = [21, 22].includes(row.question) ? null : row.text;
-    obj[row.deviceId] = {
-      ...obj[row.deviceId],
+    data[row.deviceId] = {
+      ...data[row.deviceId],
       [row.question]:
         (previousAnswer === undefined ? '' : `${previousAnswer},`) +
-        (text || answerMap[row.question][row.index]),
+        (text || answerMap[row.question][row.index]), // ignore index if text present
     };
-    return obj;
-  }, {});
-  const arr = Object.entries(data).map(([deviceId, values]) => ({ 0: deviceId, ...values }));
+  });
+
+  const experimentAnswers = query.getExperimentAnswer().each((row) => {
+    const deviceAnswers = data[row.deviceId] || {};
+    const experiments = deviceAnswers.experiments || {};
+    const scheduleAnswers = experiments[row.schedule] || {};
+    const previousAnswer = scheduleAnswers[row.question];
+    const text = ['Question 1', 'SESSION TIMED OUT QUESTION'].includes(row.question)
+      ? null
+      : row.text;
+    data[row.deviceId] = {
+      ...deviceAnswers,
+      experiments: {
+        ...experiments,
+        [row.schedule]: {
+          ...scheduleAnswers,
+          [row.question]:
+            (previousAnswer === undefined ? '' : `${previousAnswer},`) +
+            (text || experimentAnswerMap[row.question][row.index]),
+        },
+      },
+    };
+  });
+
+  const rounds = query.getRounds().each((row) => {
+    const {
+      deviceId, round, schedule, ...durations
+    } = row;
+    const deviceAnswers = data[deviceId] || {};
+    const experiments = deviceAnswers.experiments || {};
+    data[deviceId] = {
+      ...deviceAnswers,
+      experiments: {
+        ...experiments,
+        [schedule]: {
+          ...experiments[schedule],
+          [`r${round}`]: durations,
+        },
+      },
+    };
+  });
+
+  await answers;
+  await experimentAnswers;
+  await rounds;
+
+  const arr = Object.entries(data).map(([deviceId, values]) => {
+    const { experiments, ...deviceAnswers } = values;
+    return {
+      0: deviceId,
+      ...deviceAnswers,
+      // make csv same column headers across devices regardless of schedule timing
+      ...Object.entries(experiments || {}).reduce((acc, [time, results], index) => {
+        // TODO: convert `time` to device timezone to support multi-timezone
+        acc[`e - ${index + 1}`] = { time, ...results };
+        return acc;
+      }, {}),
+    };
+  });
   res.send(arr);
 });
 
