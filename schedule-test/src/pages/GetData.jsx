@@ -7,7 +7,7 @@ import JSONPretty from 'react-json-pretty';
 import './GetData.css';
 
 const fields = [
-  ...[...Array(68).keys()].map(i => String(i + 1)),
+  ...[...Array(69).keys()].map(String),
   ...[...Array(49).keys()].reduce((acc, scheduleIndex) => {
     const header = `e - ${scheduleIndex + 1} - `;
     acc.push(`${header}time`);
