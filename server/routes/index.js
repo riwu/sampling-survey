@@ -294,7 +294,7 @@ router.post('/answers', async (req, res) => {
       // make csv same column headers across devices regardless of schedule timing
       ...Object.entries(experiments || {}).reduce((acc, [time, results], index) => {
         // TODO: convert `time` to device timezone to support multi-timezone
-        acc[`e - ${index}`] = { time, ...results };
+        acc[`e - ${index + 1}`] = { time, ...results };
         return acc;
       }, {}),
     };

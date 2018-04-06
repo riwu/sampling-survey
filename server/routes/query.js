@@ -108,8 +108,8 @@ module.exports = {
         '"ConsentForm") AND createdAt > "2018-01-01 00:00:00"'),
   getExperimentAnswer: () =>
     conn.query('SELECT deviceId, schedule, question, `index`, text FROM experiment_answer' +
-        ' WHERE final = 1 AND createdAt > "2018-01-01 00:00:00"'),
+        ' WHERE final = 1 AND createdAt > "2018-01-01 00:00:00" ORDER BY schedule'),
   getRounds: () =>
     conn.query('SELECT deviceId, round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, schedule' +
-        ' FROM round WHERE createdAt > "2018-01-01 00:00:00"'),
+        ' FROM round WHERE createdAt > "2018-01-01 00:00:00" ORDER BY schedule'),
 };
