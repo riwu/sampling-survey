@@ -113,8 +113,8 @@ android {
         applicationId "riwu.sampling.survey"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1520243941
-        versionName "3.0.2"
+        versionCode 1523112626
+        versionName "3.1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
