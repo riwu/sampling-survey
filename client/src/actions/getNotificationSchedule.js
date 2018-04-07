@@ -131,7 +131,7 @@ const getNotificationSchedule = (answers) => {
     weekendPartner,
   );
 
-  const finalSchedule = [];
+  const finalSchedule = process.env.NODE_ENV === 'development' ? [+moment()] : [];
   for (let i = 1; i < 8; i += 1) {
     const day = moment().add(i, 'd');
     const daySchedule = [0, 6].includes(day.day())
