@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView, View } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   header: {
@@ -23,9 +23,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const Question = ({ header, question, responseComponent, nextScene, previousScene,
-  noPrevious, onPress }) =>
-  (
+const Question = ({
+  header,
+  question,
+  responseComponent,
+  nextScene,
+  previousScene,
+  noPrevious,
+  onPress,
+}) => (
+  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : null}>
     <ScrollView>
       <Text style={styles.header}>{header}</Text>
       <View style={styles.textContainer}>
@@ -38,6 +45,7 @@ const Question = ({ header, question, responseComponent, nextScene, previousScen
         onPress,
       })}
     </ScrollView>
-  );
+  </KeyboardAvoidingView>
+);
 
 export default Question;

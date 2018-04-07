@@ -62,7 +62,10 @@ class RoutingScreen extends React.Component {
     ) {
       route = getMatchingSchedule(props.notificationSchedule, props.route);
       checkPermissions();
-      if (route === FIRST_EXPERIMENT_ROUTE && !props.hasStarted) {
+      if (
+        route === FIRST_EXPERIMENT_ROUTE &&
+        !(props.notificationSchedule[schedule] || {}).startTime
+      ) {
         props.experimentStarted(schedule);
       }
     }
@@ -79,7 +82,6 @@ const mapStateToProps = state => ({
   route: state.route,
   disqualified: state.disqualified,
   notificationSchedule: state.notificationSchedule,
-  hasStarted: !!(state.notificationSchedule[schedule] || {}).startTime,
 });
 
 export default connect(mapStateToProps, { postAll, experimentStarted }, null, {
