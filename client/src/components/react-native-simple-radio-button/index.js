@@ -21,7 +21,15 @@ export default class RadioForm extends React.Component {
     this.textRefs = {};
   }
 
-  renderButton(obj, i, objs) {
+  componentDidUpdate(prevProps) {
+    const { index } = this.props.answer;
+    if (prevProps.answer.index !== index && this.props.radio_props[index].hasTextInput) {
+      // must do it here instead of onPress as .focus() fails if TextInput editable is false
+      this.textRefs[index].focus();
+    }
+  }
+
+  renderButton(obj, i) {
     return (
       <RadioButton
         accessible={this.props.accessible}
@@ -46,18 +54,11 @@ export default class RadioForm extends React.Component {
         disabled={this.props.disabled}
         formHorizontal={this.props.formHorizontal}
         onPress={() => {
+          // onPress get called twice when radio button pressed as it focuses TextInput,
+          //  which calls `onFocus`. `onFocus` must call onPress to activate radio button
+          // if user directly focuses TextInput`
+          if (i === this.props.answer.index) return;
           this.props.setAnswerIndex(i);
-          Object.entries(this.textRefs).forEach(([index, textRef]) => {
-            if (!objs[index].hasTextInput) {
-              return;
-            }
-            if (String(i) === index) {
-              // index is a string as it's used as a key
-              textRef.focus();
-            } else {
-              textRef.blur();
-            }
-          });
         }}
         setAnswerText={text => this.props.setAnswerText(i, text)}
         setTextRef={(ref) => {
@@ -71,8 +72,7 @@ export default class RadioForm extends React.Component {
   render() {
     let renderContent = false;
     if (this.props.radio_props.length) {
-      renderContent = this.props.radio_props.map((obj, index) =>
-        this.renderButton(obj, index, this.props.radio_props));
+      renderContent = this.props.radio_props.map((obj, index) => this.renderButton(obj, index));
     } else {
       renderContent = this.props.children;
     }
