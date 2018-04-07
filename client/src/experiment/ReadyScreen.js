@@ -72,7 +72,6 @@ class ReadyScreen extends React.Component {
   startTransition() {
     const blackDuration = getRandomInt(1, 4) * 1000;
     let rand;
-    console.log('ready', this.props.trialRoundNum, this.props.answers);
     if (this.props.trialRoundNum === undefined) {
       rand = getRemainingSequence(this.props.answers);
     } else {
@@ -87,16 +86,17 @@ class ReadyScreen extends React.Component {
     }
     const redDuration = rand[getRandomInt(0, rand.length)];
     console.log('red', redDuration, rand);
-    this.props.updateDuration({
-      blackDuration,
-      redDuration,
-      round: this.props.roundNum,
-    });
     this.setState({ startedTransition: true });
     setTimeout(() => {
       this.setState({ turned: true });
       setTimeout(() => {
         Actions.replace(this.props.nextScene);
+        // update here to avoid updating if user close app completely before transition happens
+        this.props.updateDuration({
+          blackDuration,
+          redDuration,
+          round: this.props.roundNum,
+        });
       }, redDuration);
     }, blackDuration);
   }
