@@ -270,13 +270,14 @@ router.post('/answers', async (req, res) => {
     } = row;
     const deviceAnswers = data[deviceId] || {};
     const experiments = deviceAnswers.experiments || {};
+    const experiment = experiments[schedule] || {};
     data[deviceId] = {
       ...deviceAnswers,
       experiments: {
         ...experiments,
         [schedule]: {
-          ...experiments[schedule],
-          [`r${round}`]: durations,
+          ...experiment,
+          [experiment[round] ? `${round}repeat` : round]: durations,
         },
       },
     };
