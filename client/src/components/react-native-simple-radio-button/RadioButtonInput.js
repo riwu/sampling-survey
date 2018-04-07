@@ -2,84 +2,76 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Style from './Style';
 
-export default class RadioButtonInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSelected: false,
-      buttonColor: props.buttonColor || '#2196f3',
-    };
+const RadioButtonInput = (props) => {
+  const innerSize = { width: 20, height: 20, borderRadius: 20 / 2 };
+  const outerSize = { width: 20 + 10, height: 20 + 10, borderRadius: (20 + 10) / 2 };
+  if (props.buttonSize) {
+    innerSize.width = props.buttonSize;
+    innerSize.height = props.buttonSize;
+    innerSize.borderRadius = props.buttonSize / 2;
+    outerSize.width = props.buttonSize + 10;
+    outerSize.height = props.buttonSize + 10;
+    outerSize.borderRadius = (props.buttonSize + 10) / 2;
   }
-  render() {
-    const innerSize = { width: 20, height: 20, borderRadius: 20 / 2 };
-    const outerSize = { width: 20 + 10, height: 20 + 10, borderRadius: (20 + 10) / 2 };
-    if (this.props.buttonSize) {
-      innerSize.width = this.props.buttonSize;
-      innerSize.height = this.props.buttonSize;
-      innerSize.borderRadius = this.props.buttonSize / 2;
-      outerSize.width = this.props.buttonSize + 10;
-      outerSize.height = this.props.buttonSize + 10;
-      outerSize.borderRadius = (this.props.buttonSize + 10) / 2;
-    }
-    if (this.props.buttonOuterSize) {
-      outerSize.width = this.props.buttonOuterSize;
-      outerSize.height = this.props.buttonOuterSize;
-      outerSize.borderRadius = this.props.buttonOuterSize / 2;
-    }
-    let outerColor = this.props.buttonOuterColor;
-    const borderWidth = this.props.borderWidth || 3;
-    let innerColor = this.props.buttonInnerColor;
-    if (this.props.buttonColor) {
-      outerColor = this.props.buttonColor;
-      innerColor = this.props.buttonColor;
-    }
-    const c = (
-      <View style={[
+  if (props.buttonOuterSize) {
+    outerSize.width = props.buttonOuterSize;
+    outerSize.height = props.buttonOuterSize;
+    outerSize.borderRadius = props.buttonOuterSize / 2;
+  }
+  let outerColor = props.buttonOuterColor;
+  const borderWidth = props.borderWidth || 3;
+  let innerColor = props.buttonInnerColor;
+  if (props.buttonColor) {
+    outerColor = props.buttonColor;
+    innerColor = props.buttonColor;
+  }
+  const c = (
+    <View
+      style={[
         Style.radioNormal,
-        this.props.isSelected && Style.radioActive,
-        this.props.isSelected && innerSize,
-        this.props.isSelected && { backgroundColor: innerColor },
+        props.isSelected && Style.radioActive,
+        props.isSelected && innerSize,
+        props.isSelected && { backgroundColor: innerColor },
       ]}
-      />
-    );
-    const radioStyle = [
-      Style.radio,
-      {
-        borderColor: outerColor,
-        borderWidth,
-      },
-      this.props.buttonStyle,
-      outerSize,
-    ];
+    />
+  );
+  const radioStyle = [
+    Style.radio,
+    {
+      borderColor: outerColor,
+      borderWidth,
+    },
+    props.buttonStyle,
+    outerSize,
+  ];
 
-    if (this.props.disabled) {
-      return (
-        <View style={this.props.buttonWrapStyle} >
-          <View style={radioStyle}>
-            {c}
-          </View>
-        </View>
-      );
-    }
-
+  if (props.disabled) {
     return (
-      <View style={this.props.buttonWrapStyle} >
-        <TouchableOpacity
-          accessible={this.props.accessible}
-          accessibilityLabel={this.props.accessibilityLabel}
-          testID={this.props.testID}
-          style={radioStyle}
-          onPress={this.props.onPress}
-        >
-          {c}
-        </TouchableOpacity>
+      <View style={props.buttonWrapStyle}>
+        <View style={radioStyle}>{c}</View>
       </View>
     );
   }
-}
+
+  return (
+    <View style={props.buttonWrapStyle}>
+      <TouchableOpacity
+        accessible={props.accessible}
+        accessibilityLabel={props.accessibilityLabel}
+        testID={props.testID}
+        style={radioStyle}
+        onPress={props.onPress}
+      >
+        {c}
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 RadioButtonInput.defaultProps = {
   buttonInnerColor: '#2196f3',
   buttonOuterColor: '#2196f3',
   disabled: false,
 };
+
+export default RadioButtonInput;
