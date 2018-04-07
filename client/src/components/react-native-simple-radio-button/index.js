@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Platform, UIManager } from 'react-native';
+import { View } from 'react-native';
 import RadioButton from './RadioButton';
 import Style from './Style';
 
@@ -14,7 +14,7 @@ export default class RadioForm extends React.Component {
     labelColor: '#000',
     disabled: false,
     activeIndex: undefined,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -25,10 +25,12 @@ export default class RadioForm extends React.Component {
     return (
       <RadioButton
         accessible={this.props.accessible}
-        accessibilityLabel={(this.props.accessibilityLabel)
-          ? (`${this.props.accessibilityLabel}|${i}`) : (`radioButton|${i}`)}
-        testID={(this.props.testID)
-          ? (`${this.props.testID}|${i}`) : (`radioButton|${i}`)}
+        accessibilityLabel={
+          this.props.accessibilityLabel
+            ? `${this.props.accessibilityLabel}|${i}`
+            : `radioButton|${i}`
+        }
+        testID={this.props.testID ? `${this.props.testID}|${i}` : `radioButton|${i}`}
         isSelected={this.props.answer.index === i}
         obj={obj}
         key={i}
@@ -49,7 +51,8 @@ export default class RadioForm extends React.Component {
             if (!objs[index].hasTextInput) {
               return;
             }
-            if (String(i) === index) { // index is a string as it's used as a key
+            if (String(i) === index) {
+              // index is a string as it's used as a key
               textRef.focus();
             } else {
               textRef.blur();
@@ -57,7 +60,9 @@ export default class RadioForm extends React.Component {
           });
         }}
         setAnswerText={text => this.props.setAnswerText(i, text)}
-        setTextRef={(ref) => { this.textRefs[i] = ref; }}
+        setTextRef={(ref) => {
+          this.textRefs[i] = ref;
+        }}
         answerText={this.props.answer[i]}
       />
     );
@@ -72,11 +77,12 @@ export default class RadioForm extends React.Component {
       renderContent = this.props.children;
     }
     return (
-      <View style={[
-        Style.radioFrom,
-        this.props.style,
-        this.props.formHorizontal && Style.formHorizontal,
-      ]}
+      <View
+        style={[
+          Style.radioFrom,
+          this.props.style,
+          this.props.formHorizontal && Style.formHorizontal,
+        ]}
       >
         {renderContent}
       </View>

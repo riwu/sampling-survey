@@ -17,10 +17,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!--push notification-->
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="25" />
-
     <application
       android:name=".MainApplication"
       android:allowBackup="true"
