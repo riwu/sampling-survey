@@ -12,21 +12,16 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setAnswerIndex: (index) => {
     if (schedule) {
-      dispatch(addExperimentAnswer(ownProps.header, schedule, { index }));
-    } else {
-      dispatch(setAnswerIndex(ownProps.header, index));
+      return dispatch(addExperimentAnswer(ownProps.header, schedule, { index }));
     }
+    return dispatch(setAnswerIndex(ownProps.header, index));
   },
   setAnswerText: (index, text) => {
     if (schedule) {
-      dispatch(addExperimentAnswer(ownProps.header, schedule, { [index]: text }));
-    } else {
-      dispatch(setAnswerText({ header: ownProps.header, index, text }));
+      return dispatch(addExperimentAnswer(ownProps.header, schedule, { [index]: text }));
     }
+    return dispatch(setAnswerText({ header: ownProps.header, index, text }));
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RadioOptions);
+export default connect(mapStateToProps, mapDispatchToProps)(RadioOptions);

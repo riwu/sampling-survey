@@ -39,7 +39,7 @@ const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
   } else {
     route = getNextScene(prevRoute, scheduleInfo.startTime, now);
   }
-  console.log('route', route);
+  console.log('route', route, prevRoute);
   return route;
 };
 
