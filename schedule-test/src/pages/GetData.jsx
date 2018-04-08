@@ -14,13 +14,13 @@ const fields = [
     acc.push(...[...Array(5).keys()].map(i => `${header}Question ${i + 1}`));
     acc.push(`${header}SESSION TIMED OUT`, `${header}SESSION TIMED OUT QUESTION`);
     acc.push(...[...Array(5).keys()].reduce((rounds, i) => {
-      rounds.push(...[
-        'blackDuration',
-        'redDuration',
-        'recordedDuration',
-        'timeBetweenMountAndStart',
-      ].reduce((arr, key) => {
-        arr.push(...['', 'repeat'].map(pad => `${header + (i + 1) + pad} - ${key}`));
+      rounds.push(...['', 'repeat'].reduce((arr, pad) => {
+        arr.push(...[
+          'blackDuration',
+          'redDuration',
+          'recordedDuration',
+          'timeBetweenMountAndStart',
+        ].map(key => `${header + (i + 1) + pad} - ${key}`));
         return arr;
       }, []));
       return rounds;
