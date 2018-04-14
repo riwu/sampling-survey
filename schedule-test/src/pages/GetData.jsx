@@ -20,6 +20,7 @@ const fields = [
           'redDuration',
           'recordedDuration',
           'timeBetweenMountAndStart',
+          '(recordedDuration-redDuration)/redDuration',
         ].map(key => `${header + (i + 1) + pad} - ${key}`));
         return arr;
       }, []));

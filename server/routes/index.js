@@ -277,7 +277,11 @@ router.post('/answers', async (req, res) => {
         ...experiments,
         [schedule]: {
           ...experiment,
-          [experiment[round] ? `${round}repeat` : round]: durations,
+          [experiment[round] ? `${round}repeat` : round]: {
+            ...durations,
+            '(recordedDuration-redDuration)/redDuration':
+              (durations.recordedDuration - durations.redDuration) / durations.redDuration,
+          },
         },
       },
     };
