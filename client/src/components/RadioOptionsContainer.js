@@ -12,9 +12,11 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setAnswerIndex: (index) => {
     if (schedule) {
-      return dispatch(addExperimentAnswer(ownProps.header, schedule, { index }));
+      dispatch(addExperimentAnswer(ownProps.header, schedule, { index }));
+    } else {
+      dispatch(setAnswerIndex(ownProps.header, index));
     }
-    return dispatch(setAnswerIndex(ownProps.header, index));
+    return Promise.resolve();
   },
   setAnswerText: (index, text) => {
     if (schedule) {
