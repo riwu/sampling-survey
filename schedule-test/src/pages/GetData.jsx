@@ -93,7 +93,9 @@ const experimentQuestionsMap = {
   'SESSION TIMED OUT QUESTION': 'On {time}, I was with (select all that apply):',
 };
 
-const fields = [
+const dataFields = [
+  'Response rate -- non-timed out sessions / completed sessions',
+  'Progress -- completed sessions (including timed out sessions) / 49',
   ...questions,
   ...[...Array(49).keys()].reduce((acc, scheduleIndex) => {
     const header = `e - ${scheduleIndex + 1} - `;
@@ -115,7 +117,6 @@ const fields = [
     return acc;
   }, []),
 ];
-const parser = new json2csv.Parser({ fields });
 
 axios.defaults.baseURL = `${process.env.REACT_APP_SAMPLING_URL}/`;
 
@@ -126,11 +127,47 @@ const [post] = ['post'].map(method => (path, payload) =>
     data: payload,
   }).then(response => response.data));
 
+const getResponseRate = (experimentsArr) => {
+  if (experimentsArr.length === 0) return 0;
+  // 'SESSION TIMED OUT' answer only exists for timed out sessions
+  return Math.round(experimentsArr.filter(([, answer]) => !answer['SESSION TIMED OUT']).length /
+      experimentsArr.length *
+      100);
+};
+
 class GetData extends React.Component {
   state = {
     data: null,
     waiting: false,
   };
+
+  getResult(route, fields, transform = data => data) {
+    const promise = post(route, { password: this.password });
+    this.setState({ waiting: true });
+    const parser = new json2csv.Parser({ fields });
+
+    promise
+      .then((data) => {
+        const csv = parser.parse(transform(data));
+
+        const link = document.createElement('a');
+        const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const csvUrl = URL.createObjectURL(csvData);
+        link.download = `${new Date()}.csv`;
+        link.href = csvUrl;
+        document.body.appendChild(link); // Required for Firefox
+        link.click();
+        document.body.removeChild(link);
+
+        this.setState({ data, waiting: false });
+      })
+      .catch((e) => {
+        this.setState({ waiting: false });
+        console.log('e', e); // eslint-disable-line no-console
+        alert(`No Internet connection or invalid password: ${e.message}`); // eslint-disable-line no-alert
+      });
+  }
+
   render() {
     return (
       <div>
@@ -144,74 +181,53 @@ class GetData extends React.Component {
           />
         </FormGroup>
         <Button
-          onClick={() => {
-            this.setState({ waiting: true });
-            post('answers', { password: this.password })
-              .then((data) => {
-                const flatData = Object.entries(data).map(([deviceId, values]) => {
-                  const { experiments, ...deviceAnswers } = values;
-                  const row = {
-                    deviceId,
-                    ...Object.entries(deviceAnswers).reduce((acc, [questionNumber, answer]) => {
-                      acc[questions[questionNumber]] = answer;
-                      return acc;
-                    }, {}),
-                    ...Object.entries(experiments || {}).reduce(
-                      (acc, [time, experiment], index) => {
-                        const { rounds, ...experimentQuestions } = experiment;
-                        // make csv same column headers across devices regardless of schedule timing
-                        acc[`e - ${index + 1}`] = {
-                          // TODO: convert `time` to device timezone to support multi-timezone
-                          time,
-                          ...Object.entries(experimentQuestions || {}).reduce(
-                            (accumulator, [question, answer]) => {
-                              accumulator[experimentQuestionsMap[question]] = answer;
-                              return accumulator;
-                            },
-                            {},
-                          ),
-                          ...Object.entries(rounds || {}).reduce(
-                            (accumulator, [roundNum, round]) => {
-                              accumulator[roundNum] = {
-                                ...round,
-                                '(recordedDuration-redDuration)/redDuration': Number((
-                                    (round.recordedDuration - round.redDuration) /
-                                    round.redDuration
-                                  ).toFixed(4)),
-                              };
-                              return accumulator;
-                            },
-                            {},
-                          ),
+          onClick={() =>
+            this.getResult('answers', dataFields, data =>
+              Object.entries(data).map(([deviceId, values]) => {
+                const { experiments, ...deviceAnswers } = values;
+                const experimentsArr = Object.entries(experiments || {});
+                const row = {
+                  'Response rate -- non-timed out sessions / completed sessions': getResponseRate(experimentsArr),
+                  'Progress -- completed sessions (including timed out sessions) / 49':
+                    experimentsArr.length / 49 * 100,
+                  deviceId,
+                  ...Object.entries(deviceAnswers).reduce((acc, [questionNumber, answer]) => {
+                    acc[questions[questionNumber]] = answer;
+                    return acc;
+                  }, {}),
+                  ...experimentsArr.reduce((acc, [time, experiment], index) => {
+                    const { rounds, ...experimentQuestions } = experiment;
+                    // make csv same column headers across devices regardless of schedule timing
+                    acc[`e - ${index + 1}`] = {
+                      // TODO: convert `time` to device timezone to support multi-timezone
+                      time,
+                      ...Object.entries(experimentQuestions || {}).reduce(
+                        (accumulator, [question, answer]) => {
+                          accumulator[experimentQuestionsMap[question]] = answer;
+                          return accumulator;
+                        },
+                        {},
+                      ),
+                      ...Object.entries(rounds || {}).reduce((accumulator, [roundNum, round]) => {
+                        accumulator[roundNum] = {
+                          ...round,
+                          '(recordedDuration-redDuration)/redDuration':
+                            (round.recordedDuration - round.redDuration) / round.redDuration,
                         };
-                        return acc;
-                      },
-                      {},
-                    ),
-                  };
-                  return flatten(row, { delimiter: ' - ' });
-                });
-                const csv = parser.parse(flatData);
-
-                const link = document.createElement('a');
-                const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-                const csvUrl = URL.createObjectURL(csvData);
-                link.download = `${new Date()}.csv`;
-                link.href = csvUrl;
-                document.body.appendChild(link); // Required for Firefox
-                link.click();
-                document.body.removeChild(link);
-
-                this.setState({ data, waiting: false });
-              })
-              .catch((e) => {
-                this.setState({ waiting: false });
-                console.log('e', e); // eslint-disable-line no-console
-                alert(`No Internet connection or invalid password: ${e.message}`); // eslint-disable-line no-alert
-              });
-          }}
+                        return accumulator;
+                      }, {}),
+                    };
+                    return acc;
+                  }, {}),
+                };
+                return flatten(row, { delimiter: ' - ' });
+              }))
+          }
         >
-          Download CSV
+          Download all data
+        </Button>
+        <Button className="rounds-button" onClick={() => this.getResult('rounds')}>
+          Download rounds only
         </Button>
         {this.state.waiting && <span> Please wait...</span>}
         {this.state.data && (

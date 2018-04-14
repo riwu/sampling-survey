@@ -230,13 +230,16 @@ const experimentAnswerMap = {
   ],
 };
 
-router.post('/answers', async (req, res) => {
+const authenticate = async (req, res, next) => {
   const code = await query.getCode('webAccess');
   if ((code || '').toLowerCase() !== (req.body.password || '').toLowerCase()) {
     res.sendStatus(401);
     return;
   }
+  next();
+};
 
+router.post('/answers', authenticate, async (req, res) => {
   const data = {};
 
   const answersPromise = query.getAnswer().each((row) => {
@@ -301,6 +304,11 @@ router.post('/answers', async (req, res) => {
   await experimentAnswersPromise;
   await roundsPromise;
   res.send(data);
+});
+
+router.post('/rounds', authenticate, async (req, res) => {
+  const rounds = await query.getRoundsForAllColumns();
+  res.send(rounds);
 });
 
 module.exports = router;
