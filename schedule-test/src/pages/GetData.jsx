@@ -117,7 +117,7 @@ class GetData extends React.Component {
             this.getResult('answers', dataFields, data =>
               Object.entries(data).map(([deviceId, values]) => {
                 const { experiments, ...deviceAnswers } = values;
-                const experimentsArr = Object.entries(experiments || {});
+                const experimentsArr = Object.entries(experiments || {}).slice(-49);
                 const row = {
                   'Response rate -- non-timed out sessions / completed sessions': getResponseRate(experimentsArr),
                   'Progress -- completed sessions (including timed out sessions) / 49':
