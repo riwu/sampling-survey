@@ -113,4 +113,6 @@ module.exports = {
   getRounds: () =>
     conn.query('SELECT deviceId, round, blackDuration, redDuration, recordedDuration, timeBetweenMountAndStart, schedule' +
         ' FROM round WHERE createdAt > "2018-04-01 00:00:00" ORDER BY createdAt'),
+  getRoundsForAllColumns: () =>
+    conn.query('SELECT * FROM round WHERE createdAt > "2018-04-01 00:00:00" ORDER BY deviceId, createdAt'),
 };
