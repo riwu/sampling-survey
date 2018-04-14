@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import RadioForm from './react-native-simple-radio-button/index';
+import RadioForm from './react-native-simple-radio-button';
 import ButtonToNextScene from './ButtonToNextSceneContainer';
 
 const styles = StyleSheet.create({

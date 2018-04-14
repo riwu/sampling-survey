@@ -37,15 +37,12 @@ export const checkIfDisqualified = () => dispatch =>
       return err;
     });
 
-export const setAnswerIndex = (header, index) => (dispatch) => {
-  dispatch({
-    type: 'SET_ANSWER_INDEX',
-    header,
-    index,
-    time: Date.now(),
-  });
-  return Promise.resolve();
-};
+export const setAnswerIndex = (header, index) => ({
+  type: 'SET_ANSWER_INDEX',
+  header,
+  index,
+  time: Date.now(),
+});
 
 export const setAnswerText = ({ header, index, text }) => ({
   type: 'SET_ANSWER_TEXT',
