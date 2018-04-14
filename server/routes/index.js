@@ -279,8 +279,10 @@ router.post('/answers', async (req, res) => {
           ...experiment,
           [experiment[round] ? `${round}repeat` : round]: {
             ...durations,
-            '(recordedDuration-redDuration)/redDuration':
-              (durations.recordedDuration - durations.redDuration) / durations.redDuration,
+            '(recordedDuration-redDuration)/redDuration': Number((
+              (durations.recordedDuration - durations.redDuration) /
+                durations.redDuration
+            ).toFixed(4)),
           },
         },
       },
