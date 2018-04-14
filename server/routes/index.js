@@ -277,7 +277,13 @@ router.post('/answers', authenticate, async (req, res) => {
     };
   });
 
-  const roundsPromise = query.getRounds().each((row) => {
+  const roundsPromise = query.getRounds();
+
+  await answersPromise;
+  await experimentAnswersPromise;
+  // wait after experimentAnswersPromise to ensure schedule order is correct,
+  // as if round insertion is performed first the order will be wrong if experiment has no round
+  await roundsPromise.each((row) => {
     const {
       deviceId, round, schedule, ...durations
     } = row;
@@ -300,9 +306,6 @@ router.post('/answers', authenticate, async (req, res) => {
     };
   });
 
-  await answersPromise;
-  await experimentAnswersPromise;
-  await roundsPromise;
   res.send(data);
 });
 
