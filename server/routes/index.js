@@ -137,7 +137,7 @@ router.post('/answers', async (req, res) => {
 
   const data = {};
 
-  const answers = query.getAnswer().each((row) => {
+  const answersPromise = query.getAnswer().each((row) => {
     // for questions that can select multiple options; concatenate with previous answer
     const previousAnswer = (data[row.deviceId] || {})[row.question];
     data[row.deviceId] = {
@@ -148,7 +148,7 @@ router.post('/answers', async (req, res) => {
     };
   });
 
-  const experimentAnswers = query.getExperimentAnswer().each((row) => {
+  const experimentAnswersPromise = query.getExperimentAnswer().each((row) => {
     const deviceAnswers = data[row.deviceId] || {};
     const experiments = deviceAnswers.experiments || {};
     const scheduleAnswers = experiments[row.schedule] || {};
@@ -167,43 +167,33 @@ router.post('/answers', async (req, res) => {
     };
   });
 
-  const rounds = query.getRounds().each((row) => {
+  const roundsPromise = query.getRounds().each((row) => {
     const {
       deviceId, round, schedule, ...durations
     } = row;
     const deviceAnswers = data[deviceId] || {};
     const experiments = deviceAnswers.experiments || {};
     const experiment = experiments[schedule] || {};
+    const rounds = experiment.rounds || {};
     data[deviceId] = {
       ...deviceAnswers,
       experiments: {
         ...experiments,
         [schedule]: {
           ...experiment,
-          [experiment[round] ? `${round}repeat` : round]: durations,
+          rounds: {
+            ...rounds,
+            [rounds[round] ? `${round}repeat` : round]: durations,
+          },
         },
       },
     };
   });
 
-  await answers;
-  await experimentAnswers;
-  await rounds;
-
-  const arr = Object.entries(data).map(([deviceId, values]) => {
-    const { experiments, ...deviceAnswers } = values;
-    return {
-      0: deviceId,
-      ...deviceAnswers,
-      // make csv same column headers across devices regardless of schedule timing
-      ...Object.entries(experiments || {}).reduce((acc, [time, results], index) => {
-        // TODO: convert `time` to device timezone to support multi-timezone
-        acc[`e - ${index + 1}`] = { time, ...results };
-        return acc;
-      }, {}),
-    };
-  });
-  res.send(arr);
+  await answersPromise;
+  await experimentAnswersPromise;
+  await roundsPromise;
+  res.send(data);
 });
 
 module.exports = router;
