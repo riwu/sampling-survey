@@ -8,35 +8,28 @@ import CheckboxList from '../components/CheckboxList';
 import Question from '../components/Question';
 import timeOptions from './timeOptions';
 
-const OTHERS = [{
-  label: 'Others (please specify):',
-  hasTextInput: true,
-}];
+const OTHERS = [
+  {
+    label: 'Others (please specify):',
+    hasTextInput: true,
+  },
+];
 
-const timeResponse = (
-  <RadioOptions
-    formHorizontal
-    radio_props={timeOptions}
-  />
-);
+const timeResponse = <RadioOptions formHorizontal radio_props={timeOptions} />;
 
-const timeResponseWithCheckbox = (
-  <CheckboxList labels={timeOptions} horizontal />
-);
+const timeResponseWithCheckbox = <CheckboxList labels={timeOptions} horizontal />;
 
 const scaleResponse = (
   <RadioOptions
-    radio_props={['Not at all true 1', '2', '3', '4', '5',
-      '6', '7', '8', 'Definitely true 9'].map(option => ({
-      label: option,
-    }))}
+    radio_props={['Not at all true 1', '2', '3', '4', '5', '6', '7', '8', 'Definitely true 9'].map(option => ({
+        label: option,
+      }))}
   />
 );
 
 const satisfactionResponse = (
   <RadioOptions
-    radio_props={['Not at all 1', '2', '3', '4', '5',
-      '6', 'Extremely 7'].map(option => ({
+    radio_props={['Not at all 1', '2', '3', '4', '5', '6', 'Extremely 7'].map(option => ({
       label: option,
     }))}
   />
@@ -51,23 +44,29 @@ const questions = [
     question: 'Gender:',
     responseComponent: (
       <RadioOptions
-        radio_props={['Male', 'Female'].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        radio_props={['Male', 'Female']
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
   {
     question: 'Age:',
-    responseComponent: <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} width={25} />,
+    responseComponent: (
+      <TextInputResponse keyboardType="numeric" numbersOnly maxLength={2} width={25} />
+    ),
   },
   {
     question: 'What is your sexual orientation?',
     responseComponent: (
       <RadioOptions
-        radio_props={['Heterosexual or straight', 'Homosexual', 'Bisexual', 'Asexual'].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        radio_props={['Heterosexual or straight', 'Homosexual', 'Bisexual', 'Asexual']
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
@@ -75,30 +74,28 @@ const questions = [
     question: 'Current marital/relationship status:',
     responseComponent: (
       <RadioOptions
-        radio_props={[{ label: 'Single' }].concat([{
-          label: 'In a relationship',
-          dropDown: {
-            label: 'Duration',
-            data: [
-              '<2 weeks',
-              '2 weeks',
-              '1 month',
-              '1-2 months',
-              '2-3 months',
-              '3-6 months',
-              '>6 months',
-            ],
-          },
-        }]).concat([
-          'Engaged',
-          'Cohabitating',
-          'Married',
-          'Widowed',
-          'Separated',
-          'Divorced',
-        ].map(option => ({
-          label: option,
-        }))).concat(OTHERS)}
+        radio_props={[{ label: 'Single' }]
+          .concat([
+            {
+              label: 'In a relationship',
+              dropDown: {
+                label: 'Duration',
+                data: [
+                  '<2 weeks',
+                  '2 weeks',
+                  '1 month',
+                  '1-2 months',
+                  '2-3 months',
+                  '3-6 months',
+                  '>6 months',
+                ],
+              },
+            },
+          ])
+          .concat(['Engaged', 'Cohabitating', 'Married', 'Widowed', 'Separated', 'Divorced'].map(option => ({
+                label: option,
+              })))
+          .concat(OTHERS)}
       />
     ),
   },
@@ -112,19 +109,23 @@ const questions = [
           'American Indian or Alaska Native',
           'Asian',
           'Native Hawaiian or Other Pacific Islander',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS).concat({
-          label: 'Two or more races (please specify):',
-          hasTextInput: true,
-        })}
+        ]
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)
+          .concat({
+            label: 'Two or more races (please specify):',
+            hasTextInput: true,
+          })}
       />
     ),
   },
   {
-    question: '"Hispanic or Latino" refers to a person of Cuban, Mexican,' +
-    ' Puerto Rican, South or Central American, or other Spanish culture or' +
-    ' origin regardless of race. Are you of Hispanic or Latino origin?',
+    question:
+      '"Hispanic or Latino" refers to a person of Cuban, Mexican,' +
+      ' Puerto Rican, South or Central American, or other Spanish culture or' +
+      ' origin regardless of race. Are you of Hispanic or Latino origin?',
     responseComponent: (
       <RadioOptions
         radio_props={['Hispanic or Latino', 'Not Hispanic or Latino'].map(option => ({
@@ -146,9 +147,11 @@ const questions = [
           'Roman Catholicism',
           'Christianity (Protestant)',
           'No religion',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        ]
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
@@ -166,9 +169,11 @@ const questions = [
           'College',
           'Bachelor',
           'Post-graduate',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        ]
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
@@ -199,23 +204,20 @@ const questions = [
     ),
   },
   {
-    question: 'What is your usual country of residence?' +
-    ' (i.e. the country where you spend most of your time eating and sleeping, not continent):',
+    question:
+      'What is your usual country of residence?' +
+      ' (i.e. the country where you spend most of your time eating and sleeping, not continent):',
     responseComponent: <CountryPicker />,
   },
   {
     question: 'Which of the following best describes the setting you grew up in?',
     responseComponent: (
       <RadioOptions
-        radio_props={[
-          'Rural',
-          'Small town',
-          'Large town or small city',
-          'Suburb',
-          'Large city',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        radio_props={['Rural', 'Small town', 'Large town or small city', 'Suburb', 'Large city']
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
@@ -244,17 +246,19 @@ const questions = [
           'Production',
           'Business and Finance',
           'Social Service',
-        ].map(option => ({
-          label: option,
-        })).concat(OTHERS)}
+        ]
+          .map(option => ({
+            label: option,
+          }))
+          .concat(OTHERS)}
       />
     ),
   },
   {
     question: (
       <Text>
-        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
-        {' '}<UnderlinedText>weekday</UnderlinedText>?
+        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a{' '}
+        <UnderlinedText>weekday</UnderlinedText>?
       </Text>
     ),
     responseComponent: timeResponse,
@@ -262,8 +266,8 @@ const questions = [
   {
     question: (
       <Text>
-        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
-        {' '}<UnderlinedText>weekday</UnderlinedText>?
+        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a{' '}
+        <UnderlinedText>weekday</UnderlinedText>?
       </Text>
     ),
     responseComponent: timeResponse,
@@ -271,8 +275,8 @@ const questions = [
   {
     question: (
       <Text>
-        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a
-        {' '}<UnderlinedText>weekend</UnderlinedText>?
+        What time do you normally <UnderlinedText>wake up</UnderlinedText> on a{' '}
+        <UnderlinedText>weekend</UnderlinedText>?
       </Text>
     ),
     responseComponent: timeResponse,
@@ -280,8 +284,8 @@ const questions = [
   {
     question: (
       <Text>
-        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a
-        {' '}<UnderlinedText>weekend</UnderlinedText>?
+        What time do you normally <UnderlinedText>sleep</UnderlinedText> on a{' '}
+        <UnderlinedText>weekend</UnderlinedText>?
       </Text>
     ),
     responseComponent: timeResponse,
@@ -300,7 +304,8 @@ const questions = [
   {
     question: (
       <Text>
-        On <UnderlinedText>weekdays</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
+        On <UnderlinedText>weekdays</UnderlinedText>, when are you most likely to meet your partner?
+        (Select all that apply)
       </Text>
     ),
     responseComponent: timeResponseWithCheckbox,
@@ -308,7 +313,8 @@ const questions = [
   {
     question: (
       <Text>
-        On <UnderlinedText>weekends</UnderlinedText>, when are you most likely to meet your partner? (Select all that apply)
+        On <UnderlinedText>weekends</UnderlinedText>, when are you most likely to meet your partner?
+        (Select all that apply)
       </Text>
     ),
     responseComponent: timeResponseWithCheckbox,
@@ -327,8 +333,8 @@ const questions = [
   },
 
   {
-    question: 'Since I’ve been involved with my partner,' +
-    ' my emotions have been on a roller coaster.',
+    question:
+      'Since I’ve been involved with my partner,' + ' my emotions have been on a roller coaster.',
     responseComponent: scaleResponse,
   },
   {
@@ -408,7 +414,8 @@ const questions = [
     responseComponent: scaleResponse,
   },
   {
-    question: 'I sometimes find it difficult to concentrate on work because thoughts of my partner occupy my mind.',
+    question:
+      'I sometimes find it difficult to concentrate on work because thoughts of my partner occupy my mind.',
     responseComponent: scaleResponse,
   },
   {
@@ -424,7 +431,8 @@ const questions = [
     responseComponent: scaleResponse,
   },
   {
-    question: 'If my partner were going through a difficult time, I would put away my own concerns to help him/her out.',
+    question:
+      'If my partner were going through a difficult time, I would put away my own concerns to help him/her out.',
     responseComponent: scaleResponse,
   },
   {
@@ -444,10 +452,10 @@ const questions = [
     responseComponent: scaleResponse,
   },
   {
-    question: 'I get extremely depressed when things don’t go right in my relationship with my partner.',
+    question:
+      'I get extremely depressed when things don’t go right in my relationship with my partner.',
     responseComponent: scaleResponse,
   },
-
 
   {
     question: 'If my partner were feeling badly, my first duty would be to cheer him/her up.',
@@ -458,7 +466,7 @@ const questions = [
     responseComponent: scaleResponse,
   },
   {
-    question: 'I find it easy to ignore my partner ’s faults.',
+    question: 'I find it easy to ignore my partner’s faults.',
     responseComponent: scaleResponse,
   },
   {
