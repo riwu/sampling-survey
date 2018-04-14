@@ -94,6 +94,8 @@ const experimentQuestionsMap = {
 };
 
 const dataFields = [
+  'Response rate -- non-timed out sessions / completed sessions',
+  'Progress -- completed sessions (including timed out sessions) / 49',
   ...questions,
   ...[...Array(49).keys()].reduce((acc, scheduleIndex) => {
     const header = `e - ${scheduleIndex + 1} - `;
@@ -125,6 +127,14 @@ const [post] = ['post'].map(method => (path, payload) =>
     url: path,
     data: payload,
   }).then(response => response.data));
+
+const getResponseRate = (experimentsArr) => {
+  if (experimentsArr.length === 0) return 0;
+  // 'SESSION TIMED OUT' answer only exists for timed out sessions
+  return Math.round(experimentsArr.filter(([, answer]) => !answer['SESSION TIMED OUT']).length /
+      experimentsArr.length *
+      100);
+};
 
 class GetData extends React.Component {
   state = {
@@ -176,13 +186,17 @@ class GetData extends React.Component {
             this.getResult('answers', dataFields, data =>
               Object.entries(data).map(([deviceId, values]) => {
                 const { experiments, ...deviceAnswers } = values;
+                const experimentsArr = Object.entries(experiments || {});
                 const row = {
+                  'Response rate -- non-timed out sessions / completed sessions': getResponseRate(experimentsArr),
+                  'Progress -- completed sessions (including timed out sessions) / 49':
+                    experimentsArr.length / 49 * 100,
                   deviceId,
                   ...Object.entries(deviceAnswers).reduce((acc, [questionNumber, answer]) => {
                     acc[questions[questionNumber]] = answer;
                     return acc;
                   }, {}),
-                  ...Object.entries(experiments || {}).reduce((acc, [time, experiment], index) => {
+                  ...experimentsArr.reduce((acc, [time, experiment], index) => {
                     const { rounds, ...experimentQuestions } = experiment;
                     // make csv same column headers across devices regardless of schedule timing
                     acc[`e - ${index + 1}`] = {
@@ -198,10 +212,8 @@ class GetData extends React.Component {
                       ...Object.entries(rounds || {}).reduce((accumulator, [roundNum, round]) => {
                         accumulator[roundNum] = {
                           ...round,
-                          '(recordedDuration-redDuration)/redDuration': Number((
-                              (round.recordedDuration - round.redDuration) /
-                              round.redDuration
-                            ).toFixed(4)),
+                          '(recordedDuration-redDuration)/redDuration':
+                            (round.recordedDuration - round.redDuration) / round.redDuration,
                         };
                         return accumulator;
                       }, {}),
