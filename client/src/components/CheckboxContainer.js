@@ -16,6 +16,19 @@ class CheckboxComponent extends React.Component {
   static defaultProps = {
     label: {},
   };
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.value !== undefined &&
+      prevProps.value === undefined &&
+      this.props.label.hasTextInput
+    ) {
+      // must do it here instead of onPress as .focus() fails if TextInput editable is false
+      console.log('focusing');
+      this.ref.focus();
+    }
+  }
+
   render() {
     const { props } = this;
     return (
@@ -26,14 +39,7 @@ class CheckboxComponent extends React.Component {
           checkedColor="#008080"
           checked={props.value}
           iconSize={40}
-          onChange={(checked) => {
-            props.setAnswerText(checked || undefined).then(() => {
-              if (checked && props.label.hasTextInput) {
-                console.log('focusing');
-                this.ref.focus();
-              }
-            });
-          }}
+          onChange={checked => props.setAnswerText(checked || undefined)}
         />
         {props.label.hasTextInput && (
           <TextInput
@@ -70,7 +76,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         text,
       }));
     }
-    return Promise.resolve();
   },
 });
 
