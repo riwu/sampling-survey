@@ -33,7 +33,6 @@
     "moment": "^2.21.0",
     "react": "16.3.1",
     "react-native": "0.55.2",
-    "react-native-app-settings": "^2.0.0",
     "react-native-code-push": "^5.2.2",
     "react-native-country-picker-modal-fix": "^0.3.0",
     "react-native-device-info": "^0.17.1",
