@@ -162,6 +162,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-open-notification')
     compile project(':react-native-app-settings')
     compile project(':react-native-code-push')
     compile project(':react-native-push-notification')

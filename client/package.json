@@ -19,10 +19,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "build:ios":
-      "react-native bundle --entry-file='index.js' --bundle-output='./ios/sampling/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
-    "build:android":
-      "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/sampling/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "build:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "remotedev": "remotedev --hostname=0.0.0.0 --port=8000"
   },
   "jest": {
@@ -40,6 +38,7 @@
     "react-native-country-picker-modal-fix": "^0.3.0",
     "react-native-device-info": "^0.17.1",
     "react-native-material-dropdown": "^0.10.0",
+    "react-native-open-notification": "^0.0.0",
     "react-native-push-notification": "^3.0.1",
     "react-native-router-flux": "4.0.0-beta.27",
     "react-native-simple-radio-button": "^2.7.0",

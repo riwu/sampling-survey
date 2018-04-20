@@ -3,7 +3,7 @@ import Notifications from 'react-native-push-notification';
 import { Platform, Linking, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import OpenAppSettings from 'react-native-app-settings';
+import OpenNotification from 'react-native-open-notification';
 import getMatchingSchedule, { schedule } from './experiment/getMatchingSchedule';
 import { postAll, experimentStarted } from './actions';
 import { FIRST_EXPERIMENT_ROUTE } from './constants';
@@ -25,7 +25,7 @@ const checkPermissions = () => {
               if (Platform.OS === 'ios') {
                 Linking.openURL('app-settings:');
               } else {
-                OpenAppSettings.open();
+                OpenNotification.open();
               }
             },
           },
