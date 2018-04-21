@@ -16,13 +16,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     } else {
       dispatch(setAnswerIndex(ownProps.header, index));
     }
-    return Promise.resolve();
   },
   setAnswerText: (index, text) => {
     if (schedule) {
-      return dispatch(addExperimentAnswer(ownProps.header, schedule, { [index]: text }));
+      dispatch(addExperimentAnswer(ownProps.header, schedule, { [index]: text }));
+    } else {
+      dispatch(setAnswerText({ header: ownProps.header, index, text }));
     }
-    return dispatch(setAnswerText({ header: ownProps.header, index, text }));
   },
 });
 

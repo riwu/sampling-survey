@@ -37,13 +37,16 @@ class AppStateListener extends React.Component {
     this.timeout = this.setInterval(() => {
       const route = getMatchingSchedule(this.props.notificationSchedule, null, true);
       if (route === FIRST_EXPERIMENT_ROUTE) {
+        console.log('going next');
+        AppState.removeEventListener('change', goToRoutingScreen);
         clearInterval(this.timeout);
         Actions.replace('RoutingScreen');
       }
-    }, 500);
+    }, 1000);
   }
+
   componentWillUnmount() {
-    console.log('unmounting app listener', this.props.text);
+    console.log('unmounting app listener', this.props.text.slice(0, 10));
     AppState.removeEventListener('change', goToRoutingScreen);
     clearInterval(this.timeout);
   }

@@ -3,8 +3,7 @@ package com.sampling;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.krazylabs.OpenAppSettingsPackage;
-import com.alienslab.permissionsettings.PermissionSettingsPackage;
+import com.riwu.notification.open.OpenNotificationPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -34,8 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new OpenAppSettingsPackage(),
-            new PermissionSettingsPackage(),
+            new OpenNotificationPackage(),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
             new ReactNativePushNotificationPackage(),
             new RNDeviceInfo()

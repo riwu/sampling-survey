@@ -21,6 +21,14 @@ export default class RadioForm extends React.Component {
     this.textRefs = {};
   }
 
+  componentDidUpdate(prevProps) {
+    const { index } = this.props.answer;
+    if (prevProps.answer.index !== index && this.props.radio_props[index].hasTextInput) {
+      // must do it here instead of onPress as .focus() fails if TextInput editable is false
+      this.textRefs[index].focus();
+    }
+  }
+
   renderButton(obj, i) {
     return (
       <RadioButton
@@ -50,11 +58,7 @@ export default class RadioForm extends React.Component {
           //  which calls `onFocus`. `onFocus` must call onPress to activate radio button
           // if user directly focuses TextInput`
           if (i === this.props.answer.index) return;
-          this.props.setAnswerIndex(i).then(() => {
-            if (this.props.radio_props[i].hasTextInput) {
-              this.textRefs[i].focus();
-            }
-          });
+          this.props.setAnswerIndex(i);
         }}
         setAnswerText={text => this.props.setAnswerText(i, text)}
         setTextRef={(ref) => {

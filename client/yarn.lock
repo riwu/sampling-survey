@@ -5413,10 +5413,6 @@ react-devtools-core@3.1.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-app-settings@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-app-settings/-/react-native-app-settings-2.0.0.tgz#d2dbcf88dbb40d7261599fc373b35bd0f9fd886e"
-
 react-native-code-push@^5.2.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-5.3.2.tgz#32bc019b37ab14c0c1065ac967b5913e1598dca4"
@@ -5493,9 +5489,9 @@ react-native-material-textfield@^0.12.0:
   dependencies:
     prop-types "^15.5.9"
 
-react-native-permission-settings@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-permission-settings/-/react-native-permission-settings-1.0.0.tgz#ec96ebdf34e1fed498f8cd922cea15fa129d6446"
+react-native-open-notification@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-open-notification/-/react-native-open-notification-0.0.0.tgz#4399dd575578b99b712fe5cd994dcef3729cd2a7"
 
 react-native-push-notification@^3.0.1:
   version "3.0.2"
