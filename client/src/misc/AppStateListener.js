@@ -38,8 +38,8 @@ class AppStateListener extends React.Component {
       const route = getMatchingSchedule(this.props.notificationSchedule, null, true);
       if (route === FIRST_EXPERIMENT_ROUTE) {
         console.log('going next');
-        clearInterval(this.timeout);
         AppState.removeEventListener('change', goToRoutingScreen);
+        clearInterval(this.timeout);
         Actions.replace('RoutingScreen');
       }
     }, 1000);

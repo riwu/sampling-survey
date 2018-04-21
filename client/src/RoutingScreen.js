@@ -36,7 +36,7 @@ const checkPermissions = () => {
 };
 
 class RoutingScreen extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { props } = this;
     console.log('Mounting', props.route, props.notificationSchedule);
 
@@ -65,7 +65,8 @@ class RoutingScreen extends React.Component {
       }
     }
     console.log('replacing route', route);
-    Actions.replace(route);
+    // see https://github.com/react-navigation/react-navigation/issues/4032
+    setTimeout(() => Actions.replace(route), 0);
   }
 
   render() {
