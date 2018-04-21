@@ -11,7 +11,7 @@ const config = { key: 'root', storage: AsyncStorage };
 
 const store = createStore(
   persistReducer(config, reducer),
-  composeWithDevTools(applyMiddleware(...middleware)),
+  composeWithDevTools({ port: 8000 })(applyMiddleware(...middleware)),
 );
 export const persistor = persistStore(store);
 // persistor.purge();

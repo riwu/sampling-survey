@@ -12,41 +12,52 @@ const styles = StyleSheet.create({
   },
 });
 
-const CheckboxComponent = props => (
-  <View>
-    <Checkbox
-      {...props}
-      label={props.label.label}
-      checkedColor="#008080"
-      checked={props.value}
-      iconSize={40}
-      onChange={(checked) => {
-        props.setAnswerText(checked || undefined);
-        if (checked && props.label.hasTextInput) {
-          console.log('focusing');
-          this.ref.focus();
-        }
-      }}
-    />
-    {props.label.hasTextInput &&
-    <TextInput
-      show={props.value !== undefined}
-      setTextRef={(ref) => {
-        if (props.label.hasTextInput) {
-          this.ref = ref;
-        }
-      }}
-      style={styles.text}
-      value={props.value === true ? '' : props.value}
-      onChangeText={props.setAnswerText}
-    />
-    }
-  </View>
-);
+class CheckboxComponent extends React.Component {
+  static defaultProps = {
+    label: {},
+  };
 
-CheckboxComponent.defaultProps = {
-  label: {},
-};
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.value !== undefined &&
+      prevProps.value === undefined &&
+      this.props.label.hasTextInput
+    ) {
+      // must do it here instead of onPress as .focus() fails if TextInput editable is false
+      console.log('focusing');
+      this.ref.focus();
+    }
+  }
+
+  render() {
+    const { props } = this;
+    return (
+      <View>
+        <Checkbox
+          {...props}
+          label={props.label.label}
+          checkedColor="#008080"
+          checked={props.value}
+          iconSize={40}
+          onChange={checked => props.setAnswerText(checked || undefined)}
+        />
+        {props.label.hasTextInput && (
+          <TextInput
+            show={props.value !== undefined}
+            setTextRef={(ref) => {
+              if (props.label.hasTextInput) {
+                this.ref = ref;
+              }
+            }}
+            style={styles.text}
+            value={props.value === true ? '' : props.value}
+            onChangeText={props.setAnswerText}
+          />
+        )}
+      </View>
+    );
+  }
+}
 
 const mapStateToProps = (state, ownProps) => ({
   value: ((schedule
@@ -68,7 +79,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CheckboxComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxComponent);
