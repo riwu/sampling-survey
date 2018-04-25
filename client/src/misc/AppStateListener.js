@@ -9,11 +9,12 @@ import getResponseRate from './getResponseRate';
 import getMatchingSchedule from '../experiment/getMatchingSchedule';
 import { scheduleNotification } from '../actions/getNotificationSchedule';
 import { FIRST_EXPERIMENT_ROUTE } from '../constants';
+import getNextRoute from '../util/getNextRoute';
 
-const goToRoutingScreen = (state) => {
+const goToNextRoute = (state) => {
   console.log('state changed', state);
   if (state === 'active') {
-    Actions.replace('RoutingScreen');
+    Actions.replace(getNextRoute());
   }
 };
 
@@ -33,21 +34,21 @@ class AppStateListener extends React.Component {
       scheduleNotification(futureSchedule);
     }
 
-    AppState.addEventListener('change', goToRoutingScreen);
+    AppState.addEventListener('change', goToNextRoute);
     this.timeout = this.setInterval(() => {
       const route = getMatchingSchedule(this.props.notificationSchedule, null, true);
       if (route === FIRST_EXPERIMENT_ROUTE) {
         console.log('going next');
-        AppState.removeEventListener('change', goToRoutingScreen);
+        AppState.removeEventListener('change', goToNextRoute);
         clearInterval(this.timeout);
-        Actions.replace('RoutingScreen');
+        Actions.replace(getNextRoute());
       }
     }, 1000);
   }
 
   componentWillUnmount() {
     console.log('unmounting app listener', this.props.text.slice(0, 10));
-    AppState.removeEventListener('change', goToRoutingScreen);
+    AppState.removeEventListener('change', goToNextRoute);
     clearInterval(this.timeout);
   }
   render() {
