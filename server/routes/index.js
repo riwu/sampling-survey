@@ -300,8 +300,29 @@ router.post('/answers', authenticate, async (req, res) => {
 });
 
 router.post('/rounds', authenticate, async (req, res) => {
-  const rounds = await query.getRoundsForAllColumns();
-  res.send(rounds);
+  const data = {};
+  const getRounds = query.getRoundsForAllColumns().each((row) => {
+    const { deviceId, schedule, ...rowData } = row;
+    const deviceAnswers = data[deviceId] || {};
+    data[deviceId] = {
+      ...deviceAnswers,
+      [schedule]: [...(deviceAnswers[schedule] || []), rowData],
+    };
+  });
+
+  const experimentAnswersPromise = query.getExperimentAnswer();
+  await getRounds;
+
+  await experimentAnswersPromise.each((row) => {
+    const deviceAnswers = data[row.deviceId];
+    if (!(deviceAnswers || {})[row.schedule]) return;
+    deviceAnswers[row.schedule] = deviceAnswers[row.schedule].map(oldRow => ({
+      ...oldRow,
+      [row.question]: row.text || experimentAnswerMap[row.question][row.index],
+    }));
+  });
+
+  res.send(data);
 });
 
 module.exports = router;
