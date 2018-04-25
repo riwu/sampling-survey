@@ -4,6 +4,7 @@ import axios from 'axios';
 import flatten from 'flat';
 import json2csv from 'json2csv';
 import JSONPretty from 'react-json-pretty';
+import moment from 'moment';
 import './GetData.css';
 
 const questions = [
@@ -158,7 +159,27 @@ class GetData extends React.Component {
         >
           Download all data
         </Button>
-        <Button className="rounds-button" onClick={() => this.getResult('rounds')}>
+        <Button
+          className="rounds-button"
+          onClick={() =>
+            this.getResult('rounds', undefined, data =>
+              Object.entries(data).reduce((deviceAcc, [deviceId, schedules]) => {
+                deviceAcc.push(...Object.entries(schedules).reduce((scheduleAcc, [schedule, rounds]) => {
+                    scheduleAcc.push(...rounds.map(round => ({
+                        ...Object.entries(round).reduce((acc, [key, value]) => {
+                          acc[experimentQuestionsMap[key] || key] = value;
+                          return acc;
+                        }, {}),
+                        deviceId,
+                        schedule,
+                        time: moment(schedule, 'ddd MMM DD YYYY HH:mm:ss zZZ').format('HH:mm:ss'),
+                      })));
+                    return scheduleAcc;
+                  }, []));
+                return deviceAcc;
+              }, []))
+          }
+        >
           Download rounds only
         </Button>
         {this.state.waiting && <span> Please wait...</span>}
