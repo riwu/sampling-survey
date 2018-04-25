@@ -22,8 +22,6 @@ const getNextScene = (state, ownProps) => {
         return 'NotEligible';
       }
       break;
-    case LAST_TIME_OUT_QUESTION:
-      return 'RoutingScreen';
     case lastQuestion: {
       const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
       const newRoute = getMatchingSchedule(newSchedule, undefined, true);

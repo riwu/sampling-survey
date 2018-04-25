@@ -8,9 +8,7 @@ class Disqualified extends React.Component {
     this.props.disqualify();
   }
   render() {
-    return (
-      <MiddleText text={'Sorry, you are not eligible for this study.'} noPrevious />
-    );
+    return <MiddleText text="Sorry, you are not eligible for this study." noPrevious />;
   }
 }
 

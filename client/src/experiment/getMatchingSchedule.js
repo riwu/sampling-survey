@@ -1,4 +1,5 @@
 import { FIRST_EXPERIMENT_ROUTE, LAST_TIME_OUT_QUESTION } from '../constants';
+import getNextRoute from '../util/getNextRoute';
 
 export let schedule; // eslint-disable-line import/no-mutable-exports
 
@@ -6,7 +7,7 @@ const hasTimeOut = (now, startTime) => now - (startTime || schedule) > 30 * 6000
 
 export const getNextScene = (nextScene, startTime, now = Date.now(), previousScene) => {
   if (previousScene === 'SESSION TIMED OUT') {
-    return 'RoutingScreen';
+    return getNextRoute();
   }
   if (
     schedule &&
@@ -15,7 +16,11 @@ export const getNextScene = (nextScene, startTime, now = Date.now(), previousSce
   ) {
     return 'SESSION TIMED OUT';
   }
-  return (nextScene !== 'RoutingScreen' && nextScene) || FIRST_EXPERIMENT_ROUTE;
+  if (nextScene === 'RoutingScreen') {
+    // when app was closed from background and there's active experiment
+    return FIRST_EXPERIMENT_ROUTE;
+  }
+  return nextScene;
 };
 
 const getMatchingSchedule = (schedules, prevRoute, checkOnly) => {
