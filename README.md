@@ -6,7 +6,7 @@ The app consists of questionnaires, and a time based cognitive task. App users w
 
 ### App Links
 
-App Store: https://itunes.apple.com/app/id1294681799  
-Google Play: https://play.google.com/store/apps/details?id=riwu.sampling.survey
+App Store: https://itunes.apple.com/app/id1353426405  
+Google Play: https://play.google.com/store/apps/details?id=riwu.synergy.hunger
 
-Local notification schedule test: https://test.wangriwu.com
+Local notification schedule test: https://hunger.test.wangriwu.com
