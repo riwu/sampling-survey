@@ -107,12 +107,12 @@ def enableProguardInReleaseBuilds = false
 //keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "riwu.sampling.survey"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1523112626
         versionName "3.1.0"
         ndk {

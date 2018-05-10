@@ -4,27 +4,19 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^8.2.2",
-    "babel-jest": "22.4.1",
     "babel-preset-react-native": "4.0.0",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "jest": "22.4.2",
-    "react-test-renderer": "16.2.0",
-    "remote-redux-devtools": "^0.5.12",
     "remotedev-server": "^0.2.4"
   },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/sampling/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "build:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "remotedev": "remotedev --hostname=0.0.0.0 --port=8000"
-  },
-  "jest": {
-    "preset": "react-native"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -47,6 +39,7 @@
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-persist": "^5.9.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "remote-redux-devtools": "^0.5.12"
   }
 }
