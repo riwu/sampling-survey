@@ -9,6 +9,8 @@ const [lastQuestion] = questions[questions.length - 1];
 
 const getNextScene = (state, ownProps) => {
   switch (ownProps.header) {
+    case LAST_TIME_OUT_QUESTION:
+      return 'RoutingScreen';
     case lastQuestion: {
       const newSchedule = { ...state.notificationSchedule, [schedule]: { hasEnded: true } };
       const newRoute = getMatchingSchedule(newSchedule, undefined, true);
