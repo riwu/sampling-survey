@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ButtonToNextScene from './ButtonToNextScene';
-import isEligible, { isSingle } from '../questionnaire/isEligible';
+import { isSingle } from '../questionnaire/isEligible';
 import getMatchingSchedule, { schedule } from '../experiment/getMatchingSchedule';
 import { experimentEnded, postAll } from '../actions';
 import questions from '../experiment/questions';
@@ -11,15 +11,8 @@ const [lastQuestion] = questions[questions.length - 1];
 const getNextScene = (state, ownProps) => {
   switch (ownProps.header) {
     case 'QUESTION 19':
-      if (!isEligible(state.answers)) {
-        return 'NotEligible';
-      } else if (isSingle(state)) {
+      if (isSingle(state)) {
         return 'InstructionTest';
-      }
-      break;
-    case 'QUESTION 22':
-      if (state.answers['QUESTION 20'].index < 2) {
-        return 'NotEligible';
       }
       break;
     case LAST_TIME_OUT_QUESTION:
