@@ -112,9 +112,9 @@ android {
     defaultConfig {
         applicationId "riwu.sampling.survey"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1525957426
-        versionName "3.1.1"
+        targetSdkVersion 25
+        versionCode 1525957427
+        versionName "3.1.2"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
