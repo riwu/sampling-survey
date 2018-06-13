@@ -486,7 +486,7 @@ const questions = [
     responseComponent: scaleResponse,
   },
   {
-    question: 'One of my primary concerns is my partner ’s welfare.',
+    question: 'One of my primary concerns is my partner’s welfare.',
     responseComponent: scaleResponse,
   },
   {
@@ -494,7 +494,7 @@ const questions = [
     responseComponent: scaleResponse,
   },
   {
-    question: 'I feel responsible for my partner ’s well-being.',
+    question: "I feel responsible for my partner's well-being.",
     responseComponent: scaleResponse,
   },
   {

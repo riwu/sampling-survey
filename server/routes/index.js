@@ -254,9 +254,10 @@ router.post('/answers', authenticate, async (req, res) => {
     const experiments = deviceAnswers.experiments || {};
     const scheduleAnswers = experiments[row.schedule] || {};
     const previousAnswer = scheduleAnswers[row.question];
-    const text = ['Question 1', 'SESSION TIMED OUT QUESTION'].includes(row.question)
-      ? null
-      : row.text;
+    const text =
+      ['Question 1', 'SESSION TIMED OUT QUESTION'].includes(row.question) && row.index < 4
+        ? null
+        : row.text;
     data[row.deviceId] = {
       ...deviceAnswers,
       experiments: {
