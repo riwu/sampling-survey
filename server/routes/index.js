@@ -321,9 +321,14 @@ router.post('/rounds', authenticate, async (req, res) => {
   await experimentAnswersPromise.each((row) => {
     const deviceAnswers = data[row.deviceId];
     if (!(deviceAnswers || {})[row.schedule]) return;
+
+    const text =
+      ['Question 1', 'SESSION TIMED OUT QUESTION'].includes(row.question) && row.index < 4
+        ? null
+        : row.text;
     deviceAnswers[row.schedule] = deviceAnswers[row.schedule].map(oldRow => ({
       ...oldRow,
-      [row.question]: row.text || experimentAnswerMap[row.question][row.index],
+      [row.question]: text || experimentAnswerMap[row.question][row.index],
     }));
   });
 
