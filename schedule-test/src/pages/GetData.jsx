@@ -131,8 +131,8 @@ const [post] = ['post'].map(method => (path, payload) =>
 const getResponseRate = (experimentsArr) => {
   if (experimentsArr.length === 0) return 0;
   // 'SESSION TIMED OUT' answer only exists for timed out sessions
-  return Math.round(experimentsArr.filter(([, answer]) => !answer['SESSION TIMED OUT']).length /
-      experimentsArr.length *
+  return Math.round((experimentsArr.filter(([, answer]) => !answer['SESSION TIMED OUT']).length /
+      experimentsArr.length) *
       100);
 };
 
@@ -190,7 +190,7 @@ class GetData extends React.Component {
                 const row = {
                   'Response rate -- non-timed out sessions / completed sessions': getResponseRate(experimentsArr),
                   'Progress -- completed sessions (including timed out sessions) / 49':
-                    experimentsArr.length / 49 * 100,
+                    (experimentsArr.length / 49) * 100,
                   deviceId,
                   ...Object.entries(deviceAnswers).reduce((acc, [questionNumber, answer]) => {
                     acc[questions[questionNumber]] = answer;
@@ -230,22 +230,31 @@ class GetData extends React.Component {
         <Button
           className="rounds-button"
           onClick={() =>
-            this.getResult('rounds', undefined, data =>
-              Object.entries(data).reduce((deviceAcc, [deviceId, schedules]) => {
-                deviceAcc.push(...Object.entries(schedules).reduce((scheduleAcc, [schedule, rounds]) => {
-                    scheduleAcc.push(...rounds.map(round => ({
-                        ...Object.entries(round).reduce((acc, [key, value]) => {
-                          acc[experimentQuestionsMap[key] || key] = value;
-                          return acc;
-                        }, {}),
-                        deviceId,
-                        schedule,
-                        time: moment(schedule, 'ddd MMM DD YYYY HH:mm:ss zZZ').format('HH:mm:ss'),
-                      })));
-                    return scheduleAcc;
-                  }, []));
-                return deviceAcc;
-              }, []))
+            post('answers', { password: this.password }).then(answers =>
+              this.getResult('rounds', undefined, data =>
+                Object.entries(data).reduce((deviceAcc, [deviceId, schedules]) => {
+                  const { experiments, ...deviceAnswers } = answers[deviceId];
+                  deviceAcc.push(...Object.entries(schedules).reduce((scheduleAcc, [schedule, rounds]) => {
+                      scheduleAcc.push(...rounds.map(round => ({
+                          ...Object.entries(round).reduce((acc, [key, value]) => {
+                            acc[experimentQuestionsMap[key] || key] = value;
+                            return acc;
+                          }, {}),
+                          deviceId,
+                          schedule,
+                          time: moment(schedule, 'ddd MMM DD YYYY HH:mm:ss zZZ').format('HH:mm:ss'),
+                          ...Object.entries(deviceAnswers).reduce(
+                            (acc, [questionNumber, answer]) => {
+                              acc[questions[questionNumber]] = answer;
+                              return acc;
+                            },
+                            {},
+                          ),
+                        })));
+                      return scheduleAcc;
+                    }, []));
+                  return deviceAcc;
+                }, [])))
           }
         >
           Download rounds only
