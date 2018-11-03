@@ -1,8 +1,7 @@
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
 
-axios.defaults.baseURL = `${process.env.SAMPLING_API_URL}/`;
-// axios.defaults.baseURL = 'http://localhost:3000/';
+axios.defaults.baseURL = 'https://a.wangriwu.com:4003/';
 
 const deviceId = DeviceInfo.getUniqueID();
 
