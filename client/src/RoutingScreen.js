@@ -8,8 +8,6 @@ import getMatchingSchedule, { schedule } from './experiment/getMatchingSchedule'
 import { postAll, experimentStarted } from './actions';
 import { FIRST_EXPERIMENT_ROUTE } from './constants';
 
-OpenNotification.open();
-
 const checkPermissions = () => {
   Notifications.checkPermissions(({ alert }) => {
     console.log('Notification permission', alert);
@@ -23,7 +21,7 @@ const checkPermissions = () => {
           },
           {
             text: 'Open Settings',
-            onPress: () => OpenNotification.open(),
+            onPress: OpenNotification.open,
           },
         ],
       );

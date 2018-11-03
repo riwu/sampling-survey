@@ -4799,9 +4799,9 @@ react-native-open-notification@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/react-native-open-notification/-/react-native-open-notification-0.1.1.tgz#8f1c06f2eb0701a51b126b2142b8c92fe2a6de59"
 
-react-native-push-notification@^3.0.1:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.0.2.tgz#3fa7d654cfd915436597b0dd5ba8b0f898c4b0f5"
+react-native-push-notification@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.2.tgz#a6129fb2897773a19c7b42bba1b51a9a4aac7df3"
 
 react-native-router-flux@4.0.0-beta.27:
   version "4.0.0-beta.27"
