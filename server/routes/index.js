@@ -3,12 +3,14 @@ const query = require('./query');
 
 const router = express.Router();
 
-router.get('/disqualified/:deviceId', (req, res) => {
-  query.isDisqualified(req.params.deviceId).then((data) => {
-    console.log('data', data);
-    res.send((data[0] || {}).disqualified === 1);
-  });
-});
+router.get(
+  '/disqualified/:deviceId',
+  (req, res) => res.send(false),
+  // query.isDisqualified(req.params.deviceId).then((data) => {
+  //   console.log('data', data);
+  //   res.send((data[0] || {}).disqualified === 1);
+  // });
+);
 
 router.patch('/disqualify', (req, res) => {
   res.end();
