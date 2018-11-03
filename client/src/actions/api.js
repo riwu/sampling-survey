@@ -1,7 +1,7 @@
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
 
-axios.defaults.baseURL = `${process.env.SYNERGY_HUNGER_API_URL}/`;
+axios.defaults.baseURL = 'https://a.wangriwu.com:4007/';
 
 const deviceId = DeviceInfo.getUniqueID();
 
