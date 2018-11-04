@@ -20,8 +20,10 @@ router.patch('/disqualify', (req, res) => {
 const insertExperiment = async (state, deviceId) => {
   await query.experiment(Object.keys(state.notificationSchedule), deviceId);
   return Promise.all([
-    ...Object.entries(state.notificationSchedule).map(([schedule, { startTime }]) =>
-      query.experimentStarted({ startedAt: startTime, deviceId, schedule })),
+    ...Object.entries(state.notificationSchedule)
+      .filter(([, { startTime }]) => startTime)
+      .map(([schedule, { startTime }]) =>
+        query.experimentStarted({ startedAt: startTime, deviceId, schedule })),
 
     ...Object.entries(state.experimentAnswers).map(([schedule, answers]) =>
       Promise.all(Object.entries(answers).map(([question, answer]) =>
