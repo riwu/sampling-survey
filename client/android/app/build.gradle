@@ -113,8 +113,8 @@ android {
         applicationId "riwu.synergy.hunger"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 12
-        versionName "3.1.3"
+        versionCode 13
+        versionName "3.1.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
