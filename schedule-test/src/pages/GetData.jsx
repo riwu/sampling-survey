@@ -51,7 +51,7 @@ const dataFields = [
   }, []),
 ];
 
-axios.defaults.baseURL = `${process.env.REACT_APP_SAMPLING_HUNGER_URL}/`;
+axios.defaults.baseURL = '/api/';
 
 const [post] = ['post'].map(method => (path, payload) =>
   axios({

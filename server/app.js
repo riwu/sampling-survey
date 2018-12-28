@@ -6,12 +6,7 @@ const index = require('./routes/index');
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  next();
-});
+app.disable('x-powered-by');
 
 app.get('/', (req, res) => {
   res.end();
@@ -21,7 +16,7 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204).send();
 });
 
-app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 app.use(morgan((tokens, req, res) =>
   [
