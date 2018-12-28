@@ -16,10 +16,18 @@
     "react-scripts": "1.0.14"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:3000",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
   },
   "devDependencies": {
     "eslint": "^4.19.1",
