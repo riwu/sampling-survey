@@ -3,7 +3,6 @@ import { Button, FormControl, ControlLabel, FormGroup } from 'react-bootstrap';
 import axios from 'axios';
 import flatten from 'flat';
 import json2csv from 'json2csv';
-import JSONPretty from 'react-json-pretty';
 import moment from 'moment';
 import './GetData.css';
 
@@ -138,7 +137,6 @@ const getResponseRate = (experimentsArr) => {
 
 class GetData extends React.Component {
   state = {
-    data: null,
     waiting: false,
   };
 
@@ -160,7 +158,7 @@ class GetData extends React.Component {
         link.click();
         document.body.removeChild(link);
 
-        this.setState({ data, waiting: false });
+        this.setState({ waiting: false });
       })
       .catch((e) => {
         this.setState({ waiting: false });
@@ -251,15 +249,6 @@ class GetData extends React.Component {
           Download rounds only
         </Button>
         {this.state.waiting && <span> Please wait...</span>}
-        {this.state.data && (
-          <div className="json-container">
-            <span>You can copy the below content and beautify with </span>
-            <a target="_blank" rel="noopener noreferrer" href="https://codebeautify.org/jsonviewer">
-              https://codebeautify.org/jsonviewer
-            </a>
-            <JSONPretty json={this.state.data} className="json-content" />
-          </div>
-        )}
       </div>
     );
   }
